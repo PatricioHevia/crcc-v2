@@ -1,0 +1,11 @@
+{
+  "primeng": {
+    "accept": "Yes",
+    "reject": "No",
+    "cancel": "Cancel",
+    "choose": "Choose"
+  },
+  "APP": {
+    "TITLE": "CRCC Chile Hospitals"
+  }
+}

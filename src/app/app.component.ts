@@ -1,12 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslationService } from './core/translation.service';
+import { PrimeNG } from 'primeng/config';
+import { ThemeService } from './core/theme.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    ButtonModule,
+    TranslateModule
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'crcc-2';
+export class AppComponent implements OnInit {
+  constructor(
+    public ts: TranslationService,
+    private config: PrimeNG,
+    public themeService: ThemeService
+  ) {}
+  
+  ngOnInit(): void {
+    this.config.ripple.set(true); // Activar el efecto de "ripple" en PrimeNG
+  }
+
+ switchLang(lang: string): void {
+    this.ts.switchLang(lang);
+  }
 }

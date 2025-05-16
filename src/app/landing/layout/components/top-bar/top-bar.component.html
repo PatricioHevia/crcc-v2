@@ -1,0 +1,25 @@
+<p-menubar [model]="items()" [breakpoint]="'960px'">
+  <ng-template #start>
+ <img [src]="
+          isDark()
+            ? 'assets/images/logos/Logo-CRCC-DM.png'
+            : 'assets/images/logos/Logo-CRCC.png'
+        " alt="CRCC Logo" class="h-12 w-auto mx-3" />
+  </ng-template>
+  <ng-template #end>
+    <div class="flex items-center mr-4">
+      
+      <div class="flex flex-col text-center">
+        <span class="text-lg font-bold leading-tight">
+          Proyectos Hospitalarios
+        </span>
+        <span class="text-lg font-bold leading-tight">
+          y Planta Naipu
+        </span>
+      </div>
+     
+    </div>
+  </ng-template>
+
+
+</p-menubar>

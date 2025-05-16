@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from './core/translation.service';
 import { PrimeNG } from 'primeng/config';
 import { ThemeService } from './core/theme.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { ThemeService } from './core/theme.service';
   imports: [
     RouterOutlet,
     ButtonModule,
-    TranslateModule
+    TranslateModule,
+    ToastModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

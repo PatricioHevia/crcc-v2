@@ -3,3 +3,5 @@
 @import "primeicons/primeicons.css";
 
 @plugin "tailwindcss-primeui";
+
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));

@@ -4,8 +4,11 @@ import { PrimeNG } from 'primeng/config';
 
 @Injectable({ providedIn: 'root' })
 export class TranslationService {
+  instant(key: string): any {
+    throw new Error('Method not implemented.');
+  }
   /** Idiomas soportados */
-  readonly langs = ['es', 'en', 'cn'];
+  readonly langs = ['es', 'en', 'zh'];
 
   /** Signal que mantiene el idioma actual */
   currentLang = signal<string>(
@@ -13,7 +16,7 @@ export class TranslationService {
   );
 
   constructor(
-    private translate: TranslateService,
+    public translate: TranslateService,
     private primeng: PrimeNG
   ) {
     // Registrar idiomas en ngx-translate

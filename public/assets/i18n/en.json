@@ -1,11 +1,38 @@
 {
   "primeng": {
-    "accept": "Yes",
-    "reject": "No",
+    "accept": "Accept",
+    "reject": "Reject",
     "cancel": "Cancel",
     "choose": "Choose"
   },
-  "APP": {
-    "TITLE": "CRCC Chile Hospitals"
+  "TOPBAR": {
+    "TITUTLO": "CRCC Chile Hospitals",
+    "NOMBRE_L1": "Hospital Projects",
+    "NOMBRE_L2": "and Naipu Plant",
+    "PROYECTOS": "Projects",
+    "PARTICIPA": "Participate",
+    "AYUDA": "Help",
+    "ADMINISTRACION": "Administration",
+    "IDIOMA": "Language",
+    "MODO_OSCURO": "Dark Mode",
+    "MODO_CLARO": "Light Mode",
+    "LICITACIONES": "Tenders",
+    "CONCURSOS": "Competitions",
+    "FAQ": "Frequently Asked Questions",
+    "CONTACTO": "Contact"
+  },
+  "AUTH": {
+    "LOGIN": "Log In",
+    "LOGOUT": "Log Out",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "EMAIL": "Email",
+    "NAME": "Name",
+    "REPEAT_PASSWORD": "Repeat Password",
+    "PASSWORD_CONFIRM": "Confirm Password",
+    "FORGOT_PASSWORD": "Forgot Password",
+    "REMEMBER_ME": "Remember Me",
+    "SIGN_IN": "Sign In",
+    "SIGN_UP": "Sign Up"
   }
 }

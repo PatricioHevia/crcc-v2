@@ -22,6 +22,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // PrimeNG
 import { providePrimeNG } from 'primeng/config';
+import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 import { ToastModule } from 'primeng/toast';
 
@@ -29,6 +30,43 @@ import { ToastModule } from 'primeng/toast';
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
   new TranslateHttpLoader(http, 'assets/i18n/', '.json')
 import { ConfirmationService, MessageService } from 'primeng/api';
+
+const MyPreset = definePreset(Aura, {
+  semantic: {
+    colorScheme: {
+      light: {
+        primary: {
+          50:  '#e6eef9',
+          100: '#cce0f3',
+          200: '#99c1e7',
+          300: '#66a3db',
+          400: '#3384cf',
+          500: '#3567ad', // Base light
+          600: '#2e5a93',
+          700: '#284e7a',
+          800: '#213360',
+          900: '#1b2a50',
+          950: '#161f3f'
+        }
+      },
+      dark: {
+        primary: {
+          50:  '#e0f3fb',
+          100: '#c1e7f7',
+          200: '#83cff0',
+          300: '#46b8e9',
+          400: '#08a1e2',
+          500: '#0c7bb5', // Base dark
+          600: '#0a6b9f',
+          700: '#085b89',
+          800: '#074a73',
+          900: '#053958',
+          950: '#042a45'
+        }
+      }
+    }
+  }
+});
 
 
 export const appConfig: ApplicationConfig = {
@@ -42,7 +80,7 @@ export const appConfig: ApplicationConfig = {
     ConfirmationService,
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: MyPreset,
         options: {
           prefix: 'p',
           darkModeSelector: '.dark-mode'

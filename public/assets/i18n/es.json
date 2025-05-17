@@ -5,7 +5,34 @@
     "cancel": "Cancelar",
     "choose": "Seleccionar"
   },
-  "APP": {
-    "TITLE": "CRCC Chile Hospitales"
+  "TOPBAR": {
+    "TITUTLO": "CRCC Chile Hospitales",
+    "NOMBRE_L1": "Proyectos Hospitalarios",
+    "NOMBRE_L2": "y Planta Naipu",
+    "PROYECTOS": "Proyectos",
+    "PARTICIPA": "Participa",
+    "AYUDA": "Ayuda",
+    "ADMINISTRACION": "Administración",
+    "IDIOMA": "Idioma",
+    "MODO_OSCURO": "Modo oscuro",
+    "MODO_CLARO": "Modo claro",
+    "LICITACIONES": "Licitaciones",
+    "CONCURSOS": "Concursos",
+    "FAQ": "Preguntas frecuentes",
+    "CONTACTO": "Contacto"
+  },
+  "AUTH": {
+    "LOGIN": "Iniciar sesión",
+    "LOGOUT": "Cerrar sesión",
+    "USERNAME": "Nombre de usuario",
+    "PASSWORD": "Contraseña",
+    "EMAIL": "Correo electrónico",
+    "NAME": "Nombre",
+    "REPEAT_PASSWORD": "Repetir contraseña",
+    "PASSWORD_CONFIRM": "Confirmar contraseña",
+    "FORGOT_PASSWORD": "Olvidé mi contraseña",
+    "REMEMBER_ME": "Recuérdame",
+    "SIGN_IN": "Iniciar sesión",
+    "SIGN_UP": "Registrarse"
   }
 }

@@ -1,36 +1,177 @@
-// src/app/layout/top-bar/top-bar.component.ts
-import { Component, computed, inject } from '@angular/core';
-import { MenubarModule }      from 'primeng/menubar';
-import { MenuItem }           from 'primeng/api';
+import { Component, signal, computed, inject, WritableSignal } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+// PrimeNG Modules
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
+import { SelectModule } from 'primeng/select'; 
+import { IftaLabelModule } from 'primeng/iftalabel'; 
+
+// Your Custom Modules/Services (ensure paths are correct)
 import { ThemeService, ThemeOption } from '../../../../core/theme.service';
+import { TranslationService } from '../../../../core/translation.service';
+
+// Translation
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+
+// Define MenuItem interface
+export interface MenuItem {
+  id: string; // Unique ID for tracking and DOM references
+  label: string;
+  icon: string;
+  route?: string;
+  action?: () => void;
+  items?: MenuItem[]; // Sub-items are also MenuItems
+  isParent?: boolean;
+  // For managing custom dropdown/accordion visibility
+  showSubmenuSignal?: WritableSignal<boolean>;
+}
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [MenubarModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    // PrimeNG
+    DrawerModule,
+    ButtonModule,
+    RippleModule,
+    SelectModule,
+    IftaLabelModule, // Ensure this is correctly imported if used
+    TooltipModule,
+    // Translation
+    TranslateModule,
+  ],
   templateUrl: './top-bar.component.html',
+  // If IftaLabelModule is local or custom, ensure it's correctly provided or imported
+  // For example, if it's another standalone component:
+  // imports: [..., IftaLabelModule]
 })
 export default class TopBarComponent {
   private themeService = inject(ThemeService);
-  isDark = computed(() => this.themeService.effectiveTheme() === 'dark');
+  public translation = inject(TranslationService); // Your custom translation service
+  private translatePipe = inject(TranslateService); // ngx-translate service for programmatic translation
 
-  items = computed<MenuItem[]>(() => [
-    { label: 'Proyectos',      icon: 'pi pi-folder',      routerLink: '/projects' },
-    { label: 'Participa',      icon: 'pi pi-users',       routerLink: '/participa' },
-    { label: 'Ayuda',          icon: 'pi pi-info-circle', routerLink: '/ayuda' },
-    { label: 'Administración', icon: 'pi pi-cog',         routerLink: '/admin' },
-    { label: 'Cerrar Sesión',  icon: 'pi pi-sign-out',    routerLink: '/logout' },
-    { separator: true },
-    {
-      icon: this.isDark() ? 'pi pi-sun' : 'pi pi-moon',
-      command: () => this.toggleTheme(),
-      title: 'Cambiar tema'
-    }
-  ]);
+  // Sidebar móvil
+  sidebarOpen = signal(false);
+
+  // Idiomas (Assuming structure from your original code)
+  idiomas = signal([{
+    es: [ { label: 'Español', value: 'es' }, { label: 'Inglés', value: 'en' }, { label: 'Chino', value: 'zh' } ],
+    en: [ { label: 'Spanish', value: 'es' }, { label: 'English', value: 'en' }, { label: 'Chinese', value: 'zh' } ],
+    zh: [ { label: '西班牙语', value: 'es' }, { label: '英语', value: 'en' }, { label: '中文', value: 'zh' } ]
+  }]);
+
+  languageOptions = computed(() => {
+    const lang = this.translation.currentLang();
+    const map = this.idiomas()[0] as Record<string, { label: string, value: string }[]>;
+    return map[lang] || [];
+  });
+
+  onLangChange(lang: string) {
+    this.translation.switchLang(lang);
+  }
+
+  // Theme
+  isDark = computed(() => this.themeService.effectiveTheme() === 'dark');
 
   toggleTheme(): void {
     const curr = this.themeService.effectiveTheme();
     const next: ThemeOption = curr === 'dark' ? 'light' : 'dark';
     this.themeService.setTheme(next);
   }
+
+  // Items de menú
+  private _routes = signal<MenuItem[]>([
+    { id: 'proyectos', label: 'TOPBAR.PROYECTOS', icon: 'pi pi-folder', route: '/projects' },
+    {
+      id: 'participa',
+      label: 'TOPBAR.PARTICIPA',
+      icon: 'pi pi-users',
+      isParent: true,
+      showSubmenuSignal: signal(false),
+      items: [
+        { id: 'licitaciones', label: 'TOPBAR.LICITACIONES', icon: 'pi pi-briefcase', route: '/participa/licitaciones' },
+        { id: 'concursos', label: 'TOPBAR.CONCURSOS', icon: 'pi pi-star', route: '/participa/concursos' }
+      ]
+    },
+    {
+      id: 'ayuda',
+      label: 'TOPBAR.AYUDA',
+      icon: 'pi pi-info-circle',
+      isParent: true,
+      showSubmenuSignal: signal(false),
+      items: [
+        { id: 'faq', label: 'TOPBAR.FAQ', icon: 'pi pi-question-circle', route: '/ayuda/faq' },
+        { id: 'contacto', label: 'TOPBAR.CONTACTO', icon: 'pi pi-envelope', route: '/ayuda/contacto' }
+      ]
+    },
+    { id: 'admin', label: 'TOPBAR.ADMINISTRACION', icon: 'pi pi-cog', route: '/admin' },
+    { id: 'logout', label: 'AUTH.LOGOUT', icon: 'pi pi-sign-out', route: '/logout' }
+  ]);
+
+  // Navigation items for the main bar
+  navMenuItems = computed<MenuItem[]>(() => this._routes());
+
+  // Theme toggle item configuration
+  themeToggleConfig = computed<MenuItem>(() => ({
+    id: 'themeToggle',
+    icon: this.isDark() ? 'pi pi-sun' : 'pi pi-moon',
+    action: () => this.toggleTheme(),
+    // Get translated tooltip text programmatically
+    label: this.translatePipe.instant(this.isDark() ? 'TOPBAR.MODO_CLARO' : 'TOPBAR.MODO_OSCURO')
+  }));
+
+  toggleSubmenu(item: MenuItem, event?: MouseEvent): void {
+    event?.stopPropagation(); // Prevent event bubbling if needed
+    if (item.isParent && item.showSubmenuSignal) {
+      const currentState = item.showSubmenuSignal();
+      // Close all other submenus first
+      this.navMenuItems().forEach(menuItem => {
+        if (menuItem.id !== item.id && menuItem.isParent && menuItem.showSubmenuSignal) {
+          menuItem.showSubmenuSignal.set(false);
+        }
+      });
+      // Then toggle the current one
+      item.showSubmenuSignal.set(!currentState);
+    }
+  }
+
+  closeAllSubmenus(): void {
+    this.navMenuItems().forEach(menuItem => {
+      if (menuItem.isParent && menuItem.showSubmenuSignal) {
+        menuItem.showSubmenuSignal.set(false);
+      }
+    });
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen.update(v => !v);
+    if (!this.sidebarOpen()) { // If sidebar is closing
+        this.closeAllSubmenus();
+    }
+  }
+
+  // Handle submenu item click (e.g., to close sidebar/dropdown)
+  handleMenuItemClick() {
+    this.closeAllSubmenus();
+    if (this.sidebarOpen() && window.innerWidth < 1024) { // Close mobile sidebar if open (lg breakpoint)
+      this.sidebarOpen.set(false);
+    }
+  }
+
+  // You might need a host listener to close dropdowns when clicking outside
+  // @HostListener('document:click', ['$event'])
+  // onDocumentClick(event: MouseEvent): void {
+  //   // Logic to check if the click was outside all open submenus and their triggers
+  //   // This can be complex to implement correctly without a library.
+  //   // For now, submenus will close if another menu item is clicked or on navigation.
+  // }
 }

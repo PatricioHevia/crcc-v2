@@ -1,0 +1,38 @@
+{
+    "primeng": {
+        "accept": "接受",
+        "reject": "拒绝",
+        "cancel": "取消",
+        "choose": "选择"
+    },
+    "TOPBAR": {
+        "TITUTLO": "CRCC 智利医院",
+        "NOMBRE_L1": "医院项目",
+        "NOMBRE_L2": "和 Naipu 工厂",
+        "PROYECTOS": "项目",
+        "PARTICIPA": "参与",
+        "AYUDA": "帮助",
+        "ADMINISTRACION": "管理",
+        "IDIOMA": "语言",
+        "MODO_OSCURO": "深色模式",
+        "MODO_CLARO": "浅色模式",
+        "LICITACIONES": "招标",
+        "CONCURSOS": "竞赛",
+        "FAQ": "常见问题",
+        "CONTACTO": "联系我们"
+    },
+    "AUTH": {
+        "LOGIN": "登录",
+        "LOGOUT": "登出",
+        "USERNAME": "用户名",
+        "PASSWORD": "密码",
+        "EMAIL": "电子邮件",
+        "NAME": "姓名",
+        "REPEAT_PASSWORD": "重复密码",
+        "PASSWORD_CONFIRM": "确认密码",
+        "FORGOT_PASSWORD": "忘记密码",
+        "REMEMBER_ME": "记住我",
+        "SIGN_IN": "登录",
+        "SIGN_UP": "注册"
+    }
+}

@@ -1,54 +1,48 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { FirestoreService } from '../../../core/helpers/services/firestore.service';
+// contacto.service.ts
+import { Injectable, inject, Signal, signal } from '@angular/core';
 import { Contacto } from './models/contacto-interface';
+import { FirestoreService } from '../../../core/services/firestore.service';
 
 @Injectable({ providedIn: 'root' })
 export class ContactoService {
-    private readonly firestoreService = inject(FirestoreService);
-    private readonly path = 'contactos';
+  private readonly fs = inject(FirestoreService);
 
-    public contactos = signal<Contacto[]>([]);
+  // Aquí guardamos el listener SOLO tras arrancarlo
+  private listener: {
+    data: Signal<Contacto[]>;
+    loading: Signal<boolean>;
+  } | null = null;
 
-    createContacto(data: Omit<Contacto, 'id'>): Promise<void> {
-        return this.firestoreService.create(this.path, data);
+  /** Inicia el listener una sola vez */
+  private startListening(): void {
+    if (!this.listener) {
+      this.listener = this.fs.listenCollectionWithLoading<Contacto>(
+        'contactos'
+      );
     }
+  }
 
+  /** Señal con los contactos; arranca la escucha al invocar */
+  contactos(): Contacto[] {
+    this.startListening();
+    return this.listener!.data();
+  }
 
-    updateContacto(id: string, updates: Partial<Contacto>): Promise<void> {
-        return this.firestoreService.update(this.path, id, updates);
-    }
+  /** Señal de loading; arranca la escucha al invocar */
+  loading(): boolean {
+    this.startListening();
+    return this.listener!.loading();
+  }
 
+  /** Sólo crea/actualiza, sin tocar listener */
+  crearMensaje(nuevo: Partial<Contacto>): Promise<void> {
+    return this.fs.create<Contacto>('contactos', nuevo as Contacto);
+  }
 
-    deleteContacto(id: string): Promise<void> {
-        return this.firestoreService.delete(this.path, id);
-    }
-
-
-    markAsRead(id: string): Promise<void> {
-        return this.updateContacto(id, { leido: true });
-    }
-
-    getContactos(): void {
-        if (this.contactos().length > 0) {
-            return;
-        }
-        this.firestoreService.listenCollection(this.path).subscribe((contactos) => {
-            // Map or cast each item to Contacto type, assuming you have default values or handle missing fields
-            const contactosTyped = contactos.map((c: any) => ({
-                id: c.id,
-                email: c.email ?? '',
-                fecha: c.fecha ?? '',
-                leido: c.leido ?? false,
-                mensaje_es: c.mensaje_es ?? '',
-                mensaje_en: c.mensaje_en ?? '',
-                mensaje_zh: c.mensaje_zh ?? '',
-                asunto_es: c.asunto_es ?? '',
-                asunto_en: c.asunto_en ?? '',
-                asunto_zh: c.asunto_zh ?? '',
-                empresa: c.empresa ?? '',
-                nombre: c.nombre ?? ''
-            } as Contacto));
-            this.contactos.set(contactosTyped);
-        });
-    }
+  markAsRead(id: string): Promise<void> {
+    return this.fs.update<Contacto>('contactos', id, { leido: true });
+  }
+  markAsUnread(id: string): Promise<void> {
+    return this.fs.update<Contacto>('contactos', id, { leido: false });
+  }
 }

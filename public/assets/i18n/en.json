@@ -113,6 +113,19 @@
     "TOAST_MENSAJE_ENVIADO": "Message sent successfully",
     "TOAST_MENSAJE_ERROR": "Error sending message, please try again"
   },
+  "VER_MENSAJES": {
+    "NOMBRE": "Name",
+    "EMAIL": "Email",
+    "ASUNTO": "Subject",
+    "MENSAJE": "Message",
+    "FECHA": "Date",
+    "LEIDO": "Read",
+    "NO_LEIDO": "Unread",
+    "ACCIONES": "Actions",
+    "TITULO": "Received Messages",
+    "MARCAR_COMO_LEIDO": "Mark as Read",
+    "MARCAR_COMO_NO_LEIDO": "Mark as Unread"
+  },
   "TOAST": {
     "ERROR": "Error",
     "EXITO": "Success",

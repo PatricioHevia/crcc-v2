@@ -1,134 +1,144 @@
 <section class="py-16 bg-gray-50 dark:bg-gris">
+
   <div class="container mx-auto px-4 lg:px-8 bg-gray-50 dark:bg-gris">
+    <div class="w-full flex justify-end mb-4">
+      <p-button label="Ver Mensajes" icon="pi pi-eyes" [routerLink]="['/contacto/ver-mensajes']"></p-button>
+    </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 border-0 shadow-none">
+
       <!-- FORM -->
-      <p-card >
+      <p-card>
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-6">
-          <h2 class="text-2xl font-bold text-primary-700 dark:text-white">{{ 'CONTACTO.TITULO' | translate  }}</h2>
+          <h2 class="text-2xl font-bold text-primary-700 dark:text-white">{{ 'CONTACTO.TITULO' | translate }}</h2>
 
           <!-- Nombre -->
           <div class="flex flex-col">
-            <label for="name" class="font-medium">{{ 'CONTACTO.NOMBRE' | translate  }}</label>
+            <label for="name" class="font-medium">{{ 'CONTACTO.NOMBRE' | translate }}</label>
             <input id="name" pInputText formControlName="name" />
             @if( hasError('name','required') ){
-              <small class="text-red-500 text-xs mt-1">
-                {{ 'CONTACTO.ERROR_NOMBRE' | translate  }}
-              </small>
+            <small class="text-red-500 text-xs mt-1">
+              {{ 'CONTACTO.ERROR_NOMBRE' | translate }}
+            </small>
             } @else if (hasError('name','minlength')) {
-              <small class="text-red-500 text-xs mt-1">
-                {{ 'CONTACTO.ERROR_NOMBRE_MIN' | translate  }}
-              </small>
+            <small class="text-red-500 text-xs mt-1">
+              {{ 'CONTACTO.ERROR_NOMBRE_MIN' | translate }}
+            </small>
             }
 
           </div>
 
           <!-- Email -->
           <div class="flex flex-col">
-            <label for="email" class="font-medium">{{ 'CONTACTO.EMAIL' | translate  }}</label>
+            <label for="email" class="font-medium">{{ 'CONTACTO.EMAIL' | translate }}</label>
             <input id="email" pInputText formControlName="email" />
             @if( hasError('email','required') ){
-              <small class="text-red-500 text-xs mt-1">
-                {{ 'CONTACTO.ERROR_EMAIL' | translate  }}
-              </small>
+            <small class="text-red-500 text-xs mt-1">
+              {{ 'CONTACTO.ERROR_EMAIL' | translate }}
+            </small>
             } @else if (hasError('email','email')) {
-              <small class="text-red-500 text-xs mt-1">
-                {{ 'CONTACTO.ERROR_EMAIL_INVALIDO' | translate  }}
-              </small>
+            <small class="text-red-500 text-xs mt-1">
+              {{ 'CONTACTO.ERROR_EMAIL_INVALIDO' | translate }}
+            </small>
 
             }
           </div>
 
           <!-- Empresa -->
           <div class="flex flex-col">
-            <label for="company" class="font-medium">{{ 'CONTACTO.EMPRESA' | translate  }}</label>
+            <label for="company" class="font-medium">{{ 'CONTACTO.EMPRESA' | translate }}</label>
             <input id="company" pInputText formControlName="company" />
           </div>
 
           <!-- Asunto -->
           <div class="flex flex-col">
-            <label for="subject" class="font-medium">{{ 'CONTACTO.ASUNTO' | translate  }}</label>
+            <label for="subject" class="font-medium">{{ 'CONTACTO.ASUNTO' | translate }}</label>
             <input id="subject" pInputText formControlName="subject" />
             @if( hasError('subject','required') ){
-              <small class="text-red-500 text-xs mt-1">
-                {{ 'CONTACTO.ERROR_ASUNTO' | translate  }}
-              </small>
+            <small class="text-red-500 text-xs mt-1">
+              {{ 'CONTACTO.ERROR_ASUNTO' | translate }}
+            </small>
             } @else if (hasError('subject','minlength')) {
-              <small class="text-red-500 text-xs mt-1">
-                {{ 'CONTACTO.ERROR_ASUNTO_MIN' | translate  }}
-              </small>
+            <small class="text-red-500 text-xs mt-1">
+              {{ 'CONTACTO.ERROR_ASUNTO_MIN' | translate }}
+            </small>
             }
           </div>
 
           <!-- Mensaje -->
           <div class="flex flex-col">
-            <label for="message" class="font-medium">{{ 'CONTACTO.MENSAJE' | translate  }}</label>
+            <label for="message" class="font-medium">{{ 'CONTACTO.MENSAJE' | translate }}</label>
             <textarea id="message" pInputTextarea rows="6" formControlName="message"></textarea>
             @if( hasError('message','required') ){
-              <small class="text-red-500 text-xs mt-1">
-                {{ 'CONTACTO.ERROR_MENSAJE' | translate  }}
-              </small>
+            <small class="text-red-500 text-xs mt-1">
+              {{ 'CONTACTO.ERROR_MENSAJE' | translate }}
+            </small>
             } @else if (hasError('message','minlength')) {
-              <small class="text-red-500 text-xs mt-1">
-                {{ 'CONTACTO.ERROR_MENSAJE_MIN' | translate  }}
-              </small>
+            <small class="text-red-500 text-xs mt-1">
+              {{ 'CONTACTO.ERROR_MENSAJE_MIN' | translate }}
+            </small>
             }
           </div>
           <!-- Botón -->
-           <div class="w-full">
-             <p-button fluid  type="submit" [label]="'CONTACTO.ENVIAR' | translate" icon="pi pi-paper-plane"
-             [disabled]="loading" class="w-full"></p-button>
-           </div>
+          <div class="w-full">
+            <p-button fluid type="submit" [label]="'CONTACTO.ENVIAR' | translate" icon="pi pi-paper-plane"
+              [disabled]="loading" class="w-full"></p-button>
+          </div>
         </form>
       </p-card>
 
       <!-- INFO + MAPA -->
       <div class="flex flex-col space-y-6 border-0 shadow-none">
         <p-card class="shadow-lg border-0">
-          <h3 class="text-xl font-semibold mb-4">{{ 'CONTACTO.IMPORTANTE' | translate  }}</h3>
-          <p class="text-gray-700 dark:text-gray-300">{{ 'CONTACTO.PARRAFO_1' | translate  }}</p>
-          <p class="text-gray-700 dark:text-gray-300">{{ 'CONTACTO.PARRAFO_2' | translate  }}</p>
-          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.CONTACTO_HOSPITALES' | translate  }}</p>
+          <h3 class="text-xl font-semibold mb-4">{{ 'CONTACTO.IMPORTANTE' | translate }}</h3>
+          <p class="text-gray-700 dark:text-gray-300">{{ 'CONTACTO.PARRAFO_1' | translate }}</p>
+          <p class="text-gray-700 dark:text-gray-300">{{ 'CONTACTO.PARRAFO_2' | translate }}</p>
+          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.CONTACTO_HOSPITALES' | translate
+            }}</p>
           <ul class="space-y-2 mt-2 text-gray-600 dark:text-gray-400">
             <li class="flex items-center"><i class="pi pi-envelope mr-2"></i><a
                 href="mailto:contratos.hospital&#64;crcc-america.com">contratos.hospital&#64;crcc-america.com</a></li>
             <li class="flex items-center"><i class="pi pi-envelope mr-2"></i><a
                 href="mailto:contratos.hospital&#64;crcc-america.com">patricio.hevia&#64;crcc-america.com</a></li>
-            
+
           </ul>
-          
-          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.LICITACIONES_HCQ' | translate  }}</p>
+
+          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.LICITACIONES_HCQ' | translate }}
+          </p>
           <ul class="space-y-2 mt-2 text-gray-600 dark:text-gray-400">
             <li class="flex items-center"><i class="pi pi-envelope mr-2"></i><a
                 href="mailto:contratos.hospital&#64;crcc-america.com">wangsihai&#64;crcc-america.com</a></li>
-            
+
           </ul>
 
-          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.RRHH_HCQ' | translate  }}</p>
+          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.RRHH_HCQ' | translate }}</p>
           <ul class="space-y-2 mt-2 text-gray-600 dark:text-gray-400">
             <li class="flex items-center"><i class="pi pi-envelope mr-2"></i><a
                 href="mailto:contratos.hospital&#64;crcc-america.com">postulaciones.hqc&#64;crcc-america.com</a></li>
-            
+
           </ul>
 
-          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.LICITACIONES_ILLAPEL' | translate  }}</p>
+          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.LICITACIONES_ILLAPEL' | translate
+            }}</p>
           <ul class="space-y-2 mt-2 text-gray-600 dark:text-gray-400">
             <li class="flex items-center"><i class="pi pi-envelope mr-2"></i><a
                 href="mailto:contratos.hospital&#64;crcc-america.com">zhangweiyao&#64;crcc-america.com</a></li>
-            
+
           </ul>
 
-          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.LICITACIONES_NAIPU' | translate  }}</p>
+          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.LICITACIONES_NAIPU' | translate }}
+          </p>
           <ul class="space-y-2 mt-2 text-gray-600 dark:text-gray-400">
             <li class="flex items-center"><i class="pi pi-envelope mr-2"></i><a
                 href="mailto:contratos.hospital&#64;crcc-america.com">paulo.lagos&#64;crcc-america.com</a></li>
-            
+
           </ul>
 
-          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.LICITACIONES_EQM' | translate  }}</p>
+          <p class="text-gray-700 dark:text-gray-300 mt-6 font-semibold">{{ 'CONTACTO.LICITACIONES_EQM' | translate }}
+          </p>
           <ul class="space-y-2 mt-2 text-gray-600 dark:text-gray-400">
             <li class="flex items-center"><i class="pi pi-envelope mr-2"></i><a
                 href="mailto:contratos.hospital&#64;crcc-america.com">equiposmedicos&#64;crcc-america.com</a></li>
-            
+
           </ul>
 
 
@@ -136,15 +146,14 @@
 
         <p-card class="shadow-lg p-0 overflow-hidden w-full">
           <div class="w-full text-center pb-2">
-            <a href="https://maps.google.com/maps?ll=-33.405711,-70.574216&z=13&t=h&hl=es&gl=CL&mapclient=embed&q=Cerro%20El%20Plomo%205630%207560742%20Las%20Condes%20Regi%C3%B3n%20Metropolitana" target="_blank"
-              class="text-primary-600 dark:text-primary-300 w-full text-center mt-4 font-medium">
-              <i class="pi pi-map-marker mr-2"></i>{{ 'CONTACTO.VER_GOOGLE_MAPS' | translate  }}
+            <a href="https://maps.google.com/maps?ll=-33.405711,-70.574216&z=13&t=h&hl=es&gl=CL&mapclient=embed&q=Cerro%20El%20Plomo%205630%207560742%20Las%20Condes%20Regi%C3%B3n%20Metropolitana"
+              target="_blank" class="text-primary-600 dark:text-primary-300 w-full text-center mt-4 font-medium">
+              <i class="pi pi-map-marker mr-2"></i>{{ 'CONTACTO.VER_GOOGLE_MAPS' | translate }}
             </a>
           </div>
-          <iframe  class="w-full h-100"
+          <iframe class="w-full h-100"
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d30375.038063544234!2d-70.574216!3d-33.405711!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf275902abd1%3A0x3594bef4c06f11a2!2sCerro%20El%20Plomo%205630%2C%207560742%20Las%20Condes%2C%20Regi%C3%B3n%20Metropolitana!5e1!3m2!1ses!2scl!4v1747611059439!5m2!1ses!2scl"
-             frameborder="0" allowfullscreen loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
+            frameborder="0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </p-card>
       </div>

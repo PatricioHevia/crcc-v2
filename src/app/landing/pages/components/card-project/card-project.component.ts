@@ -5,7 +5,7 @@ import { TagModule } from 'primeng/tag';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
-import { TranslationService } from '../../../../core/helpers/services/translation.service';
+import { TranslationService } from '../../../../core/services/translation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { register  } from 'swiper/element/bundle';
 import { DividerModule } from 'primeng/divider';

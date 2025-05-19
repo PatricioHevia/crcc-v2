@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TranslationService } from '../../../core/helpers/services/translation.service';
+import { TranslationService } from '../../../core/services/translation.service';
 import { AccordionModule } from 'primeng/accordion';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';

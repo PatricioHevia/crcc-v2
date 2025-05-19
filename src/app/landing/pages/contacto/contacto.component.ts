@@ -5,13 +5,14 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
-import { ToastService } from '../../../core/helpers/services/toast.service';
+import { ToastService } from '../../../core/services/toast.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { FluidModule } from 'primeng/fluid';
-import { TranslationService } from '../../../core/helpers/services/translation.service';
+import { TranslationService } from '../../../core/services/translation.service';
 import { Contacto } from './models/contacto-interface';
 import { Timestamp } from 'firebase/firestore';
 import { ContactoService } from './contacto.service';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -19,7 +20,7 @@ import { ContactoService } from './contacto.service';
   selector: 'app-contacto',
   templateUrl: './contacto.component.html',
   styleUrls: ['./contacto.component.css'],
-  imports: [TranslateModule, CardModule, ReactiveFormsModule, CommonModule, ButtonModule, InputTextModule, TextareaModule, FluidModule]
+  imports: [RouterModule,TranslateModule, CardModule, ReactiveFormsModule, CommonModule, ButtonModule, InputTextModule, TextareaModule, FluidModule]
 })
 export class ContactoComponent implements OnInit {
   contactForm!: FormGroup;
@@ -72,13 +73,12 @@ export class ContactoComponent implements OnInit {
       const translated = await this.translation.translateJson<typeof payload>(payload);
 
       // 3) Construye el Contacto final
-      const contacto: Contacto = {
+      const contacto: Omit<Contacto, 'id'> = {
         nombre: name,
         email,
         empresa: company,
         fecha: Timestamp.now(),
         leido: false,
-        // usa directamente translated, no JSON.parse
         mensaje_es: translated.mensaje_es,
         mensaje_en: translated.mensaje_en,
         mensaje_zh: translated.mensaje_zh,
@@ -88,7 +88,7 @@ export class ContactoComponent implements OnInit {
       };
 
       // 4) Guarda en Firestore
-      await this.contactoService.createContacto(contacto);
+      await this.contactoService.crearMensaje(contacto);
       this.toast.success('TOAST.EXITO', 'CONTACTO.TOAST_MENSAJE_ENVIADO');
       this.contactForm.reset();
     } catch (error) {

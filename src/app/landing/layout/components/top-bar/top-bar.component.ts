@@ -12,8 +12,8 @@ import { SelectModule } from 'primeng/select';
 import { IftaLabelModule } from 'primeng/iftalabel'; 
 
 // Your Custom Modules/Services (ensure paths are correct)
-import { ThemeService, ThemeOption } from '../../../../core/helpers/services/theme.service';
-import { TranslationService } from '../../../../core/helpers/services/translation.service';
+import { ThemeService, ThemeOption } from '../../../../core/services/theme.service';
+import { TranslationService } from '../../../../core/services/translation.service';
 
 // Translation
 import { TranslateModule, TranslateService } from '@ngx-translate/core';

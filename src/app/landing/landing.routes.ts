@@ -4,6 +4,7 @@ import { ProyectosComponent } from "./pages/proyectos/proyectos.component";
 import { ConcursosComponent } from "./pages/concursos/concursos.component";
 import { FaqComponent } from "./pages/faq/faq.component";
 import { ContactoComponent } from "./pages/contacto/contacto.component";
+import { VerMensajesComponent } from "./pages/contacto/ver-mensajes/ver-mensajes.component";
 
 
 export const LANDING_ROUTES: Routes = [ 
@@ -26,6 +27,10 @@ export const LANDING_ROUTES: Routes = [
     {
         path: 'contacto',
         component: ContactoComponent
+    },
+    {
+        path: 'contacto/ver-mensajes',
+        component: VerMensajesComponent
     },
     {
         path: '**',

@@ -1,0 +1,62 @@
+<div class="p-4">
+  <div class="w-full md:w-3/4 mx-auto bg-white dark:bg-gris shadow-lg p-4 rounded-lg">
+    <p-table [value]="contactoService.contactos()" [loading]="contactoService.loading()" [responsiveLayout]="'scroll'">
+      class="rounded-lg overflow-hidden">
+      <ng-template pTemplate="caption">
+        <div class="w-full text-center py-2">
+          <h2 class="text-2xl font-bold text-primary-700 dark:text-white">
+            {{ 'VER_MENSAJES.TITULO' | translate }}
+          </h2>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+
+
+
+        <tr>
+          <th class="p-2 bg-gray-100 dark:bg-gris">{{ 'VER_MENSAJES.NOMBRE' | translate }}</th>
+          <th class="p-2 bg-gray-100 dark:bg-gris">{{ 'VER_MENSAJES.EMAIL' | translate }}</th>
+          <th class="p-2 bg-gray-100 dark:bg-gris">{{ 'VER_MENSAJES.ASUNTO' | translate }}</th>
+          <th class="p-2 bg-gray-100 dark:bg-gris">{{ 'VER_MENSAJES.MENSAJE' | translate }}</th>
+          <th class="p-2 bg-gray-100 dark:bg-gris">{{ 'VER_MENSAJES.FECHA' | translate }}</th>
+          <th class="p-2 bg-gray-100 dark:bg-gris">{{ 'VER_MENSAJES.LEIDO' | translate }}</th>
+          <th class="p-2 bg-gray-100 dark:bg-gris">{{ 'VER_MENSAJES.ACCIONES' | translate }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-contacto>
+        <tr>
+          <td class="p-2">{{ contacto.nombre }}</td>
+          <td class="p-2">{{ contacto.email }}</td>
+          <td class="p-2">{{ contacto['asunto_' + lang()] }}</td>
+          <td class="p-2">{{ contacto['mensaje_' + lang()] }}</td>
+          <td class="p-2">{{ contacto.fecha.toDate() | date:'mediumDate':undefined:translationService.currentLang() }}
+          </td>
+          <td class="p-2">
+            <ng-template #notRead>
+              <div class="text-red-500">
+                <i class="fa-solid fa-eye-slash mr-2"></i>
+                <span>{{ 'VER_MENSAJES.NO_LEIDO' | translate }}</span>
+              </div>
+            </ng-template>
+            
+            <ng-container *ngIf="contacto.leido; else notRead">
+              <div class="text-green-500">
+                <i class="fa-solid fa-eye mr-2"></i>
+                <span>{{ 'VER_MENSAJES.LEIDO' | translate }}</span>
+              </div>
+            </ng-container>
+          </td>
+          <td class="p-2"> 
+            @if(!contacto.leido){
+              <button pButton type="button" icon="pi pi-check" (click)="onMarkAsRead(contacto.id)"
+              [disabled]="contacto.leido" [pTooltip]="'VER_MENSAJES.MARCAR_COMO_LEIDO' | translate "></button>
+            } @else {
+              <button pButton type="button" icon="pi pi-times" (click)="onMarkAsUnread(contacto.id)"
+              [disabled]="!contacto.leido" [pTooltip]="'VER_MENSAJES.MARCAR_COMO_NO_LEIDO' | translate "></button>  
+            }
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

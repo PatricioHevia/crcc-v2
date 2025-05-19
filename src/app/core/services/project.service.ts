@@ -3,8 +3,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FirestoreService } from './firestore.service';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 import { Timestamp } from '@angular/fire/firestore';
-import { Project, ProjectForm } from '../../models/project-interface';
-import { removeAccents } from '../remove-acents';
+import { Project, ProjectForm } from '../models/project-interface';
+import { removeAccents } from '../helpers/remove-acents';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {

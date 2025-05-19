@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, Signal } from '@angular/core';
 import {
   Firestore,
   collection,
@@ -138,5 +138,26 @@ export class FirestoreService {
       console.error(`[FirestoreService][listenCollection] Error al escuchar ${path}:`, error);
       throw new Error(`listenCollection(${path}) falló: ${error}`);
     }
+  }
+
+  listenCollectionWithLoading<T extends { id: string }>(
+    path: string,
+    constraints: QueryConstraint[] = []
+  ): { data: Signal<T[]>; loading: Signal<boolean> } {
+    const data = signal<T[]>([]);
+    const loading = signal<boolean>(true);
+
+    this.listenCollection<T>(path, constraints).subscribe({
+      next: (items) => {
+        data.set(items);
+        loading.set(false);
+      },
+      error: (err) => {
+        console.error(`[FirestoreService][listenCollectionWithLoading] ${path}`, err);
+        loading.set(false);
+      }
+    });
+
+    return { data: data.asReadonly(), loading: loading.asReadonly() };
   }
 }

@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore";
 
 
 export interface Contacto {
-    id?: string;
+    id: string;
     email: string;
     empresa?: string;
     fecha: Timestamp;

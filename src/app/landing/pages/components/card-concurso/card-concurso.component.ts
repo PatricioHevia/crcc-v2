@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslationService } from '../../../../core/helpers/services/translation.service';
+import { TranslationService } from '../../../../core/services/translation.service';
 
 @Component({
   selector: 'app-card-concurso',

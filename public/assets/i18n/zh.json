@@ -113,6 +113,19 @@
         "TOAST_MENSAJE_ENVIADO": "消息发送成功",
         "TOAST_MENSAJE_ERROR": "发送消息时出错，请重试"
     },
+    "VER_MENSAJES": {
+        "NOMBRE": "姓名",
+        "EMAIL": "电子邮件",
+        "ASUNTO": "主题",
+        "MENSAJE": "消息",
+        "FECHA": "日期",
+        "LEIDO": "已读",
+        "NO_LEIDO": "未读", 
+        "ACCIONES": "操作",
+        "TITULO": "收到的消息",
+        "MARCAR_COMO_LEIDO": "标记为已读",
+        "MARCAR_COMO_NO_LEIDO": "标记为未读"
+    },
     "TOAST": {
         "ERROR": "错误",
         "EXITO": "成功",

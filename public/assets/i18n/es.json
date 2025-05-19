@@ -113,6 +113,19 @@
     "TOAST_MENSAJE_ENVIADO": "Mensaje enviado correctamente",
     "TOAST_MENSAJE_ERROR": "Error al enviar el mensaje, por favor intenta nuevamente"
   },
+  "VER_MENSAJES":{
+    "NOMBRE": "Nombre",
+    "ASUNTO": "Asunto",
+    "EMAIL": "Correo electrónico",
+    "MENSAJE": "Mensaje",
+    "FECHA": "Fecha",
+    "LEIDO": "Leído",
+    "NO_LEIDO": "No leído",
+    "ACCIONES": "Acciones",
+    "TITULO": "Mensajes recibidos",
+    "MARCAR_COMO_LEIDO": "Marcar como leído",
+    "MARCAR_COMO_NO_LEIDO": "Marcar como no leído"
+  },
   "TOAST": {
     "ERROR": "Error",
     "EXITO": "Éxito",

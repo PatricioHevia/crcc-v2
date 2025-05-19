@@ -1,0 +1,11 @@
+/* Cada slide medirá el 70% del ancho en móvil/tablet */
+swiper-container .swiper-slide {
+  width: 70% !important;
+}
+
+/* En pantallas grandes force un ancho fijo de 1024px */
+@media (min-width: 1024px) {
+  swiper-container .swiper-slide {
+    width: 1024px !important;
+  }
+}

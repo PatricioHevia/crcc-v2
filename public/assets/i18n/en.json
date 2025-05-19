@@ -9,6 +9,7 @@
     "TITUTLO": "CRCC Chile Hospitals",
     "NOMBRE_L1": "Hospital Projects",
     "NOMBRE_L2": "and Naipu Plant",
+    "INICIO": "Home",
     "PROYECTOS": "Projects",
     "PARTICIPA": "Participate",
     "AYUDA": "Help",
@@ -20,6 +21,12 @@
     "CONCURSOS": "Competitions",
     "FAQ": "Frequently Asked Questions",
     "CONTACTO": "Contact"
+  },
+  "FOOTER": {
+    "CRCC": "China Railway Construction Corporation (International) Limited, Chile Agency (Hospitals)",
+    "DIRECCION": "Cerro El Plomo 5630, Office 1602, Las Condes, Chile",
+    "LINKEDIN_CRCC": "LinkedIn CRCC Chile Agency",
+    "LINKEDIN_SCHCQ": "LinkedIn Coquimbo Hospital Concessionaire Company"
   },
   "AUTH": {
     "LOGIN": "Log In",
@@ -34,5 +41,82 @@
     "REMEMBER_ME": "Remember Me",
     "SIGN_IN": "Sign In",
     "SIGN_UP": "Sign Up"
+  },
+  "HOME": {
+    "TITULO": "OUR COMPANY",
+    "CRCC": "CHINA RAILWAY CONSTRUCTION CORPORATION (INTERNATIONAL) LIMITED",
+    "PARRAFO_1": "China Railway Construction Corporation (International) Limited (CRCCI), a 100% subsidiary of China Railway Construction Corporation Limited (CRCC), was established in September 2012 and is headquartered in Haidian District, Beijing, with a registered capital of RMB 3.0125 billion. Since its inception, CRCCI has aligned with China’s Belt and Road Initiative (BRI), expanding its presence to over 50 countries across the Asia-Pacific, Eurasia, the Middle East, Africa, and the Americas. Focusing on key markets—Algeria, Saudi Arabia, Qatar, Hong Kong, Chile, and the Caribbean—it has delivered landmark projects such as the Lusail Stadium (main venue of the Qatar World Cup), the Bejaia–Algeria Highway, the Mecca Metro (Al Mashaaer Line), the Talca–Chillán segment of Route 5 in Chile, and the Arima General Hospital in Trinidad and Tobago.",
+    "PARRAFO_2": "As part of the CRCC Group—one of the world’s largest construction companies (ranked 39th on the Fortune Global 500 list in 2022)—CRCCI offers comprehensive services including transportation, civil works, design, consulting, real estate development, equipment manufacturing, material supply, logistics, and healthcare. Its excellence has been recognized with awards such as the Luban Prize, the Zhan Tianyou Prize, and the National Quality Engineering Gold Award, strengthening its global reputation.",
+    "PARRAFO_3": "In Chile, CRCCI is undertaking major projects in healthcare and mobility: the construction and expansion of regional hospitals, the extension of Santiago Metro lines, commuter train projects to improve intercity connections, and the development of key highways that optimize freight and passenger flow.",
+    "PARRAFO_4": "With the core value of “Advancing Together,” we continue to build strong partnerships with governments, communities, and clients to deliver sustainable, world-class solutions.",
+    "GALLERIA_LUSAIL_STADIUM": "Lusail Stadium, Qatar World Cup (Night)",
+    "GALLERIA_ARIMA_GENERAL_HOSPITAL": "Arima General Hospital, Trinidad and Tobago",
+    "GALLERIA_MECCA": "Al Mashaaer Metro Station, Mecca Light Rail, Saudi Arabia",
+    "GALLERIA_FOUR_SEASONS_HOTEL": "Four Seasons Hotel Project in Kuala Lumpur, Malaysia",
+    "GALLERIA_SEGMENT_EAST_WEST_EXPRESSWAY": "Mid-segment of the Algeria East–West Expressway by CRCCI",
+    "GALLERIA_METRO_MOSCOW": "Southwest section of the third transfer line of the Moscow Metro",
+    "GALLERIA_GEMAS_JOHOR_BAHRU": "The electrified double-track railway project from Gemas to Johor Bahru, Malaysia",
+    "SERVICIOS": "Our Services",
+    "SERVICIOS_CONTENIDO": "At CRCCI, we provide comprehensive, tailored solutions for the management of hospital infrastructure. With a focus on excellence and innovation, our services are designed to ensure that every project meets the highest standards of quality, safety, and efficiency.",
+    "SERVICIO_DISENIO": "Engineering Design",
+    "SERVICIO_CONSTRUCCION": "Construction",
+    "SERVICIO_EQP": "Procurement, Replacement and Maintenance of Medical Equipment and Clinical Furniture",
+    "SERVICIO_MANTENIMIENTO": "Infrastructure Maintenance"
+  },
+  "PROYECTOS": {
+    "TITULO": "Our Projects in Chile",
+    "SUBTITULO": "In this section you can find the hospital projects we currently have underway and the Naipú Plant, for which you can apply and participate in our tenders.",
+    "LOADING": "Loading Projects..."
+  },
+  "PROJECTCARD": {
+    "INICIO": "Start",
+    "VER": "View Project",
+    "SOLICITAR": "Request Access"
+  },
+  "CONCURSOS": {
+    "TITULO": "🏆 Architecture and Engineering Innovation Competitions 🌍",
+    "SUBTITULO": "Explore the architecture and engineering challenges launched by CRCC in collaboration with prestigious organizations. We drive creativity and innovation in projects that shape the future. Dare to participate and leave your mark on the industry!",
+    "BTN_NUEVO": "New Competition",
+    "BTN_ENTRAR": "Enter"
+  },
+  "FAQ": {
+    "TITULO": "Frequently Asked Questions",
+    "SUBTITULO": "Here you can find answers to the most common questions about using the platform and the bidding processes. If you have any further doubts, feel free to contact us."
+  },
+  "CONTACTO": {
+    "TITULO": "Contact Form",
+    "SUBTITULO": "If you have any questions or need more information, please don't hesitate to contact us. We are here to help you.",
+    "NOMBRE": "Name*",
+    "EMAIL": "Email*",
+    "EMPRESA": "Company",
+    "MENSAJE": "Message*",
+    "ASUNTO": "Subject*",
+    "ENVIAR": "Send",
+    "IMPORTANTE": "Important!",
+    "PARRAFO_1": "Through this form you can communicate only with the hospital area of CRCCI Agency in Chile.",
+    "PARRAFO_2": "Messages regarding road projects, the metro, or other projects not displayed on this platform will not be answered.",
+    "CONTACTO_HOSPITALES": "General Hospital Contact:",
+    "LICITACIONES_HCQ": "Coquimbo Hospital Tenders:",
+    "RRHH_HCQ": "Coquimbo Hospital HR:",
+    "LICITACIONES_ILLAPEL": "Illapel Hospital Tenders:",
+    "LICITACIONES_NAIPU": "Naipú Plant Tenders:",
+    "LICITACIONES_EQM": "Medical Equipment and Furniture Tenders:",
+    "VER_GOOGLE_MAPS": "View on Google Maps",
+    "ERROR_NOMBRE": "Name is required",
+    "ERROR_NOMBRE_MIN": "Name must be at least 3 characters long",
+    "ERROR_EMAIL": "Email is required",
+    "ERROR_EMAIL_INVALIDO": "Email is not valid",
+    "ERROR_ASUNTO": "Subject is required",
+    "ERROR_ASUNTO_MIN": "Subject must be at least 3 characters long",
+    "ERROR_MENSAJE": "Message is required",
+    "ERROR_MENSAJE_MIN": "Message must be at least 20 characters long",
+    "TOAST_MENSAJE_ENVIADO": "Message sent successfully",
+    "TOAST_MENSAJE_ERROR": "Error sending message, please try again"
+  },
+  "TOAST": {
+    "ERROR": "Error",
+    "EXITO": "Success",
+    "INFO": "Information",
+    "ADVERTENCIA": "Warning"
   }
 }

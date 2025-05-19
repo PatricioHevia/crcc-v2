@@ -1,5 +1,5 @@
-<header class="bg-white dark:bg-[#18181b] shadow-md">
-  <div class="mx-auto flex items-center justify-between px-4 py-2">
+<header class="bg-white dark:bg-[#18181b] shadow-xl ">
+  <div class="mx-auto flex items-center justify-between px-4 py-2 shadow-lg z-3 border-b border-gray-200 dark:border-gray-600">
     <div class="flex items-center">
       <a routerLink="/" (click)="handleMenuItemClick()" aria-label="Homepage"> <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
              alt="CRCC Logo" class="h-12 w-auto mr-4" />
@@ -25,10 +25,10 @@
 
             @if (item.showSubmenuSignal()) {
               <div id="{{ item.id + '-submenu' }}"
-                   class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg z-50 border dark:border-gray-200 dark:dark:border-gray-700 py-1">
+                   class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white dark:bg-[#18181b]  rounded-md shadow-lg z-50 border border-gray-200 dark:border-gray-600  py-1">
                 @for (subItem of item.items; track subItem.id) {
                   <a pRipple [routerLink]="subItem.route!" (click)="handleMenuItemClick()"
-                     class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left transition-colors">
+                     class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:bg-[#3f4046]  w-full text-left transition-colors">
                     @if (subItem.icon) { <i class="{{ subItem.icon }} w-4 text-center"></i> }
                     <span>{{ subItem.label | translate }}</span>
                   </a>

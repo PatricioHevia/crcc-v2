@@ -9,6 +9,7 @@
     "TITUTLO": "CRCC Chile Hospitales",
     "NOMBRE_L1": "Proyectos Hospitalarios",
     "NOMBRE_L2": "y Planta Naipu",
+    "INICIO": "Inicio",
     "PROYECTOS": "Proyectos",
     "PARTICIPA": "Participa",
     "AYUDA": "Ayuda",
@@ -20,6 +21,12 @@
     "CONCURSOS": "Concursos",
     "FAQ": "Preguntas frecuentes",
     "CONTACTO": "Contacto"
+  },
+  "FOOTER": {
+    "CRCC": "China Railway Construction Corporation (International) Limited, Agencia en Chile (Hospitales)",
+    "DIRECCION": "Cerro El Plomo 5630, Oficina 1602, Las Condes, Chile",
+    "LINKEDIN_CRCC": "Linkedin CRCC Agencia en Chile",
+    "LINKEDIN_SCHCQ": "Linkedin Sociedad Concesionaria Hospital Coquimbo"
   },
   "AUTH": {
     "LOGIN": "Iniciar sesión",
@@ -34,5 +41,83 @@
     "REMEMBER_ME": "Recuérdame",
     "SIGN_IN": "Iniciar sesión",
     "SIGN_UP": "Registrarse"
+  },
+  "HOME": {
+    "TITULO": "NUESTRA EMPRESA",
+    "CRCC": "CHINA RAILWAY CONSTRUCTION CORPORATION (INTERNATIONAL) LIMITED",
+    "PARRAFO_1": "China Railway Construction Corporation (International) Limited (CRCCI), filial 100 % de China Railway Construction Corporation Limited (CRCC), fue creada en septiembre de 2012 y tiene su sede en Haidian, Pekín, con un capital social de 3 012,5 millones de RMB. Desde su origen, CRCCI ha acompañado la Iniciativa de la Franja y la Ruta (BRI) de China, expandiendo su presencia a más de 50 países en Asia-Pacífico, Eurasia, Oriente Medio, África y América. Gracias a su enfoque en mercados clave —Argelia, Arabia Saudí, Catar, Hong Kong, Chile y el Caribe—, ha materializado proyectos emblemáticos como el Estadio Lusail (sede principal del Mundial de Qatar), la Autopista Bejaia-Argelia, el Metro de la Meca (línea Al Mashaaer), el segmento Talca-Chillán de la Ruta 5 en Chile y el Hospital General de Arima en Trinidad y Tobago.",
+    "PARRAFO_2": "Como parte del Grupo CRCC —una de las constructoras más grandes del mundo (puesto 39 en la lista Fortune Global 500 2022)—, CRCCI ofrece servicios integrales que abarcan transporte, obras civiles, diseño, consultoría, desarrollo inmobiliario, fabricación de equipos, suministro de materiales, logística y salud. Su excelencia ha sido reconocida con premios como el Luban, el Zhan Tianyou y la Medalla de Oro a la Calidad en Ingeniería, reforzando su reputación global.",
+    "PARRAFO_3": "En Chile, CRCCI está ejecutando importantes proyectos en los ámbitos de salud y movilidad: construcción y ampliación de hospitales regionales, la extensión de líneas del Metro de Santiago, proyectos de trenes de cercanías para mejorar la conexión interurbana y el desarrollo de autopistas clave que optimizan el flujo de carga y pasajeros.",
+    "PARRAFO_4": "Con el valor fundamental de “Avanzar Juntos”, seguimos construyendo alianzas sólidas con gobiernos, comunidades y clientes para aportar soluciones sostenibles y de primer nivel internacional.",
+    "GALLERIA_LUSAIL_STADIUM":"Estadio Lusail, Copa Mundial de Catar (Noche)",
+    "GALLERIA_ARIMA_GENERAL_HOSPITAL": "Hospital General de Arima, Trinidad y Tobago",
+    "GALLERIA_MECCA": "Estación Al Mashaaer del Metro de la Meca, Arabia Saudí",
+    "GALLERIA_FOUR_SEASONS_HOTEL": "Proyecto Four Seasons Hotel en Kuala Lumpur, Malasia",
+    "GALLERIA_SEGMENT_EAST_WEST_EXPRESSWAY":"Vista de carretera del tramo medio de la Autopista Este-Oeste de Argelia de CRCCI",
+    "GALLERIA_METRO_MOSCOW":"Sección suroeste de la tercera línea de transferencia del metro de Moscú",
+    "GALLERIA_GEMAS_JOHOR_BAHRU":"El proyecto ferroviario electrificado de doble vía de Gemas a John Bahru, Malasia",
+    "SERVICIOS":"Nuestros Servicios",
+    "SERVICIOS_CONTENIDO": "En CRCCI, nos dedicamos a proporcionar soluciones integrales y personalizadas para la gestión de infraestructuras hospitalarias. Con un enfoque en la excelencia y la innovación, nuestros servicios están diseñados para garantizar que cada proyecto cumpla con los más altos estándares de calidad, seguridad y eficiencia.",
+    "SERVICIO_DISENIO":"Diseño de Ingeniería",
+    "SERVICIO_CONSTRUCCION":"Construcción",
+    "SERVICIO_EQP":"Adquisición, Reposición y Mantenimiento de Equipamiento Médico y Mobiliario Clínico",
+    "SERVICIO_MANTENIMIENTO":"Mantenimiento de Infraestructura"
+  },
+  "PROYECTOS":{
+    "TITULO":"Nuestros Proyectos en Chile",
+    "SUBTITULO":"En esta sección podrás encontrar los proyectos hospitalarios que actualmente tenemos en ejecución y la Planta Naipú en los cuales podrás acceder y participar en nuestras licitaciones.",
+    "LOADING":"Cargando Proyectos..."
+  },
+  "PROJECTCARD":{
+    "INICIO":"Inicio",
+    "VER": "Ver Proyecto",
+    "SOLICITAR": "Solicitar Acceso"
+  },
+  "CONCURSOS": {
+    "TITULO": "🏆 Concursos de Innovación en Arquitectura e Ingeniería 🌍",
+    "SUBTITULO": "Explora los desafíos de arquitectura e ingeniería que CRCC lanza en colaboración con prestigiosas entidades. Impulsamos la creatividad y la innovación en proyectos que transforman el futuro. ¡Atrévete a participar y deja tu huella en la industria!amos a proporcionar soluciones integrales y personalizadas para la gestión de infraestructuras hospitalarias. Con un enfoque en la excelencia y la innovación, nuestros servicios están diseñados para garantizar que cada proyecto cumpla con los más altos estándares de calidad, seguridad y eficiencia.",
+    "BTN_NUEVO": "Nuevo Concurso",
+    "BTN_ENTRAR": "Entrar"  
+  },
+  "FAQ": {
+    "TITULO": "Preguntas Frecuentes",
+    "SUBTITULO": "Aquí puedes encontrar respuestas a las preguntas más comunes sobre el uso de la plataforma y los procesos de licitación. Si tienes más dudas, no dudes en contactarnos."
+  },
+  "CONTACTO": {
+    "TITULO": "Formulario de Contacto",
+    "SUBTITULO": "Si tienes alguna pregunta o necesitas más información, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.",
+    "NOMBRE": "Nombre*",
+    "EMAIL": "Email*",
+    "EMPRESA": "Empresa",
+    "MENSAJE": "Mensaje*",
+    "ASUNTO": "Asunto*",
+    "ENVIAR": "Enviar",
+    "IMPORTANTE": "Importante!",
+    "PARRAFO_1": "Mediante este formulario te podrás comunicar solo con el área hospitalaria de CRCCI Agencia en Chile.",
+    "PARRAFO_2": "No se responderán mensajes sobre proyectos de Proyectos Viales, Metro u otros proyectos que no sean los que se muestran en esta plataforma.",
+    "CONTACTO_HOSPITALES": "Contacto Hospitales General:",
+    "LICITACIONES_HCQ": "Licitaciones Hospital de Coquimbo:",
+    "RRHH_HCQ": "RRHH Hospital de Coquimbo:",
+    "LICITACIONES_ILLAPEL": "Licitaciones Hospital Illapel:",
+    "LICITACIONES_NAIPU": "Licitaciones Planta Naipú:",
+    "LICITACIONES_EQM": "Licitaciones Equipamiento Médico y Mobiliario:",
+    "VER_GOOGLE_MAPS": "Ver en Google Maps",
+    "ERROR_NOMBRE": "El nombre es obligatorio",
+    "ERROR_NOMBRE_MIN": "El nombre debe tener al menos 3 caracteres.",
+    "ERROR_EMAIL": "El correo electrónico es obligatorio",
+    "ERROR_EMAIL_INVALIDO": "El correo electrónico no es válido",
+    "ERROR_ASUNTO": "El asunto es obligatorio",
+    "ERROR_ASUNTO_MIN": "El asunto debe tener al menos 3 caracteres.",
+    "ERROR_MENSAJE": "El mensaje es obligatorio",
+    "ERROR_MENSAJE_MIN": "El mensaje debe tener al menos 20 caracteres.",
+    "TOAST_MENSAJE_ENVIADO": "Mensaje enviado correctamente",
+    "TOAST_MENSAJE_ERROR": "Error al enviar el mensaje, por favor intenta nuevamente"
+  },
+  "TOAST": {
+    "ERROR": "Error",
+    "EXITO": "Éxito",
+    "INFO": "Información",
+    "ADVERTENCIA": "Advertencia"
   }
+
 }

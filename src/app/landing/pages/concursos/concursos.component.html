@@ -1,0 +1,22 @@
+<section class="py-12">
+  <!-- 1. Intro -->
+  <div class="max-w-3xl mx-auto text-center mb-12">
+    <h2 class="text-3xl font-bold">{{ 'CONCURSOS.TITULO' | translate }}</h2>
+    <p class="mt-4 text-gray-600 dark:text-gray-300">{{ 'CONCURSOS.SUBTITULO' | translate}}</p>
+  </div>
+  <div class="w-[80%] mx-auto mb-12 flex justify-end">
+    <p-button icon="pi pi-plus" label="Nuevo Concurso" />
+
+  </div>
+
+    <!-- 2. Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full lg:w-[80%] mx-auto">
+  <!-- @for (project of projectService.projects(); track project.name) {
+    <app-card-concurso [concurso]="concurso"></app-card-concurso>
+  } -->
+</div>
+<app-card-concurso></app-card-concurso>
+
+
+  
+</section>

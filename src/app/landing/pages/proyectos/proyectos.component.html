@@ -1,0 +1,23 @@
+<section class="py-12">
+  <!-- 1. Intro -->
+  <div class="max-w-3xl mx-auto text-center mb-12">
+    <h2 class="text-3xl font-bold text-primary-600">{{ 'PROYECTOS.TITULO' | translate }}</h2>
+    <p class="mt-4 text-gray-600 dark:text-gray-300">{{ 'PROYECTOS.SUBTITULO' | translate}}</p>
+  </div>
+  @if( projectService.projects().length === 0) {
+
+  <div class="w-full h-100 flex items-center justify-center">
+    <p-progress-spinner styleClass="w-16 h-16" strokeWidth="8" animationDuration=".5s">
+    </p-progress-spinner>
+    <span class="text-4xl ml-2 font-semibold">{{ 'PROYECTOS.LOADING' | translate }}</span>
+  </div>
+
+  } @else {
+  <!-- 2. Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full lg:w-[80%] mx-auto">
+    @for (project of projectService.projects(); track project.name_es) {
+    <app-card-project [project]="project"></app-card-project>
+    }
+  </div>
+}
+</section>

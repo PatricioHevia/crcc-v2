@@ -1,3 +1,25 @@
-<p>
-  footer works!
-</p>
+<!-- src/app/layout/app-footer.component.html -->
+<footer class="bg-gray-800 text-gray-200">
+  <div class="container mx-auto px-4 py-6 flex flex-col items-center space-y-2">
+    <!-- Dirección -->
+    <p class="text-center text-sm">
+      {{ 'FOOTER.CRCC' | translate }}
+    </p>
+    <p class="flex items-center text-sm">
+      <i class="pi pi-map-marker mr-2 text-lg"></i>
+      {{ 'FOOTER.DIRECCION' | translate }}
+    </p>
+
+    <!-- Links de LinkedIn -->
+    <div class="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-6 text-sm">
+      <a href="https://www.linkedin.com/company/crcc-americachile/?originalSubdomain=cl" target="_blank" class="flex items-center hover:text-white transition">
+        <i class="pi pi-linkedin text-xl mr-2"></i>
+        {{ 'FOOTER.LINKEDIN_CRCC' | translate }}
+      </a>
+      <a href="https://www.linkedin.com/company/sociedad-concesionaria-hospital-coquimbo-s-a/?originalSubdomain=cl" target="_blank" class="flex items-center hover:text-white transition">
+        <i class="pi pi-linkedin text-xl mr-2"></i>
+        {{ 'FOOTER.LINKEDIN_SCHCQ' | translate }}
+      </a>
+    </div>
+  </div>
+</footer>

@@ -12,8 +12,8 @@ import { SelectModule } from 'primeng/select';
 import { IftaLabelModule } from 'primeng/iftalabel'; 
 
 // Your Custom Modules/Services (ensure paths are correct)
-import { ThemeService, ThemeOption } from '../../../../core/theme.service';
-import { TranslationService } from '../../../../core/translation.service';
+import { ThemeService, ThemeOption } from '../../../../core/helpers/services/theme.service';
+import { TranslationService } from '../../../../core/helpers/services/translation.service';
 
 // Translation
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -75,7 +75,7 @@ export default class TopBarComponent {
     return map[lang] || [];
   });
 
-  onLangChange(lang: string) {
+  onLangChange(lang: 'es' | 'en' | 'zh'): void {
     this.translation.switchLang(lang);
   }
 
@@ -90,7 +90,8 @@ export default class TopBarComponent {
 
   // Items de menú
   private _routes = signal<MenuItem[]>([
-    { id: 'proyectos', label: 'TOPBAR.PROYECTOS', icon: 'pi pi-folder', route: '/projects' },
+    { id: 'home', label: 'TOPBAR.INICIO', icon: 'pi pi-home', route: '/' },
+    { id: 'proyectos', label: 'TOPBAR.PROYECTOS', icon: 'pi pi-building', route: '/proyectos' },
     {
       id: 'participa',
       label: 'TOPBAR.PARTICIPA',
@@ -98,8 +99,8 @@ export default class TopBarComponent {
       isParent: true,
       showSubmenuSignal: signal(false),
       items: [
-        { id: 'licitaciones', label: 'TOPBAR.LICITACIONES', icon: 'pi pi-briefcase', route: '/participa/licitaciones' },
-        { id: 'concursos', label: 'TOPBAR.CONCURSOS', icon: 'pi pi-star', route: '/participa/concursos' }
+        { id: 'licitaciones', label: 'TOPBAR.LICITACIONES', icon: 'pi pi-briefcase', route: '/licitaciones' },
+        { id: 'concursos', label: 'TOPBAR.CONCURSOS', icon: 'pi pi-star', route: '/concursos' }
       ]
     },
     {
@@ -109,8 +110,8 @@ export default class TopBarComponent {
       isParent: true,
       showSubmenuSignal: signal(false),
       items: [
-        { id: 'faq', label: 'TOPBAR.FAQ', icon: 'pi pi-question-circle', route: '/ayuda/faq' },
-        { id: 'contacto', label: 'TOPBAR.CONTACTO', icon: 'pi pi-envelope', route: '/ayuda/contacto' }
+        { id: 'faq', label: 'TOPBAR.FAQ', icon: 'pi pi-question-circle', route: '/faq' },
+        { id: 'contacto', label: 'TOPBAR.CONTACTO', icon: 'pi pi-envelope', route: '/contacto' }
       ]
     },
     { id: 'admin', label: 'TOPBAR.ADMINISTRACION', icon: 'pi pi-cog', route: '/admin' },

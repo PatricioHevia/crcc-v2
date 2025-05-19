@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TranslateModule } from '@ngx-translate/core';
-import { TranslationService } from './core/translation.service';
+import { TranslationService } from './core/helpers/services/translation.service';
 import { PrimeNG } from 'primeng/config';
-import { ThemeService } from './core/theme.service';
+import { ThemeService } from './core/helpers/services/theme.service';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     this.config.ripple.set(true); // Activar el efecto de "ripple" en PrimeNG
   }
 
- switchLang(lang: string): void {
+ switchLang(lang: 'es' | 'en' |'zh'): void {
     this.ts.switchLang(lang);
   }
 }

@@ -1,0 +1,92 @@
+<!-- src/app/home/home.component.html -->
+<section class="py-16">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div
+      class="mt-2 bg-white dark:bg-[#202123] p-8 rounded-lg shadow-md space-y-6 text-gray-700 dark:text-gray-300 text-justify">
+    <!-- Título principal -->
+    <h2 class="text-4xl font-extrabold text-primary-700 dark:text-white text-center mb-4">
+      {{ 'HOME.TITULO' | translate }}
+    </h2>
+    <h3 class="text-2xl text-primary dark:text-primary-light text-center mb-12 font-semibold ">
+      {{ 'HOME.CRCC' | translate }}
+    </h3>
+    <div class="w-[75%] md:w-[80%] lg:w-[90%] mx-auto flex justify-center mb-16 rounded-lg">
+      <swiper-container autoplay-delay="4000" effect="cards" grab-cursor="true" centered-slides="true"
+        slides-per-view="auto" class="w-full max-w-screen-lg rounded-lg" style="overflow: visible;">
+        <ng-container>
+          @for (img of images; track img.alt) {
+
+
+          <swiper-slide class="relative rounded-lg overflow-hidden">
+
+            <img [src]="img.previewImageSrc" [alt]="img.alt | translate" class="w-full h-150 object-cover rounded-lg" />
+            <div class="absolute bottom-0 left-0 w-full p-4 text-2xl bg-black/60 text-white text-center font-semibold ">
+              {{ img.title | translate }}
+            </div>
+
+          </swiper-slide>
+          }
+        </ng-container>
+
+        <!-- Flechas / Paginación (slots) -->
+        <div slot="navigation-prev" class="swiper-button-prev text-gray-800 dark:text-gray-200"></div>
+        <div slot="navigation-next" class="swiper-button-next text-gray-800 dark:text-gray-200"></div>
+        <div slot="pagination" class="swiper-pagination mt-6"></div>
+      </swiper-container>
+    </div>
+    <!-- Descripción -->
+    
+      <p class="leading-relaxed">{{ 'HOME.PARRAFO_1' | translate }}</p>
+      <p class="leading-relaxed">{{ 'HOME.PARRAFO_2' | translate }}</p>
+      <p class="leading-relaxed">{{ 'HOME.PARRAFO_3' | translate }}</p>
+      <p class="leading-relaxed">{{ 'HOME.PARRAFO_4' | translate }}</p>
+      <p-divider></p-divider>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Heading -->
+        <h2 class="text-4xl font-extrabold text-primary-700 dark:text-white text-center mb-4">
+          {{ 'HOME.SERVICIOS' | translate }}
+        </h2>
+        <!-- Description -->
+        <p class="max-w-2xl mx-auto text-center text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
+          {{ 'HOME.SERVICIOS_CONTENIDO' | translate }}
+        </p>
+        <!-- Cards Grid -->
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- Diseño de Ingeniería -->
+          <div class="flex flex-col bg-stone-100 dark:bg-stone-900 rounded-lg shadow-sm hover:shadow-lg transition p-4">
+            <img src="assets/images/servicios/disenio.jpg" alt="Diseño de Ingeniería"
+              class="w-full h-48 object-cover rounded mb-4" />
+            <h3 class="mt-auto text-lg font-semibold text-gray-900 dark:text-white text-center">
+              {{ 'HOME.SERVICIO_DISENIO' | translate }}
+            </h3>
+          </div>
+          <!-- Construcción -->
+          <div class="flex flex-col bg-stone-100 dark:bg-stone-900 rounded-lg shadow-sm hover:shadow-lg transition p-4">
+            <img src="assets/images/servicios/construccion.jpg" alt="Construcción"
+              class="w-full h-48 object-cover rounded mb-4" />
+            <h3 class="mt-auto text-lg font-semibold text-gray-900 dark:text-white text-center">
+              {{ 'HOME.SERVICIO_CONSTRUCCION' | translate }}
+            </h3>
+          </div>
+          <!-- Equipamiento Médico -->
+          <div class="flex flex-col bg-stone-100 dark:bg-stone-900 rounded-lg shadow-sm hover:shadow-lg transition p-4">
+            <img src="assets/images/servicios/CT.jpeg"
+              alt="Adquisición, Reposición y Mantenimiento de Equipamiento Médico y Mobiliario Clínico"
+              class="w-full h-48 object-cover rounded mb-4" />
+            <h3 class="mt-auto text-lg font-semibold text-gray-900 dark:text-white text-center">
+              {{ 'HOME.SERVICIO_EQP' | translate }}
+            </h3>
+          </div>
+          <!-- Mantenimiento de Infraestructura -->
+          <div class="flex flex-col bg-stone-100 dark:bg-stone-900 rounded-lg shadow-sm hover:shadow-lg transition p-4">
+            <img src="assets/images/servicios/mantenimiento.jpg" alt="Mantenimiento de Infraestructura"
+              class="w-full h-48 object-cover rounded mb-4" />
+            <h3 class="mt-auto text-lg font-semibold text-gray-900 dark:text-white text-center">
+              {{ 'HOME.SERVICIO_MANTENIMIENTO' | translate }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

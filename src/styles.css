@@ -1,7 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 @import "tailwindcss";
 @import "primeicons/primeicons.css";
+@import "swiper/css";               /* core */
+@import "swiper/css/navigation";    /* flechas */
+@import "swiper/css/pagination";    /* bullets */
+@import "swiper/css/effect-coverflow"; /* efecto coverflow */
+
 
 @plugin "tailwindcss-primeui";
 
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
+
+@theme {
+  --color-gris: #202123;
+}

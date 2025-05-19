@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
@@ -17,14 +17,24 @@ import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
 
 // Translation
-import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import localeEn from '@angular/common/locales/en';
+import localeZh from '@angular/common/locales/zh';
+
+
 
 // PrimeNG
 import { providePrimeNG } from 'primeng/config';
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 import { ToastModule } from 'primeng/toast';
+
+registerLocaleData(localeEs, 'es');
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeZh, 'zh');
 
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
@@ -88,6 +98,11 @@ export const appConfig: ApplicationConfig = {
       },
       inputVariant: 'filled'
     }),
+    {
+      provide: LOCALE_ID,
+      deps: [TranslateService],
+      useFactory: (ts: TranslateService) => ts.currentLang
+    },
     importProvidersFrom([TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -103,5 +118,6 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideFunctions(() => getFunctions()),
     provideMessaging(() => getMessaging()),
+    
   ],
 };

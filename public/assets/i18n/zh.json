@@ -9,6 +9,7 @@
         "TITUTLO": "CRCC 智利医院",
         "NOMBRE_L1": "医院项目",
         "NOMBRE_L2": "和 Naipu 工厂",
+        "INICIO": "首页",
         "PROYECTOS": "项目",
         "PARTICIPA": "参与",
         "AYUDA": "帮助",
@@ -20,6 +21,12 @@
         "CONCURSOS": "竞赛",
         "FAQ": "常见问题",
         "CONTACTO": "联系我们"
+    },
+    "FOOTER": {
+        "CRCC": "中国铁路建设集团（国际）有限公司 智利代表处 （医院）",
+        "DIRECCION": "智利，拉斯孔德斯区，塞罗埃尔普洛莫5630号1602室",
+        "LINKEDIN_CRCC": "LinkedIn 中国铁路建设集团智利代表处",
+        "LINKEDIN_SCHCQ": "LinkedIn 科金博医院特许经营有限公司"
     },
     "AUTH": {
         "LOGIN": "登录",
@@ -34,5 +41,82 @@
         "REMEMBER_ME": "记住我",
         "SIGN_IN": "登录",
         "SIGN_UP": "注册"
+    },
+    "HOME": {
+        "TITULO": "我们的公司",
+        "CRCC": "CHINA RAILWAY CONSTRUCTION CORPORATION (INTERNATIONAL) LIMITED",
+        "PARRAFO_1": "China Railway Construction Corporation (International) Limited (CRCCI) 是 China Railway Construction Corporation Limited (CRCC) 的全资子公司，成立于 2012 年 9 月，总部位于北京海淀区，注册资本为人民币 30.125 亿元。自成立以来，CRCCI 一直对接中国“一带一路”倡议，业务已扩展至亚太、欧亚、中东、非洲和美洲等 50 多个国家。依托阿尔及利亚、沙特阿拉伯、卡塔尔、香港、智利和加勒比地区等重点市场，CRCCI 成功交付了多个标志性项目，如卢赛尔体育场（卡塔尔世界杯主场馆）、阿尔及利亚贝贾亚高速公路、麦加地铁（Al Mashaaer 线路）、智利 5 号公路塔尔卡–奇利安段以及特立尼达和多巴哥阿里马综合医院。",
+        "PARRAFO_2": "作为全球最大建筑公司之一（2022 年《财富》世界 500 强排名第 39 位）CRCC 集团成员，CRCCI 提供交通、土建工程、设计、咨询、房地产开发、设备制造、材料供应、物流和医疗健康等一体化服务。公司凭借卓越表现荣获鲁班奖、詹天佑奖、全国优质工程金质奖等多项大奖，进一步提升了全球声誉。",
+        "PARRAFO_3": "在智利，CRCCI 正在推进一系列重要的医疗和交通项目：区域医院的建设与扩建、圣地亚哥地铁线路的延伸、改善城际连接的通勤列车项目，以及优化货运与客流的关键高速公路建设。",
+        "PARRAFO_4": "秉持“携手共进”的核心价值观，我们将继续与政府、社区和客户建立紧密合作伙伴关系，共同提供可持续的国际一流解决方案。",
+        "GALLERIA_LUSAIL_STADIUM": "卡塔尔世界杯卢赛尔体育场（夜间）",
+        "GALLERIA_ARIMA_GENERAL_HOSPITAL": "特立尼达和多巴哥阿里马综合医院",
+        "GALLERIA_MECCA": "沙特阿拉伯麦加 Al Mashaaer 轻轨地铁站",
+        "GALLERIA_FOUR_SEASONS_HOTEL": "马来西亚吉隆坡四季酒店项目",
+        "GALLERIA_SEGMENT_EAST_WEST_EXPRESSWAY": "CRCCI 阿尔及利亚东西向高速公路中段",
+        "GALLERIA_METRO_MOSCOW": "莫斯科地铁第3换乘线西南区段",
+        "GALLERIA_GEMAS_JOHOR_BAHRU": "马来西亚吉马士至新山双轨电气化铁路项目",
+        "SERVICIOS": "我们的服务",
+        "SERVICIOS_CONTENIDO": "在 CRCCI，我们致力于提供全面且定制化的医院基础设施管理解决方案。我们专注于卓越与创新，旨在确保每个项目都达到最高的质量、安全和效率标准。",
+        "SERVICIO_DISENIO": "工程设计",
+        "SERVICIO_CONSTRUCCION": "施工",
+        "SERVICIO_EQP": "医疗设备和临床家具的采购、更换与维护",
+        "SERVICIO_MANTENIMIENTO": "基础设施维护"
+    },
+    "PROYECTOS": {
+        "TITULO": "我们在智利的项目",
+        "SUBTITULO": "在此部分，您可以查看我们目前正在进行的医院项目和Naipú工厂，并可申请并参与我们的招标。",
+        "LOADING": "正在加载项目..."
+    },
+    "PROJECTCARD": {
+        "INICIO": "项目启动",
+        "VER": "查看项目",
+        "SOLICITAR": "申请访问"
+    },
+    "CONCURSOS": {
+        "TITULO": "🏆 建筑与工程创新竞赛 🌍",
+        "SUBTITULO": "探索 CRCC 与知名机构合作发起的建筑与工程挑战。我们在塑造未来的项目中推动创造力和创新。勇于参与，在行业中留下你的印记！",
+        "BTN_NUEVO": "新竞赛",
+        "BTN_ENTRAR": "进入"
+    },
+    "FAQ": {
+        "TITULO": "常见问题",
+        "SUBTITULO": "在这里，您可以找到有关平台使用和招标流程的常见问题解答。如果您有任何其他疑问，请随时与我们联系。"
+    },
+    "CONTACTO": {
+        "TITULO": "联系表单",
+        "SUBTITULO": "如果您有任何问题或需要更多信息，请随时与我们联系。我们随时为您提供帮助。",
+        "NOMBRE": "姓名*",
+        "EMAIL": "邮箱*",
+        "EMPRESA": "公司",
+        "MENSAJE": "留言*",
+        "ASUNTO": "主题*",
+        "ENVIAR": "发送",
+        "IMPORTANTE": "重要！",
+        "PARRAFO_1": "通过此表单，您只能与 CRCCI 智利分公司的医院部门进行沟通。",
+        "PARRAFO_2": "关于道路项目、地铁或本平台未显示的其他项目的消息将不会得到回复。",
+        "CONTACTO_HOSPITALES": "医院总部联系：",
+        "LICITACIONES_HCQ": "科金博医院招标：",
+        "RRHH_HCQ": "科金博医院人力资源：",
+        "LICITACIONES_ILLAPEL": "伊亚佩尔医院招标：",
+        "LICITACIONES_NAIPU": "Naipú 工厂招标：",
+        "LICITACIONES_EQM": "医疗设备和家具招标：",
+        "VER_GOOGLE_MAPS": "在 Google 地图 查看",
+        "ERROR_NOMBRE": "姓名为必填项",
+        "ERROR_NOMBRE_MIN": "姓名必须至少包含 3 个字符",
+        "ERROR_EMAIL": "邮箱为必填项",
+        "ERROR_EMAIL_INVALIDO": "邮箱无效",
+        "ERROR_ASUNTO": "主题为必填项",
+        "ERROR_ASUNTO_MIN": "主题必须至少包含 3 个字符",
+        "ERROR_MENSAJE": "消息为必填项",
+        "ERROR_MENSAJE_MIN": "消息必须至少包含 20 个字符",
+        "TOAST_MENSAJE_ENVIADO": "消息发送成功",
+        "TOAST_MENSAJE_ERROR": "发送消息时出错，请重试"
+    },
+    "TOAST": {
+        "ERROR": "错误",
+        "EXITO": "成功",
+        "INFO": "信息",
+        "ADVERTENCIA": "警告"
     }
 }

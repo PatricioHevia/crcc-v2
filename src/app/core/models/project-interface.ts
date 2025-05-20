@@ -17,7 +17,8 @@ export interface Project {
     url             : string;
 }
 
-export interface ProjectForm extends Omit<Project, 'id'> { }
+export interface ProjectForm
+  extends Omit<Project, 'id' | 'image' | 'galleryImages'> { }
 
 
 

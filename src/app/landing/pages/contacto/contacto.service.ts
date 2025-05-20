@@ -1,5 +1,5 @@
 // contacto.service.ts
-import { Injectable, inject, Signal, signal } from '@angular/core';
+import { Injectable, inject, Signal } from '@angular/core';
 import { Contacto } from './models/contacto-interface';
 import { FirestoreService } from '../../../core/services/firestore.service';
 
@@ -8,10 +8,7 @@ export class ContactoService {
   private readonly fs = inject(FirestoreService);
 
   // Aquí guardamos el listener SOLO tras arrancarlo
-  private listener: {
-    data: Signal<Contacto[]>;
-    loading: Signal<boolean>;
-  } | null = null;
+  private listener: { data: Signal<Contacto[]>; loading: Signal<boolean>;  } | null = null;
 
   /** Inicia el listener una sola vez */
   private startListening(): void {

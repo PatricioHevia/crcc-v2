@@ -1,117 +1,74 @@
 import { Timestamp } from "@angular/fire/firestore";
 
-export type UserRole = 'Usuario Básico' | 'Admin' | 'Super Admin';
-export type AccountStatus = 'active' | 'pending' | 'suspended' | 'deleted';
-export type Gender = 'male' | 'female';
-export type Theme = 'light' | 'dark';
-export type Language = 'es' | 'en' | 'zh';
-export type PermissionKey =
-  | 'inventory.read' | 'inventory.write'
-  | 'tenders.view' | 'tenders.manage'
-  | 'hr.view' | 'hr.post' | /* …otros permisos… */ string;
+export interface Account extends basicInfoAccount,
+                                 AccountProfileDetails,
+                                 AccountActivity,
+                                 AccountPreferences,
+                                 AccountAccess  {}
+                               
 
-
-export interface NotificationSettings {
-  email: boolean;
-  push: boolean;
-  inApp: boolean;
-}
-
-export interface NotionIntegrationConfig {
-  enabled: boolean;
-  integrationId?: string;
-  defaultDatabaseId?: string;
-}
-
-export interface Account {
-  // ————————————————————————————————————————————————————————————————
-  // 1. Identidad y estado
-  // ————————————————————————————————————————————————————————————————
+export interface basicInfoAccount {
   uid: string;
   name: string;
   email: string;
-  role: UserRole;
-  status: AccountStatus;
-  organizationId: string; // id de la organización
+  role: 'Usuario Básico' | 'Admin' | 'Super Admin';
+  active: boolean;
+  phone?: string;
+  organization: string; //id
+  deleted: boolean;
+}
 
-  // ————————————————————————————————————————————————————————————————
-  // 2. Perfil
-  // ————————————————————————————————————————————————————————————————
-  profile: {
-    photoURL: string;
-    position: string;
-    gender: Gender;
-    phone?: string;
-  };
 
-  // ————————————————————————————————————————————————————————————————
-  // 3. Auditoría / actividad
-  // ————————————————————————————————————————————————————————————————
-  activity: {
-    createdAt: Timestamp;
-    updatedAt: Timestamp;
-    lastLoginAt?: Timestamp;
-    passwordChangedAt?: Timestamp;
-  };
+export interface AccountProfileDetails {
+  photoURL: string;
+  position: string;
+  gender: 'Hombre' | 'Mujer';
+}
 
-  // ————————————————————————————————————————————————————————————————
-  // 4. Preferencias de usuario
-  // ————————————————————————————————————————————————————————————————
-  preferences: {
-    theme: Theme;
-    language: Language;
-    notifications: NotificationSettings;
-    timezone?: string;
-    dateFormat?: string;     // p. ej. 'dd/MM/yyyy'
-    defaultPage?: string;    // p. ej. 'dashboard'
-  };
 
-  // ————————————————————————————————————————————————————————————————
-  // 5. Accesos y permisos
-  // ————————————————————————————————————————————————————————————————
-  access: {
-    permissions: PermissionKey[];
-    officeIds: string[];
-    tenderAdminProjectIds: string[];
-  };
+export interface AccountActivity {
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  lastLoginAt?: Timestamp;
+}
 
-  // ————————————————————————————————————————————————————————————————
-  // 6. Integraciones externas
-  // ————————————————————————————————————————————————————————————————
-  integrations?: {
-    notion?: NotionIntegrationConfig;
-    // …en el futuro: slack, ms-teams, etc.
-  };
+export interface AccountPreferences {
+  language?: string;
+  theme?: string;
+  notifications?: {
+    email?: boolean;
+    push?: boolean;
+    app?: boolean;
+  }
+}
+  
+export interface AccountAccess {
+  permissions?: string[];
+  offices?: string[];
+}
 
-  // ————————————————————————————————————————————————————————————————
-  // 7. Inventario
-  // ————————————————————————————————————————————————————————————————
-  inventory?: {
-    defaultWarehouseId?: string;
-    canManage: boolean;
+export interface AccountHR {
+  hr?: {       // requerimientos publicados
+    applicationIds?: string[];      // postulaciones realizadas
+    disponibleDesde?: Timestamp; // fecha desde
+    curriculum: Curriculum; // url del curriculum
+    certificados?: Certificado[]; // certificados
+    linkedIn?: string; // link de linkedin
   };
+}
 
-  // ————————————————————————————————————————————————————————————————
-  // 8. RRHH / postulaciones
-  // ————————————————————————————————————————————————————————————————
-  hr?: {
-    postedJobRequestIds?: string[];  // requisitos que subió
-    appliedJobIds?: string[];        // plazas a las que postuló
-  };
+export interface Certificado {
+  url: string;
+  nombre_es: string;
+  nombre_en: string;
+  nombre_zh: string;
+  subidoEn: Timestamp;
+}
 
-  // ————————————————————————————————————————————————————————————————
-  // 9. Calendarios y Hitos
-  // ————————————————————————————————————————————————————————————————
-  calendar?: {
-    calendarIds?: string[];
-    milestoneIds?: string[];
-  };
-
-  // ————————————————————————————————————————————————————————————————
-  // 10. Concursos
-  // ————————————————————————————————————————————————————————————————
-  contests?: {
-    contestIds?: string[];
-    participation?: { contestId: string; joinedAt: Timestamp }[];
-  };
+export interface Curriculum {
+  url: string;
+  nombre_en: string;
+  nombre_es: string;
+  nombre_zh: string;
+  subidoEn: Timestamp;
 }

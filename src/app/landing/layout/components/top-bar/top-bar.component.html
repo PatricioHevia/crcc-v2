@@ -1,8 +1,12 @@
 <header class="bg-white dark:bg-[#18181b] shadow-xl ">
   <div class="mx-auto flex items-center justify-between px-4 py-2 shadow-lg z-3 border-b border-gray-200 dark:border-gray-600">
     <div class="flex items-center">
-      <a routerLink="/" (click)="handleMenuItemClick()" aria-label="Homepage"> <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
-             alt="CRCC Logo" class="h-12 w-auto mr-4" />
+      <a routerLink="/" (click)="handleMenuItemClick()" aria-label="Homepage">
+        <img
+          [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
+          alt="CRCC Logo"
+          class="h-12 w-auto mr-4"
+        />
       </a>
       <div class="flex flex-col text-center text-[#3567ad] dark:text-[#08a1e2]">
         <span class="text-lg font-bold leading-tight">{{ 'TOPBAR.NOMBRE_L1' | translate }}</span>
@@ -12,112 +16,213 @@
 
     <nav class="hidden lg:flex space-x-1 items-center">
       @for (item of navMenuItems(); track item.id) {
-        <div class="relative group"> @if (item.isParent && item.items && item.showSubmenuSignal) {
-            <button pRipple type="button" (click)="toggleSubmenu(item, $event)"
-                    [attr.aria-expanded]="item.showSubmenuSignal()" [attr.aria-controls]="item.id + '-submenu'"
-                    class="flex items-center gap-1 cursor-pointer hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] p-2 transition font-light">
+        <div class="relative group">
+          @if (item.isParent && item.items && item.showSubmenuSignal) {
+            <!-- Parent dropdown -->
+            <button
+              pRipple
+              type="button"
+              (click)="toggleSubmenu(item, $event)"
+              [attr.aria-expanded]="item.showSubmenuSignal()"
+              [attr.aria-controls]="item.id + '-submenu'"
+              class="flex items-center gap-1 cursor-pointer hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] p-2 transition font-light"
+            >
               <i class="{{ item.icon }}"></i>
-              @if (item.label) {
-                <span class="hidden md:inline-block">{{ item.label | translate }}</span>
-              }
-              <i class="pi pi-angle-down ml-1 text-xs transition-transform {{ item.showSubmenuSignal() ? 'rotate-180' : '' }}"></i>
+              <span class="hidden md:inline-block">{{ item.label | translate }}</span>
+              <i
+                class="pi pi-angle-down ml-1 text-xs transition-transform {{ item.showSubmenuSignal() ? 'rotate-180' : '' }}"
+              ></i>
             </button>
-
             @if (item.showSubmenuSignal()) {
-              <div id="{{ item.id + '-submenu' }}"
-                   class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white dark:bg-[#18181b]  rounded-md shadow-lg z-50 border border-gray-200 dark:border-gray-600  py-1">
+              <div
+                id="{{ item.id + '-submenu' }}"
+                class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white dark:bg-[#18181b] rounded-md shadow-lg z-50 border border-gray-200 dark:border-gray-600 py-1"
+              >
                 @for (subItem of item.items; track subItem.id) {
-                  <a pRipple [routerLink]="subItem.route!" (click)="handleMenuItemClick()"
-                     class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:bg-[#3f4046]  w-full text-left transition-colors">
-                    @if (subItem.icon) { <i class="{{ subItem.icon }} w-4 text-center"></i> }
+                  <a
+                    pRipple
+                    [routerLink]="subItem.route!"
+                    (click)="handleMenuItemClick()"
+                    class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:bg-[#3f4046] w-full text-left transition-colors"
+                  >
+                    <i class="{{ subItem.icon }} w-4 text-center"></i>
                     <span>{{ subItem.label | translate }}</span>
                   </a>
                 }
               </div>
             }
-          } @else if (item.route) {
-            <a pRipple [routerLink]="item.route" (click)="handleMenuItemClick()"
-               class="flex items-center gap-1 hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] p-2 transition font-light">
+          }
+          @else if (item.action) {
+            <!-- Action button (Logout) -->
+            <button
+              pRipple
+              type="button"
+              (click)="item.action()"
+              class="flex items-center gap-1 hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] p-2 transition font-light"
+            >
               <i class="{{ item.icon }}"></i>
-              @if (item.label) {
-                <span class="hidden md:inline-block">{{ item.label | translate }}</span>
-              }
+              <span class="hidden md:inline-block">{{ item.label | translate }}</span>
+            </button>
+          }
+          @else if (item.route) {
+            <!-- Simple link -->
+            <a
+              pRipple
+              [routerLink]="item.route"
+              (click)="handleMenuItemClick()"
+              class="flex items-center gap-1 hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] p-2 transition font-light"
+            >
+              <i class="{{ item.icon }}"></i>
+              <span class="hidden md:inline-block">{{ item.label | translate }}</span>
             </a>
           }
         </div>
       }
 
-      <button pRipple type="button" (click)="themeToggleConfig().action?.()"
-              class="flex items-center justify-center hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] transition p-3 cursor-pointer w-10 h-10"
-              [pTooltip]="themeToggleConfig().label" 
-              [attr.aria-label]="themeToggleConfig().label">
+      <!-- Theme toggle -->
+      <button
+        pRipple
+        type="button"
+        (click)="themeToggleConfig().action?.()"
+        class="flex items-center justify-center hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] transition p-3 cursor-pointer w-10 h-10"
+        [pTooltip]="themeToggleConfig().label"
+        [attr.aria-label]="themeToggleConfig().label"
+      >
         <i class="{{ themeToggleConfig().icon }}"></i>
       </button>
 
-      <div class="ml-2 w-32"> <p-iftalabel class="text-xs"> <p-select [options]="languageOptions()" [ngModel]="translation.currentLang()"
-                    (ngModelChange)="onLangChange($event)" optionLabel="label" optionValue="value"
-                    styleClass="w-full h-12 text-sm" panelStyleClass="text-sm"></p-select>
+      <!-- Language selector -->
+      <div class="ml-2 w-32">
+        <p-iftalabel class="text-xs">
+          <p-select
+            [options]="languageOptions()"
+            [ngModel]="translation.currentLang()"
+            (ngModelChange)="onLangChange($event)"
+            optionLabel="label"
+            optionValue="value"
+            styleClass="w-full h-12 text-sm"
+            panelStyleClass="text-sm"
+          ></p-select>
           <label class="text-xs">{{ 'TOPBAR.IDIOMA' | translate }}</label>
         </p-iftalabel>
       </div>
     </nav>
 
-    <p-button icon="pi pi-bars" class="lg:hidden p-2 cursor-pointer" severity="secondary" (click)="toggleSidebar()" aria-label="Abrir menú" aria-expanded="sidebarOpen()" aria-controls="mobile-sidebar">
-    </p-button>
+    <!-- Mobile menu button -->
+    <p-button
+      icon="pi pi-bars"
+      class="lg:hidden p-2 cursor-pointer"
+      severity="secondary"
+      (click)="toggleSidebar()"
+      aria-label="Abrir menú"
+      [attr.aria-expanded]="sidebarOpen()"
+      aria-controls="mobile-sidebar"
+    ></p-button>
   </div>
 </header>
 
-<p-drawer id="mobile-sidebar" [visible]="sidebarOpen()" position="right" [baseZIndex]="10000" modal (onHide)="toggleSidebar()">
+<p-drawer
+  id="mobile-sidebar"
+  [visible]="sidebarOpen()"
+  position="right"
+  [baseZIndex]="10000"
+  modal
+  (onHide)="toggleSidebar()"
+>
   <nav class="flex flex-col space-y-1 mt-4 px-2">
     @for (item of navMenuItems(); track item.id) {
       @if (item.isParent && item.items && item.showSubmenuSignal) {
+        <!-- Mobile parent -->
         <div class="w-full">
-            <button type="button" (click)="toggleSubmenu(item, $event)"
-                    [attr.aria-expanded]="item.showSubmenuSignal()" [attr.aria-controls]="item.id + '-mobile-submenu'"
-                    class="flex items-center justify-between cursor-pointer w-full gap-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors">
-              <div class="flex items-center gap-2">
-                <i class="{{ item.icon }}"></i>
-                <span>{{ item.label | translate }}</span>
-              </div>
-              <i class="pi {{ item.showSubmenuSignal() ? 'pi-angle-down' : 'pi-angle-right' }} transition-transform"></i>
-            </button>
-            @if (item.showSubmenuSignal()) {
-              <div id="{{ item.id + '-mobile-submenu' }}" class="flex flex-col space-y-1 pl-7 mt-1 pt-1 border-l border-gray-200 dark:border-gray-600 ml-3">
-                @for (subItem of item.items; track subItem.id) {
-                  <a (click)="handleMenuItemClick()" [routerLink]="subItem.route!"
-                     routerLinkActive="text-primary dark:text-primary-dark font-semibold" [routerLinkActiveOptions]="{exact: true}"
-                     class="flex items-center gap-2 text-base hover:text-primary dark:hover:text-primary-dark transition py-1 pr-1">
-                    @if (subItem.icon) { <i class="{{ subItem.icon }} text-sm w-4 text-center"></i> }
-                    <span>{{ subItem.label | translate }}</span>
-                  </a>
-                }
-              </div>
-            }
+          <button
+            type="button"
+            (click)="toggleSubmenu(item, $event)"
+            [attr.aria-expanded]="item.showSubmenuSignal()"
+            [attr.aria-controls]="item.id + '-mobile-submenu'"
+            class="flex items-center justify-between cursor-pointer w-full gap-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors"
+          >
+            <div class="flex items-center gap-2">
+              <i class="{{ item.icon }}"></i>
+              <span>{{ item.label | translate }}</span>
+            </div>
+            <i
+              class="pi {{ item.showSubmenuSignal() ? 'pi-angle-down' : 'pi-angle-right' }} transition-transform"
+            ></i>
+          </button>
+          @if (item.showSubmenuSignal()) {
+            <div
+              id="{{ item.id + '-mobile-submenu' }}"
+              class="flex flex-col space-y-1 pl-7 mt-1 pt-1 border-l border-gray-200 dark:border-gray-600 ml-3"
+            >
+              @for (subItem of item.items; track subItem.id) {
+                <a
+                  (click)="handleMenuItemClick()"
+                  [routerLink]="subItem.route!"
+                  routerLinkActive="text-primary dark:text-primary-dark font-semibold"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="flex items-center gap-2 text-base hover:text-primary dark:hover:text-primary-dark transition py-1 pr-1"
+                >
+                  <i class="{{ subItem.icon }} text-sm w-4 text-center"></i>
+                  <span>{{ subItem.label | translate }}</span>
+                </a>
+              }
+            </div>
+          }
         </div>
-      } @else if (item.route) {
-        <a (click)="handleMenuItemClick()" [routerLink]="item.route"
-           routerLinkActive="bg-gray-100 dark:bg-gray-700 text-primary dark:text-primary-dark font-semibold" [routerLinkActiveOptions]="{exact: true}"
-           class="flex items-center gap-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors">
+      }
+      @else if (item.action) {
+        <!-- Mobile action button (Logout) -->
+        <button
+          pRipple
+          type="button"
+          (click)="item.action(); toggleSidebar()"
+          class="flex items-center gap-2 text-lg w-full hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors cursor-pointer"
+        >
           <i class="{{ item.icon }}"></i>
-          @if (item.label) { <span>{{ item.label | translate }}</span> }
+          <span>{{ item.label | translate }}</span>
+        </button>
+      }
+      @else if (item.route) {
+        <!-- Mobile link -->
+        <a
+          (click)="handleMenuItemClick()"
+          [routerLink]="item.route"
+          routerLinkActive="bg-gray-100 dark:bg-gray-700 text-primary dark:text-primary-dark font-semibold"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center gap-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors"
+        >
+          <i class="{{ item.icon }}"></i>
+          <span>{{ item.label | translate }}</span>
         </a>
       }
     }
 
-    <hr class="my-3 border-gray-200 dark:border-gray-600">
-    <button type="button" (click)="themeToggleConfig().action?.(); toggleSidebar();"
-            class="flex items-center w-full gap-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors cursor-pointer" [attr.aria-label]="themeToggleConfig().label">
+    <hr class="my-3 border-gray-200 dark:border-gray-600" />
+
+    <!-- Mobile theme toggle -->
+    <button
+      type="button"
+      (click)="themeToggleConfig().action?.(); toggleSidebar();"
+      class="flex items-center w-full gap-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors cursor-pointer"
+      [attr.aria-label]="themeToggleConfig().label"
+    >
       <i class="{{ themeToggleConfig().icon }}"></i>
       <span>{{ themeToggleConfig().label }}</span>
     </button>
 
+    <!-- Mobile language selector -->
     <div class="mt-4" (click)="$event.stopPropagation();">
-        <p-iftalabel class="w-full text-sm">
-             <p-select [options]="languageOptions()" [ngModel]="translation.currentLang()"
-                        (ngModelChange)="onLangChange($event)"
-                        optionLabel="label" optionValue="value" styleClass="w-full"></p-select>
-            <label>{{ 'TOPBAR.IDIOMA' | translate }}</label>
-        </p-iftalabel>
+      <p-iftalabel class="w-full text-sm">
+        <p-select
+          [options]="languageOptions()"
+          [ngModel]="translation.currentLang()"
+          (ngModelChange)="onLangChange($event)"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full"
+        ></p-select>
+        <label>{{ 'TOPBAR.IDIOMA' | translate }}</label>
+      </p-iftalabel>
     </div>
   </nav>
 </p-drawer>

@@ -15,6 +15,7 @@ import {
   docData,
   query as firestoreQuery,
   QueryConstraint,
+  increment,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -159,5 +160,26 @@ export class FirestoreService {
     });
 
     return { data: data.asReadonly(), loading: loading.asReadonly() };
+  }
+
+  // Incrementa un campo numérico en un documento.
+  async incrementField<T>(
+    path: string,
+    id: string,
+    field: keyof T,
+    amount = 1
+  ): Promise<void> {
+    try {
+      const ref = doc(this.firestore, path, id);
+      await firestoreUpdateDoc(ref, { [field]: increment(amount) } as any);
+    } catch (error) {
+      console.error(
+        `[FirestoreService][incrementField] Error en ${path}/${id} > ${String(field)}`,
+        error
+      );
+      throw new Error(
+        `incrementField(${path}/${id}.${String(field)}) falló: ${error}`
+      );
+    }
   }
 }

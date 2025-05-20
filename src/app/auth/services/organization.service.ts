@@ -1,9 +1,9 @@
 import { Injectable, Signal, computed, inject, signal } from '@angular/core';
 import { FirestoreService } from '../../core/services/firestore.service';
-import { StorageService } from '../../core/services/storage.service';
+import { StorageService, UploadTask } from '../../core/services/storage.service';
 import { Organization, OrganizationForm } from '../models/organization-interface';
-import { Timestamp } from 'firebase/firestore';
-import { ProjectService } from '../../core/services/project.service';
+import { firstValueFrom } from 'rxjs';
+import { orderBy, QueryConstraint, Timestamp } from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class OrganizationService {
@@ -33,10 +33,15 @@ export class OrganizationService {
 
     startListening() {
         if (!this.listener) {
+            const constraints: QueryConstraint[] = [
+                orderBy('name')
+            ];
             this.listener = this.fs.listenCollectionWithLoading<Organization>(
-                'organizations'
+                'organizations',
+                constraints
             );
         }
+
     }
 
     /** Señal con los contactos; arranca la escucha al invocar */
@@ -50,12 +55,6 @@ export class OrganizationService {
         this.startListening();
         return this.listener!.loading();
     }
-
-    /** Meotodo para actualizar informacion de una organizacion  */
-    updateOrganization(id: string, organization: Partial<Organization>): Promise<void> {
-        return this.fs.update<Organization>('organizations', id, organization);
-    }
-
     // Obtiene el nombre de la organización por su ID filtrando la lista de organizaciones computada
     getOrganizationNameById(id: string): Signal<string | null> {
         this.startListening();
@@ -94,6 +93,48 @@ export class OrganizationService {
             const orgs = this.listener!.data();
             return orgs.filter(org => org.projects.includes(idProject));
         });
+    }
+
+    uploadLogo(file: File, organizationId: string): UploadTask {
+        const filename = `${Date.now()}_${file.name}`;
+        const path = `organizations/${organizationId}/main/${filename}`;
+        return this.storage.uploadFile(file, path);
+    }
+
+    updateOrganization(
+        id: string,
+        data: Partial<OrganizationForm>,
+        logoFile?: File
+    ): { uploadTask?: UploadTask; complete: Promise<void> } {
+        // Prepara datos de actualización
+        const updateData: Partial<Organization> = { ...data };
+        let uploadTask: UploadTask | undefined;
+
+        // Si hay un archivo de logo, inicia la subida
+        if (logoFile) {
+            uploadTask = this.uploadLogo(logoFile, id);
+        }
+
+        // Promesa que espera a que termine la subida (si aplica),
+        // asigna la URL y luego actualiza Firestore
+        const complete = (async () => {
+            if (uploadTask) {
+                updateData.logoURL = await firstValueFrom(uploadTask.downloadURL$);
+            }
+            updateData.updatedAt = Timestamp.now();
+            await this.fs.update<Organization>('organizations', id, updateData);
+        })();
+
+        return { uploadTask, complete };
+    }
+
+    public incrementUsersCount(organizationId: string): Promise<void> {
+        return this.fs.incrementField<Organization>(
+            'organizations',
+            organizationId,
+            'usersCount',
+            1
+        );
     }
 }
 

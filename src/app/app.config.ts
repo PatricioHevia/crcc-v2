@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import {  HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 // Rutas
@@ -14,7 +14,6 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
-import { environment } from '../environments/environment';
 
 // Translation
 import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -30,7 +29,6 @@ import localeZh from '@angular/common/locales/zh';
 import { providePrimeNG } from 'primeng/config';
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
-import { ToastModule } from 'primeng/toast';
 
 registerLocaleData(localeEs, 'es');
 registerLocaleData(localeEn, 'en');
@@ -40,6 +38,8 @@ registerLocaleData(localeZh, 'zh');
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
   new TranslateHttpLoader(http, 'assets/i18n/', '.json')
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { environment } from '../environments/environment';
+import { ToastModule } from 'primeng/toast';
 
 const MyPreset = definePreset(Aura, {
   semantic: {

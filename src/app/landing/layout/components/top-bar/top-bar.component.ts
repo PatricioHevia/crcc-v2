@@ -1,5 +1,5 @@
 import { Component, signal, computed, inject, WritableSignal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,6 +17,9 @@ import { TranslationService } from '../../../../core/services/translation.servic
 
 // Translation
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+// Auth
+import { AuthService } from '../../../../auth/services/auth.service';
 
 
 // Define MenuItem interface
@@ -55,10 +58,14 @@ export interface MenuItem {
   // imports: [..., IftaLabelModule]
 })
 export default class TopBarComponent {
+  private router = inject(Router);
+  private auth = inject(AuthService);
   private themeService = inject(ThemeService);
   public translation = inject(TranslationService); // Your custom translation service
   private translatePipe = inject(TranslateService); // ngx-translate service for programmatic translation
 
+  // User
+  public readonly isLoggedIn = computed(() => this.auth.isLoggedIn());
   // Sidebar móvil
   sidebarOpen = signal(false);
 
@@ -89,7 +96,7 @@ export default class TopBarComponent {
   }
 
   // Items de menú
-  private _routes = signal<MenuItem[]>([
+  private baseRoutes  = signal<MenuItem[]>([
     { id: 'home', label: 'TOPBAR.INICIO', icon: 'pi pi-home', route: '/' },
     { id: 'proyectos', label: 'TOPBAR.PROYECTOS', icon: 'pi pi-building', route: '/proyectos' },
     {
@@ -114,12 +121,32 @@ export default class TopBarComponent {
         { id: 'contacto', label: 'TOPBAR.CONTACTO', icon: 'pi pi-envelope', route: '/contacto' }
       ]
     },
-    { id: 'admin', label: 'TOPBAR.ADMINISTRACION', icon: 'pi pi-cog', route: '/admin' },
-    { id: 'logout', label: 'AUTH.LOGOUT', icon: 'pi pi-sign-out', route: '/logout' }
   ]);
 
   // Navigation items for the main bar
-  navMenuItems = computed<MenuItem[]>(() => this._routes());
+  public readonly navMenuItems = computed<MenuItem[]>(() => {
+    const items = [...this.baseRoutes()];
+
+    if (this.isLoggedIn()) {
+      items.push({
+        id: 'logout',
+        label: 'AUTH.LOGOUT',
+        icon: 'pi pi-sign-out',
+        action: async () => {
+          await this.auth.logout();
+          this.router.navigate(['/login']);
+        }
+      });
+    } else {
+      items.push({
+        id: 'login',
+        label: 'AUTH.LOGIN',
+        icon: 'pi pi-sign-in',
+        route: '/auth/login'
+      });
+    }
+    return items;
+  });
 
   // Theme toggle item configuration
   themeToggleConfig = computed<MenuItem>(() => ({
@@ -142,6 +169,7 @@ export default class TopBarComponent {
       });
       // Then toggle the current one
       item.showSubmenuSignal.set(!currentState);
+      
     }
   }
 

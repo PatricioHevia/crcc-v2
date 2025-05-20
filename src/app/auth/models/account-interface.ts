@@ -4,9 +4,9 @@ export interface Account extends basicInfoAccount,
                                  AccountProfileDetails,
                                  AccountActivity,
                                  AccountPreferences,
+                                 AccountHR,
                                  AccountAccess  {}
-                               
-
+                            
 export interface basicInfoAccount {
   uid: string;
   name: string;
@@ -14,15 +14,14 @@ export interface basicInfoAccount {
   role: 'Usuario Básico' | 'Admin' | 'Super Admin';
   active: boolean;
   phone?: string;
-  organization: string; //id
+  organization?: string; //id
   deleted: boolean;
 }
 
-
 export interface AccountProfileDetails {
-  photoURL: string;
-  position: string;
-  gender: 'Hombre' | 'Mujer';
+  photoURL?: string;
+  position?: string;
+  gender?: 'Hombre' | 'Mujer';
 }
 
 
@@ -72,3 +71,6 @@ export interface Curriculum {
   nombre_zh: string;
   subidoEn: Timestamp;
 }
+
+export interface AccountForm
+  extends Omit<Account, 'uid' | 'createdAt' | 'updatedAt' | 'deleted'| 'role'> {}

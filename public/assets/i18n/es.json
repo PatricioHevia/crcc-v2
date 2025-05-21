@@ -34,10 +34,13 @@
     "USERNAME": "Nombre de usuario",
     "PASSWORD": "Contraseña",
     "EMAIL": "Correo electrónico",
+    "NO_ACCOUNT":  "¿No tienes cuenta?",
     "NAME": "Nombre",
+    "LOGIN_TITULO": "Bienvenido a CRCC Chile Hospitales!",
+    "LOGIN_SUBTITULO": "Inicia sesión para continuar",
     "REPEAT_PASSWORD": "Repetir contraseña",
     "PASSWORD_CONFIRM": "Confirmar contraseña",
-    "FORGOT_PASSWORD": "Olvidé mi contraseña",
+    "FORGOT_PASSWORD": "¿Olvistaste tu contraseña?",
     "REMEMBER_ME": "Recuérdame",
     "SIGN_IN": "Iniciar sesión",
     "SIGN_UP": "Registrarse",
@@ -54,13 +57,22 @@
     "EMAIL_NOT_FOUND": "No se encontró el correo electrónico",
     "INVALID_CODE": "El código de verificación es inválido",
     "WRONG_PASSWORD": "La contraseña es incorrecta",
+    "PASSWORD_CORTA": "La contraseña debe tener al menos 6 caracteres",
     "TOO_MANY_REQUESTS": "Demasiadas solicitudes. Por favor, intenta nuevamente más tarde.",
     "PASSWORD_RESET_SUCCESS": "Se ha enviado un correo electrónico para restablecer la contraseña",
     "PASSWORD_RESET_ERROR": "Error al enviar el correo electrónico para restablecer la contraseña",
     "PASSWORD_RESET_SUCCESS_MESSAGE": "Se ha enviado un correo electrónico para restablecer la contraseña. Por favor, revisa tu bandeja de entrada.",
     "PASSWORD_RESET_ERROR_MESSAGE": "Error al enviar el correo electrónico para restablecer la contraseña. Por favor, intenta nuevamente más tarde.",
     "PASSWORD_RESET_LINK_SENT": "Enlace de restablecimiento de contraseña enviado",
-    "PASSWORD_RESET_LINK_ERROR": "Error al enviar el enlace de restablecimiento de contraseña"
+    "PASSWORD_RESET_LINK_ERROR": "Error al enviar el enlace de restablecimiento de contraseña",
+    "PASSWORD_REQUIRED": "La contraseña es obligatoria",
+    "EMAIL_REQUIRED": "El correo electrónico es obligatorio",
+    "LOADING":          "Cargando…",
+    "LOGIN_SUCCESS":    "¡Ingreso exitoso!",
+    "LOGIN_ERROR":      "Error al ingresar",
+    "ACCOUNT_ALREADY":"¿Ya tienes cuenta?",
+    "REGISTRO_TITULO": "¡Regístrate en CRCC Chile Hospitales!",
+    "REGISTRO_SUBTITULO": "Completa todos los pasos para crear tu cuenta"
   },
   "HOME": {
     "TITULO": "NUESTRA EMPRESA",
@@ -69,27 +81,27 @@
     "PARRAFO_2": "Como parte del Grupo CRCC —una de las constructoras más grandes del mundo (puesto 39 en la lista Fortune Global 500 2022)—, CRCCI ofrece servicios integrales que abarcan transporte, obras civiles, diseño, consultoría, desarrollo inmobiliario, fabricación de equipos, suministro de materiales, logística y salud. Su excelencia ha sido reconocida con premios como el Luban, el Zhan Tianyou y la Medalla de Oro a la Calidad en Ingeniería, reforzando su reputación global.",
     "PARRAFO_3": "En Chile, CRCCI está ejecutando importantes proyectos en los ámbitos de salud y movilidad: construcción y ampliación de hospitales regionales, la extensión de líneas del Metro de Santiago, proyectos de trenes de cercanías para mejorar la conexión interurbana y el desarrollo de autopistas clave que optimizan el flujo de carga y pasajeros.",
     "PARRAFO_4": "Con el valor fundamental de “Avanzar Juntos”, seguimos construyendo alianzas sólidas con gobiernos, comunidades y clientes para aportar soluciones sostenibles y de primer nivel internacional.",
-    "GALLERIA_LUSAIL_STADIUM":"Estadio Lusail, Copa Mundial de Catar (Noche)",
+    "GALLERIA_LUSAIL_STADIUM": "Estadio Lusail, Copa Mundial de Catar (Noche)",
     "GALLERIA_ARIMA_GENERAL_HOSPITAL": "Hospital General de Arima, Trinidad y Tobago",
     "GALLERIA_MECCA": "Estación Al Mashaaer del Metro de la Meca, Arabia Saudí",
     "GALLERIA_FOUR_SEASONS_HOTEL": "Proyecto Four Seasons Hotel en Kuala Lumpur, Malasia",
-    "GALLERIA_SEGMENT_EAST_WEST_EXPRESSWAY":"Vista de carretera del tramo medio de la Autopista Este-Oeste de Argelia de CRCCI",
-    "GALLERIA_METRO_MOSCOW":"Sección suroeste de la tercera línea de transferencia del metro de Moscú",
-    "GALLERIA_GEMAS_JOHOR_BAHRU":"El proyecto ferroviario electrificado de doble vía de Gemas a John Bahru, Malasia",
-    "SERVICIOS":"Nuestros Servicios",
+    "GALLERIA_SEGMENT_EAST_WEST_EXPRESSWAY": "Vista de carretera del tramo medio de la Autopista Este-Oeste de Argelia de CRCCI",
+    "GALLERIA_METRO_MOSCOW": "Sección suroeste de la tercera línea de transferencia del metro de Moscú",
+    "GALLERIA_GEMAS_JOHOR_BAHRU": "El proyecto ferroviario electrificado de doble vía de Gemas a John Bahru, Malasia",
+    "SERVICIOS": "Nuestros Servicios",
     "SERVICIOS_CONTENIDO": "En CRCCI, nos dedicamos a proporcionar soluciones integrales y personalizadas para la gestión de infraestructuras hospitalarias. Con un enfoque en la excelencia y la innovación, nuestros servicios están diseñados para garantizar que cada proyecto cumpla con los más altos estándares de calidad, seguridad y eficiencia.",
-    "SERVICIO_DISENIO":"Diseño de Ingeniería",
-    "SERVICIO_CONSTRUCCION":"Construcción",
-    "SERVICIO_EQP":"Adquisición, Reposición y Mantenimiento de Equipamiento Médico y Mobiliario Clínico",
-    "SERVICIO_MANTENIMIENTO":"Mantenimiento de Infraestructura"
+    "SERVICIO_DISENIO": "Diseño de Ingeniería",
+    "SERVICIO_CONSTRUCCION": "Construcción",
+    "SERVICIO_EQP": "Adquisición, Reposición y Mantenimiento de Equipamiento Médico y Mobiliario Clínico",
+    "SERVICIO_MANTENIMIENTO": "Mantenimiento de Infraestructura"
   },
-  "PROYECTOS":{
-    "TITULO":"Nuestros Proyectos en Chile",
-    "SUBTITULO":"En esta sección podrás encontrar los proyectos hospitalarios que actualmente tenemos en ejecución y la Planta Naipú en los cuales podrás acceder y participar en nuestras licitaciones.",
-    "LOADING":"Cargando Proyectos..."
+  "PROYECTOS": {
+    "TITULO": "Nuestros Proyectos en Chile",
+    "SUBTITULO": "En esta sección podrás encontrar los proyectos hospitalarios que actualmente tenemos en ejecución y la Planta Naipú en los cuales podrás acceder y participar en nuestras licitaciones.",
+    "LOADING": "Cargando Proyectos..."
   },
-  "PROJECTCARD":{
-    "INICIO":"Inicio",
+  "PROJECTCARD": {
+    "INICIO": "Inicio",
     "VER": "Ver Proyecto",
     "SOLICITAR": "Solicitar Acceso"
   },
@@ -97,7 +109,7 @@
     "TITULO": "🏆 Concursos de Innovación en Arquitectura e Ingeniería 🌍",
     "SUBTITULO": "Explora los desafíos de arquitectura e ingeniería que CRCC lanza en colaboración con prestigiosas entidades. Impulsamos la creatividad y la innovación en proyectos que transforman el futuro. ¡Atrévete a participar y deja tu huella en la industria!amos a proporcionar soluciones integrales y personalizadas para la gestión de infraestructuras hospitalarias. Con un enfoque en la excelencia y la innovación, nuestros servicios están diseñados para garantizar que cada proyecto cumpla con los más altos estándares de calidad, seguridad y eficiencia.",
     "BTN_NUEVO": "Nuevo Concurso",
-    "BTN_ENTRAR": "Entrar"  
+    "BTN_ENTRAR": "Entrar"
   },
   "FAQ": {
     "TITULO": "Preguntas Frecuentes",
@@ -133,7 +145,7 @@
     "TOAST_MENSAJE_ENVIADO": "Mensaje enviado correctamente",
     "TOAST_MENSAJE_ERROR": "Error al enviar el mensaje, por favor intenta nuevamente"
   },
-  "VER_MENSAJES":{
+  "VER_MENSAJES": {
     "NOMBRE": "Nombre",
     "ASUNTO": "Asunto",
     "EMAIL": "Correo electrónico",
@@ -152,5 +164,4 @@
     "INFO": "Información",
     "ADVERTENCIA": "Advertencia"
   }
-
 }

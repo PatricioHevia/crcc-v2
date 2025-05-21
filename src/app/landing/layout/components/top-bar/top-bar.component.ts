@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject, WritableSignal } from '@angular/core';
+import { Component, signal, computed, inject, WritableSignal, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,8 +8,10 @@ import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { SelectModule } from 'primeng/select'; 
-import { IftaLabelModule } from 'primeng/iftalabel'; 
+import { SelectModule } from 'primeng/select';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
+
 
 // Your Custom Modules/Services (ensure paths are correct)
 import { ThemeService, ThemeOption } from '../../../../core/services/theme.service';
@@ -31,6 +33,7 @@ export interface MenuItem {
   action?: () => void;
   items?: MenuItem[]; // Sub-items are also MenuItems
   isParent?: boolean;
+  tooltip?: string; // Tooltip text for the item
   // For managing custom dropdown/accordion visibility
   showSubmenuSignal?: WritableSignal<boolean>;
 }
@@ -49,6 +52,7 @@ export interface MenuItem {
     SelectModule,
     IftaLabelModule, // Ensure this is correctly imported if used
     TooltipModule,
+    TieredMenuModule,
     // Translation
     TranslateModule,
   ],
@@ -58,6 +62,7 @@ export interface MenuItem {
   // imports: [..., IftaLabelModule]
 })
 export default class TopBarComponent {
+
   private router = inject(Router);
   private auth = inject(AuthService);
   private themeService = inject(ThemeService);
@@ -71,10 +76,22 @@ export default class TopBarComponent {
 
   // Idiomas (Assuming structure from your original code)
   idiomas = signal([{
-    es: [ { label: 'Español', value: 'es' }, { label: 'Inglés', value: 'en' }, { label: 'Chino', value: 'zh' } ],
-    en: [ { label: 'Spanish', value: 'es' }, { label: 'English', value: 'en' }, { label: 'Chinese', value: 'zh' } ],
-    zh: [ { label: '西班牙语', value: 'es' }, { label: '英语', value: 'en' }, { label: '中文', value: 'zh' } ]
+    es: [{ label: 'Español', value: 'es' }, { label: 'Inglés', value: 'en' }, { label: 'Chino', value: 'zh' }],
+    en: [{ label: 'Spanish', value: 'es' }, { label: 'English', value: 'en' }, { label: 'Chinese', value: 'zh' }],
+    zh: [{ label: '西班牙语', value: 'es' }, { label: '英语', value: 'en' }, { label: '中文', value: 'zh' }]
   }]);
+
+  items = computed<any[]>(() => {
+    const lang = this.translation.currentLang()
+    const map = this.idiomas()[0] as Record<string, { label: string; value: 'es' | 'en' | 'zh' }[]>;
+    return map[lang].map(opt => ({
+      label: opt.label,
+      icon: 'pi pi-globe',
+      command: () => this.onLangChange(opt.value)
+    }));
+  });
+
+
 
   languageOptions = computed(() => {
     const lang = this.translation.currentLang();
@@ -96,7 +113,7 @@ export default class TopBarComponent {
   }
 
   // Items de menú
-  private baseRoutes  = signal<MenuItem[]>([
+  private baseRoutes = signal<MenuItem[]>([
     { id: 'home', label: 'TOPBAR.INICIO', icon: 'pi pi-home', route: '/' },
     { id: 'proyectos', label: 'TOPBAR.PROYECTOS', icon: 'pi pi-building', route: '/proyectos' },
     {
@@ -123,10 +140,12 @@ export default class TopBarComponent {
     },
   ]);
 
+
   // Navigation items for the main bar
   public readonly navMenuItems = computed<MenuItem[]>(() => {
     const items = [...this.baseRoutes()];
-
+    // Add the language selector to the menu items
+    
     if (this.isLoggedIn()) {
       items.push({
         id: 'logout',
@@ -169,7 +188,7 @@ export default class TopBarComponent {
       });
       // Then toggle the current one
       item.showSubmenuSignal.set(!currentState);
-      
+
     }
   }
 
@@ -184,7 +203,7 @@ export default class TopBarComponent {
   toggleSidebar() {
     this.sidebarOpen.update(v => !v);
     if (!this.sidebarOpen()) { // If sidebar is closing
-        this.closeAllSubmenus();
+      this.closeAllSubmenus();
     }
   }
 

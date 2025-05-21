@@ -10,15 +10,26 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenuItem } from 'primeng/api';
 
 
+
 @Component({
   selector: 'app-auth-layout',
   templateUrl: './auth-layout.component.html',
   styleUrls: ['./auth-layout.component.css'],
-  imports: [ CommonModule, FormsModule, RouterModule, ButtonModule, TooltipModule,  TieredMenuModule]
+  imports: [ 
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    ButtonModule,
+    TooltipModule,
+    TieredMenuModule,
+   
+  ]
 })
 export class AuthLayoutComponent {
   private theme = inject(ThemeService);
   public translation = inject(TranslationService);
+
+ 
   // Idiomas
   idiomas = signal([{
     es: [
@@ -58,6 +69,18 @@ export class AuthLayoutComponent {
 
   // Tema
   isDark = computed(() => this.theme.effectiveTheme() === 'dark');
+
+  public lightStyle = {
+    'border-radius': '56px',
+    'padding':       '0.35rem',
+    'background':    'linear-gradient(180deg, #3567ad 10%, rgba(33,150,243,0) 40%)'
+  };
+
+  public darkStyle = {
+    'border-radius': '56px',
+    'padding':       '0.35rem',
+    'background':    'linear-gradient(180deg, #08a1e2 10%, rgba(33,150,243,0) 40%)'
+  };
 
   toggleTheme(): void {
     const curr = this.theme.effectiveTheme();

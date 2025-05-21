@@ -1,9 +1,23 @@
-<div
-  class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
-  <div class="flex flex-col items-center justify-center">
+<div class="
+    relative flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden bg-surface-50 dark:bg-surface-950
+  ">
+  <div class="
+      absolute inset-0
+      bg-[url('/assets/images/auth/wallpaper.jpg')]
+      bg-cover
+      bg-center
+      filter-1
+      grayscale-50
+      dark:grayscale-70
+      z-0
+    ">
+  </div>
+  <div class="flex flex-col items-center justify-center z-1">
     <div
-      style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, rgb(22, 122, 204), 10%, rgba(33, 150, 243, 0) 30%)">
-      <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
+       [ngStyle]="isDark() ? darkStyle : lightStyle"
+  class="min-w-75 lg:min-w-100 p-0 flex flex-col items-center justify-center"
+      >
+      <div class="w-full bg-surface-100 dark:bg-surface-900 py-10 md:py-20 px-8 md:px-20" style="border-radius: 53px">
         <div class="text-center mb-8">
           <router-outlet></router-outlet>
 
@@ -14,12 +28,17 @@
 </div>
 
 <!-- Botones flotantes arriba a la derecha  -->
- <div class="fixed top-0 right-0 p-6">
-   @if( isDark() ){
-     <p-button icon="pi pi-sun" [rounded]="true" severity="primary" (onClick)="toggleTheme()"> </p-button>
-   } @else {
-    <p-button icon="pi pi-moon" [rounded]="true" severity="primary" (onClick)="toggleTheme()"> </p-button>
-   }
-   <p-button icon="pi pi-globe" class="ml-4" [rounded]="true" severity="warn"  (click)="langMenu.toggle($event)"> </p-button>
-   <p-tieredmenu #langMenu [model]="items()" popup="true" appendTo="body" ></p-tieredmenu>
- </div>
+<div class="fixed top-0 right-0 p-6 z-3">
+  @if( isDark() ){
+    <p-button icon="pi pi-home" [rounded]="true" severity="secondary" [routerLink]="'/'"> </p-button>
+    <p-button icon="pi pi-sun" [rounded]="true" class="ml-4" severity="secondary" (onClick)="toggleTheme()"> </p-button>
+    <p-button icon="pi pi-globe" class="ml-4" [rounded]="true" severity="secondary" (click)="langMenu.toggle($event)">
+    </p-button>
+  } @else {
+    <p-button icon="pi pi-home" [rounded]="true" severity="primary" [routerLink]="'/'"> </p-button>
+    <p-button icon="pi pi-moon" [rounded]="true" class="ml-4" severity="primary" (onClick)="toggleTheme()"> </p-button>
+    <p-button icon="pi pi-globe" class="ml-4" [rounded]="true" severity="primary" (click)="langMenu.toggle($event)"></p-button>
+  }
+  
+  <p-tieredmenu #langMenu [model]="items()" popup="true" appendTo="body"></p-tieredmenu>
+</div>

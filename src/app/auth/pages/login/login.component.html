@@ -1,3 +1,120 @@
-<p>
-  login works!
-</p>
+<div class="min-w-75 lg:min-w-100 p-0">
+  <div class="flex flex-col items-center justify-center">
+    <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'" alt="CRCC Logo"
+      class="h-18 w-auto" />
+    <h2 class="text-2xl font-semibold mt-2">
+      {{'AUTH.LOGIN_TITULO' | translate}}
+    </h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+      {{'AUTH.LOGIN_SUBTITULO' | translate}}
+    </p>
+  </div>
+  <form class="mt-6 space-y-6 w-full px-4" [formGroup]="loginForm" (ngSubmit)="login()">
+    <!-- Email -->
+    <div class="flex flex-col text-left">
+      <label for="email" class="mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
+        {{'AUTH.EMAIL' | translate}}
+      </label>
+      <input pInputText fluid id="email" type="email" formControlName="email" [placeholder]="'AUTH.EMAIL' | translate"
+        class="
+        w-full
+        p-3
+        bg-gray-100 dark:bg-gray-800
+        border border-gray-300 dark:border-gray-600
+        rounded-lg
+        text-gray-900 dark:text-gray-100
+        placeholder-gray-400 dark:placeholder-gray-500
+        focus:outline-none focus:ring-2 focus:ring-blue-400
+        transition
+      " />
+      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('email', 'required')">
+        {{ 'AUTH.EMAIL_REQUIRED' | translate }}</small>
+      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('email', 'email')">
+        {{ 'AUTH.INVALID_EMAIL' | translate }}</small>
+      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('email', 'email')">
+        {{ 'AUTH.INVALID_EMAIL' | translate }}</small>
+    </div>
+
+    <!-- Password -->
+    <div class="flex flex-col text-left">
+      <label for="password" class="mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
+        {{'AUTH.PASSWORD' | translate}}
+      </label>
+      <p-password fluid id="password" formControlName="password" [toggleMask]="true" [feedback]="false"
+        [placeholder]="'AUTH.PASSWORD' | translate" inputStyleClass="
+        w-full
+        p-3
+        bg-gray-100 dark:bg-gray-800
+        border border-gray-300 dark:border-gray-600
+        rounded-lg
+        text-gray-900 dark:text-gray-100
+        placeholder-gray-400 dark:placeholder-gray-500
+        focus:outline-none focus:ring-2 focus:ring-blue-400
+        transition
+      "></p-password>
+      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('password', 'required')">
+        {{ 'AUTH.PASSWORD_REQUIRED' | translate }}</small>
+      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('password', 'minlength')">
+        {{ 'AUTH.PASSWORD_CORTA' | translate }}</small>
+    </div>
+
+    <!-- Remember & Forgot -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <p-checkbox id="remember" binary="true" formControlName="rememberMe"></p-checkbox>
+        <label for="remember" class="ml-2 text-sm text-gray-600 dark:text-gray-400">
+          {{ 'AUTH.REMEMBER_ME' | translate }}
+        </label>
+      </div>
+      <a href="#" class="text-sm font-medium text-primary hover:underline">
+        {{ 'AUTH.FORGOT_PASSWORD' | translate }}
+      </a>
+    </div>
+
+    <!-- Sign In button -->
+    <button pButton type="submit" [label]="'AUTH.LOGIN' | translate" class="
+      w-full
+      py-3
+      bg-blue-400 hover:bg-blue-500
+      text-white font-semibold
+      rounded-lg
+      transition
+    ">
+    </button>
+  </form>
+  <div class="mt-6 text-center">
+    <span class="text-sm text-gray-600 dark:text-gray-400">
+      {{ 'AUTH.NO_ACCOUNT' | translate }}
+    </span>
+    <p-button severity="danger" [label]=" 'AUTH.SIGN_UP' | translate" [routerLink]="'/auth/register'" variant="text">    </p-button>
+  </div>
+
+</div>
+
+<p-dialog [visible]="dialogVisible()" modal [closable]="false" [dismissableMask]="false"
+  [style]="{ width: '250px', height: '250px', padding: '0' }" [contentStyle]="{
+    display: 'flex',
+    'flex-direction': 'column',
+    'align-items': 'center',
+    'justify-content': 'center',
+    height: '100%'
+  }">
+  @if (loading()) {
+  <div class="flex flex-row items-center justify-center gap-2">
+    <p-progressSpinner styleClass="w-3rem h-3rem"></p-progressSpinner>
+    <p>{{ 'AUTH.LOADING' | translate }}</p>
+  </div>
+  }
+  @else if (loginSuccess()) {
+  <div class="flex flex-col items-center justify-center gap-2">
+    <i class="fa-solid fa-check text-4xl text-green-500"></i>
+    <p>{{ 'AUTH.LOGIN_SUCCESS' | translate }}</p>
+  </div>
+  }
+  @else {
+  <div class="flex flex-col items-center justify-center gap-2">
+    <i class="fa-solid fa-xmark text-4xl text-red-500"></i>
+    <p>{{ feedbackMessage() | translate }}</p>
+  </div>
+  }
+</p-dialog>

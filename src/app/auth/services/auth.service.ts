@@ -7,7 +7,9 @@ import {
     deleteUser,
     signInWithEmailAndPassword,
     User,
-    onAuthStateChanged
+    onAuthStateChanged,
+    browserLocalPersistence,
+    browserSessionPersistence
 } from '@angular/fire/auth';
 import { FirestoreService } from '../../core/services/firestore.service';
 import { OrganizationService } from './organization.service';
@@ -153,7 +155,9 @@ export class AuthService {
      * Login del usuario con correo y contraseña
      * Manejo de errores comunes de Firebase Auth   */
 
-    async login(email: string, password: string): Promise<UserCredential> {
+    async login(email: string, password: string, remember: boolean): Promise<UserCredential> {
+        const persistence = remember? browserLocalPersistence : browserSessionPersistence;
+        await this.auth.setPersistence(persistence);
         try {
             const cred = await signInWithEmailAndPassword(this.auth, email, password);
             return cred;

@@ -39,7 +39,7 @@ export type OrganizationType =
 'Proveedor de Materiales o Equipos' |
 'Proveedor de Equipamiento Médico y Mobiliario' |
 'Subcontratista de Obra' |
-'CTAR'
+'CTAR' | 'Mandante'
 
 export interface OrganizationForm
   extends Omit<Organization, 'id' | 'createdAt' | 'updatedAt' | 'usersCount' | 'deleted'> {}

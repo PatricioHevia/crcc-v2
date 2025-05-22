@@ -19,6 +19,8 @@ export class UserService {
     return !!u && (u.role === 'Admin' || u.role === 'Super Admin');
   });
 
+  
+
   // Señales para la lista completa de usuarios y estado de carga
   public allUsersForAdmin: WritableSignal<Account[]> = signal([]);
   public allUsersLoading: WritableSignal<boolean> = signal(false);

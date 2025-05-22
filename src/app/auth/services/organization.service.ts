@@ -80,6 +80,15 @@ export class OrganizationService {
         });
     }
 
+    isMandante(organizationId: string): Signal<boolean> {
+        this.startListening();
+        return computed(() => {
+            const orgs = this.listener!.data();
+            const org = orgs.find(o => o.id === organizationId);
+            return org ? org.type === 'Mandante' : false;
+        });
+    }
+
     // Obtiene un objeto de orgnizaciones y nombres computed
     getOrganizationsOptions(): Signal<{ value: string; label: string }[]> {
         this.startListening(); // asegura que el listener esté activo

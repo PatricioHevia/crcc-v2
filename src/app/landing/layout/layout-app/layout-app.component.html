@@ -1,13 +1,9 @@
-<!-- src/app/layout/app-layout.component.html -->
 <div class="flex flex-col min-h-screen">
-    <!-- TopBar fijo arriba -->
-    <app-top-bar></app-top-bar>
+    <app-top-bar class="sticky top-0 z-40"></app-top-bar>
 
-    <!-- Contenido principal crece para rellenar -->
-    <main class="flex-grow p-4 lg:px-20 lg:py-8 bg-slate-50 dark:bg-[#121212]">
+    <main class="flex-grow p-4 lg:px-20 lg:py-8 ">
         <router-outlet></router-outlet>
     </main>
 
-    <!-- Footer siempre abajo -->
     <app-footer></app-footer>
 </div>

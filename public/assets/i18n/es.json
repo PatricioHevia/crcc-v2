@@ -192,5 +192,19 @@
   },
   "GENERAL": {
     "SIGUIENTE": "Siguiente"
+  },
+  "ADMIN": {
+    "USERS": {
+      "TITLE": "Administración de usuarios",
+      "TABLE": {
+        "NAME": "Nombre",
+        "ORGANIZATION": "Organización",
+        "EMAIL": "Correo electrónico",
+        "ACTIVE": "Activo",
+        "ROLE": "Rol",
+        "UPDATED_AT": "Actualizado el",
+        "ACTIONS": "Acciones"
+      }
+    }
   }
 }

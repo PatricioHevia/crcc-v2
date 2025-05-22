@@ -193,5 +193,19 @@
     },
     "GENERAL": {
         "SIGUIENTE": "下一步"
+    },
+    "ADMIN": {
+    "USERS": {
+      "TITLE": "用户管理",
+      "TABLE": {
+        "NAME": "姓名",
+        "ORGANIZATION": "组织",
+        "EMAIL": "电子邮件",
+        "ACTIVE": "激活",
+        "ROLE": "角色",
+        "UPDATED_AT": "更新于",
+        "ACTIONS": "操作"
+      }
     }
+  }
 }

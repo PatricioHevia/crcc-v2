@@ -216,7 +216,7 @@ export class FirestoreService {
     }
 
     const snap = await getDocs(q);
-    const items = snap.docs.map(d => d.data());
+    const items = snap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() } as T & { id: string }));
     const last = snap.docs.length ? snap.docs[snap.docs.length - 1] : null;
     return { items, lastSnapshot: last };
   }

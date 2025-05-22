@@ -14,3 +14,12 @@
 @theme {
   --color-gris: #202123;
 }
+
+body {
+  background-color: #f1f5f9; /* Or whatever your light mode default is */
+}
+
+/* Dark mode specific body background */
+.dark-mode body {
+  background-color: black;
+}

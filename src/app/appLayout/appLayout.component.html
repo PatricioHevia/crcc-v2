@@ -11,11 +11,11 @@
 
   <!-- Contenido principal, se corre al ancho del sidebar -->
   <main
-    class="flex-1 transition-all duration-300 p-4 w-full"
-    [class.ml-64]="layoutService.showMenu()"    
-    [class.ml-0]="!layoutService.showMenu()"
-  >
-    <router-outlet></router-outlet>
-  </main>
+  class="flex-1 transition-all duration-300 p-4 w-full overflow-x-auto min-w-0"
+  [class.ml-64]="layoutService.showMenu()"
+  [class.ml-0]="!layoutService.showMenu()"
+>
+  <router-outlet></router-outlet>
+</main>
 
 </div>

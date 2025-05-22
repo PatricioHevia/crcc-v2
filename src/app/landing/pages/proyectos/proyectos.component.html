@@ -1,6 +1,6 @@
-<section class="py-12">
+<section class="container mx-auto px-4 py-8">
   <!-- 1. Intro -->
-  <div class="max-w-3xl mx-auto text-center mb-12">
+  <div class="bg-white rounded-lg shadow-md p-6 text-center">
     <h2 class="text-3xl font-bold text-primary-600">{{ 'PROYECTOS.TITULO' | translate }}</h2>
     <p class="mt-4 text-gray-600 dark:text-gray-300">{{ 'PROYECTOS.SUBTITULO' | translate}}</p>
   </div>
@@ -14,7 +14,7 @@
 
   } @else {
   <!-- 2. Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full lg:w-[80%] mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
     @for (project of projectService.projects(); track project.name_es) {
     <app-card-project [project]="project"></app-card-project>
     }

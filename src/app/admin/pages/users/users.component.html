@@ -1,8 +1,14 @@
-<div class="p-4">
-  <h2 class="text-xl font-bold mb-4">{{ 'ADMIN.USERS.TITLE' | translate }}</h2>
+<div class="bg-white dark:bg-zinc-900 p-4 rounded-lg shadow-md">
+  <h2 class="text-xl font-bold mb-4">{{ 'ADMIN.USERS.TITLE' | translate }} - {{ totalUsers() }}</h2>
   @if (!loading()){
   <div>
-    <p-table [value]="usuarios()" [totalRecords]="totalUsers" [paginator]="true" [rows]="2" [loading]="loading()">
+    <div>
+    <p-table 
+      [value]="usuarios()" 
+      [totalRecords]="totalUsers()" [paginator]="true" 
+      [rows]="2" 
+      [loading]="loading()"
+      (onPage)="onPageChange($event)">
       <ng-template pTemplate="header">
         <tr>
           <th>{{ 'ADMIN.USERS.TABLE.NAME' | translate }}</th>
@@ -17,7 +23,7 @@
       <ng-template pTemplate="body" let-user let-columns="columns">
         <tr>
           <td>{{ user.name }}</td>
-          <td>{{ getOrgName(user.organization)() }}</td>
+          <td>{{ user.organization ? (getOrgName(user.organization)() || 'N/A') : 'N/A' }}</td>
           <td>{{ user.email }}</td>
           <td>
             <i *ngIf="user.active" class="pi pi-check-circle text-green-500"></i>
@@ -30,10 +36,16 @@
           </td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7" class="text-center p-4">{{ 'ADMIN.USERS.TABLE.NO_USERS' | translate }}</td>
+        </tr>
+    </ng-template>
     </p-table>
   </div>
+  </div>
   } @else {
-    <div class="text-center">{{ 'ADMIN.USERS.LOADING' | translate }} </div>
+  <div class="text-center">{{ 'ADMIN.USERS.LOADING' | translate }} </div>
   }
 
 </div>

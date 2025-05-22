@@ -128,10 +128,7 @@ export class AuthService {
             notifications: { email: true, push: true, app: true },
             language: this.translation.currentLang(),
             theme: this.theme.theme(),
-            ...(organizationId
-                ? { organization: organizationId }
-                : {}
-            ),
+            organization: organizationId,
         };
 
         try {

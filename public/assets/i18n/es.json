@@ -203,8 +203,22 @@
         "ACTIVE": "Activo",
         "ROLE": "Rol",
         "UPDATED_AT": "Actualizado el",
-        "ACTIONS": "Acciones"
+        "ACTIONS": "Acciones",
+        "NO_USERS_MATCHING_FILTER": "No hay usuarios que coincidan con el filtro",
+        "NO_USERS_FOUND": "No se encontraron usuarios",
+        "LOADING_USERS": "Cargando usuarios..."
       }
+    }
+  },
+  "ACTIONS": {
+    "SEARCH_KEYWORD": "Buscar...",
+    "ALL": "Todos",
+    "ITEMS_SELECTED": "elementos seleccionados",
+    "SELECT_STATUS": "Seleccionar estado"
+  },
+  "PRIMENG": {
+    "PAGINATOR": {
+      "SHOWING_OF": "Mostrando {first} a {last} de {totalRecords}"
     }
   }
 }

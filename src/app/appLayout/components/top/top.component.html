@@ -1,10 +1,10 @@
-<div
-  class="bg-white dark:bg-zinc-900 shadow-md fixed top-0 inset-x-0 flex items-center justify-between px-4 py-2 z-50">
+<div class="bg-white dark:bg-zinc-900 shadow-md fixed top-0 inset-x-0 flex items-center justify-between px-4 py-2 z-50">
   <!-- Menú hamburguesa -->
   <!-- (onClick)="layoutService.onMenuToggle()" -->
   <div class="flex flex-row">
 
-    <p-button icon="pi pi-bars" styleClass="p-button-text p-button-plain text-xl mr-4" (onClick)="layoutService.onMenuToggle()"></p-button>
+    <p-button icon="pi pi-bars" styleClass="p-button-text p-button-plain text-xl mr-4"
+      (onClick)="layoutService.onMenuToggle()"></p-button>
     <!-- Logo y enlace a inicio -->
     <a routerLink="/" class="flex items-center space-x-2">
       <a routerLink="/" aria-label="Homepage">
@@ -19,14 +19,20 @@
   <div class="flex items-center space-x-4">
     <!-- Toggle dark/light -->
     <p-button [icon]="theme.isDarkTheme() ? 'pi pi-sun' : 'pi pi-moon'"
-      styleClass="p-button-text p-button-plain text-xl" (onClick)="toggleDarkMode()"></p-button>
+      [pTooltip]="(theme.isDarkTheme() ?  'TOPBAR.MODO_CLARO' :'TOPBAR.MODO_OSCURO' ) | translate"
+      tooltipPosition="bottom" styleClass="p-button-text p-button-plain text-xl"
+      (onClick)="toggleDarkMode()"></p-button>
 
-    
-      <p-button icon="pi pi-globe" styleClass="p-button-text p-button-plain text-xl"></p-button>
+    <p-button icon="pi pi-globe" styleClass="p-button-text p-button-plain text-xl" [rounded]="true" [rounded]="true"
+      [text]="true" [pTooltip]="'TOPBAR.IDIOMA' | translate" (click)="langMenu.toggle($event)"
+      tooltipPosition="bottom"></p-button>
+
+
     <p-button icon="pi pi-calendar" styleClass="p-button-text p-button-plain text-xl"></p-button>
     <p-button icon="pi pi-inbox" styleClass="p-button-text p-button-plain text-xl"></p-button>
     <p-button icon="pi pi-bell" styleClass="p-button-text p-button-plain text-xl"></p-button>
     <p-button icon="pi pi-user" styleClass="p-button-text p-button-plain text-xl"></p-button>
+    <p-tieredmenu #langMenu [model]="items()" popup="true" appendTo="body"></p-tieredmenu>
 
 
 

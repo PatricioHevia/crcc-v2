@@ -1,94 +1,87 @@
-<div class="p-4">
-  <h2 class="text-xl font-bold mb-4">{{ 'ADMIN.USERS.TITLE' | translate }} - {{ totalUsers() }}</h2>
+<div class="p-4 bg-white dark:bg-zinc-900 shadow-md rounded-lg">
+  <h2 class="text-xl font-bold mb-4 w-full text-center">{{ 'ADMIN.USERS.TITLE' | translate }}</h2>
   <div>
-    <p-table #userTable
-      [value]="usuarios()" [rows]="pageSize()"
-      [totalRecords]="totalUsers()" [loading]="loading()"
-      [paginator]="true"
-      [responsiveLayout]="'scroll'"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="{{'PRIMENG.PAGINATOR.SHOWING_OF' | translate: {first: '{first}', last: '{last}', totalRecords: '{totalRecords}'} }}"
-      [rowsPerPageOptions]="[2, 5, 10, 20, 50]" paginatorLocale="es-ES"
-      [tableStyle]="{'min-width': '75rem'}"
-      dataKey="id"
-      [filterDelay]="300"
-      [globalFilterFields]="['name', 'email', 'role', 'organizationName']" >
+    <p-table #userTable [value]="usuarios()" [rows]="pageSize()" [totalRecords]="totalUsers()" [loading]="loading()"
+      [paginator]="true" [responsiveLayout]="'scroll'" [showCurrentPageReport]="true"
+      [paginatorDropdownAppendTo]="'body'" stripedRows
+      [currentPageReportTemplate]="'PRIMENG.PAGINATOR.SHOWING_OF' | translate" [rowsPerPageOptions]="[5, 10, 20, 50]"
+      paginatorLocale="es-ES" [tableStyle]="{'min-width': '75rem'}" dataKey="id" [filterDelay]="300" [scrollable]="true"
+      [globalFilterFields]="['name', 'email', 'role', 'organizationName']">
+
       <ng-template pTemplate="caption">
         <div class="flex justify-end mb-2">
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" [(ngModel)]="globalFilterValue" (input)="userTable.filterGlobal(globalFilterValue, 'contains')" placeholder="{{'ACTIONS.SEARCH_KEYWORD' | translate}}" />
-          </span>
+          <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input pInputText type="text" [(ngModel)]="globalFilterValue"
+              (input)="userTable.filterGlobal(globalFilterValue, 'contains')"
+              placeholder="{{'ACTIONS.SEARCH_KEYWORD' | translate}}" />
+          </p-iconfield>
         </div>
       </ng-template>
 
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name" style="width:20%">
-            {{ 'ADMIN.USERS.TABLE.NAME' | translate }} <p-sortIcon field="name"></p-sortIcon>
-            <p-columnFilter type="text" field="name" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
+          <th style="width:20%" pFrozenColumn>
+            {{ 'ADMIN.USERS.TABLE.NAME' | translate }}
+            <p-columnFilter type="text" field="name" matchMode="contains" [showMenu]="false"
+              class="w-full"></p-columnFilter>
           </th>
-          <th pSortableColumn="organizationName" style="width:20%"> {{ 'ADMIN.USERS.TABLE.ORGANIZATION' | translate }} <p-sortIcon field="organizationName"></p-sortIcon>
+          <th style="width:20%">
+            {{ 'ADMIN.USERS.TABLE.ORGANIZATION' | translate }}
             <p-columnFilter field="organizationName" matchMode="in" [showMenu]="false" class="w-full">
-                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                   <div (click)="$event.stopPropagation()">
-                    <p-multiSelect 
-                        [options]="organizationFilterOptions()" 
-                        placeholder="{{'ACTIONS.ALL' | translate}}" 
-                        (onChange)="userTable.filter($event.value, 'organization', 'in')" 
-                        optionLabel="label" 
-                        optionValue="value" 
-                        [maxSelectedLabels]="1" 
-                        [selectedItemsLabel]="'{0} ' + ('ACTIONS.ITEMS_SELECTED' | translate | lowercase )"
-                        appendTo="body"
-                        styleClass="w-full">
-                    </p-multiSelect>
-                   </div>
-                </ng-template>
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <div (click)="$event.stopPropagation()">
+                  <p-multiSelect [options]="organizationFilterOptions()" placeholder="{{'ACTIONS.ALL' | translate}}"
+                    (onChange)="userTable.filter($event.value, 'organization', 'in')" optionLabel="label"
+                    optionValue="value" [showToggleAll]="true" [maxSelectedLabels]="1"
+                    [selectedItemsLabel]="'{0} ' + ('ACTIONS.ITEMS_SELECTED' | translate | lowercase)" appendTo="body"
+                    styleClass="w-full">
+                  </p-multiSelect>
+                </div>
+              </ng-template>
             </p-columnFilter>
           </th>
-          <th pSortableColumn="email" style="width:25%">
-            {{ 'ADMIN.USERS.TABLE.EMAIL' | translate }} <p-sortIcon field="email"></p-sortIcon>
-            <p-columnFilter type="text" field="email" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
+          <th style="width:25%">
+            {{ 'ADMIN.USERS.TABLE.EMAIL' | translate }}
+            <p-columnFilter type="text" field="email" matchMode="contains" [showMenu]="false"
+              class="w-full"></p-columnFilter>
           </th>
-          <th pSortableColumn="active" style="width:10%">
-            {{ 'ADMIN.USERS.TABLE.ACTIVE' | translate }} <p-sortIcon field="active"></p-sortIcon>
+          <th style="width:10%">
+            {{ 'ADMIN.USERS.TABLE.ACTIVE' | translate }}
             <p-columnFilter field="active" matchMode="equals" [showMenu]="false" class="w-full">
               <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                 <div (click)="$event.stopPropagation()">
-                  <p-select
-                    [options]="activeFilterOptions"
-                    [ngModel]="value" (onChange)="filter($event.value)" placeholder="{{'ACTIONS.SELECT_STATUS' | translate}}"
-                    [showClear]="true"
-                    styleClass="w-full md:w-10rem"
-                    optionLabel="label"
-                    optionValue="value"
-                    appendTo="body"
-                  >
-                     <ng-template let-option pTemplate="item">
-                          <span>{{ option.label }}</span>
-                      </ng-template>
+                  <p-select [options]="activeFilterOptions" [ngModel]="value" (onChange)="filter($event.value)"
+                    placeholder="{{'ACTIONS.SELECT_STATUS' | translate}}" [showClear]="true"
+                    styleClass="w-full md:w-10rem" optionValue="value" [optionLabel]="'label.' + lang()"
+                    appendTo="body">
+                    <ng-template let-option pTemplate="item">
+                      <span>{{ option.label[lang()] }}</span>
+                    </ng-template>
                   </p-select>
                 </div>
               </ng-template>
             </p-columnFilter>
           </th>
-          <th pSortableColumn="role" style="width:10%">
-            {{ 'ADMIN.USERS.TABLE.ROLE' | translate }} <p-sortIcon field="role"></p-sortIcon>
-            <p-columnFilter type="text" field="role" matchMode="equals" [showMenu]="false" class="w-full"></p-columnFilter>
+          <th style="width:10%">
+            {{ 'ADMIN.USERS.TABLE.ROLE' | translate }}
+            <p-columnFilter type="text" field="role" matchMode="contains" [showMenu]="false"
+              class="w-full"></p-columnFilter>
           </th>
-          <th pSortableColumn="updatedAt" style="width:15%">
-            {{ 'ADMIN.USERS.TABLE.UPDATED_AT' | translate }} <p-sortIcon field="updatedAt"></p-sortIcon>
+          <th style="width:15%">
+            {{ 'ADMIN.USERS.TABLE.UPDATED_AT' | translate }}
           </th>
           <th style="width:10%">
             {{ 'ADMIN.USERS.TABLE.ACTIONS' | translate }}
           </th>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="body" let-user>
         <tr>
-          <td>{{ user.name }}</td>
-          <td>{{ user.organizationName || (user.organization ? (getOrgName(user.organization)() || 'N/A') : 'N/A') }}</td>
+          <td pFrozenColumn>{{ user.name }}</td>
+          <td>{{ user.organizationName || (user.organization ? (getOrgName(user.organization)() || 'N/A') : 'N/A') }}
+          </td>
           <td>{{ user.email }}</td>
           <td>
             <i *ngIf="user.active" class="pi pi-check-circle text-green-500 text-xl"></i>
@@ -97,25 +90,23 @@
           <td>{{ user.role }}</td>
           <td>{{ user.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>
           <td>
-            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="onEdit(user)"></button>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text"
+              (click)="onEdit(user)"></button>
           </td>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="emptymessage">
         <tr>
           <td [attr.colspan]="7" class="text-center p-4">
-            {{ (globalFilterValue ? 'ADMIN.USERS.TABLE.NO_USERS_MATCHING_FILTER' : 'ADMIN.USERS.TABLE.NO_USERS_FOUND') | translate }}
+            {{ (globalFilterValue ? 'ADMIN.USERS.TABLE.NO_USERS_MATCHING_FILTER' : 'ADMIN.USERS.TABLE.NO_USERS_FOUND') |
+            translate }}
           </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="loadingbody" let-columns>
-          <tr>
-              <td [attr.colspan]="7" class="text-center p-4">
-                  <p-progressSpinner styleClass="w-8 h-8" strokeWidth="4"></p-progressSpinner>
-                  <p class="mt-2">{{ 'ADMIN.USERS.TABLE.LOADING_USERS' | translate }}</p>
-              </td>
-          </tr>
-      </ng-template>
+
+
+
     </p-table>
   </div>
 </div>

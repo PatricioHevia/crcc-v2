@@ -195,17 +195,31 @@
         "SIGUIENTE": "下一步"
     },
     "ADMIN": {
-    "USERS": {
-      "TITLE": "用户管理",
-      "TABLE": {
-        "NAME": "姓名",
-        "ORGANIZATION": "组织",
-        "EMAIL": "电子邮件",
-        "ACTIVE": "激活",
-        "ROLE": "角色",
-        "UPDATED_AT": "更新于",
-        "ACTIONS": "操作"
-      }
+        "USERS": {
+            "TITLE": "用户管理",
+            "TABLE": {
+                "NAME": "姓名",
+                "ORGANIZATION": "组织",
+                "EMAIL": "电子邮件",
+                "ACTIVE": "激活",
+                "ROLE": "角色",
+                "UPDATED_AT": "更新于",
+                "ACTIONS": "操作",
+                "NO_USERS_MATCHING_FILTER": "无符合筛选条件的用户",
+                "NO_USERS_FOUND": "未找到用户",
+                "LOADING_USERS": "正在加载用户..."
+            }
+        }
+    },
+    "ACTIONS": {
+        "SEARCH_KEYWORD": "搜索…",
+        "ALL": "全部",
+        "ITEMS_SELECTED": "项已选",
+        "SELECT_STATUS": "选择状态"
+    },
+    "PRIMENG": {
+        "PAGINATOR": {
+            "SHOWING_OF": "显示 {first} 到 {last} 共 {totalRecords} 条"
+        }
     }
-  }
 }

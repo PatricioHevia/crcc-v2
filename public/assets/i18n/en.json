@@ -204,8 +204,22 @@
         "ACTIVE": "Active",
         "ROLE": "Role",
         "UPDATED_AT": "Updated At",
-        "ACTIONS": "Actions"
+        "ACTIONS": "Actions",
+        "NO_USERS_MATCHING_FILTER": "No users match the filter",
+        "NO_USERS_FOUND": "No users found",
+        "LOADING_USERS": "Loading users..."
       }
+    }
+  },
+  "ACTIONS": {
+    "SEARCH_KEYWORD": "Search...",
+    "ALL": "All",
+    "ITEMS_SELECTED": "items selected",
+    "SELECT_STATUS": "Select status"
+  },
+  "PRIMENG": {
+    "PAGINATOR": {
+      "SHOWING_OF": "Showing {first} to {last} of {totalRecords}"
     }
   }
 }

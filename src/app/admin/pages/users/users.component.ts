@@ -1,5 +1,5 @@
 // src/app/admin/pages/users/users.component.ts
-import { Component, computed, inject, OnInit, Signal, WritableSignal, signal } from '@angular/core';
+import { Component, computed, inject, Signal, WritableSignal, signal } from '@angular/core';
 import { OrganizationService } from '../../../auth/services/organization.service'; //
 import { TranslationService } from '../../../core/services/translation.service'; //
 import { UserService } from '../../../auth/services/user.service'; //
@@ -13,6 +13,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 interface SelectOption {
   label: string;
@@ -32,10 +34,12 @@ interface SelectOption {
     InputTextModule,
     SelectModule,
     MultiSelectModule,
-    FormsModule
+    FormsModule,
+    IconFieldModule,
+    InputIconModule,
   ],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
   private userService = inject(UserService);
   private orgSvc = inject(OrganizationService);
   private translationService = inject(TranslationService);
@@ -45,13 +49,13 @@ export class UsersComponent implements OnInit {
   // Usamos las señales del servicio que contienen todos los usuarios y el estado de carga
   usuarios: Signal<Account[]> = this.userService.allUsersForAdmin;
   loading: Signal<boolean> = this.userService.allUsersLoading;
-  
+
   // totalUsers ahora se derivará de la longitud de la lista de usuarios cargada.
   totalUsers: Signal<number> = computed(() => this.usuarios().length);
-  
+
   pageSize: WritableSignal<number> = signal(10); // Puedes ajustar el tamaño de página por defecto para el cliente
 
-  activeFilterOptions: SelectOption[];
+  activeFilterOptions: any[];
   organizationFilterOptions: WritableSignal<SelectOption[]> = signal([]);
 
   // Variable para el filtro global de PrimeNG si decides usarlo
@@ -59,30 +63,39 @@ export class UsersComponent implements OnInit {
 
   constructor() {
     this.activeFilterOptions = [
-      { label: 'Todos', value: null },
-      { label: 'Activo', value: true },
-      { label: 'Inactivo', value: false }
+      { label: { es: 'Todos', en: 'All', zh: '全部' }, value: null },
+      { label: { es: 'Activo', en: 'Active', zh: '激活' }, value: true },
+      { label: { es: 'Inactivo', en: 'Inactive', zh: '未激活' }, value: false }
     ];
     this.loadOrganizationsForFilter();
   }
 
-  ngOnInit(): void {
-    // El UserService se encarga de llamar a loadAllUsersForAdmin si el usuario es admin.
-    // No se necesita hacer nada más aquí para la carga inicial.
-  }
 
   private async loadOrganizationsForFilter() {
     try {
-      // Usamos el método de OrganizationService que devuelve una promesa
-      const orgs = await this.orgSvc.getAllOrganizationsPromise(); //
+      const orgs = await this.orgSvc.getAllOrganizationsPromise();
       const options = orgs.map(org => ({ label: org.name, value: org.id }));
-      this.organizationFilterOptions.set([{ label: 'Todas', value: null }, ...options]);
+
+      // construye el label según el idioma actual
+      const noneLabelMap: Record<string, string> = {
+        es: 'Sin organización',
+        en: 'No organization',
+        zh: '无组织'
+      };
+      const noneOption: SelectOption = {
+        value: '',
+        label: noneLabelMap[this.lang()] || noneLabelMap["es"]
+      };
+
+      // pon primero “Sin organización” y luego el resto
+      this.organizationFilterOptions.set([noneOption, ...options]);
     } catch (error) {
       console.error("Error loading organizations for filter:", error);
       this.organizationFilterOptions.set([{ label: 'Error al cargar', value: null }]);
     }
   }
-  
+
+
   getOrgName(orgId: string): Signal<string | null> { //
     if (!orgId) return signal('N/A');
     return this.orgSvc.getOrganizationNameById(orgId);
@@ -92,7 +105,4 @@ export class UsersComponent implements OnInit {
     console.log('Edit user:', user);
   }
 
-  // Ya no necesitas loadUsers(event: TableLazyLoadEvent) porque PrimeNG manejará
-  // la paginación, filtrado y ordenamiento en el cliente sobre los datos de this.usuarios().
-  // Los (click)="$event.stopPropagation()" en los filtros del HTML son importantes.
 }

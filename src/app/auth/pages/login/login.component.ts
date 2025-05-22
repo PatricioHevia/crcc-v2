@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
 import { Router, RouterModule } from '@angular/router';
+import { DividerModule } from 'primeng/divider';
 
 interface LoginStorage {
   email: string;
@@ -39,7 +40,8 @@ interface LoginStorage {
     ReactiveFormsModule,
     DialogModule,
     ProgressSpinnerModule,
-    RouterModule
+    RouterModule,
+    DividerModule
   ]
 })
 export class LoginComponent implements OnInit {

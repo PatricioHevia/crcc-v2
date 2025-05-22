@@ -32,9 +32,19 @@ export class ContactoService {
   }
 
   /** Sólo crea/actualiza, sin tocar listener */
-  crearMensaje(nuevo: Partial<Contacto>): Promise<void> {
-    return this.fs.create<Contacto>('contactos', nuevo as Contacto);
+  async crearMensaje(nuevo: Partial<Contacto>): Promise<string> {
+  try {
+    // fs.create ahora retorna el id del doc (ver FirestoreService)
+    const id = await this.fs.create<Contacto>(
+      'contactos',
+      nuevo as Contacto
+    );
+    return id;
+  } catch (error: any) {
+    console.error('Error creando mensaje de contacto:', error);
+    throw new Error('No fue posible crear el mensaje: ' + error.message);
   }
+}
 
   markAsRead(id: string): Promise<void> {
     return this.fs.update<Contacto>('contactos', id, { leido: true });

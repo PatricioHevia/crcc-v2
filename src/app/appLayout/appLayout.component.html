@@ -1,0 +1,21 @@
+<app-top (toggleMenu)="layoutService.onMenuToggle()"></app-top>
+
+<div class="flex mt-14">  <!-- pt-14 = padding-top = altura del topbar (~3.5rem) -->
+  
+  <!-- Sidebar fijo debajo del topbar -->
+  <aside class="fixed top-14 left-0 bottom-0 w-64 overflow-hidden transition-transform duration-300"
+    [class.-translate-x-full]="!layoutService.showMenu()"   
+    [class.translate-x-0]="layoutService.showMenu()"     >
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <!-- Contenido principal, se corre al ancho del sidebar -->
+  <main
+    class="flex-1 transition-all duration-300 p-4 w-full"
+    [class.ml-64]="layoutService.showMenu()"    
+    [class.ml-0]="!layoutService.showMenu()"
+  >
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

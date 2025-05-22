@@ -8,6 +8,7 @@ export interface Account extends basicInfoAccount,
                                  AccountAccess  {}
                             
 export interface basicInfoAccount {
+  id: string;
   uid: string;
   name: string;
   email: string;

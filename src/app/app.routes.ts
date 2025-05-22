@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutAppComponent } from './landing/layout/layout-app/layout-app.component';
 import { AuthLayoutComponent } from './auth/auth-layout/auth-layout.component';
-import { AUTH_ROUTES } from './auth/auth.routes';
-import { LANDING_ROUTES } from './landing/landing.routes';
+import { AppLayoutComponent } from './appLayout/appLayout.component';
 
 export const routes: Routes = [
     {
@@ -12,6 +11,16 @@ export const routes: Routes = [
             {
                 path: '',
                 loadChildren: () => import('./auth/auth.routes').then(m => m.AUTH_ROUTES)
+            }
+        ]
+    },
+    {   
+        path: 'admin',
+        component: AppLayoutComponent,
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES)
             }
         ]
     },

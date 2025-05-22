@@ -1,7 +1,7 @@
 import { Injectable, Signal, computed, inject, signal } from '@angular/core';
 import { FirestoreService } from '../../core/services/firestore.service';
 import { StorageService, UploadTask } from '../../core/services/storage.service';
-import { Organization, OrganizationForm } from '../models/organization-interface';
+import { Organization, OrganizationForm, OrganizationType } from '../models/organization-interface';
 import { firstValueFrom } from 'rxjs';
 import { orderBy, QueryConstraint, Timestamp } from '@angular/fire/firestore';
 
@@ -13,22 +13,35 @@ export class OrganizationService {
     // Aquí guardamos el listener SOLO tras arrancarlo cuando un usuario es administrador
     private listener: { data: Signal<Organization[]>; loading: Signal<boolean>; } | null = null;
 
-    // Aqui guardamos el listener de una sola organización se ejecuta cuando el estado del usuario cambia.
-    private organizationUser = signal<Organization | null>(null);
-
-
     // meotodo para crear una organización
-    crearOrganizacion(organizacionForm: OrganizationForm): Promise<void> {
-        // volcamos los datos que faltan sin la id
+    async crearOrganizacion(
+        name: string,
+        email: string,
+        tin: string,
+        address: string,
+        type: OrganizationType
+    ): Promise<string> {
         const organization: Omit<Organization, 'id'> = {
-            ...organizacionForm,
+            name,
+            email,
+            tin,
+            address,
+            type,
             createdAt: Timestamp.now(),
             updatedAt: Timestamp.now(),
             usersCount: 0,
             active: true,
             deleted: false,
+            projects: []
         };
-        return this.fs.create<Omit<Organization, 'id'>>('organizations', organization);
+
+        try {
+            const newId = await this.fs.create<Omit<Organization, 'id'>>('organizations', organization);
+            return newId;
+        } catch (error: any) {
+            console.error('Error creando organización:', error);
+            throw new Error('No fue posible crear la organización: ' + error.message);
+        }
     }
 
     startListening() {
@@ -66,15 +79,17 @@ export class OrganizationService {
     }
 
     // Obtiene un objeto de orgnizaciones y nombres computed
-    getOrganizationsNames(): Signal<{ [id: string]: string }> {
-        this.startListening(); // asegura que listener esté activo
+    getOrganizationsOptions(): Signal<{ value: string; label: string }[]> {
+        this.startListening(); // asegura que el listener esté activo
         return computed(() => {
             const orgs = this.listener!.data();
-            const names: Record<string, string> = {};
-            orgs.forEach(org => {
-                names[org.id] = org.name;
-            });
-            return names;
+            // mapeamos a {value, label}, luego ordenamos por label
+            return orgs
+                .map(org => ({
+                    value: org.id,
+                    label: org.name
+                }))
+                .sort((a, b) => a.label.localeCompare(b.label));
         });
     }
 

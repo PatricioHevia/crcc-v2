@@ -20,7 +20,8 @@
     "LICITACIONES": "Licitaciones",
     "CONCURSOS": "Concursos",
     "FAQ": "Preguntas frecuentes",
-    "CONTACTO": "Contacto"
+    "CONTACTO": "Contacto",
+    "ADMIN": "Administración"
   },
   "FOOTER": {
     "CRCC": "China Railway Construction Corporation (International) Limited, Agencia en Chile (Hospitales)",
@@ -34,7 +35,7 @@
     "USERNAME": "Nombre de usuario",
     "PASSWORD": "Contraseña",
     "EMAIL": "Correo electrónico",
-    "NO_ACCOUNT":  "¿No tienes cuenta?",
+    "NO_ACCOUNT": "¿No tienes cuenta?",
     "NAME": "Nombre",
     "LOGIN_TITULO": "Bienvenido a CRCC Chile Hospitales!",
     "LOGIN_SUBTITULO": "Inicia sesión para continuar",
@@ -56,7 +57,9 @@
     "LOGOUT_SUCCESS": "Sesión cerrada con éxito",
     "EMAIL_NOT_FOUND": "No se encontró el correo electrónico",
     "INVALID_CODE": "El código de verificación es inválido",
+    "NAME_REQUIRED": "El nombre es obligatorio",
     "WRONG_PASSWORD": "La contraseña es incorrecta",
+    "PASSWORDS_NOT_MATCH": "Las contraseñas no coinciden",
     "PASSWORD_CORTA": "La contraseña debe tener al menos 6 caracteres",
     "TOO_MANY_REQUESTS": "Demasiadas solicitudes. Por favor, intenta nuevamente más tarde.",
     "PASSWORD_RESET_SUCCESS": "Se ha enviado un correo electrónico para restablecer la contraseña",
@@ -67,12 +70,35 @@
     "PASSWORD_RESET_LINK_ERROR": "Error al enviar el enlace de restablecimiento de contraseña",
     "PASSWORD_REQUIRED": "La contraseña es obligatoria",
     "EMAIL_REQUIRED": "El correo electrónico es obligatorio",
-    "LOADING":          "Cargando…",
-    "LOGIN_SUCCESS":    "¡Ingreso exitoso!",
-    "LOGIN_ERROR":      "Error al ingresar",
-    "ACCOUNT_ALREADY":"¿Ya tienes cuenta?",
+    "LOADING": "Cargando…",
+    "LOGIN_SUCCESS": "¡Ingreso exitoso!",
+    "LOGIN_ERROR": "Error al ingresar",
+    "ACCOUNT_ALREADY": "¿Ya tienes cuenta?",
     "REGISTRO_TITULO": "¡Regístrate en CRCC Chile Hospitales!",
-    "REGISTRO_SUBTITULO": "Completa todos los pasos para crear tu cuenta"
+    "REGISTRO_SUBTITULO": "Completa todos los pasos para crear tu cuenta",
+    "CREAR_CUENTA": "Crear tu cuenta",
+    "ORG_NO_ENCONTRADA": "¿No encuentras tu organización?",
+    "ORGANIZACION": "Organización",
+    "SELECT_ORGANIZACION": "Selecciona tu organización",
+    "REGISTRALA": "Regístrala",
+    "REGISTER_SUCCESS": "Registro exitoso",
+    "ACCOUNT_TYPE": "Tipo de cuenta",
+    "CREAR_ORGANIZACION": "Crear organización",
+    "ORG_NAME": "Nombre de la organización",
+    "ORG_NAME_REQUIRED": "El nombre de la organización es obligatorio",
+    "ORG_NAME_SHORT": "Debe tener al menos 3 caracteres",
+    "ORG_EMAIL": "Correo de contacto",
+    "ORG_EMAIL_REQUIRED": "El correo es obligatorio",
+    "INVALID_ORG_EMAIL": "Correo inválido",
+    "ORG_TIN": "RUT / ID fiscal / N° CONTRATO",
+    "ORG_TIN_REQUIRED": "El RUT / ID fiscal es obligatorio / N° CONTRATO",
+    "ORG_TIN_SHORT": "Debe tener al menos 3 caracteres",
+    "ORG_ADDRESS": "Dirección",
+    "ORG_ADDRESS_REQUIRED": "La dirección es obligatoria",
+    "ORG_ADDRESS_SHORT": "Debe tener al menos 3 caracteres",
+    "ORG_TYPE": "Tipo de organización",
+    "ORG_TYPE_REQUIRED": "El tipo de organización es obligatorio",
+    "CREATE_ORG": "Crear organización"
   },
   "HOME": {
     "TITULO": "NUESTRA EMPRESA",
@@ -163,5 +189,8 @@
     "EXITO": "Éxito",
     "INFO": "Información",
     "ADVERTENCIA": "Advertencia"
+  },
+  "GENERAL": {
+    "SIGUIENTE": "Siguiente"
   }
 }

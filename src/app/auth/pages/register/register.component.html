@@ -1,22 +1,257 @@
-<div class="min-w-75 lg:min-w-100 p-0">
+<div class="min-w-75 lg:min-w-100 p-0 
+">
   <div class="flex flex-col items-center justify-center">
     <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'" alt="CRCC Logo"
       class="h-18 w-auto" />
-    <h2 class="text-2xl font-semibold mt-2">
+    <h2 class="text-xl font-semibold mt-2">
       {{'AUTH.REGISTRO_TITULO' | translate}}
     </h2>
     <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
       {{'AUTH.REGISTRO_SUBTITULO' | translate}}
     </p>
   </div>
-  
-  
-  
+
+  <div class="mt-4 w-full max-w-lg mx-auto px-2">
+  <p-stepper [value]="1" [linear]="true" class="w-full">
+
+      <!-- PASO 1 -->
+      <p-step-item [value]="1">
+        <p-step>{{ 'AUTH.ACCOUNT_TYPE' | translate }}</p-step>
+        <p-step-panel styleClass="bg-transparent shadow-none"
+          [style]="{ background: 'transparent', boxShadow: 'none' }">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col min-h-15 w-full">
+
+              <form [formGroup]="step1Form" class="grid grid-cols-1 font-medium w-full items-center">
+
+                <p-selectButton fluid [options]="typeOption" formControlName="asOrg" optionLabel="label"
+                  optionValue="value">
+
+                  <ng-template pTemplate="item" let-option>
+                    <p-button size="small" [label]="option.label[lang()]" [severity]="isSelected(option) ? 'primary' : 'secondary'"
+                      [icon]="option.icon" [pTooltip]="option.tooltip[lang()]" tooltipPosition="top" [escape]="false">
+                    </p-button>
+
+                  </ng-template>
+
+                </p-selectButton>
+
+              </form>
+
+            </div>
+
+
+            <div class="py-6">
+              @if( step1Form.get('asOrg')?.value === 'empresa') {
+              <p-button size="small" [label]="'GENERAL.SIGUIENTE' | translate" (onClick)="activateCallback(2)" />
+              } @else if (step1Form.get('asOrg')?.value === 'individual') {
+              <p-button size="small" [label]="'GENERAL.SIGUIENTE' | translate" (onClick)="activateCallback(4)" />
+              }
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+
+      <!-- PASO 2 -->
+      <p-step-item [value]="2" class="border-surface-50">
+        <p-step>{{ 'AUTH.SELECT_ORGANIZACION' | translate }}</p-step>
+        <p-step-panel styleClass="bg-transparent shadow-none"
+          [style]="{ background: 'transparent', boxShadow: 'none' }">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col min-h-21 p-2">
+              <span class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">{{ 'AUTH.ORGANIZACION' |
+                translate }}</span>
+
+
+
+              <p-select id="organizacion" [options]="orgOptions()" appendTo="body" [filter]="true" filterBy="label"
+                [style]="{ 'max-width': '99%' }" styleClass="w-full" [panelStyle]="{ 'max-width': '99%' }"
+                panelStyleClass="w-full" [(ngModel)]="orgSelected">
+              </p-select>
+              <p-divider></p-divider>
+              <div class="flex flex-col items-center justify-center">
+                <span class="text-sm text-left mb-1 font-semibold text-red-500">{{ 'AUTH.ORG_NO_ENCONTRADA' | translate
+                  }}</span>
+                <p-button size="small" variant="outlined" [label]="'AUTH.REGISTRALA' | translate" severity="danger"
+                  (onClick)="activateCallback(3)"></p-button>
+              </div>
+            </div>
+            <div class="py-6">
+              <p-button [label]="'GENERAL.SIGUIENTE' | translate" (onClick)="activateCallback(4)"
+                [disabled]="orgSelected === ''"></p-button>
+            </div>
+          </ng-template>
+        </p-step-panel>
+
+      </p-step-item>
+
+      <!-- PASO 3 -->
+      <p-step-item [value]="3">
+        <p-step>{{ 'AUTH.CREAR_ORGANIZACION' | translate }}</p-step>
+        <p-step-panel styleClass="bg-transparent shadow-none"
+          [style]="{ background: 'transparent', boxShadow: 'none' }">
+          <ng-template #content let-activateCallback="activateCallback" class="">
+            <div class="flex flex-col min-h-21">
+              <!-- register-organization.component.html -->
+              <form [formGroup]="newOrgForm" (ngSubmit)="saveOrg(activateCallback)" class="grid grid-cols-1 font-medium p-2 space-y-4">
+                <!-- Nombre de la organización -->
+                <div class="w-full text-left">
+                  <label for="name">{{ 'AUTH.ORG_NAME' | translate }}</label>
+                  <input id="name" pSize="small" pInputText fluid formControlName="name" class="w-full mb-1" />
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('name','required')">
+                    {{ 'AUTH.ORG_NAME_REQUIRED' | translate }}
+                  </small>
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('name','minlength')">
+                    {{ 'AUTH.ORG_NAME_SHORT' | translate }}
+                  </small>
+                </div>
+
+                <!-- Email de la organización -->
+                <div class="w-full text-left">
+                  <label for="email">{{ 'AUTH.ORG_EMAIL' | translate }}</label>
+                  <input id="email" type="email" autocomplete="email" pSize="small" pInputText fluid
+                    formControlName="email" class="w-full mb-1" />
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('email','required')">
+                    {{ 'AUTH.ORG_EMAIL_REQUIRED' | translate }}
+                  </small>
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('email','email')">
+                    {{ 'AUTH.INVALID_ORG_EMAIL' | translate }}
+                  </small>
+                </div>
+
+                <!-- RUT / ID fiscal -->
+                <div class="w-full text-left">
+                  <label for="tin">{{ 'AUTH.ORG_TIN' | translate }}</label>
+                  <input id="tin" pSize="small" pInputText fluid formControlName="tin" class="w-full mb-1" />
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('tin','required')">
+                    {{ 'AUTH.ORG_TIN_REQUIRED' | translate }}
+                  </small>
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('tin','minlength')">
+                    {{ 'AUTH.ORG_TIN_SHORT' | translate }}
+                  </small>
+                </div>
+
+                <!-- Dirección -->
+                <div class="w-full text-left">
+                  <label for="address">{{ 'AUTH.ORG_ADDRESS' | translate }}</label>
+                  <input id="address" pSize="small" pInputText fluid formControlName="address" class="w-full mb-1" />
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('address','required')">
+                    {{ 'AUTH.ORG_ADDRESS_REQUIRED' | translate }}
+                  </small>
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('address','minlength')">
+                    {{ 'AUTH.ORG_ADDRESS_SHORT' | translate }}
+                  </small>
+                </div>
+
+                <!-- Tipo de organización -->
+                <div class="w-full text-left">
+                  <label for="type">{{ 'AUTH.ORG_TYPE' | translate }}</label>
+                  <p-select id="type" [options]="orgTypeOptions()" formControlName="type" optionLabel="label"
+                    optionValue="value" class="w-full" panelStyleClass="w-full"></p-select>
+                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('type','required')">
+                    {{ 'AUTH.ORG_TYPE_REQUIRED' | translate }}
+                  </small>
+                </div>
+
+                <!-- Botón crear organización -->
+                <div class="flex justify-center">
+                  <p-button type="submit" [label]="'AUTH.CREATE_ORG' | translate" severity="primary"
+                    [disabled]="newOrgForm.invalid"></p-button>
+                </div>
+              </form>
+
+
+            </div>
+
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+
+      <!-- PASO 4 -->
+      <p-step-item [value]="4">
+        <p-step>{{ 'AUTH.CREAR_CUENTA' | translate }}</p-step>
+        <p-step-panel styleClass="bg-transparent shadow-none"
+          [style]="{ background: 'transparent', boxShadow: 'none' }">
+          <ng-template #content let-activateCallback="activateCallback" class="">
+            <div class="flex flex-col min-h-21">
+              <form [formGroup]="userForm" class="grid grid-cols-1 font-medium p-2" (ngSubmit)="registrarUsuario()">
+                <div class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">
+                  <label for="name">{{ 'AUTH.NAME' | translate }}</label>
+                  <input pSize="small" pInputText fluid id="name" formControlName="name" class="w-full mb-3">
+                  <div>
+                    <small class="text-red-500" small *ngIf="hasError('name','required')">
+                      {{ 'AUTH.NAME_REQUIRED' | translate }}
+                    </small>
+                  </div>
+                </div>
+                <div class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">
+                  <label>{{ 'AUTH.EMAIL' | translate }}</label>
+                  <input autocomplete="email" pSize="small" type="email" pInputText fluid id="email"
+                    formControlName="email" class="w-full mb-3">
+                  <div>
+                    <small class="text-red-500  text-xs mt-1" *ngIf="hasError('email', 'required')">
+                      {{ 'AUTH.EMAIL_REQUIRED' | translate }}</small>
+                  </div>
+                  <div>
+                    <small class="text-red-500 text-xs mt-1" *ngIf="hasError('email', 'email')">
+                      {{ 'AUTH.INVALID_EMAIL' | translate }}</small>
+                  </div>
+                </div>
+                <div class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">
+                  <label>{{ 'AUTH.PASSWORD' | translate }}</label>
+                  <p-password [toggleMask]="true" autocomplete="new-password" fluid size="small"
+                    formControlName="password" [feedback]="false" />
+                  <small class="text-red-500 w-full " *ngIf="hasError('password','required')">
+                    {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
+                  </small>
+                  <small class="text-red-500 w-full " *ngIf="hasError('password','minlength')">
+                    {{ 'AUTH.PASSWORD_CORTA' | translate }}
+                  </small>
+                </div>
+                <div class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">
+                  <label>{{ 'AUTH.REPEAT_PASSWORD' | translate }}</label>
+                  <p-password [toggleMask]="true" autocomplete="new-password" fluid size="small"
+                    formControlName="repeat_password" [feedback]="false" />
+                  <small fluid class="text-red-500" *ngIf="hasError('repeat_password','required')">
+                    {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
+                  </small>
+                  <small fluid class="text-red-500" *ngIf="hasError('repeat_password','minlength')">
+                    {{ 'AUTH.PASSWORD_CORTA' | translate }}
+                  </small>
+                  <div>
+                    <small fluid class="text-red-500"
+                      *ngIf="userForm.hasError('passwordMismatch') && userForm.get('repeat_password')?.touched">
+                      {{ 'AUTH.PASSWORDS_NOT_MATCH' | translate }}
+                    </small>
+                  </div>
+                </div>
+
+
+
+                <div class="flex flex-col items-center justify-center">
+                  <p-button [disabled]="userForm.invalid" type="submit" size="small"
+                    [label]="'AUTH.SIGN_UP' | translate" severity="primary" class="mt-2"></p-button>
+                </div>
+              </form>
+
+            </div>
+
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+
+    </p-stepper>
+  </div>
+
+
+  <p-divider></p-divider>
   <div class="mt-6 text-center">
     <span class="text-sm text-gray-600 dark:text-gray-400">
       {{ 'AUTH.ACCOUNT_ALREADY' | translate }}
     </span>
-    <p-button severity="danger" [label]=" 'AUTH.LOGIN' | translate" [routerLink]="'/auth/login'" variant="text">    </p-button>
+    <p-button raised="true" variant="text" severity="success" [label]=" 'AUTH.LOGIN' | translate"
+      [routerLink]="'/auth/login'" size="small" class="ml-2">
+    </p-button>
   </div>
 
 </div>
@@ -35,7 +270,7 @@
     <p>{{ 'AUTH.LOADING' | translate }}</p>
   </div>
   }
-  @else if (loginSuccess()) {
+  @else if (registerSuccess()) {
   <div class="flex flex-col items-center justify-center gap-2">
     <i class="fa-solid fa-check text-4xl text-green-500"></i>
     <p>{{ 'AUTH.LOGIN_SUCCESS' | translate }}</p>

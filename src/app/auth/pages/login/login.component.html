@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center justify-center">
     <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'" alt="CRCC Logo"
       class="h-18 w-auto" />
-    <h2 class="text-2xl font-semibold mt-2">
+    <h2 class="text-xl font-semibold mt-2">
       {{'AUTH.LOGIN_TITULO' | translate}}
     </h2>
     <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
@@ -12,7 +12,7 @@
   <form class="mt-6 space-y-6 w-full px-4" [formGroup]="loginForm" (ngSubmit)="login()">
     <!-- Email -->
     <div class="flex flex-col text-left">
-      <label for="email" class="mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
+      <label for="email" class="mb-1 font-medium text-gray-700 dark:text-gray-300">
         {{'AUTH.EMAIL' | translate}}
       </label>
       <input pInputText fluid id="email" type="email" formControlName="email" [placeholder]="'AUTH.EMAIL' | translate"
@@ -37,7 +37,7 @@
 
     <!-- Password -->
     <div class="flex flex-col text-left">
-      <label for="password" class="mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
+      <label for="password" class="mb-1  font-medium text-gray-700 dark:text-gray-300">
         {{'AUTH.PASSWORD' | translate}}
       </label>
       <p-password fluid id="password" formControlName="password" [toggleMask]="true" [feedback]="false"
@@ -82,11 +82,12 @@
     ">
     </button>
   </form>
+  <p-divider></p-divider>
   <div class="mt-6 text-center">
     <span class="text-sm text-gray-600 dark:text-gray-400">
       {{ 'AUTH.NO_ACCOUNT' | translate }}
     </span>
-    <p-button severity="danger" [label]=" 'AUTH.SIGN_UP' | translate" [routerLink]="'/auth/register'" variant="text">    </p-button>
+    <p-button size="small"  severity="danger" [label]=" 'AUTH.SIGN_UP' | translate" [routerLink]="'/auth/register'"  [raised]="true"  class="ml-2">    </p-button>
   </div>
 
 </div>

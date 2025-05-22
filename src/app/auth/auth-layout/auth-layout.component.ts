@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenuItem } from 'primeng/api';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -22,6 +23,7 @@ import { MenuItem } from 'primeng/api';
     ButtonModule,
     TooltipModule,
     TieredMenuModule,
+    TranslateModule
    
   ]
 })

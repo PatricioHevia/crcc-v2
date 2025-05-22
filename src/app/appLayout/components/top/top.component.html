@@ -1,0 +1,34 @@
+<div
+  class="bg-white dark:bg-surface-950 shadow-md fixed top-0 inset-x-0 flex items-center justify-between px-4 py-2 z-50">
+  <!-- Menú hamburguesa -->
+  <!-- (onClick)="layoutService.onMenuToggle()" -->
+  <div class="flex flex-row">
+
+    <p-button icon="pi pi-bars" styleClass="p-button-text p-button-plain text-xl mr-4" (onClick)="layoutService.onMenuToggle()"></p-button>
+    <!-- Logo y enlace a inicio -->
+    <a routerLink="/" class="flex items-center space-x-2">
+      <a routerLink="/" aria-label="Homepage">
+        <img [src]="theme.isDarkTheme() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
+          alt="CRCC Logo" class="h-8 w-auto mr-4" />
+      </a>
+      <!-- (ruta SVG omitida por brevedad) -->
+    </a>
+
+  </div>
+  <!-- Acciones: tema, configurador y menú extra -->
+  <div class="flex items-center space-x-4">
+    <!-- Toggle dark/light -->
+    <p-button [icon]="theme.isDarkTheme() ? 'pi pi-sun' : 'pi pi-moon'"
+      styleClass="p-button-text p-button-plain text-xl" (onClick)="toggleDarkMode()"></p-button>
+
+    
+      <p-button icon="pi pi-globe" styleClass="p-button-text p-button-plain text-xl"></p-button>
+    <p-button icon="pi pi-calendar" styleClass="p-button-text p-button-plain text-xl"></p-button>
+    <p-button icon="pi pi-inbox" styleClass="p-button-text p-button-plain text-xl"></p-button>
+    <p-button icon="pi pi-bell" styleClass="p-button-text p-button-plain text-xl"></p-button>
+    <p-button icon="pi pi-user" styleClass="p-button-text p-button-plain text-xl"></p-button>
+
+
+
+  </div>
+</div>

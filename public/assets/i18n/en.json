@@ -20,7 +20,8 @@
     "LICITACIONES": "Tenders",
     "CONCURSOS": "Competitions",
     "FAQ": "Frequently Asked Questions",
-    "CONTACTO": "Contact"
+    "CONTACTO": "Contact",
+    "ADMIN": "Administration"
   },
   "FOOTER": {
     "CRCC": "China Railway Construction Corporation (International) Limited, Chile Agency (Hospitals)",
@@ -54,6 +55,8 @@
     "EMAIL_NOT_FOUND": "Email address not found",
     "INVALID_CODE": "The verification code is invalid",
     "WRONG_PASSWORD": "The password is incorrect",
+    "PASSWORDS_NOT_MATCH": "Passwords do not match",
+    "NAME_REQUIRED": "Name is required",
     "LOGOUT_ERROR": "Error logging out",
     "LOGOUT_SUCCESS": "Logged out successfully",
     "TOO_MANY_REQUESTS": "Too many requests. Please try again later.",
@@ -70,9 +73,33 @@
     "LOGIN_SUCCESS": "Logged in!",
     "LOGIN_ERROR": "Login failed",
     "NO_ACCOUNT": "Don't have an account?",
-    "ACCOUNT_ALREADY":"Already have an account?",
+    "ACCOUNT_ALREADY": "Already have an account?",
     "REGISTRO_TITULO": "Sign up at CRCC Chile Hospitals!",
-    "REGISTRO_SUBTITULO": "Complete all the steps to create your account"
+    "REGISTRO_SUBTITULO": "Complete all the steps to create your account",
+    "CREAR_CUENTA": "Create your account",
+    "ORG_NO_ENCONTRADA": "Can't find your organization?",
+    "ORGANIZACION": "Organization",
+    "SELECT_ORGANIZACION": "Select your organization",
+    "REGISTRALA": "Register it",
+    "REGISTER_SUCCESS": "Registration successful",
+    "ACCOUNT_TYPE": "Account type",
+    "ORG_NAME": "Organization Name",
+    "ORG_NAME_REQUIRED": "Organization name is required",
+    "ORG_NAME_SHORT": "Must be at least 3 characters",
+    "ORG_EMAIL": "Contact Email",
+    "ORG_EMAIL_REQUIRED": "Email is required",
+    "INVALID_ORG_EMAIL": "Invalid email address",
+    "ORG_TIN": "RUT / Tax ID / Contract No.",
+    "ORG_TIN_REQUIRED": "TRUT / Tax ID / Contract No. is required",
+    "ORG_TIN_SHORT": "Must be at least 3 characters",
+    "ORG_ADDRESS": "Address",
+    "ORG_ADDRESS_REQUIRED": "Address is required",
+    "ORG_ADDRESS_SHORT": "Must be at least 3 characters",
+    "ORG_TYPE": "Organization Type",
+    "ORG_TYPE_REQUIRED": "Organization type is required",
+    "CREATE_ORG": "Create Organization",
+    "TYPE_PRIVATE": "Private",
+    "TYPE_PUBLIC": "Public"
   },
   "HOME": {
     "TITULO": "OUR COMPANY",
@@ -163,5 +190,8 @@
     "EXITO": "Success",
     "INFO": "Information",
     "ADVERTENCIA": "Warning"
+  },
+  "GENERAL": {
+    "SIGUIENTE": "Next"
   }
 }

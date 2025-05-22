@@ -96,15 +96,16 @@ export class AuthService {
      * Manejo de errores en cada paso y rollback si falla Firestore.
      */
     async registerUser(
-        form: AccountForm,
+        name: string,
+        email: string,
         password: string,
-        organizationId?: string
+        organizationId: string
     ): Promise<void> {
         let cred: UserCredential;
 
         try {
             // 1) Crear en Auth
-            cred = await this.registerUserAuth(form.email, password);
+            cred = await this.registerUserAuth(email, password);
         } catch (err) {
             // Ya es un Error con mensaje amigable
             return Promise.reject(err);
@@ -112,8 +113,10 @@ export class AuthService {
 
         const uid = cred.user.uid;
         const account: Account = {
+            id: uid,
             uid,
-            ...form,
+            name,
+            email,
             createdAt: Timestamp.now(),
             updatedAt: Timestamp.now(),
             active: true,
@@ -125,14 +128,16 @@ export class AuthService {
             notifications: { email: true, push: true, app: true },
             language: this.translation.currentLang(),
             theme: this.theme.theme(),
-            ...(organizationId ? { organization: organizationId } : {}),
+            ...(organizationId
+                ? { organization: organizationId }
+                : {}
+            ),
         };
 
         try {
             // 2) Guardar en Firestore
             await this.fs.create<Account>('accounts', account, uid);
             // 3) Enviar verificación
-            await sendEmailVerification(cred.user);
             if (organizationId) this.os.incrementUsersCount(organizationId);
         }
         catch (err: any) {
@@ -156,7 +161,7 @@ export class AuthService {
      * Manejo de errores comunes de Firebase Auth   */
 
     async login(email: string, password: string, remember: boolean): Promise<UserCredential> {
-        const persistence = remember? browserLocalPersistence : browserSessionPersistence;
+        const persistence = remember ? browserLocalPersistence : browserSessionPersistence;
         await this.auth.setPersistence(persistence);
         try {
             const cred = await signInWithEmailAndPassword(this.auth, email, password);

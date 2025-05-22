@@ -20,7 +20,8 @@
         "LICITACIONES": "招标",
         "CONCURSOS": "竞赛",
         "FAQ": "常见问题",
-        "CONTACTO": "联系我们"
+        "CONTACTO": "联系我们",
+        "ADMIN": "管理"
     },
     "FOOTER": {
         "CRCC": "中国铁路建设集团（国际）有限公司 智利代表处 （医院）",
@@ -54,7 +55,9 @@
         "EMAIL_NOT_FOUND": "未找到该电子邮件地址",
         "INVALID_CODE": "验证码无效",
         "WRONG_PASSWORD": "密码不正确",
+        "PASSWORDS_NOT_MATCH": "两次输入的密码不一致",
         "LOGOUT_ERROR": "登出错误",
+        "NAME_REQUIRED": "姓名为必填项",
         "LOGOUT_SUCCESS": "成功登出",
         "TOO_MANY_REQUESTS": "请求过多。请稍后再试。",
         "PASSWORD_RESET_SUCCESS": "密码重置邮件已发送",
@@ -72,7 +75,31 @@
         "NO_ACCOUNT": "还没有账号？",
         "REGISTRO_TITULO": "在CRCC智利医院注册！",
         "REGISTRO_SUBTITULO": "完成所有步骤以创建您的帐户",
-         "ACCOUNT_ALREADY": "已经有账户？"
+        "ACCOUNT_ALREADY": "已经有账户？",
+        "CREAR_CUENTA": "创建您的帐户",
+        "ORG_NO_ENCONTRADA": "找不到您的组织？",
+        "ORGANIZACION": "组织",
+        "SELECT_ORGANIZACION": "请选择您的组织",
+        "REGISTRALA": "注册它",
+        "REGISTER_SUCCESS": "注册成功",
+        "ACCOUNT_TYPE": "帐户类型",
+        "ORG_NAME": "组织名称",
+        "ORG_NAME_REQUIRED": "组织名称为必填项",
+        "ORG_NAME_SHORT": "长度至少为3个字符",
+        "ORG_EMAIL": "联系邮箱",
+        "ORG_EMAIL_REQUIRED": "邮箱为必填项",
+        "INVALID_ORG_EMAIL": "无效的邮箱地址",
+        "ORG_TIN": "RUT / 税号 / 合同编号",
+        "ORG_TIN_REQUIRED": "税号为必填项",
+        "ORG_TIN_SHORT": "长度至少为3个字符",
+        "ORG_ADDRESS": "地址",
+        "ORG_ADDRESS_REQUIRED": "地址为必填项",
+        "ORG_ADDRESS_SHORT": "长度至少为3个字符",
+        "ORG_TYPE": "组织类型",
+        "ORG_TYPE_REQUIRED": "组织类型为必填项",
+        "CREATE_ORG": "创建组织",
+        "TYPE_PRIVATE": "私营",
+        "TYPE_PUBLIC": "公立"
     },
     "HOME": {
         "TITULO": "我们的公司",
@@ -163,5 +190,8 @@
         "EXITO": "成功",
         "INFO": "信息",
         "ADVERTENCIA": "警告"
+    },
+    "GENERAL": {
+        "SIGUIENTE": "下一步"
     }
 }

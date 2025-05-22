@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslationService } from '../../../../core/services/translation.service';
+import { Component, computed, inject } from '@angular/core';
+import { UserService } from '../../../../auth/services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card-concurso',
   templateUrl: './card-concurso.component.html',
-  styleUrls: ['./card-concurso.component.css']
+  styleUrls: ['./card-concurso.component.css'],
+  imports: [CommonModule],
 })
-export class CardConcursoComponent implements OnInit {
+export class CardConcursoComponent  {
 
-  constructor(private ts:TranslationService) { }
+  userService = inject(UserService);
 
- ngOnInit(): void {
-   
- }
-
+  user = computed(() => this.userService.usuario());
+  usuarios = computed(() => this.userService.usuarios());
 
 }

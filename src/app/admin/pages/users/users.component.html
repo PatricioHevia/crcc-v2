@@ -1,0 +1,39 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">{{ 'ADMIN.USERS.TITLE' | translate }}</h2>
+  @if (!loading()){
+  <div>
+    <p-table [value]="usuarios()" [totalRecords]="totalUsers" [paginator]="true" [rows]="2" [loading]="loading()">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{ 'ADMIN.USERS.TABLE.NAME' | translate }}</th>
+          <th>{{ 'ADMIN.USERS.TABLE.ORGANIZATION' | translate }}</th>
+          <th>{{ 'ADMIN.USERS.TABLE.EMAIL' | translate }}</th>
+          <th>{{ 'ADMIN.USERS.TABLE.ACTIVE' | translate }}</th>
+          <th>{{ 'ADMIN.USERS.TABLE.ROLE' | translate }}</th>
+          <th>{{ 'ADMIN.USERS.TABLE.UPDATED_AT' | translate }}</th>
+          <th>{{ 'ADMIN.USERS.TABLE.ACTIONS' | translate }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user let-columns="columns">
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ getOrgName(user.organization)() }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <i *ngIf="user.active" class="pi pi-check-circle text-green-500"></i>
+            <i *ngIf="!user.active" class="pi pi-times-circle text-red-500"></i>
+          </td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.updatedAt?.toDate() | date:'mediumDate':undefined:lang() }}</td>
+          <td>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded" (click)="onEdit(user)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  } @else {
+    <div class="text-center">{{ 'ADMIN.USERS.LOADING' | translate }} </div>
+  }
+
+</div>

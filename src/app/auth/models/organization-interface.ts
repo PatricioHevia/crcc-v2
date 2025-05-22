@@ -3,9 +3,10 @@ import { Timestamp } from "@angular/fire/firestore";
 export interface Organization {
   id: string;
   name: string;
+  tin?: string;               // NIT o CIF
   description?: string;             // descripción larga de la organización
-  email: string;
-  phone: string;
+  email?: string;
+  phone?: string;
   website?: string;
   address: string;                 // dirección principal
   type: OrganizationType;

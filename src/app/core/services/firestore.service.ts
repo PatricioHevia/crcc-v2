@@ -16,6 +16,13 @@ import {
   query as firestoreQuery,
   QueryConstraint,
   increment,
+  QueryDocumentSnapshot,
+  Query,
+  query,
+  limit,
+  orderBy,
+  startAfter,
+  getCountFromServer,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -25,18 +32,22 @@ export class FirestoreService {
   private firestore = inject(Firestore);
 
 
-  async create<T>(path: string, data: T, id?: string): Promise<void> {
+  async create<T>(path: string, data: T, id?: string): Promise<string> {
     try {
       if (id) {
+        // Si ya tienes un id, usas setDoc y devuelves el mismo
         const ref: DocumentReference<T> = doc(this.firestore, path, id) as DocumentReference<T>;
         await setDoc(ref, data);
+        return id;
       } else {
+        // Si no, usas addDoc y capturas el DocumentReference que devuelve
         const col: CollectionReference<T> = collection(this.firestore, path) as CollectionReference<T>;
-        await addDoc(col, data);
+        const docRef = await addDoc(col, data);
+        return docRef.id;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(`[FirestoreService][create] Error en ruta ${path}${id ? '/' + id : ''}:`, error);
-      throw new Error(`create(${path}${id ? '/' + id : ''}) falló: ${error}`);
+      throw new Error(`create(${path}${id ? '/' + id : ''}) falló: ${error.message}`);
     }
   }
 
@@ -182,4 +193,43 @@ export class FirestoreService {
       );
     }
   }
+
+  // firestore.service.ts
+  async fetchPage<T>(
+    collectionName: string,
+    pageSize = 20,
+    lastSnapshot?: QueryDocumentSnapshot<T>,
+    queryFn?: (ref: CollectionReference<T>) => Query<T>
+  ): Promise<{
+    items: T[];
+    lastSnapshot: QueryDocumentSnapshot<T> | null;
+  }> {
+    const collRef = collection(this.firestore, collectionName) as CollectionReference<T>;
+
+    // Si te pasan un queryFn, úsalo; si no, fallback a createdAt
+    let q: Query<T> = queryFn
+      ? query(queryFn(collRef), limit(pageSize))
+      : query(collRef, orderBy('createdAt', 'desc'), limit(pageSize));
+
+    if (lastSnapshot) {
+      q = query(q, startAfter(lastSnapshot));
+    }
+
+    const snap = await getDocs(q);
+    const items = snap.docs.map(d => d.data());
+    const last = snap.docs.length ? snap.docs[snap.docs.length - 1] : null;
+    return { items, lastSnapshot: last };
+  }
+
+  async getCount<T>(
+    collectionName: string,
+    queryFn?: (ref: CollectionReference<T>) => Query<T>
+  ): Promise<number> {
+    const collRef = collection(this.firestore, collectionName) as CollectionReference<T>;
+    // Aplica filtro si se entrega, o usa la colección completa
+    const q = queryFn ? query(queryFn(collRef)) : query(collRef);
+    const snapshot = await getCountFromServer(q);
+    return snapshot.data().count;
+  }
+
 }

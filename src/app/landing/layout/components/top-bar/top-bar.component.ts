@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject, WritableSignal, ViewChild } from '@angular/core';
+import { Component, signal, computed, inject, WritableSignal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
 import { IftaLabelModule } from 'primeng/iftalabel';
-import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 
 // Your Custom Modules/Services (ensure paths are correct)
@@ -22,6 +22,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 // Auth
 import { AuthService } from '../../../../auth/services/auth.service';
+import { UserService } from '../../../../auth/services/user.service';
 
 
 // Define MenuItem interface
@@ -66,11 +67,15 @@ export default class TopBarComponent {
   private router = inject(Router);
   private auth = inject(AuthService);
   private themeService = inject(ThemeService);
-  public translation = inject(TranslationService); // Your custom translation service
-  private translatePipe = inject(TranslateService); // ngx-translate service for programmatic translation
+  public translation = inject(TranslationService);
+  private translatePipe = inject(TranslateService);
+  private userService = inject(UserService);
+
 
   // User
   public readonly isLoggedIn = computed(() => this.auth.isLoggedIn());
+  public readonly user = computed(() => this.userService.usuario());
+
   // Sidebar móvil
   sidebarOpen = signal(false);
 
@@ -143,9 +148,19 @@ export default class TopBarComponent {
 
   // Navigation items for the main bar
   public readonly navMenuItems = computed<MenuItem[]>(() => {
+
     const items = [...this.baseRoutes()];
     // Add the language selector to the menu items
-    
+    const u = this.user();
+  if (this.isLoggedIn() && (u?.role === 'Admin' || u?.role === 'Super Admin')) {
+    items.push({
+      id: 'admin',
+      label: 'TOPBAR.ADMIN',        // tu llave de i18n, p. ej. “Administración”
+      icon: 'pi pi-shield',         // icono a tu gusto
+      route: '/admin/users'
+    });
+  }
+
     if (this.isLoggedIn()) {
       items.push({
         id: 'logout',

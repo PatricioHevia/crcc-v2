@@ -12,6 +12,9 @@ export class ThemeService {
     (localStorage.getItem(this.storageKey) as ThemeOption) || 'system'
   );
 
+  // señal booleana: si el tema es 'dark' true, si es 'light' false
+  public isDarkTheme = computed(() => this.theme() === 'dark');
+
   /** Señal: preferencia de sistema (dark-mode) */
   private systemPrefersDark = signal<boolean>(
     window.matchMedia('(prefers-color-scheme: dark)').matches

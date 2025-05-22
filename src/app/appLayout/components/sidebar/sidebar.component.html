@@ -1,9 +1,42 @@
 <div class="h-full flex flex-col p-4">
   <div class="bg-white dark:bg-zinc-900 shadow-md rounded-lg p-4 overflow-y-auto flex-1">
+
+
+   
+    <nav class="flex-1 p-4 space-y-2">
+    @for (section of menuModel(); track section.label) {
+      <div class="mb-4">
+        @if (section.label) {
+          <h2 class="px-3 py-2 text-xs font-bold text-gray-800 dark:text-gray-200 uppercase tracking-wider {{ section.styleClass }}">
+            {{ section.label | translate }} </h2>
+        }
+        @if (section.items && section.items.length > 0) {
+          <ul class="space-y-1">
+            @for (item of section.items; track item.label) {
+              <li>
+                <a
+                  [routerLink]="item.routerLink"
+                  routerLinkActive="bg-primary-50 dark:bg-primary-700/20 text-primary-600 dark:text-primary-300 font-semibold"
+                  [routerLinkActiveOptions]="{ exact: item.routerLinkActiveOptions?.exact ?? true }"
+                  class="flex items-center px-3 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-md transition-colors duration-150 group {{ item.styleClass }}"
+                  [pTooltip]="item.tooltip! | translate" tooltipPosition="right"
+                  [attr.aria-label]="item.label! | translate" >
+                  @if (item.icon) {
+                    <i class="{{ item.icon }} mr-3 text-base {{ item['routerLinkActive'] ? 'text-primary-600 dark:text-primary-300' : 'text-gray-500 dark:text-gray-400' }} group-hover:text-gray-700 dark:group-hover:text-gray-200"></i>
+                  }
+                  <span>{{ item.label! | translate }}</span> </a>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    } @empty {
+      <div class="p-4 text-center text-gray-500 dark:text-gray-400">
+        {{ 'SIDEBAR.NO_OPTIONS' | translate }}
+      </div>
+    }
+  </nav>
+
     
- 
-
   </div>
-
-
 </div>

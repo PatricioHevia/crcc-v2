@@ -221,5 +221,21 @@
         "PAGINATOR": {
             "SHOWING_OF": "显示 {first} 到 {last} 共 {totalRecords} 条"
         }
+    },
+    "SIDEBAR": {
+        "ADMINISTRATION": "管理",
+        "DASHBOARD": "仪表板",
+        "USERS": "用户",
+        "PROJECTS": "项目",
+        "OFFICES": "办公室",
+        "ORGANIZATIONS": "组织",
+        "GENERAL": "通用",
+        "HOME": "主页",
+        "PROFILE": "我的资料"
+    },
+    "USER_ROLES": {
+        "Admin": "管理员",
+        "Super Admin": "超级管理员",
+        "Usuario Básico": "基本用户"
     }
 }

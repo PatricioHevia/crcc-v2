@@ -221,5 +221,21 @@
     "PAGINATOR": {
       "SHOWING_OF": "Showing {first} to {last} of {totalRecords}"
     }
+  },
+  "SIDEBAR": {
+    "ADMINISTRATION": "Administration",
+    "DASHBOARD": "Dashboard",
+    "USERS": "Users",
+    "PROJECTS": "Projects",
+    "OFFICES": "Offices",
+    "ORGANIZATIONS": "Organizations",
+    "GENERAL": "General",
+    "HOME": "Home",
+    "PROFILE": "My Profile"
+  },
+  "USER_ROLES": {
+    "Admin": "Administrator",
+    "Super Admin": "Super Administrator",
+    "Usuario Básico": "Basic User"
   }
 }

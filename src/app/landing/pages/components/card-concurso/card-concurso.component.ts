@@ -10,9 +10,4 @@ import { CommonModule } from '@angular/common';
 })
 export class CardConcursoComponent  {
 
-  userService = inject(UserService);
-
-  user = computed(() => this.userService.usuario());
-  usuarios = computed(() => this.userService.usuarios());
-
 }

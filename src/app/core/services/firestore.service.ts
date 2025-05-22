@@ -23,7 +23,11 @@ import {
   orderBy,
   startAfter,
   getCountFromServer,
+  where,
+  DocumentData,
 } from '@angular/fire/firestore';
+import { SortMeta } from 'primeng/api';
+import { TableLazyLoadEvent } from 'primeng/table';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -230,6 +234,85 @@ export class FirestoreService {
     const q = queryFn ? query(queryFn(collRef)) : query(collRef);
     const snapshot = await getCountFromServer(q);
     return snapshot.data().count;
+  }
+
+  private buildFilterConstraints<T>(filters: TableLazyLoadEvent['filters']): QueryConstraint[] {
+    const constraints: QueryConstraint[] = [];
+    if (!filters) {
+      return constraints;
+    }
+
+    for (const field in filters) {
+      const filterMetadata = filters[field];
+      if (filterMetadata) {
+        const activeFilters = Array.isArray(filterMetadata) ? filterMetadata : [filterMetadata];
+        for (const f of activeFilters) {
+          if (f.value !== null && f.value !== undefined && f.value !== '') {
+            // This needs to be adapted based on f.matchMode.
+            // Firestore has limitations (e.g., no direct 'contains' for strings).
+            // Example for 'equals':
+            if (f.matchMode === 'equals') {
+              constraints.push(where(field, '==', f.value));
+            } else if (f.matchMode === 'startsWith') {
+              constraints.push(where(field, '>=', f.value));
+              constraints.push(where(field, '<=', f.value + '\uf8ff'));
+            }
+            // TODO: Add more matchModes as needed: notEquals, lt, lte, gt, gte, in, etc.
+            // For date fields, ensure f.value is a Firebase Timestamp or convert it.
+          }
+        }
+      }
+    }
+    return constraints;
+  }
+
+  public async fetchLazyData<T extends { id: string }>(
+    collectionName: string,
+    event: TableLazyLoadEvent,
+    defaultSortField: string = 'createdAt',
+    defaultSortOrder: 'desc' | 'asc' = 'desc'
+  ): Promise<{ items: T[]; totalRecords: number }> {
+    const collRef = collection(this.firestore, collectionName) as CollectionReference<T>;
+    const baseQueryConstraints: QueryConstraint[] = [];
+
+    // Apply filters first (for both count and data queries if filters affect total)
+    const filterConstraints = this.buildFilterConstraints<T>(event.filters);
+    baseQueryConstraints.push(...filterConstraints);
+
+    // 1. Get total records matching filters
+    const countQuery = query(collRef, ...baseQueryConstraints);
+    const totalRecordsSnap = await getCountFromServer(countQuery);
+    const totalRecords = totalRecordsSnap.data().count;
+
+    // 2. Build query for data slice
+    const dataQueryConstraints: QueryConstraint[] = [...baseQueryConstraints];
+
+    // Sorting
+    let sortField = event.sortField || defaultSortField;
+    let sortOrderDirection: 'asc' | 'desc' = (event.sortOrder === 1 ? 'asc' : (event.sortOrder === -1 ? 'desc' : defaultSortOrder));
+
+    if (Array.isArray(event.multiSortMeta) && event.multiSortMeta.length > 0) {
+      // Handle multi-sort if needed, Firestore supports multiple orderBy clauses
+      for (const meta of event.multiSortMeta as SortMeta[]) {
+        dataQueryConstraints.push(orderBy(meta.field, meta.order === 1 ? 'asc' : 'desc'));
+      }
+    } else if (sortField && typeof sortField === 'string') {
+      dataQueryConstraints.push(orderBy(sortField, sortOrderDirection));
+    }
+
+    // Pagination (Limit)
+    const rows = event.rows || 10; // Default to 10 rows if not provided
+    dataQueryConstraints.push(limit(rows));
+
+
+    let finalQuery = query(collRef, ...dataQueryConstraints);
+
+
+    const dataSnap = await getDocs(finalQuery);
+    const items = dataSnap.docs.map(docSnap => ({ ...docSnap.data(), id: docSnap.id, _snapshot: docSnap } as T & { _snapshot?: QueryDocumentSnapshot<DocumentData> }));
+    // Storing _snapshot temporarily if needed for next page cursor
+
+    return { items, totalRecords };
   }
 
 }

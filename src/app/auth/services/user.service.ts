@@ -2,7 +2,7 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { Auth, onAuthStateChanged, User as FirebaseUser } from '@angular/fire/auth';
 // QueryDocumentSnapshot might still be needed if you manage cursors for startAfter
-import { QueryDocumentSnapshot } from '@angular/fire/firestore'; 
+import { DocumentData, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { FirestoreService } from '../../core/services/firestore.service';
 import type { Account } from '../models/account-interface';
 import { TableLazyLoadEvent } from 'primeng/table'; // Import PrimeNG type
@@ -21,13 +21,7 @@ export class UserService {
     return !!u && (u.role === 'Admin' || u.role === 'Super Admin'); //
   });
 
-  // Remove old pagination signals and methods if UsersComponent now handles its own state
-  // public pageSize = signal<number>(2); // This can be a default in the component
-  // public usuarios = signal<Account[]>([]); // Component will manage this signal
-  // public usuariosLoading = signal(false); // Component will manage this signal
-  // private lastSnapshot?: QueryDocumentSnapshot<Account>; // Cursor management will change
-
-  constructor() {
+  constructor() { //
     onAuthStateChanged(this.auth, (user: FirebaseUser | null) => {
       if (user) {
         this.initUser(user.uid);
@@ -37,38 +31,44 @@ export class UserService {
     });
   }
 
-  private initUser(uid: string) {
+  private initUser(uid: string) { //
     this.userSub?.unsubscribe();
     this.userSub = this.fs.listenOne<Account>('accounts', uid).subscribe(acc => {
       this.usuario.set(acc ?? null);
-      // No automatic user list loading for admin here;
-      // UsersComponent will trigger its load via onLazyLoad.
     });
   }
 
-  private clearUser() {
+  private clearUser() { //
     this.userSub?.unsubscribe();
     this.usuario.set(null);
   }
 
-  // This method might still be useful if needed elsewhere, or for the initial totalRecords.
-  public async getTotalUsers(): Promise<number> {
-     if (!this.isAdmin()) return 0; // Guard it if called independently
-     return this.fs.getCount<Account>('accounts'); //
+  public async getTotalUsers(): Promise<number> { //
+    if (!this.isAdmin()) return 0;
+    return this.fs.getCount('accounts'); // Asegúrate que tu fs tiene getCount
   }
 
-  // NEW method for lazy loading users
-  public async getUsersLazy(
-    event: TableLazyLoadEvent
-  ): Promise<{ items: Account[]; totalRecords: number }> {
+  public async fetchUsersPage(
+    pageSize: number,
+    orderByField: string = 'createdAt', // Default sort
+    sortDir: 'asc' | 'desc' = 'desc',
+    startAfterDoc?: QueryDocumentSnapshot<DocumentData>
+  ): Promise<{ items: Account[]; newLastDocSnapshot: QueryDocumentSnapshot<DocumentData> | null }> {
     if (!this.isAdmin()) {
-      return { items: [], totalRecords: 0 };
+      return { items: [], newLastDocSnapshot: null };
     }
-    // Pass the event to the FirestoreService. Default sort can be set here or in FirestoreService.
-    // The `_snapshot` field added in firestore.service can be used by the component
-    // to manage cursors for `startAfter` if you build that more advanced pagination.
-    return this.fs.fetchLazyData<Account>('accounts', event, 'createdAt', 'desc');
+
+    const result = await this.fs.getPaginatedCollectionAdvanced<Account>(
+      'accounts',
+      orderByField,
+      sortDir,
+      pageSize,
+      startAfterDoc
+    );
+    return { items: result.data, newLastDocSnapshot: result.lastDocSnapshot };
   }
+
+
 
   // update, delete, getById methods from your existing service...
   public update(id: string, changes: Partial<Account>) { //

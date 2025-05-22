@@ -225,16 +225,7 @@ export class FirestoreService {
     return { items, lastSnapshot: last };
   }
 
-  async getCount<T>(
-    collectionName: string,
-    queryFn?: (ref: CollectionReference<T>) => Query<T>
-  ): Promise<number> {
-    const collRef = collection(this.firestore, collectionName) as CollectionReference<T>;
-    // Aplica filtro si se entrega, o usa la colección completa
-    const q = queryFn ? query(queryFn(collRef)) : query(collRef);
-    const snapshot = await getCountFromServer(q);
-    return snapshot.data().count;
-  }
+
 
   private buildFilterConstraints<T>(filters: TableLazyLoadEvent['filters']): QueryConstraint[] {
     const constraints: QueryConstraint[] = [];
@@ -315,4 +306,50 @@ export class FirestoreService {
     return { items, totalRecords };
   }
 
+  public async getPaginatedCollectionAdvanced<T extends { id: string }>(
+    path: string,
+    orderByField: string,
+    sortDir: 'asc' | 'desc' = 'asc',
+    pageSize: number,
+    startAfterSnapshot?: QueryDocumentSnapshot<DocumentData>
+  ): Promise<{
+    data: T[];
+    lastDocSnapshot: QueryDocumentSnapshot<DocumentData> | null;
+  }> {
+    const collRef = collection(this.firestore, path) as CollectionReference<T>;
+    const constraints: QueryConstraint[] = [
+      orderBy(orderByField, sortDir),
+      limit(pageSize)
+    ];
+
+    if (startAfterSnapshot) {
+      constraints.push(startAfter(startAfterSnapshot));
+    }
+
+    const finalQuery = query(collRef, ...constraints);
+
+    try {
+      const querySnapshot = await getDocs(finalQuery);
+      const data = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as T));
+
+      let lastVisibleDoc: QueryDocumentSnapshot<DocumentData> | null = null;
+      if (querySnapshot.docs.length > 0) {
+        lastVisibleDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+      }
+      // Solo retorna un lastVisibleDoc si realmente hay más por cargar o es el final de la página actual.
+      // Si querySnapshot.docs.length < pageSize, significa que es la última página.
+
+      return { data, lastDocSnapshot: lastVisibleDoc };
+    } catch (error) {
+      console.error(`[FirestoreService] Error en getPaginatedCollectionAdvanced -> ${path}`, error);
+      throw error;
+    }
+  }
+
+  // Mantén tu método getCount (o countCollection del ejemplo que funciona)
+  public async getCount(collectionName: string): Promise<number> {
+    const collRef = collection(this.firestore, collectionName);
+    const snapshot = await getCountFromServer(query(collRef)); // query() es opcional si no hay 'where'
+    return snapshot.data().count;
+  }
 }

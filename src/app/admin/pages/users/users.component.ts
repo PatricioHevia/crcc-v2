@@ -1,15 +1,15 @@
-// In src/app/admin/pages/users/users.component.ts
+// En: patriciohevia/crcc-v2/crcc-v2-71976733b498679b24ddd825706a5eae8f47bd2c/src/app/admin/pages/users/users.component.ts
 import { Component, computed, inject, OnInit, Signal, signal } from '@angular/core';
 import { OrganizationService } from '../../../auth/services/organization.service';
 import { TranslationService } from '../../../core/services/translation.service';
 import { UserService } from '../../../auth/services/user.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { TableModule, TableLazyLoadEvent } from 'primeng/table'; // Import TableLazyLoadEvent
+import { TableModule, TableLazyLoadEvent } from 'primeng/table';
 import { Account } from '../../../auth/models/account-interface';
-import { ButtonModule } from 'primeng/button'; // For pButton
-import { ProgressSpinnerModule } from 'primeng/progressspinner'; // For loading indicator
-import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore'; // For snapshot typing
+import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore'; // Importa esto
 
 @Component({
   selector: 'app-users',
@@ -23,97 +23,106 @@ import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore'; /
     ProgressSpinnerModule,
   ],
 })
-export class UsersComponent implements OnInit { // OnInit might be optional
+export class UsersComponent implements OnInit {
   private userService = inject(UserService);
   private orgSvc = inject(OrganizationService);
   private translationService = inject(TranslationService);
 
   lang = computed(() => this.translationService.currentLang());
 
-  // Signals for table data and state
   usuarios = signal<Account[]>([]);
   totalUsers = signal(0);
   loading = signal(false);
+  pageSize = signal(2); // O el valor que desees por defecto
+
+  // Mapa para guardar el último snapshot de cada página (clave: número de página (0-indexado))
+  private pageSnapshots = new Map<number, QueryDocumentSnapshot<DocumentData> | undefined>();
   
-  pageSize = signal(2); // Default page size, matches your current [rows]
-
-  // To store the snapshot of the last document of the current page, for 'next page' type logic
-  // This is a simplified cursor management. For true random access with `startAfter` from `event.first`,
-  // the logic in `WorkspaceLazyData` or here would need to be more advanced.
-  private lastDocSnapshot: QueryDocumentSnapshot<DocumentData> | undefined;
-  private firstDocSnapshot: QueryDocumentSnapshot<DocumentData> | undefined;
+  // Almacena el snapshot del último documento de la última página cargada
+  private lastFetchedSnapshotForNextPage: QueryDocumentSnapshot<DocumentData> | undefined;
 
 
-  organizaciones = computed(() => this.orgSvc.Organizations);
+  organizaciones = computed(() => this.orgSvc.Organizations); //
 
   constructor() {}
 
   ngOnInit(): void {
-    // The p-table with lazy=true will call onLazyLoad on initialization.
-    // No explicit call to loadUsers needed here typically.
-    // If you wanted to ensure totalUsers is known early for other UI elements,
-    // you could fetch it separately, but onLazyLoad will provide it anyway.
+    // onLazyLoad se disparará automáticamente al inicio
   }
 
   async loadUsers(event: TableLazyLoadEvent) {
     this.loading.set(true);
     console.log('LazyLoad Event:', event);
 
-    // Set rows from event or default from component's pageSize signal
-    event.rows = event.rows || this.pageSize();
+    const first = event.first || 0;
+    const rows = event.rows || this.pageSize();
+    const currentPageNum = Math.floor(first / rows); // Página actual (0-indexada)
+    
+    const sortField = Array.isArray(event.sortField)
+      ? event.sortField[0] || 'createdAt'
+      : event.sortField || 'createdAt';
+    const sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
 
-    // Simplistic snapshot management for sequential paging with `startAfter`.
-    // `event.first` gives an offset. Translating offset to Firestore cursors without `offset()` is tricky.
-    // This example doesn't fully implement `startAfter` from `event.first` for random jumps
-    // without a more complex cursor retrieval strategy in the service.
-    // The `WorkspaceLazyData` currently doesn't use `startAfter` based on `event.first`.
-    // It would fetch the "first page" according to sort/filter and limit.
-    // To truly paginate with `startAfter` for page 2, 3, etc., you need the snapshot of the
-    // last item of the *previous* page. `event.first` makes this harder.
+    let cursor: QueryDocumentSnapshot<DocumentData> | undefined;
 
-    // If your `WorkspaceLazyData` is modified to accept a startAfterDocument snapshot:
-    // if (event.first !== 0 && this.lastDocSnapshot) {
-    //   (event as any).snapshotForStartAfter = this.lastDocSnapshot;
-    // }
+    if (currentPageNum === 0) {
+      // Primera página, no hay cursor
+      this.pageSnapshots.clear(); // Limpiar snapshots al volver a la primera página
+      cursor = undefined;
+    } else {
+      // Para páginas subsiguientes, intenta obtener el cursor de la página anterior
+      cursor = this.pageSnapshots.get(currentPageNum - 1);
+      if (!cursor) {
+          
+          console.warn(`No snapshot found for page ${currentPageNum - 1}. Fetching from beginning for page ${currentPageNum}. Consider fetching page by page or using offset if available.`);
+          
+          if (first > 0 && this.lastFetchedSnapshotForNextPage && first === this.usuarios().length) { // Asume que event.first coincide con el final de los datos actuales para "siguiente página"
+             cursor = this.lastFetchedSnapshotForNextPage;
+          } else {
+            // Si no es una carga secuencial clara o es la primera página
+            this.lastFetchedSnapshotForNextPage = undefined; // Reinicia el cursor para la llamada
+            cursor = undefined;
+          }
+      }
+    }
+     console.log(`Requesting page ${currentPageNum} with cursor:`, cursor ? `Doc ID: ${cursor.id}`: 'None');
 
 
     try {
-      const result = await this.userService.getUsersLazy(event);
-      
-      // Store snapshots if your service provides them and you want to implement more precise cursor pagination
-      // This depends on `WorkspaceLazyData` returning items with their snapshots
-      const itemsWithSnapshots = result.items as (Account & { _snapshot?: QueryDocumentSnapshot<DocumentData> })[];
-      this.usuarios.set(itemsWithSnapshots.map(item => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { _snapshot, ...rest } = item; // Exclude snapshot from stored user data if not needed directly
-        return rest as Account;
-      }));
-      
-      if (itemsWithSnapshots.length > 0) {
-        this.firstDocSnapshot = itemsWithSnapshots[0]._snapshot;
-        this.lastDocSnapshot = itemsWithSnapshots[itemsWithSnapshots.length - 1]._snapshot;
-      } else {
-        this.firstDocSnapshot = undefined;
-        this.lastDocSnapshot = undefined;
+      // Obtener el total de usuarios (podrías optimizar para no llamarlo siempre)
+      if (this.totalUsers() === 0 || event.first === 0) { // Solo obtener total al inicio o si no se tiene
+        const total = await this.userService.getTotalUsers();
+        this.totalUsers.set(total);
       }
 
-      this.totalUsers.set(result.totalRecords);
+      const result = await this.userService.fetchUsersPage(
+        rows,
+        sortField,
+        sortOrder,
+        cursor // Pasa el cursor correcto
+      );
+      
+      this.usuarios.set(result.items);
+      this.lastFetchedSnapshotForNextPage = result.newLastDocSnapshot || undefined;
+
+      // Guardar el snapshot para la página actual si se quiere intentar soportar "página anterior"
+      if (result.newLastDocSnapshot) {
+        this.pageSnapshots.set(currentPageNum, result.newLastDocSnapshot);
+      }
+      
     } catch (error) {
       console.error('Error loading users:', error);
-      this.usuarios.set([]);
-      this.totalUsers.set(0);
-      // Consider showing a toast message here
+      // Considera resetear o mostrar un mensaje de error
     } finally {
       this.loading.set(false);
     }
   }
 
-  getOrgName(id: string): Signal<string | null> {
+  getOrgName(id: string): Signal<string | null> { //
     return this.orgSvc.getOrganizationNameById(id);
   }
 
-  onEdit(user: Account): void {
+  onEdit(user: Account): void { //
     console.log('Edit user:', user);
-    // Implement edit logic
   }
 }

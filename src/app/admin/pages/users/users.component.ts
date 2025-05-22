@@ -1,15 +1,23 @@
-// En: patriciohevia/crcc-v2/crcc-v2-71976733b498679b24ddd825706a5eae8f47bd2c/src/app/admin/pages/users/users.component.ts
-import { Component, computed, inject, OnInit, Signal, signal } from '@angular/core';
-import { OrganizationService } from '../../../auth/services/organization.service';
-import { TranslationService } from '../../../core/services/translation.service';
-import { UserService } from '../../../auth/services/user.service';
+// src/app/admin/pages/users/users.component.ts
+import { Component, computed, inject, OnInit, Signal, WritableSignal, signal } from '@angular/core';
+import { OrganizationService } from '../../../auth/services/organization.service'; //
+import { TranslationService } from '../../../core/services/translation.service'; //
+import { UserService } from '../../../auth/services/user.service'; //
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { TableModule, TableLazyLoadEvent } from 'primeng/table';
-import { Account } from '../../../auth/models/account-interface';
+import { TableModule } from 'primeng/table'; // No necesitas TableLazyLoadEvent aquí
+import { Account } from '../../../auth/models/account-interface'; //
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore'; // Importa esto
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FormsModule } from '@angular/forms';
+
+interface SelectOption {
+  label: string;
+  value: any;
+}
 
 @Component({
   selector: 'app-users',
@@ -21,6 +29,10 @@ import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore'; /
     TableModule,
     ButtonModule,
     ProgressSpinnerModule,
+    InputTextModule,
+    SelectModule,
+    MultiSelectModule,
+    FormsModule
   ],
 })
 export class UsersComponent implements OnInit {
@@ -30,99 +42,57 @@ export class UsersComponent implements OnInit {
 
   lang = computed(() => this.translationService.currentLang());
 
-  usuarios = signal<Account[]>([]);
-  totalUsers = signal(0);
-  loading = signal(false);
-  pageSize = signal(2); // O el valor que desees por defecto
-
-  // Mapa para guardar el último snapshot de cada página (clave: número de página (0-indexado))
-  private pageSnapshots = new Map<number, QueryDocumentSnapshot<DocumentData> | undefined>();
+  // Usamos las señales del servicio que contienen todos los usuarios y el estado de carga
+  usuarios: Signal<Account[]> = this.userService.allUsersForAdmin;
+  loading: Signal<boolean> = this.userService.allUsersLoading;
   
-  // Almacena el snapshot del último documento de la última página cargada
-  private lastFetchedSnapshotForNextPage: QueryDocumentSnapshot<DocumentData> | undefined;
+  // totalUsers ahora se derivará de la longitud de la lista de usuarios cargada.
+  totalUsers: Signal<number> = computed(() => this.usuarios().length);
+  
+  pageSize: WritableSignal<number> = signal(10); // Puedes ajustar el tamaño de página por defecto para el cliente
 
+  activeFilterOptions: SelectOption[];
+  organizationFilterOptions: WritableSignal<SelectOption[]> = signal([]);
 
-  organizaciones = computed(() => this.orgSvc.Organizations); //
+  // Variable para el filtro global de PrimeNG si decides usarlo
+  globalFilterValue: string = '';
 
-  constructor() {}
+  constructor() {
+    this.activeFilterOptions = [
+      { label: 'Todos', value: null },
+      { label: 'Activo', value: true },
+      { label: 'Inactivo', value: false }
+    ];
+    this.loadOrganizationsForFilter();
+  }
 
   ngOnInit(): void {
-    // onLazyLoad se disparará automáticamente al inicio
+    // El UserService se encarga de llamar a loadAllUsersForAdmin si el usuario es admin.
+    // No se necesita hacer nada más aquí para la carga inicial.
   }
 
-  async loadUsers(event: TableLazyLoadEvent) {
-    this.loading.set(true);
-    console.log('LazyLoad Event:', event);
-
-    const first = event.first || 0;
-    const rows = event.rows || this.pageSize();
-    const currentPageNum = Math.floor(first / rows); // Página actual (0-indexada)
-    
-    const sortField = Array.isArray(event.sortField)
-      ? event.sortField[0] || 'createdAt'
-      : event.sortField || 'createdAt';
-    const sortOrder = event.sortOrder === 1 ? 'asc' : 'desc';
-
-    let cursor: QueryDocumentSnapshot<DocumentData> | undefined;
-
-    if (currentPageNum === 0) {
-      // Primera página, no hay cursor
-      this.pageSnapshots.clear(); // Limpiar snapshots al volver a la primera página
-      cursor = undefined;
-    } else {
-      // Para páginas subsiguientes, intenta obtener el cursor de la página anterior
-      cursor = this.pageSnapshots.get(currentPageNum - 1);
-      if (!cursor) {
-          
-          console.warn(`No snapshot found for page ${currentPageNum - 1}. Fetching from beginning for page ${currentPageNum}. Consider fetching page by page or using offset if available.`);
-          
-          if (first > 0 && this.lastFetchedSnapshotForNextPage && first === this.usuarios().length) { // Asume que event.first coincide con el final de los datos actuales para "siguiente página"
-             cursor = this.lastFetchedSnapshotForNextPage;
-          } else {
-            // Si no es una carga secuencial clara o es la primera página
-            this.lastFetchedSnapshotForNextPage = undefined; // Reinicia el cursor para la llamada
-            cursor = undefined;
-          }
-      }
-    }
-     console.log(`Requesting page ${currentPageNum} with cursor:`, cursor ? `Doc ID: ${cursor.id}`: 'None');
-
-
+  private async loadOrganizationsForFilter() {
     try {
-      // Obtener el total de usuarios (podrías optimizar para no llamarlo siempre)
-      if (this.totalUsers() === 0 || event.first === 0) { // Solo obtener total al inicio o si no se tiene
-        const total = await this.userService.getTotalUsers();
-        this.totalUsers.set(total);
-      }
-
-      const result = await this.userService.fetchUsersPage(
-        rows,
-        sortField,
-        sortOrder,
-        cursor // Pasa el cursor correcto
-      );
-      
-      this.usuarios.set(result.items);
-      this.lastFetchedSnapshotForNextPage = result.newLastDocSnapshot || undefined;
-
-      // Guardar el snapshot para la página actual si se quiere intentar soportar "página anterior"
-      if (result.newLastDocSnapshot) {
-        this.pageSnapshots.set(currentPageNum, result.newLastDocSnapshot);
-      }
-      
+      // Usamos el método de OrganizationService que devuelve una promesa
+      const orgs = await this.orgSvc.getAllOrganizationsPromise(); //
+      const options = orgs.map(org => ({ label: org.name, value: org.id }));
+      this.organizationFilterOptions.set([{ label: 'Todas', value: null }, ...options]);
     } catch (error) {
-      console.error('Error loading users:', error);
-      // Considera resetear o mostrar un mensaje de error
-    } finally {
-      this.loading.set(false);
+      console.error("Error loading organizations for filter:", error);
+      this.organizationFilterOptions.set([{ label: 'Error al cargar', value: null }]);
     }
   }
-
-  getOrgName(id: string): Signal<string | null> { //
-    return this.orgSvc.getOrganizationNameById(id);
+  
+  getOrgName(orgId: string): Signal<string | null> { //
+    if (!orgId) return signal('N/A');
+    return this.orgSvc.getOrganizationNameById(orgId);
   }
 
   onEdit(user: Account): void { //
     console.log('Edit user:', user);
   }
+
+  // Ya no necesitas loadUsers(event: TableLazyLoadEvent) porque PrimeNG manejará
+  // la paginación, filtrado y ordenamiento en el cliente sobre los datos de this.usuarios().
+  // Los (click)="$event.stopPropagation()" en los filtros del HTML son importantes.
 }

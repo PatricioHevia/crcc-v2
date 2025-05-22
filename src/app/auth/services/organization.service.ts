@@ -1,4 +1,4 @@
-import { Injectable, Signal, computed, inject, signal } from '@angular/core';
+import { EnvironmentInjector, Injectable, Signal, computed, effect, inject, runInInjectionContext, signal } from '@angular/core';
 import { FirestoreService } from '../../core/services/firestore.service';
 import { StorageService, UploadTask } from '../../core/services/storage.service';
 import { Organization, OrganizationForm, OrganizationType } from '../models/organization-interface';
@@ -9,6 +9,8 @@ import { orderBy, QueryConstraint, Timestamp } from '@angular/fire/firestore';
 export class OrganizationService {
     private readonly fs = inject(FirestoreService);
     private readonly storage = inject(StorageService);
+    private readonly injector = inject(EnvironmentInjector); // Inyecta EnvironmentInjector
+
 
     // Aquí guardamos el listener SOLO tras arrancarlo cuando un usuario es administrador
     private listener: { data: Signal<Organization[]>; loading: Signal<boolean>; } | null = null;
@@ -150,6 +152,32 @@ export class OrganizationService {
             'usersCount',
             1
         );
+    }
+
+    getAllOrganizationsPromise(): Promise<Organization[]> {
+        this.startListening(); // Asegura que el listener esté activo y la carga haya comenzado
+
+        // Si el listener no se pudo inicializar (ej. fs.listenCollectionWithLoading no existe o falló)
+        if (!this.listener) {
+            console.error('[OrganizationService] El listener no está inicializado. No se pueden obtener las organizaciones.');
+            return Promise.resolve([]); // O Promise.reject(new Error('Listener not initialized'));
+        }
+
+        return new Promise<Organization[]>((resolve) => {
+            runInInjectionContext(this.injector, () => {
+                const effectRef = effect(() => {
+                    const isLoading = this.listener!.loading(); // Accede al valor de la señal de carga
+
+                    if (!isLoading) {
+                        const organizations = this.listener!.data(); // Accede al valor de la señal de datos
+                        // Una vez que loading es false, la señal de datos debería tener el estado actual.
+                        // Se resuelve la promesa con los datos disponibles.
+                        effectRef.destroy(); // Limpia el efecto una vez que ha cumplido su propósito
+                        resolve(organizations);
+                    }
+                });
+            });
+        });
     }
 }
 

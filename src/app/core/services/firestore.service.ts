@@ -25,8 +25,9 @@ import {
   getCountFromServer,
   where,
   DocumentData,
+  onSnapshot,
 } from '@angular/fire/firestore';
-import { SortMeta } from 'primeng/api';
+import { FilterMetadata, SortMeta } from 'primeng/api';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { Observable } from 'rxjs';
 
@@ -127,14 +128,26 @@ export class FirestoreService {
   /**
    * Escucha cambios en un documento como Observable.
    */
-  listenOne<T>(path: string, id: string): Observable<T | undefined> {
-    try {
-      const ref = doc(this.firestore, path, id) as DocumentReference<T>;
-      return docData<T>(ref, { idField: 'id' as keyof T });
-    } catch (error) {
-      console.error(`[FirestoreService][listenOne] Error al escuchar ${path}/${id}:`, error);
-      throw new Error(`listenOne(${path}/${id}) falló: ${error}`);
-    }
+  listenOne<T extends { id: string }>(collectionName: string, documentId: string): Observable<T | null> { // Modified from your "working example" to fit your current structure
+    const ref = doc(this.firestore, collectionName, documentId);
+    return new Observable<T | null>(subscriber => {
+      const unsub = onSnapshot(
+        ref,
+        snap => {
+          if (snap.exists()) {
+            subscriber.next({ ...(snap.data() as T), id: snap.id });
+          } else {
+            console.warn(`[FirestoreService] Documento no encontrado en observable: ${collectionName}/${documentId}`);
+            subscriber.next(null);
+          }
+        },
+        error => {
+          console.error(`[FirestoreService] Error en listenOne (observable) -> ${collectionName}/${documentId}`, error);
+          subscriber.error(error);
+        }
+      );
+      return () => unsub();
+    });
   }
 
   /**
@@ -198,158 +211,25 @@ export class FirestoreService {
     }
   }
 
-  // firestore.service.ts
-  async fetchPage<T>(
-    collectionName: string,
-    pageSize = 20,
-    lastSnapshot?: QueryDocumentSnapshot<T>,
-    queryFn?: (ref: CollectionReference<T>) => Query<T>
-  ): Promise<{
-    items: T[];
-    lastSnapshot: QueryDocumentSnapshot<T> | null;
-  }> {
-    const collRef = collection(this.firestore, collectionName) as CollectionReference<T>;
-
-    // Si te pasan un queryFn, úsalo; si no, fallback a createdAt
-    let q: Query<T> = queryFn
-      ? query(queryFn(collRef), limit(pageSize))
-      : query(collRef, orderBy('createdAt', 'desc'), limit(pageSize));
-
-    if (lastSnapshot) {
-      q = query(q, startAfter(lastSnapshot));
-    }
-
-    const snap = await getDocs(q);
-    const items = snap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() } as T & { id: string }));
-    const last = snap.docs.length ? snap.docs[snap.docs.length - 1] : null;
-    return { items, lastSnapshot: last };
-  }
-
-
-
-  private buildFilterConstraints<T>(filters: TableLazyLoadEvent['filters']): QueryConstraint[] {
-    const constraints: QueryConstraint[] = [];
-    if (!filters) {
-      return constraints;
-    }
-
-    for (const field in filters) {
-      const filterMetadata = filters[field];
-      if (filterMetadata) {
-        const activeFilters = Array.isArray(filterMetadata) ? filterMetadata : [filterMetadata];
-        for (const f of activeFilters) {
-          if (f.value !== null && f.value !== undefined && f.value !== '') {
-            // This needs to be adapted based on f.matchMode.
-            // Firestore has limitations (e.g., no direct 'contains' for strings).
-            // Example for 'equals':
-            if (f.matchMode === 'equals') {
-              constraints.push(where(field, '==', f.value));
-            } else if (f.matchMode === 'startsWith') {
-              constraints.push(where(field, '>=', f.value));
-              constraints.push(where(field, '<=', f.value + '\uf8ff'));
-            }
-            // TODO: Add more matchModes as needed: notEquals, lt, lte, gt, gte, in, etc.
-            // For date fields, ensure f.value is a Firebase Timestamp or convert it.
-          }
-        }
-      }
-    }
-    return constraints;
-  }
-
-  public async fetchLazyData<T extends { id: string }>(
-    collectionName: string,
-    event: TableLazyLoadEvent,
-    defaultSortField: string = 'createdAt',
-    defaultSortOrder: 'desc' | 'asc' = 'desc'
-  ): Promise<{ items: T[]; totalRecords: number }> {
-    const collRef = collection(this.firestore, collectionName) as CollectionReference<T>;
-    const baseQueryConstraints: QueryConstraint[] = [];
-
-    // Apply filters first (for both count and data queries if filters affect total)
-    const filterConstraints = this.buildFilterConstraints<T>(event.filters);
-    baseQueryConstraints.push(...filterConstraints);
-
-    // 1. Get total records matching filters
-    const countQuery = query(collRef, ...baseQueryConstraints);
-    const totalRecordsSnap = await getCountFromServer(countQuery);
-    const totalRecords = totalRecordsSnap.data().count;
-
-    // 2. Build query for data slice
-    const dataQueryConstraints: QueryConstraint[] = [...baseQueryConstraints];
-
-    // Sorting
-    let sortField = event.sortField || defaultSortField;
-    let sortOrderDirection: 'asc' | 'desc' = (event.sortOrder === 1 ? 'asc' : (event.sortOrder === -1 ? 'desc' : defaultSortOrder));
-
-    if (Array.isArray(event.multiSortMeta) && event.multiSortMeta.length > 0) {
-      // Handle multi-sort if needed, Firestore supports multiple orderBy clauses
-      for (const meta of event.multiSortMeta as SortMeta[]) {
-        dataQueryConstraints.push(orderBy(meta.field, meta.order === 1 ? 'asc' : 'desc'));
-      }
-    } else if (sortField && typeof sortField === 'string') {
-      dataQueryConstraints.push(orderBy(sortField, sortOrderDirection));
-    }
-
-    // Pagination (Limit)
-    const rows = event.rows || 10; // Default to 10 rows if not provided
-    dataQueryConstraints.push(limit(rows));
-
-
-    let finalQuery = query(collRef, ...dataQueryConstraints);
-
-
-    const dataSnap = await getDocs(finalQuery);
-    const items = dataSnap.docs.map(docSnap => ({ ...docSnap.data(), id: docSnap.id, _snapshot: docSnap } as T & { _snapshot?: QueryDocumentSnapshot<DocumentData> }));
-    // Storing _snapshot temporarily if needed for next page cursor
-
-    return { items, totalRecords };
-  }
-
-  public async getPaginatedCollectionAdvanced<T extends { id: string }>(
+  public async getAll<T extends { id: string }>(
     path: string,
-    orderByField: string,
-    sortDir: 'asc' | 'desc' = 'asc',
-    pageSize: number,
-    startAfterSnapshot?: QueryDocumentSnapshot<DocumentData>
-  ): Promise<{
-    data: T[];
-    lastDocSnapshot: QueryDocumentSnapshot<DocumentData> | null;
-  }> {
+    constraints: QueryConstraint[] = [] // Para ordenamiento u otros filtros iniciales si fueran necesarios
+  ): Promise<T[]> {
     const collRef = collection(this.firestore, path) as CollectionReference<T>;
-    const constraints: QueryConstraint[] = [
-      orderBy(orderByField, sortDir),
-      limit(pageSize)
-    ];
-
-    if (startAfterSnapshot) {
-      constraints.push(startAfter(startAfterSnapshot));
-    }
-
     const finalQuery = query(collRef, ...constraints);
-
     try {
       const querySnapshot = await getDocs(finalQuery);
-      const data = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as T));
-
-      let lastVisibleDoc: QueryDocumentSnapshot<DocumentData> | null = null;
-      if (querySnapshot.docs.length > 0) {
-        lastVisibleDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-      }
-      // Solo retorna un lastVisibleDoc si realmente hay más por cargar o es el final de la página actual.
-      // Si querySnapshot.docs.length < pageSize, significa que es la última página.
-
-      return { data, lastDocSnapshot: lastVisibleDoc };
+      return querySnapshot.docs.map(docSnap => ({ ...docSnap.data(), id: docSnap.id } as T));
     } catch (error) {
-      console.error(`[FirestoreService] Error en getPaginatedCollectionAdvanced -> ${path}`, error);
+      console.error(`[FirestoreService] Error en getAll -> ${path}`, error);
       throw error;
     }
-  }
+  } 
 
   // Mantén tu método getCount (o countCollection del ejemplo que funciona)
-  public async getCount(collectionName: string): Promise<number> {
+  public async getCount(collectionName: string): Promise<number> { //
     const collRef = collection(this.firestore, collectionName);
-    const snapshot = await getCountFromServer(query(collRef)); // query() es opcional si no hay 'where'
+    const snapshot = await getCountFromServer(query(collRef));
     return snapshot.data().count;
   }
 }

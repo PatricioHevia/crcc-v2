@@ -25,7 +25,7 @@
     },
     "ROLES": {
         "Super Admin": "超级管理员",
-        "Admin": "管理员", 
+        "Admin": "管理员",
         "Usuario Básico": "用户"
     },
     "FOOTER": {
@@ -219,8 +219,12 @@
     "ACTIONS": {
         "SEARCH_KEYWORD": "搜索…",
         "ALL": "全部",
-        "ITEMS_SELECTED": "项已选",
-        "SELECT_STATUS": "选择状态"
+        "ITEMS_SELECTED": "已选项目",
+        "SELECT_STATUS": "选择状态",
+        "CREATE": "创建",
+        "EDIT": "编辑",
+        "DELETE": "删除",
+        "SELECT_OPTION": "选择一个选项"
     },
     "PRIMENG": {
         "PAGINATOR": {
@@ -242,5 +246,26 @@
         "Admin": "管理员",
         "Super Admin": "超级管理员",
         "Usuario Básico": "基本用户"
+    },
+    "PROJECTS": {
+        "TABLE": {
+            "IMAGE": "图片",
+            "NAME": "名称",
+            "DESCRIPTION": "描述",
+            "AWARD_DATE": "授标日期",
+            "PHASE": "阶段",
+            "NO_PROJECTS_MATCHING_FILTER": "未找到符合筛选条件的项目。",
+            "NO_PROJECTS_FOUND": "未找到任何项目。"
+        },
+        "PHASES": {
+            "DESIGN": "设计",
+            "DESIGN_BUILD": "设计与施工",
+            "BUILD": "施工",
+            "BUILD_OPERATE": "建设与运营",
+            "OPERATE": "运营"
+        }
+    },
+    "COMMON": {
+        "NO_IMAGE": "无图片"
     }
 }

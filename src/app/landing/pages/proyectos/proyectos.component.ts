@@ -1,10 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
-import { ProjectService } from '../../../core/services/project.service';
 import { CommonModule } from '@angular/common';
 import { GalleriaModule } from 'primeng/galleria';
 import { CardProjectComponent } from '../components/card-project/card-project.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProjectService } from '../../../admin/services/project.service';
 
 @Component({
   selector: 'app-proyectos',

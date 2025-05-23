@@ -1,5 +1,5 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input } from '@angular/core';
-import { Project } from '../../../../core/models/project-interface';
+import { Project } from '../../../../admin/models/project-interface';
 import { GalleriaModule } from 'primeng/galleria';
 import { TagModule } from 'primeng/tag';
 import { RouterModule } from '@angular/router';

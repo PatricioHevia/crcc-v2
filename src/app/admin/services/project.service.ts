@@ -1,11 +1,11 @@
 import { Injectable, signal, computed, effect, inject, Signal, runInInjectionContext, Injector } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { firstValueFrom, Observable } from 'rxjs';
-import { FirestoreService } from './firestore.service';
-import { StorageService, UploadTask } from './storage.service';
 import { orderBy, Timestamp } from '@angular/fire/firestore';
-import { Project, ProjectForm } from '../models/project-interface';
-import { removeAccents } from '../helpers/remove-acents';
+import { Project, ProjectForm } from '../../admin/models/project-interface';
+import { FirestoreService } from '../../core/services/firestore.service';
+import { StorageService, UploadTask } from '../../core/services/storage.service';
+import { removeAccents } from '../../core/helpers/remove-acents';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {

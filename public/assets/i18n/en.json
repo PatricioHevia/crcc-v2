@@ -220,7 +220,11 @@
     "SEARCH_KEYWORD": "Search...",
     "ALL": "All",
     "ITEMS_SELECTED": "items selected",
-    "SELECT_STATUS": "Select status"
+    "SELECT_STATUS": "Select status",
+    "CREATE": "Create",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "SELECT_OPTION": "Select an option"
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -242,5 +246,26 @@
     "Admin": "Administrator",
     "Super Admin": "Super Administrator",
     "Usuario Básico": "Basic User"
+  },
+  "PROJECTS": {
+    "TABLE": {
+      "IMAGE": "Image",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "AWARD_DATE": "Award Date",
+      "PHASE": "Phase",
+      "NO_PROJECTS_MATCHING_FILTER": "No projects matching the filter.",
+      "NO_PROJECTS_FOUND": "No projects found."
+    },
+    "PHASES": {
+      "DESIGN": "Design",
+      "DESIGN_BUILD": "Design & Build",
+      "BUILD": "Construction",
+      "BUILD_OPERATE": "Construction & Operate",
+      "OPERATE": "Operation"
+    }
+  },
+  "COMMON": {
+    "NO_IMAGE": "No image"
   }
 }

@@ -1,7 +1,7 @@
 import { Component, computed, inject, Signal, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule,  } from '@ngx-translate/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,9 +10,11 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 // Asumiendo que tienes un ProjectService y una interfaz Project
-import { ProjectService } from '../../../core/services/project.service';
-import { Project } from '../../../core/models/project-interface';
+
+import { Project } from '../../models/project-interface';
 import { TranslationService } from '../../../core/services/translation.service';
+import { PROJECT_PHASE_CODES, PROJECT_PHASE_COLORS, PROJECT_PHASE_TRANSLATION_KEYS, ProjectPhaseCode } from '../../../core/constants/phase-projects-keys';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-admin-projects',
@@ -38,6 +40,8 @@ export class AdminProjectsComponent {
 
   lang = computed(() => this.translationService.currentLang());
 
+  phaseFilterOptions?: any[];
+
   proyectos: Signal<Project[]> = computed(() => this.projectService.getAdminProjects()());
   loading: Signal<boolean> = computed(() => this.projectService.isAdminProjectsLoading()()); // Asumiendo que tienes una señal de carga así
 
@@ -45,10 +49,32 @@ export class AdminProjectsComponent {
   pageSize: WritableSignal<number> = signal(10);
   globalFilterValue: string = '';
 
+  public readonly phaseColors = PROJECT_PHASE_COLORS;
+
+  getPhaseClasses(phaseCode: ProjectPhaseCode): string {
+    return this.phaseColors[phaseCode] || 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-100'; // Fallback
+  }
+
   constructor() {
     // Aquí podrías llamar a projectService para que inicie la carga si no se hace automáticamente
     // this.projectService.projects(); // Esto activará el listener si no está activo
+    this.phaseFilterOptions = PROJECT_PHASE_CODES.map(code => ({
+      label: this.translationService.instant(PROJECT_PHASE_TRANSLATION_KEYS[code]), // Traduce la etiqueta para mostrar en el dropdown
+      value: code // El valor del filtro será el código
+    }));
   }
+
+  getProjectName(project: Project): string {
+    const lang = this.lang();
+    const key = `name_${lang}` as 'name_es' | 'name_en' | 'name_zh';
+    return project[key] || project.name_es;
+  }
+  getProjectDescription(project: Project): string {
+    const lang = this.lang();
+    const key = `description_${lang}` as 'description_es' | 'description_en' | 'description_zh';
+    return project[key] || project.description_es;
+  }
+
 
   onEditProject(project: Project): void {
     console.log('Edit project:', project);

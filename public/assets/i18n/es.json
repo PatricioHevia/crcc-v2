@@ -219,7 +219,11 @@
     "SEARCH_KEYWORD": "Buscar...",
     "ALL": "Todos",
     "ITEMS_SELECTED": "elementos seleccionados",
-    "SELECT_STATUS": "Seleccionar estado"
+    "SELECT_STATUS": "Seleccionar estado",
+    "CREATE": "Crear",
+    "EDIT": "Editar",
+    "DELETE": "Eliminar",
+    "SELECT_OPTION": "Seleccionar una opción"
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -241,5 +245,26 @@
     "Admin": "Administrador",
     "Super Admin": "Super Administrador",
     "Usuario Básico": "Usuario Básico"
+  },
+  "PROJECTS": {
+    "TABLE": {
+      "IMAGE": "Imagen",
+      "NAME": "Nombre",
+      "DESCRIPTION": "Descripción",
+      "AWARD_DATE": "F. Adjudicación",
+      "PHASE": "Fase",
+      "NO_PROJECTS_MATCHING_FILTER": "No se encontraron proyectos que coincidan con el filtro.",
+      "NO_PROJECTS_FOUND": "No se encontraron proyectos."
+    },
+    "PHASES": {
+      "DESIGN": "Diseño",
+      "DESIGN_BUILD": "Diseño y Construcción",
+      "BUILD": "Construcción",
+      "BUILD_OPERATE": "Construcción y Explotación",
+      "OPERATE": "Explotación"
+    }
+  },
+  "COMMON": {
+    "NO_IMAGE": "Sin imagen"
   }
 }

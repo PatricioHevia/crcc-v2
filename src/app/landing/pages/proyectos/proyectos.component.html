@@ -1,7 +1,7 @@
 <section class="container mx-auto px-4 py-8">
   <!-- 1. Intro -->
-  <div class="bg-white rounded-lg shadow-md p-6 text-center">
-    <h2 class="text-3xl font-bold text-primary-600">{{ 'PROYECTOS.TITULO' | translate }}</h2>
+  <div class="bg-white dark:bg-gris rounded-lg shadow-md p-6 text-center">
+    <h2 class="text-3xl font-bold text-primary-600 dark:text-primary-300">{{ 'PROYECTOS.TITULO' | translate }}</h2>
     <p class="mt-4 text-gray-600 dark:text-gray-300">{{ 'PROYECTOS.SUBTITULO' | translate}}</p>
   </div>
   @if( projectService.projects().length === 0) {

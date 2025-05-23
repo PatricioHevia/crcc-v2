@@ -1,48 +1,33 @@
 <div class="p-4 bg-white dark:bg-zinc-900 shadow-md rounded-lg">
   <h2 class="text-xl font-bold mb-4 w-full text-center">{{ 'SIDEBAR.PROJECTS' | translate }}</h2>
   <div>
-    <p-table #projectsTable [value]="proyectos()" [rows]="pageSize()" [totalRecords]="totalProjects()" [loading]="loading()"
-      [paginator]="true" [responsiveLayout]="'scroll'" [showCurrentPageReport]="true"
+    <p-table #projectsTable [value]="proyectos()" [rows]="pageSize()" [totalRecords]="totalProjects()"
+      [loading]="loading()" [paginator]="true" [responsiveLayout]="'scroll'" [showCurrentPageReport]="true"
       [paginatorDropdownAppendTo]="'body'" stripedRows
       [currentPageReportTemplate]="'PRIMENG.PAGINATOR.SHOWING_OF' | translate" [rowsPerPageOptions]="[5, 10, 20, 50]"
-      paginatorLocale="es-ES" [tableStyle]="{'min-width': '75rem'}" dataKey="id" [filterDelay]="300" [scrollable]="true"
-      [globalFilterFields]="['title', 'client', 'category', 'status']">
-
+      paginatorLocale="es-ES" [tableStyle]="{'min-width': '75rem'}" dataKey="id" [scrollable]="true">
       <ng-template pTemplate="caption">
-        <div class="flex justify-between items-center mb-2">
-          <button pButton type="button" icon="pi pi-plus" class="p-button-primary"
-            (click)="onCreateNewProject()" [pTooltip]="'ACTIONS.CREATE' | translate" tooltipPosition="top"
+        <div class="flex justify-start items-center mb-2"> <button pButton type="button" icon="pi pi-plus" class="p-button-primary" (click)="onCreateNewProject()"
+            [pTooltip]="'ACTIONS.CREATE' | translate" tooltipPosition="top"
             label="{{'ACTIONS.CREATE' | translate}}"></button>
-          <p-iconfield>
-            <p-inputicon styleClass="pi pi-search" />
-            <input pInputText type="text" [(ngModel)]="globalFilterValue"
-              (input)="projectsTable.filterGlobal(globalFilterValue, 'contains')"
-              placeholder="{{'ACTIONS.SEARCH_KEYWORD' | translate}}" />
-          </p-iconfield>
-        </div>
+          </div>
       </ng-template>
 
       <ng-template pTemplate="header">
         <tr>
-          <th style="width:25%" pSortableColumn="title">
-            {{ 'PROJECTS.TABLE.TITLE' | translate }} <p-sortIcon field="title"></p-sortIcon>
-            <p-columnFilter type="text" field="title" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
+          <th style="width:10%">{{ 'PROJECTS.TABLE.IMAGE' | translate }}</th>
+          <th style="width:25%" pSortableColumn="name_es">
+            {{ 'PROJECTS.TABLE.NAME' | translate }} <p-sortIcon field="name_es"></p-sortIcon>
+            </th>
+          <th style="width:30%">
+            {{ 'PROJECTS.TABLE.DESCRIPTION' | translate }}
           </th>
-          <th style="width:20%" pSortableColumn="client">
-            {{ 'PROJECTS.TABLE.CLIENT' | translate }} <p-sortIcon field="client"></p-sortIcon>
-            <p-columnFilter type="text" field="client" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
-          </th>
-          <th style="width:15%" pSortableColumn="category">
-            {{ 'PROJECTS.TABLE.CATEGORY' | translate }} <p-sortIcon field="category"></p-sortIcon>
-            <p-columnFilter type="text" field="category" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
-          </th>
-          <th style="width:15%" pSortableColumn="status">
-            {{ 'PROJECTS.TABLE.STATUS' | translate }} <p-sortIcon field="status"></p-sortIcon>
-            <p-columnFilter type="text" field="status" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
-          </th>
-          <th style="width:15%" pSortableColumn="updatedAt">
-            {{ 'ADMIN.USERS.TABLE.UPDATED_AT' | translate }} <p-sortIcon field="updatedAt"></p-sortIcon>
-          </th>
+          <th style="width:15%" pSortableColumn="adwardDate">
+            {{ 'PROJECTS.TABLE.AWARD_DATE' | translate }} <p-sortIcon field="adwardDate"></p-sortIcon>
+            </th>
+          <th style="width:10%" pSortableColumn="phase">
+            {{ 'PROJECTS.TABLE.PHASE' | translate }} <p-sortIcon field="phase"></p-sortIcon>
+            </th>
           <th style="width:10%">
             {{ 'ADMIN.USERS.TABLE.ACTIONS' | translate }}
           </th>
@@ -51,9 +36,23 @@
 
       <ng-template pTemplate="body" let-project>
         <tr>
-          <td>{{ project.name_es }}</td>
-          <td>{{ project.client }}</td>
-          <td>{{ project.category }}</td> <td>{{ project.status }}</td>   <td>{{ project.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>
+          <td>
+            <img *ngIf="project.image" [src]="project.image" [alt]="getProjectName(project)"
+                 class="w-24 h-16 object-cover rounded shadow-sm"
+                 onError="this.src='assets/images/placeholder-image.png'"/>
+            <span *ngIf="!project.image" class="text-xs text-gray-400">{{ 'COMMON.NO_IMAGE' | translate }}</span>
+          </td>
+          <td>{{ getProjectName(project) }}</td>
+          <td class="truncate max-w-xs" [pTooltip]="getProjectDescription(project)" tooltipPosition="top">
+            {{ getProjectDescription(project) | slice:0:100 }}{{ getProjectDescription(project).length > 100 ? '...' : '' }}
+          </td>
+          <td>{{ project.adwardDate?.toDate() | date:'dd/MM/yyyy':undefined:lang() }}</td>
+          <td>
+            <span class="px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap"
+                  [ngClass]="getPhaseClasses(project.phase)">
+              {{ ('PROJECTS.PHASES.' + project.phase) | translate }}
+            </span>
+          </td>
           <td>
             <div class="flex gap-2">
               <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-info"
@@ -68,7 +67,7 @@
       <ng-template pTemplate="emptymessage">
         <tr>
           <td [attr.colspan]="6" class="text-center p-4">
-            {{ (globalFilterValue ? 'PROJECTS.TABLE.NO_PROJECTS_MATCHING_FILTER' : 'PROJECTS.TABLE.NO_PROJECTS_FOUND') | translate }}
+            {{ 'PROJECTS.TABLE.NO_PROJECTS_FOUND' | translate }}
           </td>
         </tr>
       </ng-template>

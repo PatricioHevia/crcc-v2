@@ -29,6 +29,11 @@
     "LINKEDIN_CRCC": "LinkedIn CRCC Chile Agency",
     "LINKEDIN_SCHCQ": "LinkedIn Coquimbo Hospital Concessionaire Company"
   },
+  "ROLES": {
+    "Super Admin": "Super Admin",
+    "Admin": "Admin",
+    "Usuario Básico": "Basic User"
+  },
   "AUTH": {
     "LOGIN": "Log In",
     "LOGOUT": "Log Out",

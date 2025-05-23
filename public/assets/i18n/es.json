@@ -100,6 +100,11 @@
     "ORG_TYPE_REQUIRED": "El tipo de organización es obligatorio",
     "CREATE_ORG": "Crear organización"
   },
+  "ROLES": {
+    "Super Admin": "Súper Admin",
+    "Admin": "Administrador",
+    "Usuario Básico": "Usuario" 
+  },
   "HOME": {
     "TITULO": "NUESTRA EMPRESA",
     "CRCC": "CHINA RAILWAY CONSTRUCTION CORPORATION (INTERNATIONAL) LIMITED",

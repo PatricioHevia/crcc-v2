@@ -1,8 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, effect, ElementRef, inject, Injector, runInInjectionContext, signal, ViewChild, WritableSignal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { DividerModule } from 'primeng/divider';
-import { register  } from 'swiper/element/bundle';
+import { register } from 'swiper/element/bundle';
+import { UserService } from '../../../auth/services/user.service';
 
 register();
 
@@ -14,8 +15,13 @@ register();
   imports: [TranslateModule, GalleriaModule, DividerModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class HomeComponent  {
- 
+export class HomeComponent {
+  @ViewChild('swiperContainerHome') swiperContainerRef!: ElementRef<any & { swiper: any }>;
+  private userService = inject(UserService);
+  private injector = inject(Injector); // Nueva señal para controlar la visibilidad del Swiper
+
+  public swiperRenderedCorrectly: WritableSignal<boolean> = signal(false);
+
 
   images = [
     {
@@ -42,7 +48,7 @@ export class HomeComponent  {
       previewImageSrc: 'assets/images/galleria-1/mid-segment-of-algeria-east-west-expressway.jpg',
       alt: 'Vista de carretera del tramo medio de la Autopista Este-Oeste de Argelia de CRCCI',
       title: 'HOME.GALLERIA_SEGMENT_EAST_WEST_EXPRESSWAY'
-    }, 
+    },
     {
       previewImageSrc: 'assets/images/galleria-1/the-southwest-section-of-third-transfer-line-of-moscow-metro.jpg',
       alt: 'Vista de la sección interior suroeste de la tercera línea de transferencia del metro de Moscú',
@@ -56,5 +62,48 @@ export class HomeComponent  {
 
   ];
 
+  ngAfterViewInit(): void {
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        const accountResolved = this.userService.isUserAccountResolved();
+        console.log('HomeComponent Effect: isUserAccountResolved:', accountResolved);
+
+        if (accountResolved) {
+          // El entorno está listo. Intentar actualizar el swiper.
+          // El swiper ya está en el DOM (no usamos *ngIf para él, solo para el placeholder)
+          if (this.swiperContainerRef?.nativeElement?.swiper) {
+            console.log('HomeComponent: Account resolved. Actualizando Swiper.');
+            setTimeout(() => { // Delay para estabilidad del DOM
+              try {
+                this.swiperContainerRef.nativeElement.swiper.update();
+                this.swiperContainerRef.nativeElement.swiper.resize.resizeHandler();
+                console.log('HomeComponent: Swiper actualizado.');
+                this.swiperRenderedCorrectly.set(true); // Marcar como listo para opacidad completa
+              } catch (e) {
+                console.error('HomeComponent: Error al actualizar swiper:', e);
+                this.swiperRenderedCorrectly.set(true); // Mostrar de todas formas
+              }
+            }, 150);
+          } else {
+            console.warn('HomeComponent: Account resolved, pero Swiper ref no disponible AÚN en AfterViewInit.');
+            // Podría necesitar un pequeño delay para que ViewChild se resuelva si el template es complejo
+             setTimeout(() => {
+                if (this.swiperContainerRef?.nativeElement?.swiper) {
+                    this.swiperContainerRef.nativeElement.swiper.update();
+                    this.swiperContainerRef.nativeElement.swiper.resize.resizeHandler();
+                    this.swiperRenderedCorrectly.set(true);
+                } else {
+                    console.error("HomeComponent: Swiper aún no disponible después de un segundo delay.");
+                    this.swiperRenderedCorrectly.set(true); // Mostrar de todas formas para no bloquear UI
+                }
+             }, 200); // Un delay un poco mayor para este caso
+          }
+        } else {
+          // Si la cuenta no está resuelta, resetear el estado de visibilidad del swiper
+          this.swiperRenderedCorrectly.set(false);
+        }
+      });
+    });
+  }
 
 }

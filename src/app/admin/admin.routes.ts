@@ -1,37 +1,42 @@
 import { Routes } from '@angular/router';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
-import { AdminProjectsComponent } from './pages/admin-projects/admin-projects.component';
 import { OrganizationsComponent } from './pages/organizations/organizations.component';
-import { OfficesComponent } from './pages/offices/offices.component';
+import { OfficesComponent } from './pages/offices/offices.component'; // Asumo que tienes este
+import { AdminProjectsComponent } from './pages/admin-projects/admin-projects.component'; // Nuevo
+import { superAdminGuard } from '../core/guards/super-admin.guard'; // Importa la guardia
 
 export const ADMIN_ROUTES: Routes = [
-    {
-        path: '', redirectTo: 'dashboard', pathMatch: 'full'
-    }, 
-    {
-        path: 'dashboard',
-        component: AdminDashboardComponent   
-    }, 
-    {
-        path: 'users',
-        component: UsersComponent        
-    },
-    {
-        path: 'projects',
-        component: AdminProjectsComponent
-    },
-    {
-        path: 'organizations',
-        component: OrganizationsComponent
-    },
-    {
-        path: 'offices',
-        component: OfficesComponent
-    },
-    {
-        path: '**',
-        redirectTo: 'dashboard'
-    }
-    
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: 'dashboard',
+    component: AdminDashboardComponent,
+    data: { title: 'SIDEBAR.DASHBOARD' },
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    data: { title: 'SIDEBAR.USERS' },
+  },
+  {
+    path: 'organizations',
+    component: OrganizationsComponent,
+    data: { title: 'SIDEBAR.ORGANIZATIONS' },
+  },
+  {
+    path: 'offices', // Ejemplo, si tienes esta ruta
+    component: OfficesComponent,
+    data: { title: 'SIDEBAR.OFFICES' },
+  },
+  {
+    path: 'projects', // Nueva ruta para administrar proyectos
+    component: AdminProjectsComponent,
+    canActivate: [superAdminGuard], // ¡Aquí aplicamos la guardia!
+    data: { title: 'SIDEBAR.PROJECTS' }, // Asegúrate de tener esta clave en tus i18n JSON
+  },
+  // ... más rutas si las tienes
 ];

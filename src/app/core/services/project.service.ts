@@ -1,9 +1,9 @@
-import { Injectable, signal, computed, effect, inject } from '@angular/core';
+import { Injectable, signal, computed, effect, inject, Signal, runInInjectionContext, Injector } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { FirestoreService } from './firestore.service';
 import { StorageService, UploadTask } from './storage.service';
-import { Timestamp } from '@angular/fire/firestore';
+import { orderBy, Timestamp } from '@angular/fire/firestore';
 import { Project, ProjectForm } from '../models/project-interface';
 import { removeAccents } from '../helpers/remove-acents';
 
@@ -13,8 +13,18 @@ export class ProjectService {
   private storageService = inject(StorageService);
 
   // Señal reactiva de lista de proyectos
-  private projects$ = this.fs.listenCollection<Project>('projects');
-  public projects = toSignal(this.projects$, { initialValue: [] as Project[] });
+  private _projects$: Observable<Project[]> = this.fs.listenCollection<Project>('projects', [orderBy('name_es', 'asc')]); // Ejemplo de orden
+  public projects: Signal<Project[]> = toSignal(this._projects$, { initialValue: [] as Project[] });
+
+  // Cerca de otras propiedades, al inicio de la clase ProjectService
+  private isLoadingProjects = signal<boolean>(true); // Inicia en true, asumiendo que cargará al inicio
+  private projectsDataResolved = signal<boolean>(false); // Indica si la carga inicial ha ocurrido
+
+  // Señal pública para el estado de carga
+  public loadingProjects: Signal<boolean> = this.isLoadingProjects.asReadonly();
+
+  // Señal pública para saber si los datos de proyectos están listos/resueltos
+  public areProjectsResolved: Signal<boolean> = this.projectsDataResolved.asReadonly();
 
   // Mapa id → nombres multilenguaje
   public projectNames = computed(() => {
@@ -27,9 +37,29 @@ export class ProjectService {
   });
 
   constructor() {
-    // disparador para inicializar la escucha
-    effect(() => { this.projects(); });
+
+    runInInjectionContext(inject(Injector), () => { // Asegurar contexto de inyección para effect
+      effect((onCleanup) => {
+        const projectsList = this.projects(); // Accede a la señal de proyectos
+        if (projectsList) { // projects() siempre devolverá un array debido a initialValue
+          if (!this.projectsDataResolved()) { // Solo actuar la primera vez que se resuelve
+            console.log('ProjectService: Datos de proyectos iniciales recibidos/resueltos.');
+            this.isLoadingProjects.set(false);
+            this.projectsDataResolved.set(true);
+          }
+        }
+
+      });
+    });
   }
+
+  public getAdminProjects(): Signal<Project[]> {
+    return this.projects;
+  }
+
+  public isAdminProjectsLoading(): Signal<boolean> {
+  return this.isLoadingProjects;
+}
 
   /** Sube la imagen principal y retorna la tarea */
   uploadMainImage(file: File, projectId: string): UploadTask {
@@ -50,49 +80,49 @@ export class ProjectService {
    * - la promesa `complete` espera a que todo se suba y luego escribe Firestore
    */
   createProject(
-  form: ProjectForm,
-  imageFile?: File,
-  galleryFiles?: File[]
-): {
-  mainTask?: UploadTask;
-  galleryTasks?: UploadTask[];
-  complete: Promise<void>;
-} {
-  // 1) Prepara datos base
-  const projectData: Partial<Project> = { ...form };
-  projectData.url = removeAccents(form.name_es).replaceAll(' ', '-').toLowerCase();
-  if (form.adwardDate) {
-    projectData.adwardDate = Timestamp.fromDate(form.adwardDate as any);
-  } 
-
-  const id = projectData.url!;
-  let mainTask: UploadTask | undefined;
-  let galleryTasks: UploadTask[] | undefined;
-
-  // 2) Inicia subidas
-  if (imageFile) {
-    mainTask = this.uploadMainImage(imageFile, id);
-  }
-  if (galleryFiles?.length) {
-    galleryTasks = this.uploadGalleryImages(galleryFiles, id);
-  }
-
-  // 3) Promesa que espera URLs y luego escribe en Firestore
-  const complete = (async () => {
-    if (mainTask) {
-      projectData.image = await firstValueFrom(mainTask.downloadURL$);
+    form: ProjectForm,
+    imageFile?: File,
+    galleryFiles?: File[]
+  ): {
+    mainTask?: UploadTask;
+    galleryTasks?: UploadTask[];
+    complete: Promise<void>;
+  } {
+    // 1) Prepara datos base
+    const projectData: Partial<Project> = { ...form };
+    projectData.url = removeAccents(form.name_es).replaceAll(' ', '-').toLowerCase();
+    if (form.adwardDate) {
+      projectData.adwardDate = Timestamp.fromDate(form.adwardDate as any);
     }
-    if (galleryTasks) {
-      projectData.galleryImages = await Promise.all(
-        galleryTasks.map(t => firstValueFrom(t.downloadURL$))
-      );
-    }
-    // Usa Project (incluye image y galleryImages) como tipo en Firestore
-    await this.fs.create<Project>('projects', projectData as Project, id);
-  })();
 
-  return { mainTask, galleryTasks, complete };
-}
+    const id = projectData.url!;
+    let mainTask: UploadTask | undefined;
+    let galleryTasks: UploadTask[] | undefined;
+
+    // 2) Inicia subidas
+    if (imageFile) {
+      mainTask = this.uploadMainImage(imageFile, id);
+    }
+    if (galleryFiles?.length) {
+      galleryTasks = this.uploadGalleryImages(galleryFiles, id);
+    }
+
+    // 3) Promesa que espera URLs y luego escribe en Firestore
+    const complete = (async () => {
+      if (mainTask) {
+        projectData.image = await firstValueFrom(mainTask.downloadURL$);
+      }
+      if (galleryTasks) {
+        projectData.galleryImages = await Promise.all(
+          galleryTasks.map(t => firstValueFrom(t.downloadURL$))
+        );
+      }
+      // Usa Project (incluye image y galleryImages) como tipo en Firestore
+      await this.fs.create<Project>('projects', projectData as Project, id);
+    })();
+
+    return { mainTask, galleryTasks, complete };
+  }
   /**
    * Actualiza un proyecto:
    * - idéntico patrón: devuelve tareas y promesa final

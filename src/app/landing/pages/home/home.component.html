@@ -11,8 +11,9 @@
       {{ 'HOME.CRCC' | translate }}
     </h3>
     <div class="w-[75%] md:w-[80%] lg:w-[85%] mx-auto flex justify-center mb-16 rounded-lg">
-      <swiper-container autoplay-delay="4000" effect="cards" grab-cursor="true" centered-slides="true"
-        slides-per-view="auto" class="w-full max-w-screen-lg rounded-lg" style="overflow: visible;">
+      <swiper-container  [class.opacity-0]="!swiperRenderedCorrectly()"
+                    [class.opacity-100]="swiperRenderedCorrectly()"  #swiperContainerHome autoplay-delay="4000" effect="cards" grab-cursor="true" centered-slides="true"
+        slides-per-view="auto" class="w-full max-w-screen-lg rounded-lg transition-opacity duration-500 ease-in-out" style="overflow: visible;">
         <ng-container>
           @for (img of images; track img.alt) {
 

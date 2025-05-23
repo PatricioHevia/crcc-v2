@@ -3,7 +3,6 @@ import {
     Auth,
     createUserWithEmailAndPassword,
     UserCredential,
-    sendEmailVerification,
     deleteUser,
     signInWithEmailAndPassword,
     User,
@@ -13,7 +12,7 @@ import {
 } from '@angular/fire/auth';
 import { FirestoreService } from '../../core/services/firestore.service';
 import { OrganizationService } from './organization.service';
-import { Account, AccountForm } from '../models/account-interface';
+import { Account } from '../models/account-interface';
 import { Timestamp } from '@angular/fire/firestore';
 import { TranslationService } from '../../core/services/translation.service';
 import { ThemeService } from '../../core/services/theme.service';

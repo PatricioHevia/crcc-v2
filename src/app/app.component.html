@@ -1,2 +1,16 @@
-<router-outlet />
+<div *ngIf="isLoadingApp()"
+     class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-zinc-900">
+  
+  <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'" alt="Logo CRCC" class="mb-8 h-40 w-auto animate-pulse" /> 
+  <p-progressSpinner strokeWidth="4" animationDuration=".8s" styleClass="w-16 h-16"></p-progressSpinner>
+</div>
+
+
+
+<div [hidden]="isLoadingApp()">
+  <router-outlet></router-outlet>
+</div>
+
+
 <p-toast key="global" position="top-right" baseZIndex="10000" [breakpoints]="{'576px': { width: '90%', left: '5%', right: '5%' },'768px': { width: '80%', left: '10%', right: '10%' }}"></p-toast>
+<p-confirmDialog></p-confirmDialog>

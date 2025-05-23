@@ -214,6 +214,25 @@
         "NO_USERS_FOUND": "No users found",
         "LOADING_USERS": "Loading users..."
       }
+    },
+    "OFFICES": {
+      "TITLE": "Office Management",
+      "LIST_SUBTITLE": "List of Offices",
+      "NEW_BUTTON": "New Office",
+      "NEW_TITLE": "Create New Office",
+      "EDIT_TITLE": "Edit Office",
+      "TABLE_HEADER_NAME": "Name",
+      "TABLE_HEADER_CREATED_AT": "Creation Date",
+      "TABLE_HEADER_UPDATED_AT": "Last Updated",
+      "FORM_NAME_ES_LABEL": "Name (Spanish)",
+      "FORM_NAME_EN_LABEL": "Name (English)",
+      "FORM_NAME_ZH_LABEL": "Name (Chinese)",
+      "SUCCESS_CREATED_TITLE": "Office Created",
+      "SUCCESS_CREATED_DETAIL": "Office '{name}' has been created successfully.",
+      "SUCCESS_UPDATED_TITLE": "Office Updated",
+      "SUCCESS_UPDATED_DETAIL": "Office '{name}' has been updated successfully.",
+      "SUCCESS_DELETED_TITLE": "Office Deleted",
+      "SUCCESS_DELETED_DETAIL": "Office '{name}' has been deleted successfully."
     }
   },
   "ACTIONS": {
@@ -266,6 +285,26 @@
     }
   },
   "COMMON": {
-    "NO_IMAGE": "No image"
+    "NO_IMAGE": "No image",
+    "TABLE_HEADER_ACTIONS": "Actions",
+    "TOOLTIP_EDIT": "Edit",
+    "TOOLTIP_DELETE": "Delete",
+    "BUTTON_SAVE": "Save",
+    "BUTTON_CANCEL": "Cancel",
+    "YES": "Yes",
+    "NO": "No",
+    "CONFIRM_DELETE_TITLE": "Confirm Deletion",
+    "CONFIRM_DELETE_MESSAGE_ITEM": "Are you sure you want to delete the item '{item}'?",
+    "PAGINATOR_ENTRIES": "Showing {first} to {last} of {totalRecords} entries",
+    "NO_RECORDS_FOUND": "No records found.",
+    "FORM_INVALID_TITLE": "Invalid Form",
+    "FORM_INVALID_DETAIL": "Please check the form fields.",
+    "ERROR_SAVING_TITLE": "Error Saving",
+    "ERROR_DELETING_TITLE": "Error Deleting",
+    "UNEXPECTED_ERROR_DETAIL": "An unexpected error occurred. Please try again."
+  },
+  "VALIDATION": {
+    "REQUIRED": "This field is required.",
+    "MINLENGTH": "A minimum of {requiredLength} characters is required."
   }
 }

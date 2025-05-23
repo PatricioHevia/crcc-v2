@@ -213,6 +213,25 @@
         "NO_USERS_FOUND": "No se encontraron usuarios",
         "LOADING_USERS": "Cargando usuarios..."
       }
+    },
+    "OFFICES": {
+      "TITLE": "Gestión de Oficinas",
+      "LIST_SUBTITLE": "Lista de Oficinas",
+      "NEW_BUTTON": "Nueva Oficina",
+      "NEW_TITLE": "Crear Nueva Oficina",
+      "EDIT_TITLE": "Editar Oficina",
+      "TABLE_HEADER_NAME": "Nombre",
+      "TABLE_HEADER_CREATED_AT": "Fecha Creación",
+      "TABLE_HEADER_UPDATED_AT": "Última Actualización",
+      "FORM_NAME_ES_LABEL": "Nombre en Español",
+      "FORM_NAME_EN_LABEL": "Nombre en Inglés",
+      "FORM_NAME_ZH_LABEL": "Nombre en Chino",
+      "SUCCESS_CREATED_TITLE": "Oficina Creada",
+      "SUCCESS_CREATED_DETAIL": "La oficina '{name}' ha sido creada exitosamente.",
+      "SUCCESS_UPDATED_TITLE": "Oficina Actualizada",
+      "SUCCESS_UPDATED_DETAIL": "La oficina '{name}' ha sido actualizada exitosamente.",
+      "SUCCESS_DELETED_TITLE": "Oficina Eliminada",
+      "SUCCESS_DELETED_DETAIL": "La oficina '{name}' ha sido eliminada exitosamente."
     }
   },
   "ACTIONS": {
@@ -265,6 +284,26 @@
     }
   },
   "COMMON": {
-    "NO_IMAGE": "Sin imagen"
+    "NO_IMAGE": "Sin imagen",
+    "TABLE_HEADER_ACTIONS": "Acciones",
+    "TOOLTIP_EDIT": "Editar",
+    "TOOLTIP_DELETE": "Eliminar",
+    "BUTTON_SAVE": "Guardar",
+    "BUTTON_CANCEL": "Cancelar",
+    "YES": "Sí",
+    "NO": "No",
+    "CONFIRM_DELETE_TITLE": "Confirmar Eliminación",
+    "CONFIRM_DELETE_MESSAGE_ITEM": "¿Estás seguro de que deseas eliminar el ítem '{item}'?",
+    "PAGINATOR_ENTRIES": "Mostrando {first} a {last} de {totalRecords} entradas",
+    "NO_RECORDS_FOUND": "No se encontraron registros.",
+    "FORM_INVALID_TITLE": "Formulario Inválido",
+    "FORM_INVALID_DETAIL": "Por favor, revisa los campos del formulario.",
+    "ERROR_SAVING_TITLE": "Error al Guardar",
+    "ERROR_DELETING_TITLE": "Error al Eliminar",
+    "UNEXPECTED_ERROR_DETAIL": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
+  },
+  "VALIDATION": {
+    "REQUIRED": "Este campo es requerido.",
+    "MINLENGTH": "Se requiere un mínimo de {requiredLength} caracteres."
   }
 }

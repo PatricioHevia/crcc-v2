@@ -14,9 +14,7 @@ export interface OfficeMember {
 
 export interface Office {
   id: string;               
-  name_es: string;              
-  name_en: string;              
-  name_zh: string;
+  name: string; // Nombre de la oficina (en español, inglés y chino)
   members?: OfficeMember[];
 
   // Campos de Auditoría
@@ -25,6 +23,6 @@ export interface Office {
 }
 
 export interface OfficeForm 
-  extends Omit<Office,  'id' | 'createdAt' | 'updatedAt' | 'members' | 'name_es' | 'name_en' | 'name_zh'> {
-    name: string; // Nombre de la oficina
+  extends Omit<Office,  'id' | 'createdAt' | 'updatedAt' | 'members' > {
+    
 }

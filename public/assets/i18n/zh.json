@@ -214,6 +214,25 @@
                 "NO_USERS_FOUND": "未找到用户",
                 "LOADING_USERS": "正在加载用户..."
             }
+        },
+        "OFFICES": {
+            "TITLE": "办公室管理",
+            "LIST_SUBTITLE": "办公室列表",
+            "NEW_BUTTON": "新增办公室",
+            "NEW_TITLE": "创建新办公室",
+            "EDIT_TITLE": "编辑办公室",
+            "TABLE_HEADER_NAME": "名称",
+            "TABLE_HEADER_CREATED_AT": "创建日期",
+            "TABLE_HEADER_UPDATED_AT": "最后更新",
+            "FORM_NAME_ES_LABEL": "名称 (西班牙语)",
+            "FORM_NAME_EN_LABEL": "名称 (英语)",
+            "FORM_NAME_ZH_LABEL": "名称 (中文)",
+            "SUCCESS_CREATED_TITLE": "办公室已创建",
+            "SUCCESS_CREATED_DETAIL": "办公室 '{name}' 已成功创建。",
+            "SUCCESS_UPDATED_TITLE": "办公室已更新",
+            "SUCCESS_UPDATED_DETAIL": "办公室 '{name}' 已成功更新。",
+            "SUCCESS_DELETED_TITLE": "办公室已删除",
+            "SUCCESS_DELETED_DETAIL": "办公室 '{name}' 已成功删除。"
         }
     },
     "ACTIONS": {
@@ -266,6 +285,26 @@
         }
     },
     "COMMON": {
-        "NO_IMAGE": "无图片"
+        "NO_IMAGE": "无图片",
+        "TABLE_HEADER_ACTIONS": "操作",
+        "TOOLTIP_EDIT": "编辑",
+        "TOOLTIP_DELETE": "删除",
+        "BUTTON_SAVE": "保存",
+        "BUTTON_CANCEL": "取消",
+        "YES": "是",
+        "NO": "否",
+        "CONFIRM_DELETE_TITLE": "确认删除",
+        "CONFIRM_DELETE_MESSAGE_ITEM": "您确定要删除项目 '{item}' 吗？",
+        "PAGINATOR_ENTRIES": "显示 {first} 到 {last} 条，共 {totalRecords} 条记录",
+        "NO_RECORDS_FOUND": "未找到记录。",
+        "FORM_INVALID_TITLE": "表单无效",
+        "FORM_INVALID_DETAIL": "请检查表单字段。",
+        "ERROR_SAVING_TITLE": "保存错误",
+        "ERROR_DELETING_TITLE": "删除错误",
+        "UNEXPECTED_ERROR_DETAIL": "发生意外错误。请再试一次。"
+    },
+    "VALIDATION": {
+        "REQUIRED": "此字段是必需的。",
+        "MINLENGTH": "至少需要 {requiredLength} 个字符。"
     }
 }

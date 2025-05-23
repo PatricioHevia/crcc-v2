@@ -66,21 +66,17 @@ export class HomeComponent {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         const accountResolved = this.userService.isUserAccountResolved();
-        console.log('HomeComponent Effect: isUserAccountResolved:', accountResolved);
 
         if (accountResolved) {
           // El entorno está listo. Intentar actualizar el swiper.
           // El swiper ya está en el DOM (no usamos *ngIf para él, solo para el placeholder)
           if (this.swiperContainerRef?.nativeElement?.swiper) {
-            console.log('HomeComponent: Account resolved. Actualizando Swiper.');
             setTimeout(() => { // Delay para estabilidad del DOM
               try {
                 this.swiperContainerRef.nativeElement.swiper.update();
                 this.swiperContainerRef.nativeElement.swiper.resize.resizeHandler();
-                console.log('HomeComponent: Swiper actualizado.');
                 this.swiperRenderedCorrectly.set(true); // Marcar como listo para opacidad completa
               } catch (e) {
-                console.error('HomeComponent: Error al actualizar swiper:', e);
                 this.swiperRenderedCorrectly.set(true); // Mostrar de todas formas
               }
             }, 150);
@@ -93,7 +89,6 @@ export class HomeComponent {
                     this.swiperContainerRef.nativeElement.swiper.resize.resizeHandler();
                     this.swiperRenderedCorrectly.set(true);
                 } else {
-                    console.error("HomeComponent: Swiper aún no disponible después de un segundo delay.");
                     this.swiperRenderedCorrectly.set(true); // Mostrar de todas formas para no bloquear UI
                 }
              }, 200); // Un delay un poco mayor para este caso

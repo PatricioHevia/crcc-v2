@@ -5,6 +5,8 @@ import { OrganizationsComponent } from './pages/organizations/organizations.comp
 import { OfficesComponent } from './pages/offices/offices.component'; // Asumo que tienes este
 import { AdminProjectsComponent } from './pages/admin-projects/admin-projects.component'; // Nuevo
 import { superAdminGuard } from '../core/guards/super-admin.guard'; // Importa la guardia
+import { mandanteAdminGuard } from '../core/guards/mandante-admin.guard';
+import { adminGuard } from '../core/guards/admin.guard';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -15,21 +17,25 @@ export const ADMIN_ROUTES: Routes = [
   {
     path: 'dashboard',
     component: AdminDashboardComponent,
+    canActivate: [mandanteAdminGuard],
     data: { title: 'SIDEBAR.DASHBOARD' },
   },
   {
     path: 'users',
     component: UsersComponent,
+    canActivate: [adminGuard],
     data: { title: 'SIDEBAR.USERS' },
   },
   {
     path: 'organizations',
     component: OrganizationsComponent,
+    canActivate: [mandanteAdminGuard],
     data: { title: 'SIDEBAR.ORGANIZATIONS' },
   },
   {
     path: 'offices', // Ejemplo, si tienes esta ruta
     component: OfficesComponent,
+    canActivate: [superAdminGuard],
     data: { title: 'SIDEBAR.OFFICES' },
   },
   {

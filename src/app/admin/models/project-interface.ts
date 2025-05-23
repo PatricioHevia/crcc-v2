@@ -12,7 +12,7 @@ export interface Project {
     image?          : string;
     galleryImages?  : string [];
     adwardDate?     : Timestamp;
-    pahse          : ProjectPhaseCode;
+    phase          : ProjectPhaseCode;
     url             : string;
 }
 

@@ -14,6 +14,7 @@ export class OfficeService {
     /** Inicia el listener una sola vez */
     private startListening(): void {
         if (!this.listener) {
+            console.log('OfficeService: Iniciando escucha de oficinas');
             this.listener = this.fs.listenCollectionWithLoading<Office>(
                 'offices'
             );

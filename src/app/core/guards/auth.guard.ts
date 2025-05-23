@@ -12,11 +12,9 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
     runInInjectionContext(injector, () => {
       const effectRef = effect(() => {
         const accountResolved = userService.isUserAccountResolved();
-        console.log('AuthGuard: Effect ejecutado. isUserAccountResolved:', accountResolved);
 
         if (accountResolved) {
           const currentUser = userService.usuario();
-          console.log('AuthGuard: Account resuelto. userService.usuario():', currentUser);
 
           if (currentUser) {
             resolve(true);

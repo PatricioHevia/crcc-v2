@@ -13,30 +13,21 @@ export const superAdminGuard: CanActivateFn = (route, state) => {
     runInInjectionContext(injector, () => {
       const effectRef = effect(() => {
         const accountResolved = userService.isUserAccountResolved();
-        console.log('SuperAdminGuard: Effect ejecutado. isUserAccountResolved:', accountResolved);
 
         if (accountResolved) {
           const isSuper = userService.isSuperAdmin();
-          console.log('SuperAdminGuard: Account resuelto. userService.isSuperAdmin():', isSuper, '| userService.usuario():', userService.usuario());
 
           if (isSuper) {
             resolve(true);
           } else {
-            // Navegar y luego resolver con una UrlTree o false.
-            // Devolver UrlTree es la forma canónica de indicar una redirección desde una guardia.
             resolve(router.createUrlTree(['/admin/dashboard']));
           }
-          effectRef.destroy(); // Importante: destruir el efecto una vez que ha cumplido su propósito
+          effectRef.destroy();
         }
-        // Si accountResolved es false, el effect simplemente se re-ejecutará cuando cambie la señal.
-        // La Promise seguirá pendiente.
+
       });
 
-      // No hay una función de limpieza directa para la Promise como en Observable,
-      // pero el effect se destruye a sí mismo una vez que la Promise se resuelve.
-      // Si la navegación se cancela antes de que la Promise resuelva, el effect podría quedar activo.
-      // Esto es una limitación de este patrón con Promises si la navegación se cancela.
-      // Sin embargo, para guardias, usualmente la navegación espera.
+
     });
   });
 };

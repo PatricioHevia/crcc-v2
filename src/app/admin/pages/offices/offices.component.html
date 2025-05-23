@@ -1,87 +1,86 @@
+<div class="grid grid-cols-1 w-full bg-white dark:bg-gris rounded p-4">
+  <div class="card w-full">
+    
 
-
-<div class="grid grid-cols-1 w-full">
-      <div class="card w-full">
-      <h5 class="card-title">{{ 'ADMIN.OFFICES.TITLE' | translate }}</h5>
-
-      <p-toolbar styleClass="mb-4">
-        <ng-template pTemplate="left">
-          <button pButton pRipple
-                  [label]="'ADMIN.OFFICES.NEW_BUTTON' | translate"
-                  icon="pi pi-plus"
-                  class="p-button-success mr-2"
-                  (click)="openNew()"></button>
-        </ng-template>
-      </p-toolbar>
-
-      <p-table #dt [value]="officeService.offices()" [loading]="officeService.loading()"
-           dataKey="id"
-           styleClass="w-full" responsiveLayout="scroll"
-           [rows]="10" [paginator]="officeService.offices() && officeService.offices().length > 10"
-           [rowHover]="true"
-           currentPageReportTemplate="{{'COMMON.PAGINATOR_ENTRIES' | translate: {first: '{first}', last: '{last}', totalRecords: '{totalRecords}'} }}"
-           [showCurrentPageReport]="true">
-
-        <ng-template pTemplate="caption">
-          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 class="m-0">{{ 'ADMIN.OFFICES.LIST_SUBTITLE' | translate }}</h5>
-          </div>
-        </ng-template>
-
-        <ng-template pTemplate="header">
-          <tr>
-            <th [pSortableColumn]="'name_' + lang()" style="min-width:20rem"> {{ 'ADMIN.OFFICES.TABLE_HEADER_NAME' | translate }} <p-sortIcon [field]="'name_' + lang()"></p-sortIcon>
-            </th>
-            <th pSortableColumn="createdAt" style="min-width:10rem">
-              {{ 'ADMIN.OFFICES.TABLE_HEADER_CREATED_AT' | translate }} <p-sortIcon field="createdAt"></p-sortIcon>
-            </th>
-            <th pSortableColumn="updatedAt" style="min-width:10rem">
-              {{ 'ADMIN.OFFICES.TABLE_HEADER_UPDATED_AT' | translate }} <p-sortIcon field="updatedAt"></p-sortIcon>
-            </th>
-            <th style="width:10rem">{{ 'COMMON.TABLE_HEADER_ACTIONS' | translate }}</th>
-          </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-office>
-          <tr>
-            <td>{{ office.name }}</td> 
-            <td>{{ office.createdAt?.toDate() | date:'mediumDate':undefined:translationService.currentLang() }}</td>
-            <td>{{ office.updatedAt?.toDate() | date:'mediumDate':undefined:translationService.currentLang() }}</td>
-            <td>
-              <button pButton pRipple icon="pi pi-pencil"
-                      class="p-button-rounded p-button-success mr-2"
-                      pTooltip="{{'COMMON.TOOLTIP_EDIT' | translate}}" tooltipPosition="top"
-                      ></button>
-              <button pButton pRipple icon="pi pi-trash"
-                      class="p-button-rounded p-button-warning"
-                      pTooltip="{{'COMMON.TOOLTIP_DELETE' | translate}}" tooltipPosition="top"
-                      (click)="deleteOffice(office)"></button>
-            </td>
-          </tr>
-        </ng-template>
-
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="4" class="text-center p-5"> {{ 'COMMON.NO_RECORDS_FOUND' | translate }}
-                </td>
-            </tr>
-        </ng-template>
-      </p-table>
+    <p-toolbar styleClass="mb-4">
+      <ng-template pTemplate="left">
+        <button pButton pRipple [label]="'ADMIN.OFFICES.NEW_BUTTON' | translate" icon="pi pi-plus"
+          class="p-button-success mr-2" (click)="openNew()"></button>
+      </ng-template>
+      <h5 class="font-bold text-xl">{{ 'ADMIN.OFFICES.TITLE' | translate }}</h5>
+    </p-toolbar>
+    @if (officeService.loading()){
+    <div class="flex justify-center">
+      <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
     </div>
-  
+
+    }@else {
+
+
+    <p-table #dt [value]="officeService.offices()" [loading]="officeService.loading()" dataKey="id" styleClass="w-full"
+      responsiveLayout="scroll" [rows]="10" [paginator]="officeService.offices() && officeService.offices().length > 10"
+      [rowHover]="true"
+      currentPageReportTemplate="{{'COMMON.PAGINATOR_ENTRIES' | translate: {first: '{first}', last: '{last}', totalRecords: '{totalRecords}'} }}"
+      [showCurrentPageReport]="true">
+
+      <ng-template pTemplate="caption">
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+          <h5 class="m-0">{{ 'ADMIN.OFFICES.LIST_SUBTITLE' | translate }}</h5>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th [pSortableColumn]="'name_' + lang()" style="min-width:20rem"> {{ 'ADMIN.OFFICES.TABLE_HEADER_NAME' |
+            translate }} <p-sortIcon [field]="'name_' + lang()"></p-sortIcon>
+          </th>
+          <th pSortableColumn="createdAt" style="min-width:10rem">
+            {{ 'ADMIN.OFFICES.TABLE_HEADER_CREATED_AT' | translate }} <p-sortIcon field="createdAt"></p-sortIcon>
+          </th>
+          <th pSortableColumn="updatedAt" style="min-width:10rem">
+            {{ 'ADMIN.OFFICES.TABLE_HEADER_UPDATED_AT' | translate }} <p-sortIcon field="updatedAt"></p-sortIcon>
+          </th>
+          <th style="width:10rem">{{ 'COMMON.TABLE_HEADER_ACTIONS' | translate }}</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-office>
+        <tr>
+          <td>{{ office.name }}</td>
+          <td>{{ office.createdAt?.toDate() | date:'mediumDate':undefined:translationService.currentLang() }}</td>
+          <td>{{ office.updatedAt?.toDate() | date:'mediumDate':undefined:translationService.currentLang() }}</td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+              pTooltip="{{'COMMON.TOOLTIP_EDIT' | translate}}" tooltipPosition="top"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+              pTooltip="{{'COMMON.TOOLTIP_DELETE' | translate}}" tooltipPosition="top"
+              (click)="deleteOffice(office)"></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4" class="text-center p-5"> {{ 'COMMON.NO_RECORDS_FOUND' | translate }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    }
+  </div>
+
 </div>
 
-<p-dialog [(visible)]="officeDialog"
-          [header]="dialogTitle()"
-          [modal]="true" styleClass="p-fluid"
-          [style]="{width: '50vw'}"
-          (onHide)="hideDialog()">
+<p-dialog [(visible)]="officeDialog" [header]="dialogTitle()" [modal]="true" styleClass="p-fluid"
+  [style]="{width: '50vw'}" (onHide)="hideDialog()">
   <ng-template pTemplate="content">
     <form [formGroup]="officeForm">
       <div class="field">
-        <label for="name_es">{{ 'ADMIN.OFFICES.FORM_NAME_ES_LABEL' | translate }}<span class="text-red-500">*</span></label>
+        <label for="name_es">{{ 'ADMIN.OFFICES.FORM_NAME_ES_LABEL' | translate }}<span
+            class="text-red-500">*</span></label>
         <input type="text" pInputText id="name_es" formControlName="name_es" required autofocus
-               [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_es'].errors}"/>
+          [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_es'].errors}" />
         <small class="p-error" *ngIf="submitted() && f['name_es'].errors?.['required']">
           {{ 'VALIDATION.REQUIRED' | translate }}
         </small>
@@ -91,9 +90,10 @@
       </div>
 
       <div class="field">
-        <label for="name_en">{{ 'ADMIN.OFFICES.FORM_NAME_EN_LABEL' | translate }}<span class="text-red-500">*</span></label>
+        <label for="name_en">{{ 'ADMIN.OFFICES.FORM_NAME_EN_LABEL' | translate }}<span
+            class="text-red-500">*</span></label>
         <input type="text" pInputText id="name_en" formControlName="name_en" required
-               [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_en'].errors}"/>
+          [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_en'].errors}" />
         <small class="p-error" *ngIf="submitted() && f['name_en'].errors?.['required']">
           {{ 'VALIDATION.REQUIRED' | translate }}
         </small>
@@ -103,9 +103,10 @@
       </div>
 
       <div class="field">
-        <label for="name_zh">{{ 'ADMIN.OFFICES.FORM_NAME_ZH_LABEL' | translate }}<span class="text-red-500">*</span></label>
+        <label for="name_zh">{{ 'ADMIN.OFFICES.FORM_NAME_ZH_LABEL' | translate }}<span
+            class="text-red-500">*</span></label>
         <input type="text" pInputText id="name_zh" formControlName="name_zh" required
-               [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_zh'].errors}"/>
+          [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_zh'].errors}" />
         <small class="p-error" *ngIf="submitted() && f['name_zh'].errors?.['required']">
           {{ 'VALIDATION.REQUIRED' | translate }}
         </small>
@@ -117,16 +118,9 @@
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <button pButton pRipple
-            [label]="'COMMON.BUTTON_CANCEL' | translate"
-            icon="pi pi-times"
-            class="p-button-text"
-            (click)="hideDialog()"></button>
-    <button pButton pRipple
-            [label]="'COMMON.BUTTON_SAVE' | translate"
-            icon="pi pi-check"
-            class="p-button-text"
-            (click)="saveOffice()"
-            [disabled]="officeForm.invalid && submitted()"></button>
+    <button pButton pRipple [label]="'COMMON.BUTTON_CANCEL' | translate" icon="pi pi-times" class="p-button-text"
+      (click)="hideDialog()"></button>
+    <button pButton pRipple [label]="'COMMON.BUTTON_SAVE' | translate" icon="pi pi-check" class="p-button-text"
+      (click)="saveOffice()" [disabled]="officeForm.invalid && submitted()"></button>
   </ng-template>
 </p-dialog>

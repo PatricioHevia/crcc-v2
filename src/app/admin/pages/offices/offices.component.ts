@@ -19,6 +19,7 @@ import { Office, OfficeForm } from '../../models/office-interface';
 import { ToastService } from '../../../core/services/toast.service';
 import { TranslationService } from '../../../core/services/translation.service'; // Para obtener lang actual si es necesario
 import { TooltipModule } from 'primeng/tooltip';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-offices',
@@ -36,6 +37,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ToastModule,
     ConfirmDialogModule,
     TranslateModule,
+    ProgressSpinnerModule
   ],
   templateUrl: './offices.component.html',
   // styleUrls: ['./offices.component.css'], // Descomentar si se añaden estilos específicos

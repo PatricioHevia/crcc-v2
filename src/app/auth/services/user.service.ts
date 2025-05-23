@@ -32,28 +32,18 @@ export class UserService {
   });
 
   public isUserAccountResolved: Signal<boolean> = computed(() => {
-  // Primero, el estado de Firebase Auth debe estar determinado.
   if (!this.authStateDetermined()) {
-    return false; // Esperar a que onAuthStateChanged se dispare al menos una vez.
+    return false;
   }
 
-  // Ahora que authStateDetermined es true, podemos confiar en this.auth.currentUser
-  // y en isLoadingAccount.
-  
-  // Caso 1: No hay usuario de Firebase (auth.currentUser es null)
-  // y no estamos intentando cargar una cuenta (isLoadingAccount es false).
+
   if (this.auth.currentUser === null && !this.isLoadingAccount()) {
     return true; 
   }
-
-  // Caso 2: Hay un usuario de Firebase (auth.currentUser existe)
-  // y la carga de la cuenta desde Firestore ha terminado (isLoadingAccount es false).
   if (this.auth.currentUser && !this.isLoadingAccount()) {
     return true;
   }
-  
-  // En cualquier otro caso (ej. authStateDetermined es true, pero isLoadingAccount es true),
-  // aún no está resuelto.
+
   return false;
 });
 
@@ -62,49 +52,29 @@ export class UserService {
   public allUsersLoading: WritableSignal<boolean> = signal(false);
 
   constructor() {
-  console.log('UserService: Constructor, suscribiendo a onAuthStateChanged');
   onAuthStateChanged(this.auth, (user: FirebaseUser | null) => {
     this.authStateDetermined.set(true); // <- Establecer a true cuando onAuthStateChanged se dispara por primera vez (o cualquier vez)
-    console.log('UserService: onAuthStateChanged Fired. FirebaseUser:', user?.uid ?? 'null');
     if (user) {
       this.isLoadingAccount.set(true);
-      console.log('UserService: isLoadingAccount SET TO TRUE (por FirebaseUser)');
       this.initUser(user.uid);
     } else {
       this.clearUser(); // clearUser ya pone isLoadingAccount a false
       // No es necesario this.isLoadingAccount.set(false) aquí si clearUser lo hace.
-      console.log('UserService: clearUser() llamado. isLoadingAccount debería ser false.');
     }
   });
 
-  // Log para la señal isUserAccountResolved (mantenlo para depurar si quieres)
-  effect(() => {
-    console.log(
-      'UserService: COMPUTED isUserAccountResolved AHORA ES:', this.isUserAccountResolved(),
-      '| authStateDetermined:', this.authStateDetermined(),
-      '| isLoadingAccount:', this.isLoadingAccount(),
-      '| auth.currentUser:', this.auth.currentUser?.uid ?? 'null',
-      '| this.usuario():', this.usuario()?.uid ?? 'null'
-    );
-  });
 }
 
   private initUser(uid: string) {
-    console.log(`UserService: initUser para UID: ${uid}`);
     this.userSub?.unsubscribe?.();
     this.isLoadingAccount.set(true); // Asegurar
-    console.log('UserService: isLoadingAccount SET TO TRUE (en initUser)');
     this.userSub = this.fs.listenOne<Account>('accounts', uid).subscribe(acc => {
-      console.log(`UserService: Firestore data recibida para UID: ${uid}. Account:`, acc);
       this.usuario.set(acc ?? null);
       this.loadUsersBasedOnRoleAndOrganization();
       this.isLoadingAccount.set(false);
-      console.log('UserService: isLoadingAccount SET TO FALSE (Firestore data recibida)');
     }, (error) => {
-      console.error(`UserService: Error en listenOne para UID: ${uid}`, error);
       this.usuario.set(null);
       this.isLoadingAccount.set(false);
-      console.log('UserService: isLoadingAccount SET TO FALSE (Firestore error)');
     });
   }
 

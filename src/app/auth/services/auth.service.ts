@@ -80,7 +80,6 @@ export class AuthService {
                 case 'auth/weak-password':
                     throw new Error('AUTH.WEAK_PASSWORD');
                 default:
-                    console.error('[AuthService][registerUserAuth]', err);
                     throw new Error('AUTH.UNKNOWN_ERROR');
             }
         }
@@ -136,13 +135,10 @@ export class AuthService {
             // 3) Enviar verificación
             if (organizationId) this.os.incrementUsersCount(organizationId);
         }
-        catch (err: any) {
-            console.error('[AuthService][registerUser] Firestore error', err);
-            // Rollback: eliminar usuario Auth si falla Firestore
+        catch (err: any) {            // Rollback: eliminar usuario Auth si falla Firestore
             try {
                 await deleteUser(cred.user);
             } catch (delErr) {
-                console.error('[AuthService][rollback deleteUser]', delErr);
             }
             // Distinción de errores de Firestore (aprox.)
             if (err.code === 'permission-denied') {

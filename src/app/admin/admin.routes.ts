@@ -7,6 +7,7 @@ import { AdminProjectsComponent } from './pages/admin-projects/admin-projects.co
 import { superAdminGuard } from '../core/guards/super-admin.guard'; // Importa la guardia
 import { mandanteAdminGuard } from '../core/guards/mandante-admin.guard';
 import { adminGuard } from '../core/guards/admin.guard';
+import { OfertasEmpleoComponent } from './pages/ofertas-empleo/ofertas-empleo.component';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -44,5 +45,11 @@ export const ADMIN_ROUTES: Routes = [
     canActivate: [superAdminGuard], // ¡Aquí aplicamos la guardia!
     data: { title: 'SIDEBAR.PROJECTS' }, // Asegúrate de tener esta clave en tus i18n JSON
   },
+  {
+    path: 'jobs-offers',
+    component: OfertasEmpleoComponent,
+    canActivate: [mandanteAdminGuard],
+    data: { title: 'SIDEBAR.JOBS' }, // Asegúrate de tener esta clave en tus i18n JSON
+  }
   // ... más rutas si las tienes
 ];

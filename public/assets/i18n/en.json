@@ -259,7 +259,8 @@
     "ORGANIZATIONS": "Organizations",
     "GENERAL": "General",
     "HOME": "Home",
-    "PROFILE": "My Profile"
+    "PROFILE": "My Profile",
+    "JOBS": "Jobs offers"
   },
   "USER_ROLES": {
     "Admin": "Administrator",
@@ -306,5 +307,14 @@
   "VALIDATION": {
     "REQUIRED": "This field is required.",
     "MINLENGTH": "A minimum of {requiredLength} characters is required."
+  },
+  "ORGANIZATION_TYPES": {
+    "DESIGN_ENGINEERING_CONSULTANT": "Design and Engineering Consultant",
+    "MATERIALS_EQUIPMENT_SUPPLIER": "Materials or Equipment Supplier",
+    "MEDICAL_EQUIPMENT_FURNITURE_SUPPLIER": "Medical Equipment and Furniture Supplier",
+    "CONSTRUCTION_SUBCONTRACTOR": "Construction Subcontractor",
+    "CTAR": "CTAR",
+    "LEGAL_ADVISOR": "Legal Advisor",
+    "MANDANTE": "Principal"
   }
 }

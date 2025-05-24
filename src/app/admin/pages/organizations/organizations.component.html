@@ -1,8 +1,8 @@
 <div class="p-4 bg-white dark:bg-zinc-900 shadow-md rounded-lg">
   <h2 class="text-xl font-bold mb-4 w-full text-center">{{ 'SIDEBAR.ORGANIZATIONS' | translate }}</h2>
   <div>
-    <p-table #orgTable [value]="organizaciones()" [rows]="pageSize()" [totalRecords]="totalOrganizations()" [loading]="loading()"
-      [paginator]="true" [responsiveLayout]="'scroll'" [showCurrentPageReport]="true"
+    <p-table #orgTable [value]="organizaciones()" [rows]="pageSize()" [totalRecords]="totalOrganizations()"
+      [loading]="loading()" [paginator]="true" [responsiveLayout]="'scroll'" [showCurrentPageReport]="true"
       [paginatorDropdownAppendTo]="'body'" stripedRows
       [currentPageReportTemplate]="'PRIMENG.PAGINATOR.SHOWING_OF' | translate" [rowsPerPageOptions]="[5, 10, 20, 50]"
       paginatorLocale="es-ES" [tableStyle]="{'min-width': '75rem'}" dataKey="id" [filterDelay]="300" [scrollable]="true"
@@ -24,20 +24,23 @@
         <tr>
           <th style="width:20%">
             {{ 'AUTH.ORG_NAME' | translate }}
-            <p-columnFilter type="text" field="name" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
+            <p-columnFilter type="text" field="name" matchMode="contains" [showMenu]="false"
+              class="w-full"></p-columnFilter>
           </th>
           <th style="width:15%">
             {{ 'AUTH.ORG_EMAIL' | translate }}
-            <p-columnFilter type="text" field="email" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
+            <p-columnFilter type="text" field="email" matchMode="contains" [showMenu]="false"
+              class="w-full"></p-columnFilter>
           </th>
           <th style="width:15%">
             {{ 'AUTH.ORG_TIN' | translate }}
-            <p-columnFilter type="text" field="tin" matchMode="contains" [showMenu]="false" class="w-full"></p-columnFilter>
+            <p-columnFilter type="text" field="tin" matchMode="contains" [showMenu]="false"
+              class="w-full"></p-columnFilter>
           </th>
           <th style="width:15%">
             {{ 'AUTH.ORG_TYPE' | translate }}
             <p-columnFilter field="type" matchMode="in" [showMenu]="false" class="w-full">
-              </p-columnFilter>
+            </p-columnFilter>
           </th>
           <th style="width:10%">
             {{ 'ADMIN.USERS.TABLE.ACTIVE' | translate }}
@@ -58,7 +61,7 @@
           </th>
           <th style="width:15%">
             {{ 'ADMIN.USERS.TABLE.UPDATED_AT' | translate }}
-             
+
           </th>
           <th style="width:10%">
             {{ 'ADMIN.USERS.TABLE.ACTIONS' | translate }}
@@ -71,10 +74,12 @@
           <td>{{ org.name }}</td>
           <td>{{ org.email }}</td>
           <td>{{ org.tin }}</td>
-          <td>{{ org.type }}</td>
+          <td>{{ ('ORGANIZATION_TYPES.' + org.type) | translate }}</td>
           <td>
-            <i *ngIf="org.active" class="pi pi-check-circle text-green-500 text-xl" [pTooltip]="'Activa' | translate" tooltipPosition="top"></i>
-            <i *ngIf="!org.active" class="pi pi-times-circle text-red-500 text-xl" [pTooltip]="'Inactiva' | translate" tooltipPosition="top"></i>
+            <i *ngIf="org.active" class="pi pi-check-circle text-green-500 text-xl" [pTooltip]="'Activa' | translate"
+              tooltipPosition="top"></i>
+            <i *ngIf="!org.active" class="pi pi-times-circle text-red-500 text-xl" [pTooltip]="'Inactiva' | translate"
+              tooltipPosition="top"></i>
           </td>
           <td>{{ org.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>
           <td>

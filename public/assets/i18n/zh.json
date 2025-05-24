@@ -259,7 +259,8 @@
         "ORGANIZATIONS": "组织",
         "GENERAL": "通用",
         "HOME": "主页",
-        "PROFILE": "我的资料"
+        "PROFILE": "我的资料",
+        "JOBS": "工作机会"
     },
     "USER_ROLES": {
         "Admin": "管理员",
@@ -306,5 +307,14 @@
     "VALIDATION": {
         "REQUIRED": "此字段是必需的。",
         "MINLENGTH": "至少需要 {requiredLength} 个字符。"
+    },
+    "ORGANIZATION_TYPES": {
+        "DESIGN_ENGINEERING_CONSULTANT": "设计和工程顾问",
+        "MATERIALS_EQUIPMENT_SUPPLIER": "材料或设备供应商",
+        "MEDICAL_EQUIPMENT_FURNITURE_SUPPLIER": "医疗设备和家具供应商",
+        "CONSTRUCTION_SUBCONTRACTOR": "建筑分包商",
+        "CTAR": "CTAR",
+        "LEGAL_ADVISOR": "法律顾问",
+        "MANDANTE": "委托人"
     }
 }

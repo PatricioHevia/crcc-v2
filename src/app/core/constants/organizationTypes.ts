@@ -43,5 +43,13 @@ export const orgTypes:{
       en: 'CTAR',
       zh: 'CTAR'
     }
-  }
+  },
+  {
+    value: 'Asesor Legal',
+    label: {
+      es: 'Asesor Legal',
+      en: 'Legal Advisor',
+      zh: '法律顾问'
+    }
+  },
 ];

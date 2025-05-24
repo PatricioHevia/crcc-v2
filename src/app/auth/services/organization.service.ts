@@ -85,7 +85,7 @@ export class OrganizationService {
         return computed(() => {
             const orgs = this.listener!.data();
             const org = orgs.find(o => o.id === organizationId);
-            return org ? org.type === 'Mandante' : false;
+            return org ? org.type === 'MANDANTE' : false;
         });
     }
 

@@ -20,9 +20,9 @@ export interface OfertasEmpleo {
     requisitos: string[];
     fechaCreacion: Timestamp;
     usuarioCreacion: string;
-    fechaEliminacion: Timestamp;
-    usuarioEliminacion: string;
-    eliminado: boolean;
+    fechaEliminacion?: Timestamp;
+    usuarioEliminacion?: string;
+    eliminado?: boolean;
     vacantes: number;
 }
 

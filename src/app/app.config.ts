@@ -7,8 +7,8 @@ import { routes } from './app.routes';
 
 // Firebase
 
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
+import { provideFirestore,  initializeFirestore, persistentLocalCache, persistentSingleTabManager } from '@angular/fire/firestore';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -112,12 +112,19 @@ export const appConfig: ApplicationConfig = {
       
     })]),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    provideDatabase(() => getDatabase()),
     provideStorage(() => getStorage()),
     provideAuth(() => getAuth()),
     provideFunctions(() => getFunctions()),
     provideMessaging(() => getMessaging()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => {
+      // Inicializa Firestore con cache persistente en un solo tab
+      return initializeFirestore(getApp(), {
+        localCache: persistentLocalCache({
+          tabManager: persistentSingleTabManager(undefined)
+        })
+      });
+    }),
     
   ],
 };

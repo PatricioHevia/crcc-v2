@@ -5,7 +5,7 @@ export const orgTypes:{
     value: OrganizationType;
   }[] = [
   {
-    value: 'Consultor de Diseño e Ingenierías',
+    value: 'DESIGN_ENGINEERING_CONSULTANT',
     label: {
       es: 'Consultor de Diseño e Ingenierías',
       en: 'Design and Engineering Consultant',
@@ -13,7 +13,7 @@ export const orgTypes:{
     }
   },
   {
-    value: 'Proveedor de Materiales o Equipos',
+    value: 'MATERIALS_EQUIPMENT_SUPPLIER',
     label: {
       es: 'Proveedor de Materiales o Equipos',
       en: 'Materials or Equipment Supplier',
@@ -21,7 +21,7 @@ export const orgTypes:{
     }
   },
   {
-    value: 'Proveedor de Equipamiento Médico y Mobiliario',
+    value: 'MEDICAL_EQUIPMENT_FURNITURE_SUPPLIER',
     label: {
       es: 'Proveedor de Equipamiento Médico y Mobiliario',
       en: 'Medical Equipment and Furniture Supplier',
@@ -29,7 +29,7 @@ export const orgTypes:{
     }
   },
   {
-    value: 'Subcontratista de Obra',
+    value: 'CONSTRUCTION_SUBCONTRACTOR',
     label: {
       es: 'Subcontratista de Obra',
       en: 'Construction Subcontractor',
@@ -45,7 +45,7 @@ export const orgTypes:{
     }
   },
   {
-    value: 'Asesor Legal',
+    value: 'LEGAL_ADVISOR',
     label: {
       es: 'Asesor Legal',
       en: 'Legal Advisor',

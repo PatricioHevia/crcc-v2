@@ -35,11 +35,11 @@ export interface Catalogo {
 }
 
 export type OrganizationType = 
-'Consultor de Diseño e Ingenierías'  |
-'Proveedor de Materiales o Equipos' |
-'Proveedor de Equipamiento Médico y Mobiliario' |
-'Subcontratista de Obra' |
-'CTAR' | 'Mandante' | 'Asesor Legal'
+'DESIGN_ENGINEERING_CONSULTANT'  |
+'MATERIALS_EQUIPMENT_SUPPLIER' |
+'MEDICAL_EQUIPMENT_FURNITURE_SUPPLIER' |
+'CONSTRUCTION_SUBCONTRACTOR' |
+'CTAR' | 'MANDANTE' | 'LEGAL_ADVISOR'
 
 export interface OrganizationForm
   extends Omit<Organization, 'id' | 'createdAt' | 'updatedAt' | 'usersCount' | 'deleted'> {}

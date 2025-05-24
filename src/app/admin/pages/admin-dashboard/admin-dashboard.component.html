@@ -1,3 +1,12 @@
-<p>
-  admin-dashboard works!
-</p>
+
+
+<p-panel [header]="header"  >
+  
+  
+  <p class="m-0">
+         {{ contenido }}
+    </p> 
+
+    <p-button [label]="nombreBoton" [icon]="icon" (click)="cambiarNombreBoton()"  severity="warn" />
+    
+</p-panel>

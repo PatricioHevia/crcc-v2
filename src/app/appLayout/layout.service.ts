@@ -8,6 +8,5 @@ export class LayoutService {
   onMenuToggle() {
     this.showMenu.update(v => !v);
   }
-
-  
+    
 }

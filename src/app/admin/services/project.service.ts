@@ -2,7 +2,7 @@ import { Injectable, signal, computed, effect, inject, Signal, runInInjectionCon
 import { toSignal } from '@angular/core/rxjs-interop';
 import { firstValueFrom, Observable } from 'rxjs';
 import { orderBy, Timestamp } from '@angular/fire/firestore';
-import { Project, ProjectForm } from '../../admin/models/project-interface';
+import { GalleryImageFirestore, Project, ProjectForm } from '../../admin/models/project-interface';
 import { FirestoreService } from '../../core/services/firestore.service';
 import { StorageService, UploadTask } from '../../core/services/storage.service';
 import { removeAccents } from '../../core/helpers/remove-acents';
@@ -12,19 +12,37 @@ export class ProjectService {
   private fs = inject(FirestoreService);
   private storageService = inject(StorageService);
 
-  // Señal reactiva de lista de proyectos
-  private _projects$: Observable<Project[]> = this.fs.listenCollection<Project>('projects', [orderBy('name_es', 'asc')]); // Ejemplo de orden
-  public projects: Signal<Project[]> = toSignal(this._projects$, { initialValue: [] as Project[] });
+  private listener: {
+    data: Signal<Project[]>;
+    loading: Signal<boolean>;
+    unsubscribe: () => void; 
+  } | null = null;
 
-  // Cerca de otras propiedades, al inicio de la clase ProjectService
-  private isLoadingProjects = signal<boolean>(true); // Inicia en true, asumiendo que cargará al inicio
-  private projectsDataResolved = signal<boolean>(false); // Indica si la carga inicial ha ocurrido
+  /** Inicia el listener una sola vez */
+  private startListening(): void {
+    if (!this.listener) {
+      this.listener = this.fs.listenCollectionWithLoading<Project>(
+        'projects'
+        // Aquí podrías añadir QueryConstraints si necesitas ordenar, por ejemplo:
+        // [orderBy('name_es', 'asc')]
+      );
+    }
+  }
 
-  // Señal pública para el estado de carga
-  public loadingProjects: Signal<boolean> = this.isLoadingProjects.asReadonly();
+  /** Señal con los contactos; arranca la escucha al invocar */
+  projects(): Project[] {
+    this.startListening();
+    return this.listener!.data();
+  }
 
-  // Señal pública para saber si los datos de proyectos están listos/resueltos
-  public areProjectsResolved: Signal<boolean> = this.projectsDataResolved.asReadonly();
+  /** Señal de loading; arranca la escucha al invocar */
+  loading(): boolean {
+    this.startListening();
+    return this.listener!.loading();
+  }
+
+
+
 
   // Mapa id → nombres multilenguaje
   public projectNames = computed(() => {
@@ -36,30 +54,7 @@ export class ProjectService {
     return map;
   });
 
-  constructor() {
 
-    runInInjectionContext(inject(Injector), () => { // Asegurar contexto de inyección para effect
-      effect((onCleanup) => {
-        const projectsList = this.projects(); // Accede a la señal de proyectos
-        if (projectsList) { // projects() siempre devolverá un array debido a initialValue
-          if (!this.projectsDataResolved()) { // Solo actuar la primera vez que se resuelve
-            console.log('ProjectService: Datos de proyectos iniciales recibidos/resueltos.');
-            this.isLoadingProjects.set(false);
-            this.projectsDataResolved.set(true);
-          }
-        }
-
-      });
-    });
-  }
-
-  public getAdminProjects(): Signal<Project[]> {
-    return this.projects;
-  }
-
-  public isAdminProjectsLoading(): Signal<boolean> {
-  return this.isLoadingProjects;
-}
 
   /** Sube la imagen principal y retorna la tarea */
   uploadMainImage(file: File, projectId: string): UploadTask {
@@ -112,12 +107,36 @@ export class ProjectService {
       if (mainTask) {
         projectData.image = await firstValueFrom(mainTask.downloadURL$);
       }
-      if (galleryTasks) {
-        projectData.galleryImages = await Promise.all(
-          galleryTasks.map(t => firstValueFrom(t.downloadURL$))
+
+      // --- MODIFICACIÓN AQUÍ para galleryImages ---
+      if (galleryTasks && galleryTasks.length > 0 && galleryFiles && galleryFiles.length === galleryTasks.length) {
+        // Asumimos que el orden de galleryTasks corresponde al de galleryFiles
+        // y que quieres guardar la URL y el nombre original del archivo.
+        const galleryImageObjects: GalleryImageFirestore[] = await Promise.all(
+          galleryTasks.map(async (task, index) => {
+            const url = await firstValueFrom(task.downloadURL$);
+            const originalFile = galleryFiles[index]; // Accedemos al archivo original por índice
+            return {
+              url: url,
+              name: originalFile.name,
+            };
+          })
         );
+        projectData.galleryImages = galleryImageObjects;
+      } else if (galleryTasks && galleryTasks.length > 0) {
+        console.warn('[createProject] galleryFiles no disponible o longitud no coincide con galleryTasks. Guardando solo URLs para galleryImages.');
+        projectData.galleryImages = await Promise.all(
+          galleryTasks.map(async (task) => {
+            const url = await firstValueFrom(task.downloadURL$);
+            return {
+              url: url,
+              name: 'unknown_filename' // O algún valor por defecto o dejarlo undefined si es opcional
+            };
+          })
+        );
+      } else {
+        projectData.galleryImages = []; // O undefined, si galleryImages es opcional y prefieres no tener el campo.
       }
-      // Usa Project (incluye image y galleryImages) como tipo en Firestore
       await this.fs.create<Project>('projects', projectData as Project, id);
     })();
 
@@ -162,6 +181,14 @@ export class ProjectService {
     })();
 
     return { mainTask, galleryTasks, complete };
+  }
+
+  ngOnDestroy(): void {
+    if (this.listener && typeof this.listener.unsubscribe === 'function') {
+      this.listener.unsubscribe(); // Llama a la función de desuscripción
+      this.listener = null; // Limpia la referencia (opcional, buena práctica)
+      console.log('ProjectService: Firestore listener unsubscribed.'); // Para verificar en consola
+    }
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy, ChangeDetectorRef, signal, WritableSignal, computed } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy, ChangeDetectorRef, signal, WritableSignal, computed, Signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -61,6 +61,9 @@ export class OfficesComponent implements OnInit {
   officeDialog: WritableSignal<boolean> = signal(false);
   submitted: WritableSignal<boolean> = signal(false);
   currentOfficeId: WritableSignal<string | null> = signal(null);
+
+  offices: Signal<Office[]> = computed(() => this.officeService.offices());
+  loading: Signal<boolean> = computed(() => this.officeService.loading());
 
   // Título del diálogo computado
   dialogTitle = computed(() => {

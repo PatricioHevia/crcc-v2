@@ -10,7 +10,7 @@ export interface Project {
     description_en  : string;
     description_zh  : string;
     image?          : string;
-    galleryImages?  : string [];
+    galleryImages?  : GalleryImageFirestore [];
     adwardDate?     : Timestamp;
     phase          : ProjectPhaseCode;
     url             : string;
@@ -24,3 +24,8 @@ export interface ProjectForm
   }
 
 
+export interface GalleryImageFirestore {
+  url: string;
+  name: string; // Nombre original del archivo, por ejemplo
+
+}

@@ -233,6 +233,9 @@
             "SUCCESS_UPDATED_DETAIL": "办公室 '{name}' 已成功更新。",
             "SUCCESS_DELETED_TITLE": "办公室已删除",
             "SUCCESS_DELETED_DETAIL": "办公室 '{name}' 已成功删除。"
+        },
+        "PROJECT": {
+            "LIST_SUBTITLE": "项目列表"
         }
     },
     "ACTIONS": {

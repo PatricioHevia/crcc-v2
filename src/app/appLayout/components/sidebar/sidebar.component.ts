@@ -6,9 +6,11 @@ import { MenuItem } from 'primeng/api';
 // Tus Servicios
 import { LayoutService } from '../../layout.service';
 import { UserService } from '../../../auth/services/user.service';
-import { OrganizationService } from '../../../auth/services/organization.service';
 import { TooltipModule } from 'primeng/tooltip';
-import { TranslateModule, TranslateService } from '@ngx-translate/core'; // Importa TranslateService
+import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core'; // Importa TranslateService
+import { ProjectService } from '../../../admin/services/project.service';
+import { Project } from '../../../admin/models/project-interface';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,36 +29,29 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'; // Impo
 export class SidebarComponent {
   layoutService = inject(LayoutService);
   userService = inject(UserService);
-  organizationService = inject(OrganizationService);
   translateService = inject(TranslateService); // Inyecta TranslateService
-  private injector = inject(EnvironmentInjector);
+  projectService = inject(ProjectService); // Inyecta el servicio de organización
 
-  private currentUser = this.userService.usuario; // Señal del Account actual
 
   // Señal para saber si el usuario es Admin (Admin o Super Admin)
-  private isUserAdmin = computed(() => {
-    const user = this.currentUser();
-    return !!user && (user.role === 'Admin'); // Solo Admin, Super Admin se trata por separado
-  });
-
-  private isUserSuperAdmin = computed(() => {
-    const user = this.currentUser();
-    return !!user && user.role === 'Super Admin';
-  });
-
-  // Señal para saber si la organización del usuario (si es Admin) es de tipo "Mandante"
-  private isUserOrganizationMandante = computed(() => {
-    const user = this.currentUser();
-    // Solo evaluamos si es Admin y tiene organización
-    if (!user || user.role !== 'Admin' || !user.organization) {
-      return false;
+  private isUserAdmin =  computed(() => this.userService.isAdmin());  
+  private isUserSuperAdmin =  computed(() => this.userService.isSuperAdmin());
+  private isUserMandante =  computed(() => this.userService.isMandante());
+  private projects = computed(() => this.projectService.projects());
+ 
+  // Asumiendo que tienes un servicio de traducción
+  private languageChangedEvent = toSignal(
+    this.translateService.onLangChange,
+    {
+      // Proporciona un valor inicial que refleje el estado actual del idioma.
+      // Esto es importante para que la señal menuModel tenga un valor coherente al inicio.
+      initialValue: {
+        lang: this.translateService.currentLang || this.translateService.defaultLang,
+        translations: {} // translations puede ser un objeto vacío para el valor inicial
+      } as LangChangeEvent
     }
-    // runInInjectionContext es necesario si isMandante() usa computed internamente y se llama desde otro computed
-    // Si isMandante es una simple función que devuelve una señal, esto es correcto.
-    return runInInjectionContext(this.injector, () =>
-      this.organizationService.isMandante(user.organization!)() // Accede al valor de la señal devuelta por isMandante
-    );
-  });
+  );
+  
 
   // Define los items base del menú de administración con sus llaves de traducción y rutas
   private allAdminBaseItems: { translationKey: string, icon?: string, faIcon?: string, route: string[], name: string }[] = [
@@ -70,19 +65,19 @@ export class SidebarComponent {
 
   // Computed property para generar los items del menú de administración
   public adminMenuItems = computed<MenuItem[]>(() => {
-    const user = this.currentUser();
+   
     // Asegurarse de que el usuario y su estado de cuenta estén resueltos antes de construir el menú
-    if (!user || !this.userService.isUserAccountResolved()) {
+    if (!this.userService.isUserAccountResolved()) {
       return []; // Devuelve un array vacío si el usuario no está listo
     }
 
     const itemsConfig: { name: string, condition: boolean }[] = [
-      { name: 'dashboard', condition: this.isUserSuperAdmin() || (this.isUserAdmin() && this.isUserOrganizationMandante()) },
+      { name: 'dashboard', condition: this.isUserSuperAdmin() || (this.isUserAdmin() && this.isUserMandante()) },
       { name: 'users', condition: this.isUserSuperAdmin() || this.isUserAdmin() }, // Admin (cualquiera) o SuperAdmin
-      { name: 'organizations', condition: this.isUserSuperAdmin() || (this.isUserAdmin() && this.isUserOrganizationMandante()) },
+      { name: 'organizations', condition: this.isUserSuperAdmin() || (this.isUserAdmin() && this.isUserMandante()) },
       { name: 'projects', condition: this.isUserSuperAdmin() },
       { name: 'offices', condition: this.isUserSuperAdmin() },
-      { name: 'jobs', condition: this.isUserSuperAdmin() || (this.isUserAdmin() && this.isUserOrganizationMandante()) },
+      { name: 'jobs', condition: this.isUserSuperAdmin() || (this.isUserAdmin() && this.isUserMandante()) },
     ];
 
     const visibleItems: MenuItem[] = [];
@@ -107,35 +102,63 @@ export class SidebarComponent {
 
   // Modelo final para el template.
   public menuModel = computed<MenuItem[]>(() => {
-    const adminItems = this.adminMenuItems();
+
+    this.languageChangedEvent();
+
+    // 2. Obtener el idioma actual directamente desde el servicio.
+    // TranslateService actualiza 'currentLang' después de un cambio de idioma.
+    const currentLang = this.translateService.currentLang || this.translateService.defaultLang;
+
+    const adminItemsResult = this.adminMenuItems();
+    const projectsList = this.projects();
     const finalMenu: MenuItem[] = [];
 
-    if (adminItems.length > 0) {
+    // Sección de Administración (como ya la tienes)
+    if (adminItemsResult.length > 0) {
       finalMenu.push({
         label: 'SIDEBAR.ADMINISTRATION', // Llave para el título de la sección
         icon: 'pi pi-cog',
-        items: adminItems,
-        styleClass: 'menu-section-title'
+        items: adminItemsResult,
+        styleClass: 'menu-section-title' // Para que se vea como un título de sección
       });
     }
 
-    // Ejemplo de cómo añadir una sección "General" que siempre es visible (si el usuario está logueado)
-    // if (this.currentUser()) { // O una condición más específica
-    //    finalMenu.push({
-    //        label: 'SIDEBAR.GENERAL', // Llave
-    //        icon: 'pi pi-home',
-    //        items: [
-    //            { label: 'SIDEBAR.PROFILE', icon: 'pi pi-user', routerLink: ['/profile'], styleClass: 'text-sm', tooltip: 'SIDEBAR.PROFILE' },
-    //        ],
-    //        styleClass: 'menu-section-title'
-    //    });
-    // }
+    // Nuevas secciones, una por cada proyecto
+    if (projectsList && projectsList.length > 0) {
+      projectsList.forEach((project: Project) => { // Especificar el tipo Project
+        let projectName = '';
+        // Seleccionar el nombre del proyecto según el idioma actual
+        switch (currentLang) {
+          case 'es':
+            projectName = project.name_es;
+            break;
+          case 'en':
+            projectName = project.name_en;
+            break;
+          case 'zh':
+            projectName = project.name_zh;
+            break;
+          default:
+            projectName = 'Prueba'; // Fallback al español o tu idioma por defecto
+        }
+
+        finalMenu.push({
+          label: projectName, // El nombre del proyecto ya traducido
+          // icon: 'pi pi-folder', // Icono de PrimeNG si lo deseas
+          faIcon: 'fa-solid fa-diagram-project', // Icono de FontAwesome para proyectos
+          items: [], // Aquí irán los subítems del proyecto en el futuro
+          styleClass: 'menu-section-title project-title', // Clase para estilo de título
+          // Opcional: si quieres que el título del proyecto sea un enlace:
+          // routerLink: ['/admin/projects', project.id], // Asegúrate que project.id exista y la ruta sea correcta
+          // Opcional: tooltip si el nombre es muy largo y se corta
+          // tooltip: projectName,
+          // tooltipPosition: 'right',
+        });
+      });
+    }
 
     return finalMenu;
   });
 
-  // Método para colapsar/expandir el sidebar (si lo necesitas para interactuar con LayoutService)
-  toggleSidebar() {
-    this.layoutService.onMenuToggle();
-  }
+ 
 }

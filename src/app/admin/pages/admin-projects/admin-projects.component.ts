@@ -15,6 +15,8 @@ import { Project } from '../../models/project-interface';
 import { TranslationService } from '../../../core/services/translation.service';
 import { PROJECT_PHASE_CODES, PROJECT_PHASE_COLORS, PROJECT_PHASE_TRANSLATION_KEYS, ProjectPhaseCode } from '../../../core/constants/phase-projects-keys';
 import { ProjectService } from '../../services/project.service';
+import { NuevoProyectoComponent } from '../../components/nuevo-proyecto/nuevo-proyecto.component';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-admin-projects',
@@ -29,7 +31,9 @@ import { ProjectService } from '../../services/project.service';
     TooltipModule,
     ProgressSpinnerModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    ToolbarModule,
+    NuevoProyectoComponent
   ],
   templateUrl: './admin-projects.component.html',
   // styleUrls: ['./admin-projects.component.css']
@@ -38,16 +42,16 @@ export class AdminProjectsComponent {
   private projectService = inject(ProjectService);
   private translationService = inject(TranslationService);
 
+  //Dialogs
+  newProjectDialogVisible: boolean = false;
+  editProjectDialogVisible: boolean = false;
+
   lang = computed(() => this.translationService.currentLang());
-
   phaseFilterOptions?: any[];
+  // Carga de datos
+  proyectos: Signal<Project[]> = computed(() => this.projectService.projects());
+  loading: Signal<boolean> = computed(() => this.projectService.loading()); // Asumiendo que tienes una señal de carga así
 
-  proyectos: Signal<Project[]> = computed(() => this.projectService.getAdminProjects()());
-  loading: Signal<boolean> = computed(() => this.projectService.isAdminProjectsLoading()()); // Asumiendo que tienes una señal de carga así
-
-  totalProjects: Signal<number> = computed(() => this.proyectos().length);
-  pageSize: WritableSignal<number> = signal(10);
-  globalFilterValue: string = '';
 
   public readonly phaseColors = PROJECT_PHASE_COLORS;
 
@@ -88,7 +92,11 @@ export class AdminProjectsComponent {
   }
 
   onCreateNewProject(): void {
-    console.log('Create new project');
-    // Lógica para crear un nuevo proyecto
+    
   }
+
+  closeDialogs(): void {
+    this.newProjectDialogVisible = false;
+    this.editProjectDialogVisible = false;
+  } 
 }

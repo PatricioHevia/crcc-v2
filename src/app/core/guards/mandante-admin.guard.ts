@@ -5,7 +5,6 @@ import { OrganizationService } from '../../auth/services/organization.service'; 
 
 export const mandanteAdminGuard: CanActivateFn = (route, state) => {
   const userService = inject(UserService);
-  const organizationService = inject(OrganizationService);
   const router = inject(Router);
   const injector = inject(Injector);
 
@@ -33,7 +32,7 @@ export const mandanteAdminGuard: CanActivateFn = (route, state) => {
         }
         // runInInjectionContext aquí es crucial si isMandante() usa signals/computed y se llama desde otro computed
         // Esto ya lo tienes en el sidebar, así que es consistente.
-        return organizationService.isMandante(user.organization!)();
+        return userService.isMandante();
       });
 
 

@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TranslateModule } from '@ngx-translate/core';
@@ -37,11 +37,13 @@ export class AppComponent implements OnInit {
   public  isLoadingApp = computed(() => !this.userService.isUserAccountResolved());
 
   isDark = computed(() => this.themeService.isDarkTheme());
+  
 
-  ngOnInit() {
-    this.primengConfig.ripple.set(true);
-
+  ngOnInit(): void {
+    console.log('AppComponent ngOnInit');  
   }
+
+ 
   switchLang(lang: 'es' | 'en' | 'zh'): void {
     this.translationService.switchLang(lang);
   }

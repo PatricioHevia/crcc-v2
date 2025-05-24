@@ -17,8 +17,8 @@
     }@else {
 
 
-    <p-table #dt [value]="officeService.offices()" [loading]="officeService.loading()" dataKey="id" styleClass="w-full"
-      responsiveLayout="scroll" [rows]="10" [paginator]="officeService.offices() && officeService.offices().length > 10"
+    <p-table #dt [value]="offices()" [loading]="loading()" dataKey="id" styleClass="w-full"
+      responsiveLayout="scroll" [rows]="10" [paginator]="offices() && offices().length > 10"
       [rowHover]="true"
       currentPageReportTemplate="{{'COMMON.PAGINATOR_ENTRIES' | translate: {first: '{first}', last: '{last}', totalRecords: '{totalRecords}'} }}"
       [showCurrentPageReport]="true">
@@ -52,7 +52,7 @@
           <td>
             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
               pTooltip="{{'COMMON.TOOLTIP_EDIT' | translate}}" tooltipPosition="top"></button>
-            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded " severity="warn"
               pTooltip="{{'COMMON.TOOLTIP_DELETE' | translate}}" tooltipPosition="top"
               (click)="deleteOffice(office)"></button>
           </td>

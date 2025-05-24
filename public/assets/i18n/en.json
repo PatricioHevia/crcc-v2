@@ -233,6 +233,9 @@
       "SUCCESS_UPDATED_DETAIL": "Office '{name}' has been updated successfully.",
       "SUCCESS_DELETED_TITLE": "Office Deleted",
       "SUCCESS_DELETED_DETAIL": "Office '{name}' has been deleted successfully."
+    },
+    "PROJECT": {
+      "LIST_SUBTITLE": "List of Projects"
     }
   },
   "ACTIONS": {

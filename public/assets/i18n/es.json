@@ -232,6 +232,9 @@
       "SUCCESS_UPDATED_DETAIL": "La oficina '{name}' ha sido actualizada exitosamente.",
       "SUCCESS_DELETED_TITLE": "Oficina Eliminada",
       "SUCCESS_DELETED_DETAIL": "La oficina '{name}' ha sido eliminada exitosamente."
+    },
+    "PROJECT": {
+      "LIST_SUBTITLE": "Lista de Proyectos"
     }
   },
   "ACTIONS": {

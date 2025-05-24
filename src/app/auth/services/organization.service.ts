@@ -80,14 +80,6 @@ export class OrganizationService {
         });
     }
 
-    isMandante(organizationId: string): Signal<boolean> {
-        this.startListening();
-        return computed(() => {
-            const orgs = this.listener!.data();
-            const org = orgs.find(o => o.id === organizationId);
-            return org ? org.type === 'MANDANTE' : false;
-        });
-    }
 
     // Obtiene un objeto de orgnizaciones y nombres computed
     getOrganizationsOptions(): Signal<{ value: string; label: string }[]> {
@@ -155,11 +147,11 @@ export class OrganizationService {
     }
 
     public incrementUsersCount(organizationId: string): Promise<void> {
-        return this.fs.incrementField<Organization>(
-            'organizations',
-            organizationId,
-            'usersCount',
-            1
+        return this.fs.incrementField<'usersCount', Organization>( // Se especifican AMBOS tipos: K y T
+            'organizations',         // path
+            organizationId,          // id
+            'usersCount',            // field (coincide con K)
+            1                        // amount
         );
     }
 

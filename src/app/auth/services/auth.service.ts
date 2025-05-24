@@ -30,7 +30,6 @@ export class AuthService {
     public readonly user: Signal<User | null> = this.userSignal.asReadonly();
 
     constructor() {
-        // Listener permanente
         onAuthStateChanged(this.auth, user => {
             this.userSignal.set(user);
         });
@@ -153,8 +152,12 @@ export class AuthService {
      * Manejo de errores comunes de Firebase Auth   */
 
     async login(email: string, password: string, remember: boolean): Promise<UserCredential> {
+
         const persistence = remember ? browserLocalPersistence : browserSessionPersistence;
+        
+                
         await this.auth.setPersistence(persistence);
+
         try {
             const cred = await signInWithEmailAndPassword(this.auth, email, password);
             return cred;

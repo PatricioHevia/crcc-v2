@@ -1,33 +1,43 @@
 <div class="p-4 bg-white dark:bg-zinc-900 shadow-md rounded-lg">
-  <h2 class="text-xl font-bold mb-4 w-full text-center">{{ 'SIDEBAR.PROJECTS' | translate }}</h2>
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="start">
+      <h2 class="text-xl font-bold">{{ 'SIDEBAR.PROJECTS' | translate }}</h2>
+    </ng-template>
+
+    <ng-template pTemplate="end"> <button pButton type="button" icon="pi pi-plus" class="p-button-primary"
+        (click)="onCreateNewProject()" [pTooltip]="'ACTIONS.CREATE' | translate" tooltipPosition="top"
+        label="{{'ACTIONS.CREATE' | translate}}">
+      </button>
+    </ng-template>
+  </p-toolbar>
   <div>
-    <p-table #projectsTable [value]="proyectos()" [rows]="pageSize()" [totalRecords]="totalProjects()"
+    <p-table #projectsTable
+     [value]="proyectos()"
+     [rows]="10"
       [loading]="loading()" [paginator]="true" [responsiveLayout]="'scroll'" [showCurrentPageReport]="true"
-      [paginatorDropdownAppendTo]="'body'" stripedRows
-      [currentPageReportTemplate]="'PRIMENG.PAGINATOR.SHOWING_OF' | translate" [rowsPerPageOptions]="[5, 10, 20, 50]"
+      [rowHover]="true" [paginatorDropdownAppendTo]="'body'"
+      [currentPageReportTemplate]="'PRIMENG.PAGINATOR.SHOWING_OF' | translate" [rowsPerPageOptions]="[10, 20, 50]"
       paginatorLocale="es-ES" [tableStyle]="{'min-width': '75rem'}" dataKey="id" [scrollable]="true">
       <ng-template pTemplate="caption">
-        <div class="flex justify-start items-center mb-2"> <button pButton type="button" icon="pi pi-plus" class="p-button-primary" (click)="onCreateNewProject()"
-            [pTooltip]="'ACTIONS.CREATE' | translate" tooltipPosition="top"
-            label="{{'ACTIONS.CREATE' | translate}}"></button>
-          </div>
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+          <h5 class="m-0 text-lg font-semibold">{{ 'ADMIN.PROJECT.LIST_SUBTITLE' | translate }}</h5>
+        </div>
       </ng-template>
-
       <ng-template pTemplate="header">
         <tr>
           <th style="width:10%">{{ 'PROJECTS.TABLE.IMAGE' | translate }}</th>
           <th style="width:25%" pSortableColumn="name_es">
             {{ 'PROJECTS.TABLE.NAME' | translate }} <p-sortIcon field="name_es"></p-sortIcon>
-            </th>
+          </th>
           <th style="width:30%">
             {{ 'PROJECTS.TABLE.DESCRIPTION' | translate }}
           </th>
           <th style="width:15%" pSortableColumn="adwardDate">
             {{ 'PROJECTS.TABLE.AWARD_DATE' | translate }} <p-sortIcon field="adwardDate"></p-sortIcon>
-            </th>
+          </th>
           <th style="width:10%" pSortableColumn="phase">
             {{ 'PROJECTS.TABLE.PHASE' | translate }} <p-sortIcon field="phase"></p-sortIcon>
-            </th>
+          </th>
           <th style="width:10%">
             {{ 'ADMIN.USERS.TABLE.ACTIONS' | translate }}
           </th>
@@ -38,18 +48,19 @@
         <tr>
           <td>
             <img *ngIf="project.image" [src]="project.image" [alt]="getProjectName(project)"
-                 class="w-24 h-16 object-cover rounded shadow-sm"
-                 onError="this.src='assets/images/placeholder-image.png'"/>
+              class="w-24 h-16 object-cover rounded shadow-sm"
+              onError="this.src='assets/images/placeholder-image.png'" />
             <span *ngIf="!project.image" class="text-xs text-gray-400">{{ 'COMMON.NO_IMAGE' | translate }}</span>
           </td>
           <td>{{ getProjectName(project) }}</td>
           <td class="truncate max-w-xs" [pTooltip]="getProjectDescription(project)" tooltipPosition="top">
-            {{ getProjectDescription(project) | slice:0:100 }}{{ getProjectDescription(project).length > 100 ? '...' : '' }}
+            {{ getProjectDescription(project) | slice:0:100 }}{{ getProjectDescription(project).length > 100 ? '...' :
+            '' }}
           </td>
           <td>{{ project.adwardDate?.toDate() | date:'dd/MM/yyyy':undefined:lang() }}</td>
           <td>
             <span class="px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap"
-                  [ngClass]="getPhaseClasses(project.phase)">
+              [ngClass]="getPhaseClasses(project.phase)">
               {{ ('PROJECTS.PHASES.' + project.phase) | translate }}
             </span>
           </td>
@@ -58,7 +69,8 @@
               <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-info"
                 (click)="onEditProject(project)" [pTooltip]="'ACTIONS.EDIT' | translate" tooltipPosition="top"></button>
               <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
-                (click)="onDeleteProject(project)" [pTooltip]="'ACTIONS.DELETE' | translate" tooltipPosition="top"></button>
+                (click)="onDeleteProject(project)" [pTooltip]="'ACTIONS.DELETE' | translate"
+                tooltipPosition="top"></button>
             </div>
           </td>
         </tr>
@@ -74,3 +86,7 @@
     </p-table>
   </div>
 </div>
+
+<app-nuevo-proyecto>
+
+</app-nuevo-proyecto>

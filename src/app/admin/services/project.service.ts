@@ -1,21 +1,24 @@
-import { Injectable, signal, computed, effect, inject, Signal, runInInjectionContext, Injector } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { firstValueFrom, Observable } from 'rxjs';
-import { orderBy, Timestamp } from '@angular/fire/firestore';
-import { GalleryImageFirestore, Project, ProjectForm } from '../../admin/models/project-interface';
+import { Injectable, computed, inject, Signal, } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { Project } from '../../admin/models/project-interface';
 import { FirestoreService } from '../../core/services/firestore.service';
 import { StorageService, UploadTask } from '../../core/services/storage.service';
-import { removeAccents } from '../../core/helpers/remove-acents';
+import { parseUrl, removeAccents } from '../../core/helpers/remove-acents';
+import { ProjectForm } from '../models/project-interface';
+import { ProjectPhaseCode } from '../../core/constants/phase-projects-keys';
+import { TranslationService } from '../../core/services/translation.service';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
   private fs = inject(FirestoreService);
   private storageService = inject(StorageService);
+  private translationService = inject(TranslationService);
 
   private listener: {
     data: Signal<Project[]>;
     loading: Signal<boolean>;
-    unsubscribe: () => void; 
+    unsubscribe: () => void;
   } | null = null;
 
   /** Inicia el listener una sola vez */
@@ -74,74 +77,38 @@ export class ProjectService {
    * - devuelve mainTask y galleryTasks para mostrar progreso
    * - la promesa `complete` espera a que todo se suba y luego escribe Firestore
    */
-  createProject(
-    form: ProjectForm,
-    imageFile?: File,
-    galleryFiles?: File[]
-  ): {
-    mainTask?: UploadTask;
-    galleryTasks?: UploadTask[];
-    complete: Promise<void>;
-  } {
-    // 1) Prepara datos base
-    const projectData: Partial<Project> = { ...form };
-    projectData.url = removeAccents(form.name_es).replaceAll(' ', '-').toLowerCase();
-    if (form.adwardDate) {
-      projectData.adwardDate = Timestamp.fromDate(form.adwardDate as any);
-    }
-
-    const id = projectData.url!;
-    let mainTask: UploadTask | undefined;
-    let galleryTasks: UploadTask[] | undefined;
-
-    // 2) Inicia subidas
-    if (imageFile) {
-      mainTask = this.uploadMainImage(imageFile, id);
-    }
-    if (galleryFiles?.length) {
-      galleryTasks = this.uploadGalleryImages(galleryFiles, id);
-    }
-
-    // 3) Promesa que espera URLs y luego escribe en Firestore
-    const complete = (async () => {
-      if (mainTask) {
-        projectData.image = await firstValueFrom(mainTask.downloadURL$);
+  async createProject(name: string, description: string, phase: ProjectPhaseCode, adwardDate: Date) {
+    const adwardDateAsFirestoreTimestamp: Timestamp = Timestamp.fromDate(adwardDate)
+    try {
+      const project: Omit<Project, 'id'> = {
+        name,
+        name_es: '',
+        name_en: '',
+        name_zh: '',
+        description,
+        description_es: '',
+        description_en: '',
+        description_zh: '',
+        phase,
+        image: '',
+        galleryImages: [],
+        url: '',
+        adwardDate: adwardDateAsFirestoreTimestamp 
       }
-
-      // --- MODIFICACIÓN AQUÍ para galleryImages ---
-      if (galleryTasks && galleryTasks.length > 0 && galleryFiles && galleryFiles.length === galleryTasks.length) {
-        // Asumimos que el orden de galleryTasks corresponde al de galleryFiles
-        // y que quieres guardar la URL y el nombre original del archivo.
-        const galleryImageObjects: GalleryImageFirestore[] = await Promise.all(
-          galleryTasks.map(async (task, index) => {
-            const url = await firstValueFrom(task.downloadURL$);
-            const originalFile = galleryFiles[index]; // Accedemos al archivo original por índice
-            return {
-              url: url,
-              name: originalFile.name,
-            };
-          })
-        );
-        projectData.galleryImages = galleryImageObjects;
-      } else if (galleryTasks && galleryTasks.length > 0) {
-        console.warn('[createProject] galleryFiles no disponible o longitud no coincide con galleryTasks. Guardando solo URLs para galleryImages.');
-        projectData.galleryImages = await Promise.all(
-          galleryTasks.map(async (task) => {
-            const url = await firstValueFrom(task.downloadURL$);
-            return {
-              url: url,
-              name: 'unknown_filename' // O algún valor por defecto o dejarlo undefined si es opcional
-            };
-          })
-        );
-      } else {
-        projectData.galleryImages = []; // O undefined, si galleryImages es opcional y prefieres no tener el campo.
+      const traducido = await this.translationService.translateJson(project);
+      traducido.url = parseUrl(removeAccents(traducido.name_es));
+      const proyecto: Project = {
+        ...traducido,
+        id: traducido.url,
+        adwardDate: adwardDateAsFirestoreTimestamp
       }
-      await this.fs.create<Project>('projects', projectData as Project, id);
-    })();
-
-    return { mainTask, galleryTasks, complete };
+      return await this.fs.create<Project>('projects', proyecto, traducido.url);
+    } catch (error) {
+      console.error('Error al crear el proyecto:', error);
+      throw error; // Re-lanza el error para manejarlo en el componente
+    }
   }
+
   /**
    * Actualiza un proyecto:
    * - idéntico patrón: devuelve tareas y promesa final

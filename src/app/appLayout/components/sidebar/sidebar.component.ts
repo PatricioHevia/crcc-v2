@@ -11,6 +11,7 @@ import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-transla
 import { ProjectService } from '../../../admin/services/project.service';
 import { Project } from '../../../admin/models/project-interface';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,7 +23,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
     RouterLink,
     RouterLinkActive,
     TranslateModule,
-    TooltipModule
+    TooltipModule,
+    DividerModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

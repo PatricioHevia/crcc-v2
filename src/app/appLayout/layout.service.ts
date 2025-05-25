@@ -4,9 +4,15 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class LayoutService {
   showMenu = signal(true);
+  showDrawer = signal(false);
   
   onMenuToggle() {
     this.showMenu.update(v => !v);
+  }
+
+  ondrawerToggle() {
+    this.showDrawer.update(v => !v);
+
   }
     
 }

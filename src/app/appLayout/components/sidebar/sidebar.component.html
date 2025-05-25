@@ -1,15 +1,17 @@
 <div class="h-full flex flex-col p-4">
-  <div class="bg-white dark:bg-zinc-900 shadow-md rounded-lg p-4 overflow-y-auto flex-1">
+  <div class="bg-stone-50 dark:bg-zinc-900 shadow-md rounded-lg p-4 overflow-y-auto flex-1">
 
 
 
-    <nav class="flex-1 p-4 space-y-2">
+    <nav class="flex-1 p-2 space-y-2 w-full">
       @for (section of menuModel(); track section.label) {
-      <div class="mb-4">
+      <div class="mb-2">
         @if (section.label) {
-        <h2
-          class="px-3 py-2 text-xs font-bold text-center w-full text-gray-800 dark:text-gray-200 uppercase tracking-wider {{ section.styleClass }}">
-          {{ section.label | translate }} </h2>
+        <p-divider align="center">
+          <h2
+            class="text-xs font-bold text-center w-full text-gray-800 dark:text-gray-200 uppercase tracking-wider {{ section.styleClass }}">
+            {{ section.label | translate }} </h2>
+        </p-divider>
         }
         @if (section.items && section.items.length > 0) {
         <ul class="space-y-1">

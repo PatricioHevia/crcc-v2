@@ -1,105 +1,121 @@
-<div class="p-4 bg-white dark:bg-zinc-900 shadow-md rounded-lg">
-  <h2 class="text-xl font-bold mb-4 w-full text-center">{{ 'SIDEBAR.ORGANIZATIONS' | translate }}</h2>
-  <div>
-    <p-table #orgTable [value]="organizaciones()" [rows]="pageSize()" [totalRecords]="totalOrganizations()"
-      [loading]="loading()" [paginator]="true" [responsiveLayout]="'scroll'" [showCurrentPageReport]="true"
-      [paginatorDropdownAppendTo]="'body'" stripedRows
-      [currentPageReportTemplate]="'PRIMENG.PAGINATOR.SHOWING_OF' | translate" [rowsPerPageOptions]="[5, 10, 20, 50]"
-      paginatorLocale="es-ES" [tableStyle]="{'min-width': '75rem'}" dataKey="id" [filterDelay]="300" [scrollable]="true"
-      [globalFilterFields]="['name', 'email', 'type', 'tin', 'address']">
+<div class="grid grid-cols-1 w-full bg-stone-50 dark:bg-gris rounded p-4">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="start">
+      <h3 class="text-lg font-semibold">{{ 'SIDEBAR.ORGANIZATIONS' | translate }}</h3>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-search" />
+        <input pInputText type="text" [(ngModel)]="globalFilterValue"
+          (input)="orgTable.filterGlobal(globalFilterValue, 'contains')"
+          placeholder="{{'ACTIONS.SEARCH_KEYWORD' | translate}}" />
+      </p-iconfield>
+    </ng-template>
+  </p-toolbar>
+  <p-table #orgTable [value]="organizaciones()" [rows]="pageSize()" [totalRecords]="totalOrganizations()"
+    [loading]="loading()" [paginator]="true" [responsiveLayout]="'scroll'" [showCurrentPageReport]="true"
+    [paginatorDropdownAppendTo]="'body'" [currentPageReportTemplate]="'PRIMENG.PAGINATOR.SHOWING_OF' | translate"
+    [rowsPerPageOptions]="[5, 10, 20, 50]" paginatorLocale="es-ES" [tableStyle]="{'min-width': '75rem'}" dataKey="id"
+    [filterDelay]="300" [scrollable]="true" [globalFilterFields]="['name', 'email', 'type', 'tin', 'address']">
 
-      <ng-template pTemplate="caption">
-        <div class="flex justify-between items-center mb-2">
-          <h3 class="text-lg font-semibold">{{ 'SIDEBAR.ORGANIZATIONS' | translate }}</h3>
-          <p-iconfield>
-            <p-inputicon styleClass="pi pi-search" />
-            <input pInputText type="text" [(ngModel)]="globalFilterValue"
-              (input)="orgTable.filterGlobal(globalFilterValue, 'contains')"
-              placeholder="{{'ACTIONS.SEARCH_KEYWORD' | translate}}" />
-          </p-iconfield>
-        </div>
-      </ng-template>
 
-      <ng-template pTemplate="header">
-        <tr>
-          <th style="width:20%">
-            {{ 'AUTH.ORG_NAME' | translate }}
-            <p-columnFilter type="text" field="name" matchMode="contains" [showMenu]="false"
-              class="w-full"></p-columnFilter>
-          </th>
-          <th style="width:15%">
-            {{ 'AUTH.ORG_EMAIL' | translate }}
-            <p-columnFilter type="text" field="email" matchMode="contains" [showMenu]="false"
-              class="w-full"></p-columnFilter>
-          </th>
-          <th style="width:15%">
-            {{ 'AUTH.ORG_TIN' | translate }}
-            <p-columnFilter type="text" field="tin" matchMode="contains" [showMenu]="false"
-              class="w-full"></p-columnFilter>
-          </th>
-          <th style="width:15%">
-            {{ 'AUTH.ORG_TYPE' | translate }}
-            <p-columnFilter field="type" matchMode="in" [showMenu]="false" class="w-full">
-            </p-columnFilter>
-          </th>
-          <th style="width:10%">
-            {{ 'ADMIN.USERS.TABLE.ACTIVE' | translate }}
-            <p-columnFilter field="active" matchMode="equals" [showMenu]="false" class="w-full">
-              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                <div (click)="$event.stopPropagation()">
-                  <p-select [options]="activeFilterOptions" [ngModel]="value" (onChange)="filter($event.value)"
-                    placeholder="{{'ACTIONS.SELECT_STATUS' | translate}}" [showClear]="true"
-                    styleClass="w-full md:w-10rem" optionValue="value" [optionLabel]="'label.' + lang()"
-                    appendTo="body">
-                    <ng-template let-option pTemplate="item">
-                      <span>{{ option.label[lang()] }}</span>
-                    </ng-template>
-                  </p-select>
-                </div>
-              </ng-template>
-            </p-columnFilter>
-          </th>
-          <th style="width:15%">
-            {{ 'ADMIN.USERS.TABLE.UPDATED_AT' | translate }}
 
-          </th>
-          <th style="width:10%">
-            {{ 'ADMIN.USERS.TABLE.ACTIONS' | translate }}
-          </th>
-        </tr>
-      </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:20%">
+          {{ 'AUTH.ORG_NAME' | translate }}
+          <p-columnFilter type="text" field="name" matchMode="contains" [showMenu]="false"
+            class="w-full"></p-columnFilter>
+        </th>
+        <th style="width:15%">
+          {{ 'AUTH.ORG_EMAIL' | translate }}
+          <p-columnFilter type="text" field="email" matchMode="contains" [showMenu]="false"
+            class="w-full"></p-columnFilter>
+        </th>
+        <th style="width:15%">
+          {{ 'AUTH.ORG_TIN' | translate }}
+          <p-columnFilter type="text" field="tin" matchMode="contains" [showMenu]="false"
+            class="w-full"></p-columnFilter>
+        </th>
+                <th style="width:15%; ">
+          {{ 'AUTH.ORG_TYPE' | translate }}
+          <p-columnFilter field="type" matchMode="equals" [showMenu]="false" class="w-full">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <div (click)="$event.stopPropagation()">
+                <p-select [options]="orgTypes" [ngModel]="value" (onChange)="filter($event.value)"
+                  placeholder="{{'ACTIONS.SELECT_TYPE' | translate}}" [showClear]="true"
+                  styleClass="w-full md:w-10rem " optionValue="value" [optionLabel]="'label.' + lang()" appendTo="body">
+                  <ng-template let-option pTemplate="item">
+                    <span>{{ option.label[lang()] }}</span>
+                  </ng-template>
+                </p-select>
+              </div>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="width:10%">
+          {{ 'ADMIN.USERS.TABLE.ACTIVE' | translate }}
+          <p-columnFilter field="active" matchMode="equals" [showMenu]="false" class="w-full">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <div (click)="$event.stopPropagation()">
+                <p-select [options]="activeFilterOptions" [ngModel]="value" (onChange)="filter($event.value)"
+                  placeholder="{{'ACTIONS.SELECT_STATUS' | translate}}" [showClear]="true"
+                  styleClass="w-full md:w-10rem" optionValue="value" [optionLabel]="'label.' + lang()" appendTo="body">
+                  <ng-template let-option pTemplate="item">
+                    <span>{{ option.label[lang()] }}</span>
+                  </ng-template>
+                </p-select>
+              </div>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="width:15%">
+          {{ 'ADMIN.USERS.TABLE.UPDATED_AT' | translate }}
 
-      <ng-template pTemplate="body" let-org>
-        <tr>
-          <td>{{ org.name }}</td>
-          <td>{{ org.email }}</td>
-          <td>{{ org.tin }}</td>
-          <td>{{ ('ORGANIZATION_TYPES.' + org.type) | translate }}</td>
-          <td>
-            <i *ngIf="org.active" class="pi pi-check-circle text-green-500 text-xl" [pTooltip]="'Activa' | translate"
+        </th>
+        <th style="width:10%">
+          {{ 'ADMIN.USERS.TABLE.ACTIONS' | translate }}
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-org>
+      <tr>
+        <td>{{ org.name }}</td>
+        <td>{{ org.email }}</td>
+        <td>
+          <div class="flex justify-center items-center w-full">
+            {{ org.tin }}
+          </div>
+        </td>
+        <td>{{ ('ORGANIZATION_TYPES.' + org.type) | translate }}</td>
+        <td>
+          <div class="flex justify-center items-center w-full">
+            <i *ngIf="org.active" class="pi pi-check-circle text-green-300 text-xl" [pTooltip]="'Activa' | translate"
               tooltipPosition="top"></i>
-            <i *ngIf="!org.active" class="pi pi-times-circle text-red-500 text-xl" [pTooltip]="'Inactiva' | translate"
+            <i *ngIf="!org.active" class="pi pi-times-circle text-red-300 text-xl" [pTooltip]="'Inactiva' | translate"
               tooltipPosition="top"></i>
-          </td>
-          <td>{{ org.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>
-          <td>
-            <div class="flex gap-2">
-              <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-info"
-                (click)="onEdit(org)" [pTooltip]="'Editar' | translate" tooltipPosition="top"></button>
-              <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
-                (click)="onDelete(org)" [pTooltip]="'Eliminar' | translate" tooltipPosition="top"></button>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
+          </div>
+        </td>
+        <td>{{ org.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>
+        <td>
+          <div class="flex gap-2">
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-info"
+              (click)="onEdit(org)" [pTooltip]="'Editar' | translate" tooltipPosition="top"></button>
+            <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+              (click)="onDelete(org)" [pTooltip]="'Eliminar' | translate" tooltipPosition="top"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
 
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td [attr.colspan]="7" class="text-center p-4">
-            {{ (globalFilterValue ? 'ADMIN.USERS.TABLE.NO_USERS_MATCHING_FILTER' : 'ADMIN.USERS.TABLE.NO_USERS_FOUND') |
-            translate }} </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="7" class="text-center p-4">
+          {{ (globalFilterValue ? 'ADMIN.USERS.TABLE.NO_USERS_MATCHING_FILTER' : 'ADMIN.USERS.TABLE.NO_USERS_FOUND') |
+          translate }} </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
 </div>

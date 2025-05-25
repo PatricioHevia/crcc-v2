@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms'; // Para ngModel
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FluidModule } from 'primeng/fluid';
+import { orgTypes } from '../../../core/constants/organizationTypes';
 
 interface SelectOption {
   label: string;
@@ -40,6 +43,8 @@ interface SelectOption {
     IconFieldModule,
     InputIconModule,
     TooltipModule,
+    ToolbarModule,
+    FluidModule
   ],
 })
 export class OrganizationsComponent {
@@ -57,6 +62,8 @@ export class OrganizationsComponent {
   pageSize: WritableSignal<number> = signal(10);
   globalFilterValue: string = '';
 
+  orgTypes = orgTypes;
+
   // Opciones para filtros (ejemplo, adaptar según necesidad)
   typeFilterOptions: WritableSignal<SelectOption[]> = signal([]); // Para filtrar por tipo de organización
   activeFilterOptions: any[];
@@ -72,33 +79,7 @@ export class OrganizationsComponent {
     ];
   }
 
-  /**
-   * Método ejemplo para cargar tipos de organización para el filtro.
-   * Deberías adaptarlo para obtener los tipos desde tu servicio o una constante.
-   */
-  private async loadOrganizationTypesForFilter() {
-    // Ejemplo: Si tienes un método en OrganizationService para obtener tipos únicos
-    // const types = await this.organizationService.getDistinctOrganizationTypes();
-    // this.typeFilterOptions.set(
-    //   types.map(type => ({ label: this.translateOrganizationType(type), value: type }))
-    // );
-    // O si los tienes en una constante, como en `organizationTypes.ts`
-    // import { organizationTypes } from '../../../core/constants/organizationTypes';
-    // const currentLang = this.lang();
-    // this.typeFilterOptions.set(
-    //   organizationTypes.map(type => ({ label: type.name[currentLang] || type.name.es, value: type.id }))
-    // );
-  }
 
-  /**
-   * Ejemplo de cómo podrías traducir un tipo de organización si no viene pre-traducido.
-   * (Esto es solo un placeholder, adapta a tu estructura)
-   */
-  private translateOrganizationType(typeKey: string): string {
-    // Lógica para traducir, posiblemente usando ngx-translate si tienes claves para tipos
-    // Por ejemplo: return this.translationService.instant(`ORG_TYPES.${typeKey}`);
-    return typeKey; // Placeholder
-  }
 
 
   onEdit(organization: Organization): void {
@@ -114,8 +95,6 @@ export class OrganizationsComponent {
     // this.organizationService.deleteOrganization(organization.id); // Asumiendo que tienes este método
   }
 
-  // El filtrado global se maneja con (input)="orgTable.filterGlobal(globalFilterValue, 'contains')" en el HTML.
-  // Los filtros de columna se definen directamente en las columnas de la tabla.
 
   // Opcional: Lógica para limpiar filtros si añades botones específicos
   clearFilters(table: any): void {

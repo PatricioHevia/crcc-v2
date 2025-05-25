@@ -1,5 +1,81 @@
-<dialog>
+<p-drawer [(visible)]="visible" position="right" [baseZIndex]="10000"
+    styleClass="!w-full md:!w-[60%] lg:!w-[40%] xl:!w-[25%]" [closable]="false">
 
 
-  
-</dialog>
+    <div class="flex items-center p-4 w-full ">
+        <img [src]="theme.isDarkTheme() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
+            alt="{{ 'companyLogo' | translate }}" class="h-15 w-auto mr-2 flex-shrink-0">
+
+        <span class="flex-grow text-xl text-center font-semibold dark:text-gray-200">{{ 'PROJECTS.ACTIONS.NEW_PROJECT' | translate
+            }}</span>
+
+        <p-button icon="pi pi-times" (onClick)="visible.set(false)"
+            styleClass="p-button-rounded p-button-text p-button-plain flex-shrink-0">
+        </p-button>
+    </div>
+
+    <p-divider></p-divider>
+    @if (visible()) {
+
+
+    <form [formGroup]="projectForm" class="p-4 flex flex-col gap-6 flex-grow overflow-y-auto">
+
+        <div class="flex flex-col">
+            <label htmlFor="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'PROJECTS.TABLE.NAME' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <input fluid pInputText id="name" formControlName="name" type="text" class="w-full" />
+
+        </div>
+
+        <div class="flex flex-col">
+            <label htmlFor="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'PROJECTS.TABLE.DESCRIPTION' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <textarea rows="5" autoResize="true" fluid pTextarea id="description" formControlName="description" class="w-full"></textarea>
+
+        </div>
+
+        <div class="flex flex-col">
+            <label htmlFor="phase" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'PROJECTS.TABLE.PHASE' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <p-select appendTo="body" id="phase" formControlName="phase" [options]="phases" optionValue="value"
+                [placeholder]="'selectPhase' | translate" class="w-full"
+               >
+
+                <ng-template pTemplate="item" let-option>
+                    <div>{{ option.label | translate }}</div>
+                </ng-template>
+
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div>
+                        <div>{{ selectedOption.label | translate }}</div>
+                    </div>
+                </ng-template>
+            </p-select>
+
+        </div>
+
+        <div class="flex flex-col">
+            <label htmlFor="awardDate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+               {{ 'PROJECTS.TABLE.AWARD_DATE' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <p-date-picker fluid id="awardDate" formControlName="awardDate" appendTo="body" class="w-full"
+                dateFormat="dd/mm/yy"></p-date-picker>
+
+        </div>
+    </form>
+    }
+
+
+
+    <p-divider></p-divider>
+    <div class="p-4 flex justify-end gap-2">
+        <p-button [label]=" 'ACTIONS.CANCEL' | translate " severity="danger" (onClick)="onCancel()"></p-button>
+        <p-button [icon]="butonIcon" [disabled]="projectForm.invalid" [label]="butonLabel | translate" (onClick)="onCreateProject()"></p-button>
+    </div>
+
+
+
+</p-drawer>

@@ -30,8 +30,8 @@
     "LINKEDIN_SCHCQ": "LinkedIn Coquimbo Hospital Concessionaire Company"
   },
   "ROLES": {
-    "Super Admin": "Super Admin",
-    "Admin": "Admin",
+    "Super Admin": "General Administrator",
+    "Admin": "Organization Administrator",
     "Usuario Básico": "Basic User"
   },
   "AUTH": {
@@ -243,10 +243,15 @@
     "ALL": "All",
     "ITEMS_SELECTED": "items selected",
     "SELECT_STATUS": "Select status",
+    "SELECT_TYPE": "Select type",
     "CREATE": "Create",
     "EDIT": "Edit",
     "DELETE": "Delete",
-    "SELECT_OPTION": "Select an option"
+    "SELECT_OPTION": "Select an option",
+    "CANCEL": "Cancel",
+    "CREATING": "Creating...",
+    "UPDATING": "Updating...",
+    "DELETING": "Deleting..."
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -286,6 +291,12 @@
       "BUILD": "Construction",
       "BUILD_OPERATE": "Construction & Operate",
       "OPERATE": "Operation"
+    },
+    "ACTIONS": {
+      "NEW_PROJECT": "New Project",
+      "EDIT_PROJECT": "Edit Project",
+      "DELETE_PROJECT": "Delete Project",
+      "VIEW_PROJECT": "View Project"
     }
   },
   "COMMON": {

@@ -14,3 +14,12 @@ export function removeAccents(str: string): string {
         .map((char) => map.get(char) || char)
         .join('');
 }
+
+export function parseUrl(str: string): string {
+    return str
+        .toLowerCase()
+        .replace(/ /g, '-')
+        .replace(/[^\w-]+/g, '')
+        .replace(/--+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}

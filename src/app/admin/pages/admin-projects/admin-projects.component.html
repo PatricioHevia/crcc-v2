@@ -1,4 +1,4 @@
-<div class="p-4 bg-white dark:bg-zinc-900 shadow-md rounded-lg">
+<div class="p-4 bg-stone-50 dark:bg-gris shadow-md rounded-lg">
   <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="start">
       <h2 class="text-xl font-bold">{{ 'SIDEBAR.PROJECTS' | translate }}</h2>
@@ -10,6 +10,7 @@
       </button>
     </ng-template>
   </p-toolbar>
+
   <div>
     <p-table #projectsTable
      [value]="proyectos()"
@@ -87,6 +88,6 @@
   </div>
 </div>
 
-<app-nuevo-proyecto>
+<app-nuevo-proyecto [(visible)]="newProjectVisible">
 
 </app-nuevo-proyecto>

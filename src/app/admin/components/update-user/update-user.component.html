@@ -1,0 +1,5 @@
+<p-drawer [(visible)]="visible" position="right" [baseZIndex]="10000"
+    styleClass="!w-full md:!w-[60%] lg:!w-[40%] xl:!w-[25%]" [closable]="false">
+  
+    {{ userToUpdate() | json }}
+  </p-drawer>

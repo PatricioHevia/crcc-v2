@@ -101,9 +101,9 @@
     "CREATE_ORG": "Crear organización"
   },
   "ROLES": {
-    "Super Admin": "Súper Admin",
-    "Admin": "Administrador",
-    "Usuario Básico": "Usuario" 
+    "Super Admin": "Administrador General",
+    "Admin": "Administrador de Organización",
+    "Usuario Básico": "Usuario Básico"
   },
   "HOME": {
     "TITULO": "NUESTRA EMPRESA",
@@ -242,10 +242,15 @@
     "ALL": "Todos",
     "ITEMS_SELECTED": "elementos seleccionados",
     "SELECT_STATUS": "Seleccionar estado",
+    "SELECT_TYPE": "Seleccionar tipo",
     "CREATE": "Crear",
     "EDIT": "Editar",
     "DELETE": "Eliminar",
-    "SELECT_OPTION": "Seleccionar una opción"
+    "SELECT_OPTION": "Seleccionar una opción",
+    "CANCEL": "Cancelar",
+    "CREATING": "Creando...",
+    "UPDATING": "Actualizando...",
+    "DELETING": "Eliminando..."
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -285,6 +290,12 @@
       "BUILD": "Construcción",
       "BUILD_OPERATE": "Construcción y Explotación",
       "OPERATE": "Explotación"
+    },
+    "ACTIONS": {
+      "NEW_PROJECT": "Nuevo Proyecto",
+      "EDIT_PROJECT": "Editar Proyecto",
+      "DELETE_PROJECT": "Eliminar Proyecto",
+      "VIEW_PROJECT": "Ver Proyecto"
     }
   },
   "COMMON": {

@@ -43,8 +43,7 @@ export class AdminProjectsComponent {
   private translationService = inject(TranslationService);
 
   //Dialogs
-  newProjectDialogVisible: boolean = false;
-  editProjectDialogVisible: boolean = false;
+  newProjectVisible = signal(false);
 
   lang = computed(() => this.translationService.currentLang());
   phaseFilterOptions?: any[];
@@ -92,11 +91,8 @@ export class AdminProjectsComponent {
   }
 
   onCreateNewProject(): void {
-    
+    this.newProjectVisible.set(true)
   }
 
-  closeDialogs(): void {
-    this.newProjectDialogVisible = false;
-    this.editProjectDialogVisible = false;
-  } 
+
 }

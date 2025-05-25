@@ -1,0 +1,4 @@
+.p-button.mi-boton-hover-especial:hover {
+  background-color: red !important;
+  border-color: green !important;
+}

@@ -12,7 +12,7 @@ export interface basicInfoAccount {
   uid: string;
   name: string;
   email: string;
-  role: 'Usuario Básico' | 'Admin' | 'Super Admin';
+  role: RoleAccount;
   active: boolean;
   phone?: string;
   organization?: string; //id
@@ -75,3 +75,5 @@ export interface Curriculum {
 
 export interface AccountForm
   extends Omit<Account, 'uid' | 'createdAt' | 'updatedAt' | 'deleted'| 'role'> {}
+
+  export type RoleAccount = 'Usuario Básico' | 'Admin' | 'Super Admin';

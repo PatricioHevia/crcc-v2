@@ -15,6 +15,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { ToolbarModule } from 'primeng/toolbar';
+import { roleTypes } from '../../../core/constants/role-types';
+import { UpdateUserComponent } from '../../components/update-user/update-user.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 interface SelectOption {
   label: string;
@@ -37,12 +41,19 @@ interface SelectOption {
     FormsModule,
     IconFieldModule,
     InputIconModule,
+    ToolbarModule,
+    TooltipModule,
+    UpdateUserComponent
   ],
 })
 export class UsersComponent {
   private userService = inject(UserService);
   private orgSvc = inject(OrganizationService);
   private translationService = inject(TranslationService);
+
+  editVisible = signal(false); // Para el diálogo de edición  
+  userToEdit: WritableSignal<Account | null> = signal (null); // Para almacenar el usuario a editar
+
 
   lang = computed(() => this.translationService.currentLang());
 
@@ -56,7 +67,9 @@ export class UsersComponent {
   pageSize: WritableSignal<number> = signal(10); // Puedes ajustar el tamaño de página por defecto para el cliente
 
   activeFilterOptions: any[];
-  organizationFilterOptions: WritableSignal<SelectOption[]> = signal([]);
+  organizationsNames = this.orgSvc.getOrganizationsOptions();  
+
+  isMandante = computed(() => this.userService.isMandante()); 
 
   // Variable para el filtro global de PrimeNG si decides usarlo
   globalFilterValue: string = '';
@@ -67,34 +80,9 @@ export class UsersComponent {
       { label: { es: 'Activo', en: 'Active', zh: '激活' }, value: true },
       { label: { es: 'Inactivo', en: 'Inactive', zh: '未激活' }, value: false }
     ];
-    this.loadOrganizationsForFilter();
   }
 
-
-  private async loadOrganizationsForFilter() {
-    try {
-      const orgs = await this.orgSvc.getAllOrganizationsPromise();
-      const options = orgs.map(org => ({ label: org.name, value: org.id }));
-
-      // construye el label según el idioma actual
-      const noneLabelMap: Record<string, string> = {
-        es: 'Sin organización',
-        en: 'No organization',
-        zh: '无组织'
-      };
-      const noneOption: SelectOption = {
-        value: '',
-        label: noneLabelMap[this.lang()] || noneLabelMap["es"]
-      };
-
-      // pon primero “Sin organización” y luego el resto
-      this.organizationFilterOptions.set([noneOption, ...options]);
-    } catch (error) {
-      console.error("Error loading organizations for filter:", error);
-      this.organizationFilterOptions.set([{ label: 'Error al cargar', value: null }]);
-    }
-  }
-
+  roles = roleTypes;
 
   getOrgName(orgId: string): Signal<string | null> { //
     if (!orgId) return signal('N/A');
@@ -102,7 +90,7 @@ export class UsersComponent {
   }
 
   onEdit(user: Account): void { //
-    console.log('Edit user:', user);
+    this.editVisible.set(true);
+    this.userToEdit.set(user);
   }
-
 }

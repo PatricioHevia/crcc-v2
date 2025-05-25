@@ -17,7 +17,7 @@ export const PROJECT_PHASE_CODES: ProjectPhaseCode[] = [
 
 // Opcional: Mapeo de códigos a sus llaves de traducción para usarlos centralizadamente si es necesario.
 // Esto también podría vivir directamente en el componente si solo se usa allí.
-export const PROJECT_PHASE_TRANSLATION_KEYS: Record<ProjectPhaseCode, string> = {
+export const PROJECT_PHASE_TRANSLATION_KEYS: Record<string, string> = {
   DESIGN: 'PROJECTS.PHASES.DESIGN',
   DESIGN_BUILD: 'PROJECTS.PHASES.DESIGN_BUILD',
   BUILD: 'PROJECTS.PHASES.BUILD',

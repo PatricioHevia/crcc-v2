@@ -68,7 +68,6 @@ export default class TopBarComponent {
   private auth = inject(AuthService);
   private themeService = inject(ThemeService);
   public translation = inject(TranslationService);
-  private translatePipe = inject(TranslateService);
   private userService = inject(UserService);
 
 
@@ -182,14 +181,7 @@ export default class TopBarComponent {
     return items;
   });
 
-  // Theme toggle item configuration
-  themeToggleConfig = computed<MenuItem>(() => ({
-    id: 'themeToggle',
-    icon: this.isDark() ? 'pi pi-sun' : 'pi pi-moon',
-    action: () => this.toggleTheme(),
-    // Get translated tooltip text programmatically
-    label: this.translatePipe.instant(this.isDark() ? 'TOPBAR.MODO_CLARO' : 'TOPBAR.MODO_OSCURO')
-  }));
+  
 
   toggleSubmenu(item: MenuItem, event?: MouseEvent): void {
     event?.stopPropagation(); // Prevent event bubbling if needed

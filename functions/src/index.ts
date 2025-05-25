@@ -34,18 +34,16 @@ export const translateJson = onRequest(async (req, res) => {
 
         // 3) Preparar el prompt sin fences y con sufijos correctos
         const prompt = `
-You will be given a plain JSON object whose keys ending in "_es" contain Spanish text,
-keys ending in "_en" contain English text, and keys ending in "_zh" contain Simplified Chinese text.
-For each prefix, ensure there are three keys: "<prefix>_es", "<prefix>_en", and "<prefix>_zh",
-each populated with its respective translation. Leave all other keys unchanged.
-Respond with ONLY the RAW JSON OBJECT. DO NOT wrap your response in Markdown, backticks, or code fences.
+You will receive a simple JSON object whose keys ending in "_es" must contain Spanish text, those ending in "_en" contain English text, and those ending in "_zh" contain Simplified Chinese text.
+For each prefix, ensure there are three keys: "<prefix>_es", "<prefix>_en", and "<prefix>_zh", each with its respective translation. Leave the other keys unchanged.
+Respond ONLY with the RAW JSON OBJECT. Do not enclose your response in Markdown, backticks, or code fences. Detect the language of the value and translate the others. It may also come without the prefix, so you should consider it for translation and submit the values ​​with prefixes.
 
 INPUT:
 ${JSON.stringify(payload, null, 2)}
 `.trim();
 
         try {
-            const openai = new OpenAI({ apiKey: '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' });
+            const openai = new OpenAI({ apiKey: 'APIKEY' });
             const completion = await openai.chat.completions.create({
                 model: 'gpt-4o-mini',
                 messages: [

@@ -21,6 +21,7 @@ import { FluidModule } from 'primeng/fluid';
 import { orgTypes } from '../../../core/constants/organizationTypes';
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '../../../core/services/toast.service';
+import { UpdateOrganizationComponent } from '../../components/update-organization/update-organization.component';
 
 interface SelectOption {
   label: string;
@@ -46,7 +47,8 @@ interface SelectOption {
     InputIconModule,
     TooltipModule,
     ToolbarModule,
-    FluidModule
+    FluidModule,
+    UpdateOrganizationComponent
   ],
 })
 export class OrganizationsComponent {
@@ -55,6 +57,9 @@ export class OrganizationsComponent {
   private userService = inject(UserService);
   private confirmationService = inject(ConfirmationService); // Para confirmaciones de acciones
   private toastService = inject(ToastService);
+
+  editOrgVisible = signal(false);
+  organizationToEdit: WritableSignal<Organization | null> = signal(null);
 
   lang = computed(() => this.translationService.currentLang());
 
@@ -92,9 +97,8 @@ export class OrganizationsComponent {
 
 
   onEdit(organization: Organization): void {
-    console.log('Edit organization:', organization);
-    // Aquí implementarías la lógica para la edición.
-    // Podrías usar un diálogo de PrimeNG (DialogService) o navegar a una ruta de edición.
+    this.organizationToEdit.set(organization);
+    this.editOrgVisible.set(true);
   }
 
   onDelete(organization: Organization): void {

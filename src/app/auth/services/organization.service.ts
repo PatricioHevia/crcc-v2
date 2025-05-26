@@ -119,6 +119,11 @@ export class OrganizationService {
         return this.storage.uploadFile(file, path);
     }
 
+    // --- Métodos CRUD ---
+    public update(id: string, changes: Partial<Organization>) {
+        return this.fs.update<Organization>('organizations', id, changes);
+    }
+
     updateOrganization(
         id: string,
         data: Partial<OrganizationForm>,

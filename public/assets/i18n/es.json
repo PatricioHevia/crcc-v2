@@ -100,7 +100,10 @@
     "ORG_TYPE_REQUIRED": "El tipo de organización es obligatorio",
     "CREATE_ORG": "Crear organización",
     "PERMISSIONS": "Permisos",
-    "OFFICES": "Oficinas"
+    "OFFICES": "Oficinas",
+    "PHONE": "Teléfono",
+    "WEBSITE": "Sitio Web",
+    "LEGAL_REPRESENTATIVE": "Representante Legal"
   },
   "ROLES": {
     "Super Admin": "Administrador General",
@@ -252,7 +255,15 @@
       "DELETE_ERROR_DETAIL": "No se pudo eliminar la organización. Detalle: {error}",
       "DELETE_ERROR_DETAIL_GENERIC": "No se pudo eliminar la organización. Por favor, inténtalo de nuevo.",
       "DELETE_CANCELLED_TITLE": "Cancelado",
-      "DELETE_CANCELLED_DETAIL": "La eliminación de la organización ha sido cancelada."
+      "DELETE_CANCELLED_DETAIL": "La eliminación de la organización ha sido cancelada.",
+      "EDIT_TITLE": "Editar Organización",
+      "NO_CHANGES_DETECTED": "No se detectaron cambios en la organización.",
+      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",
+      "FORM": {
+        "CURRENT_LOGO": "Logo Actual",
+        "CHANGE_LOGO": "Cambiar Logo",
+        "REMOVE_LOGO": "Quitar Logo"
+      }
     }
   },
   "ACTIONS": {
@@ -339,7 +350,6 @@
     "NO_ORGANIZATION": "Sin organización",
     "LOADING": "Cargando...",
     "CONFIRMATION_TITLE": "Confirmación"
-    
   },
   "VALIDATION": {
     "REQUIRED": "Este campo es requerido.",

@@ -107,7 +107,10 @@
         "TYPE_PUBLIC": "公立",
         "EDIT_USER_TITLE": "编辑用户",
         "SUCCESS_UPDATED_DETAIL": "用户更新成功。",
-        "NO_CHANGES_DETECTED": "未检测到更改。"
+        "NO_CHANGES_DETECTED": "未检测到更改。",
+        "PHONE": "电话",
+        "WEBSITE": "网站",
+        "LEGAL_REPRESENTATIVE": "法定代表人"
     },
     "HOME": {
         "TITULO": "我们的公司",
@@ -253,7 +256,15 @@
             "DELETE_ERROR_DETAIL": "无法删除组织。详情: {error}",
             "DELETE_ERROR_DETAIL_GENERIC": "无法删除组织。请再试一次。",
             "DELETE_CANCELLED_TITLE": "已取消",
-            "DELETE_CANCELLED_DETAIL": "组织删除操作已取消。"
+            "DELETE_CANCELLED_DETAIL": "组织删除操作已取消。",
+            "EDIT_TITLE": "编辑组织",
+            "NO_CHANGES_DETECTED": "未检测到组织信息变更。",
+            "UPDATE_SUCCESS_DETAIL": "组织更新成功。",
+            "FORM": {
+                "CURRENT_LOGO": "当前标志",
+                "CHANGE_LOGO": "更改标志",
+                "REMOVE_LOGO": "移除标志"
+            }
         }
     },
     "ACTIONS": {

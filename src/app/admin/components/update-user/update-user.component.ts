@@ -232,6 +232,19 @@ export class UpdateUserComponent {
 
   onCancel(): void {
     this.resetFormAndClose();
+    const user = this.userToUpdate();
+    if (user) {
+      this.updateUserForm.patchValue({
+        name: user.name,
+        email: user.email,
+        organization: user.organization || null,
+        active: user.active,
+        role: user.role,
+        permissions: user.permissions || [],
+        offices: user.offices || []
+      });
+    }
+    this.resetButtonState();
   }
 
 }

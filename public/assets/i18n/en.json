@@ -106,7 +106,10 @@
     "TYPE_PRIVATE": "Private",
     "TYPE_PUBLIC": "Public",
     "PERMISSIONS": "Permissions",
-    "OFFICES": "Offices"
+    "OFFICES": "Offices",
+    "PHONE": "Phone",
+    "WEBSITE": "Website",
+    "LEGAL_REPRESENTATIVE": "Legal Representative"
   },
   "HOME": {
     "TITULO": "OUR COMPANY",
@@ -253,7 +256,15 @@
       "DELETE_ERROR_DETAIL": "Could not delete the organization. Detail: {error}",
       "DELETE_ERROR_DETAIL_GENERIC": "Could not delete the organization. Please try again.",
       "DELETE_CANCELLED_TITLE": "Cancelled",
-      "DELETE_CANCELLED_DETAIL": "Organization deletion has been cancelled."
+      "DELETE_CANCELLED_DETAIL": "Organization deletion has been cancelled.",
+      "EDIT_TITLE": "Edit Organization",
+      "NO_CHANGES_DETECTED": "No changes detected in the organization.",
+      "UPDATE_SUCCESS_DETAIL": "Organization updated successfully.",
+      "FORM": {
+        "CURRENT_LOGO": "Current Logo",
+        "CHANGE_LOGO": "Change Logo",
+        "REMOVE_LOGO": "Remove Logo"
+      }
     }
   },
   "ACTIONS": {

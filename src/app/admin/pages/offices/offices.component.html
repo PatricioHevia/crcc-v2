@@ -1,11 +1,11 @@
 <div class="grid grid-cols-1 w-full bg-stone-50 dark:bg-gris rounded p-4">
   <div class="card w-full">
-    
+
 
     <p-toolbar styleClass="mb-4">
       <ng-template pTemplate="left">
-        <button pButton pRipple [label]="'ADMIN.OFFICES.NEW_BUTTON' | translate" icon="pi pi-plus"
-          class="mr-2" (click)="openNew()"></button>
+        <button pButton pRipple [label]="'ADMIN.OFFICES.NEW_BUTTON' | translate" icon="pi pi-plus" class="mr-2"
+          (click)="openNew()"></button>
       </ng-template>
       <h5 class="font-bold text-xl">{{ 'ADMIN.OFFICES.TITLE' | translate }}</h5>
     </p-toolbar>
@@ -19,9 +19,8 @@
     }@else {
 
 
-    <p-table #dt [value]="offices()" [loading]="loading()" dataKey="id" styleClass="w-full"
-      responsiveLayout="scroll" [rows]="10" [paginator]="offices() && offices().length > 10"
-      [rowHover]="true"
+    <p-table #dt [value]="offices()" [loading]="loading()" dataKey="id" styleClass="w-full" responsiveLayout="scroll"
+      [rows]="10" [paginator]="offices() && offices().length > 10" [rowHover]="true"
       currentPageReportTemplate="{{'COMMON.PAGINATOR_ENTRIES' | translate: {first: '{first}', last: '{last}', totalRecords: '{totalRecords}'} }}"
       [showCurrentPageReport]="true">
 
@@ -73,56 +72,3 @@
   </div>
 
 </div>
-
-<p-dialog [(visible)]="officeDialog" [header]="dialogTitle()" [modal]="true" styleClass="p-fluid"
-  [style]="{width: '50vw'}" (onHide)="hideDialog()">
-  <ng-template pTemplate="content">
-    <form [formGroup]="officeForm">
-      <div class="field">
-        <label for="name_es">{{ 'ADMIN.OFFICES.FORM_NAME_ES_LABEL' | translate }}<span
-            class="text-red-500">*</span></label>
-        <input type="text" pInputText id="name_es" formControlName="name_es" required autofocus
-          [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_es'].errors}" />
-        <small class="p-error" *ngIf="submitted() && f['name_es'].errors?.['required']">
-          {{ 'VALIDATION.REQUIRED' | translate }}
-        </small>
-        <small class="p-error" *ngIf="submitted() && f['name_es'].errors?.['minlength']">
-          {{ 'VALIDATION.MINLENGTH' | translate:{requiredLength: f['name_es'].errors?.['minlength'].requiredLength} }}
-        </small>
-      </div>
-
-      <div class="field">
-        <label for="name_en">{{ 'ADMIN.OFFICES.FORM_NAME_EN_LABEL' | translate }}<span
-            class="text-red-500">*</span></label>
-        <input type="text" pInputText id="name_en" formControlName="name_en" required
-          [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_en'].errors}" />
-        <small class="p-error" *ngIf="submitted() && f['name_en'].errors?.['required']">
-          {{ 'VALIDATION.REQUIRED' | translate }}
-        </small>
-        <small class="p-error" *ngIf="submitted() && f['name_en'].errors?.['minlength']">
-          {{ 'VALIDATION.MINLENGTH' | translate:{requiredLength: f['name_en'].errors?.['minlength'].requiredLength} }}
-        </small>
-      </div>
-
-      <div class="field">
-        <label for="name_zh">{{ 'ADMIN.OFFICES.FORM_NAME_ZH_LABEL' | translate }}<span
-            class="text-red-500">*</span></label>
-        <input type="text" pInputText id="name_zh" formControlName="name_zh" required
-          [ngClass]="{'ng-invalid ng-dirty': submitted() && f['name_zh'].errors}" />
-        <small class="p-error" *ngIf="submitted() && f['name_zh'].errors?.['required']">
-          {{ 'VALIDATION.REQUIRED' | translate }}
-        </small>
-        <small class="p-error" *ngIf="submitted() && f['name_zh'].errors?.['minlength']">
-          {{ 'VALIDATION.MINLENGTH' | translate:{requiredLength: f['name_zh'].errors?.['minlength'].requiredLength} }}
-        </small>
-      </div>
-    </form>
-  </ng-template>
-
-  <ng-template pTemplate="footer">
-    <button pButton pRipple [label]="'COMMON.BUTTON_CANCEL' | translate" icon="pi pi-times" class="p-button-text"
-      (click)="hideDialog()"></button>
-    <button pButton pRipple [label]="'COMMON.BUTTON_SAVE' | translate" icon="pi pi-check" class="p-button-text"
-      (click)="saveOffice()" [disabled]="officeForm.invalid && submitted()"></button>
-  </ng-template>
-</p-dialog>

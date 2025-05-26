@@ -1,5 +1,96 @@
 <p-drawer [(visible)]="visible" position="right" [baseZIndex]="10000"
-    styleClass="!w-full md:!w-[60%] lg:!w-[40%] xl:!w-[25%]" [closable]="false">
-  
-    {{ userToUpdate() | json }}
-  </p-drawer>
+  styleClass="!w-full md:!w-[60%] lg:!w-[40%] xl:!w-[35%]" [closable]="false">
+
+  <div class="flex items-center p-4 w-full">
+    <img
+      [src]="themeService.isDarkTheme() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
+      alt="{{ 'companyLogo' | translate }}" class="h-15 w-auto mr-2 flex-shrink-0">
+    <span class="flex-grow text-xl text-center font-semibold dark:text-gray-200">
+      {{ 'ADMIN.USERS.EDIT_USER_TITLE' | translate }} </span>
+    <p-button icon="pi pi-times" (onClick)="onCancel()"
+      styleClass="p-button-rounded p-button-text p-button-plain flex-shrink-0">
+    </p-button>
+  </div>
+
+  <p-divider></p-divider>
+
+  @if (visible() && userToUpdate(); as user) {
+  <form [formGroup]="updateUserForm" class="p-4 flex flex-col gap-6 flex-grow overflow-y-auto">
+
+    <div class="flex flex-col">
+      <label htmlFor="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        {{ 'ADMIN.USERS.TABLE.NAME' | translate }}
+      </label>
+      <input pInputText id="name" formControlName="name" type="text" class="w-full" readonly />
+    </div>
+
+    <div class="flex flex-col">
+      <label htmlFor="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        {{ 'ADMIN.USERS.TABLE.EMAIL' | translate }}
+      </label>
+      <input pInputText id="email" formControlName="email" type="email" class="w-full" readonly />
+    </div>
+
+    @if(isSuperAdmin()){
+    <div class="flex flex-col">
+      <label htmlFor="organization" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        {{ 'ADMIN.USERS.TABLE.ORGANIZATION' | translate }}
+      </label>
+      <p-select appendTo="body" id="organization" formControlName="organization" [options]="organizationsOptions()"
+        optionLabel="label" optionValue="value" [placeholder]="'ACTIONS.SELECT_OPTION' | translate" [showClear]="true"
+        styleClass="w-full">
+        
+      </p-select>
+    </div>
+    }
+
+    <div class="flex flex-col">
+      <label htmlFor="active" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        {{ 'ADMIN.USERS.TABLE.ACTIVE' | translate }}
+      </label>
+      <p-toggleswitch id="active" formControlName="active"></p-toggleswitch>
+    </div>
+
+    @if(isSuperAdmin()){
+    <div class="flex flex-col">
+      <label htmlFor="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        {{ 'ADMIN.USERS.TABLE.ROLE' | translate }}
+      </label>
+      <p-select appendTo="body" id="role" formControlName="role" [options]="rolesOptions" [optionLabel]="'label.' + lang()"
+        optionValue="value" [placeholder]="'ACTIONS.SELECT_OPTION' | translate" styleClass="w-full">
+       
+      </p-select>
+    </div>
+    }
+
+    <div class="flex flex-col">
+      <label htmlFor="permissions" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        {{ 'AUTH.PERMISSIONS' | translate }} </label>
+      <p-multiSelect appendTo="body" id="permissions" formControlName="permissions" [options]="permissionsOptions"
+        [optionLabel]="'label.' + lang()" optionValue="value" [placeholder]="'ACTIONS.SELECT_OPTION' | translate" display="chip"
+        styleClass="w-full">
+      </p-multiSelect>
+    </div>
+
+    <div class="flex flex-col">
+      <label htmlFor="offices" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        {{ 'AUTH.OFFICES' | translate }} </label>
+      <p-multiSelect appendTo="body" id="offices" formControlName="offices" [options]="officesOptions()"
+        optionLabel="label" optionValue="value" [placeholder]="'ACTIONS.SELECT_OPTION' | translate" display="chip"
+        styleClass="w-full">
+      </p-multiSelect>
+    </div>
+
+  </form>
+  } @else {
+  <div class="p-4 text-center text-gray-500">
+    {{ 'COMMON.LOADING_USER_DATA' | translate }} </div>
+  }
+
+  <p-divider></p-divider>
+  <div class="p-4 flex justify-end gap-2">
+    <p-button [label]="'ACTIONS.CANCEL' | translate" severity="danger" (onClick)="onCancel()"></p-button>
+    <p-button [icon]="buttonIcon()" [disabled]="updateUserForm.invalid || isLoading()"
+      [label]="buttonLabel() | translate" (onClick)="onUpdateUser()"></p-button>
+  </div>
+</p-drawer>

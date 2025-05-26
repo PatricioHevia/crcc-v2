@@ -98,7 +98,9 @@
     "ORG_ADDRESS_SHORT": "Debe tener al menos 3 caracteres",
     "ORG_TYPE": "Tipo de organización",
     "ORG_TYPE_REQUIRED": "El tipo de organización es obligatorio",
-    "CREATE_ORG": "Crear organización"
+    "CREATE_ORG": "Crear organización",
+    "PERMISSIONS": "Permisos",
+    "OFFICES": "Oficinas"
   },
   "ROLES": {
     "Super Admin": "Administrador General",
@@ -201,6 +203,9 @@
   "ADMIN": {
     "USERS": {
       "TITLE": "Administración de usuarios",
+      "EDIT_USER_TITLE": "Editar Usuario",
+      "SUCCESS_UPDATED_DETAIL": "Usuario actualizado correctamente.",
+      "NO_CHANGES_DETECTED": "No se detectaron cambios en el usuario.",
       "TABLE": {
         "NAME": "Nombre",
         "ORGANIZATION": "Organización",
@@ -235,6 +240,18 @@
     },
     "PROJECT": {
       "LIST_SUBTITLE": "Lista de Proyectos"
+    },
+    "ORGANIZATIONS": {
+      "NO_PERMISSION_DELETE_TITLE": "Sin Permiso",
+      "NO_PERMISSION_DELETE_DETAIL": "No tienes permiso para eliminar organizaciones.",
+      "CONFIRM_DELETE_MESSAGE": "¿Estás seguro de que deseas eliminar la organización {name}?",
+      "DELETE_SUCCESS_TITLE": "Organización Eliminada",
+      "DELETE_SUCCESS_DETAIL": "La organización ha sido eliminada exitosamente.",
+      "DELETE_ERROR_TITLE": "Error al Eliminar",
+      "DELETE_ERROR_DETAIL": "No se pudo eliminar la organización. Detalle: {error}",
+      "DELETE_ERROR_DETAIL_GENERIC": "No se pudo eliminar la organización. Por favor, inténtalo de nuevo.",
+      "DELETE_CANCELLED_TITLE": "Cancelado",
+      "DELETE_CANCELLED_DETAIL": "La eliminación de la organización ha sido cancelada."
     }
   },
   "ACTIONS": {
@@ -250,7 +267,8 @@
     "CANCEL": "Cancelar",
     "CREATING": "Creando...",
     "UPDATING": "Actualizando...",
-    "DELETING": "Eliminando..."
+    "DELETING": "Eliminando...",
+    "SAVE": "Guardar"
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -315,7 +333,11 @@
     "FORM_INVALID_DETAIL": "Por favor, revisa los campos del formulario.",
     "ERROR_SAVING_TITLE": "Error al Guardar",
     "ERROR_DELETING_TITLE": "Error al Eliminar",
-    "UNEXPECTED_ERROR_DETAIL": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
+    "UNEXPECTED_ERROR_DETAIL": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "LOADING_USER_DATA": "Cargando datos del usuario...",
+    "NO_ORGANIZATION": "Sin organización",
+    "LOADING": "Cargando...",
+    "CONFIRMATION_TITLE": "Confirmación"
   },
   "VALIDATION": {
     "REQUIRED": "Este campo es requerido.",

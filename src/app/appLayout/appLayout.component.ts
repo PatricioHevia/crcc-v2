@@ -4,12 +4,13 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { LayoutService } from './layout.service';
 import { CommonModule } from '@angular/common';
+import { DrawerComponent } from './components/drawer/drawer.component';
 
 @Component({
   selector: 'app-appLayout',
   templateUrl: './appLayout.component.html',
   styleUrls: ['./appLayout.component.css'],
-  imports: [ TopComponent, SidebarComponent, RouterModule, CommonModule]
+  imports: [ TopComponent, SidebarComponent, RouterModule, CommonModule, DrawerComponent]
 })
 export class AppLayoutComponent implements OnInit {
 

@@ -104,7 +104,10 @@
         "ORG_TYPE_REQUIRED": "组织类型为必填项",
         "CREATE_ORG": "创建组织",
         "TYPE_PRIVATE": "私营",
-        "TYPE_PUBLIC": "公立"
+        "TYPE_PUBLIC": "公立",
+        "EDIT_USER_TITLE": "编辑用户",
+        "SUCCESS_UPDATED_DETAIL": "用户更新成功。",
+        "NO_CHANGES_DETECTED": "未检测到更改。"
     },
     "HOME": {
         "TITULO": "我们的公司",
@@ -202,6 +205,8 @@
     "ADMIN": {
         "USERS": {
             "TITLE": "用户管理",
+            "PERMISSIONS": "权限",
+            "OFFICES": "办公室",
             "TABLE": {
                 "NAME": "姓名",
                 "ORGANIZATION": "组织",
@@ -236,6 +241,18 @@
         },
         "PROJECT": {
             "LIST_SUBTITLE": "项目列表"
+        },
+        "ORGANIZATIONS": {
+            "NO_PERMISSION_DELETE_TITLE": "没有权限",
+            "NO_PERMISSION_DELETE_DETAIL": "您没有删除组织的权限。",
+            "CONFIRM_DELETE_MESSAGE": "您确定要删除组织 {name} 吗？",
+            "DELETE_SUCCESS_TITLE": "组织已删除",
+            "DELETE_SUCCESS_DETAIL": "组织已成功删除。",
+            "DELETE_ERROR_TITLE": "删除错误",
+            "DELETE_ERROR_DETAIL": "无法删除组织。详情: {error}",
+            "DELETE_ERROR_DETAIL_GENERIC": "无法删除组织。请再试一次。",
+            "DELETE_CANCELLED_TITLE": "已取消",
+            "DELETE_CANCELLED_DETAIL": "组织删除操作已取消。"
         }
     },
     "ACTIONS": {
@@ -251,7 +268,8 @@
         "CANCEL": "取消",
         "CREATING": "创建中...",
         "UPDATING": "更新中...",
-        "DELETING": "删除中..."
+        "DELETING": "删除中...",
+        "SAVE": "保存"
     },
     "PRIMENG": {
         "PAGINATOR": {
@@ -316,7 +334,10 @@
         "FORM_INVALID_DETAIL": "请检查表单字段。",
         "ERROR_SAVING_TITLE": "保存错误",
         "ERROR_DELETING_TITLE": "删除错误",
-        "UNEXPECTED_ERROR_DETAIL": "发生意外错误。请再试一次。"
+        "UNEXPECTED_ERROR_DETAIL": "发生意外错误。请再试一次。",
+        "LOADING_USER_DATA": "正在加载用户数据...",
+        "NO_ORGANIZATION": "无组织",
+        "LOADING": "加载中..."
     },
     "VALIDATION": {
         "REQUIRED": "此字段是必需的。",

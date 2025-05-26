@@ -17,8 +17,10 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ToolbarModule } from 'primeng/toolbar';
 import { roleTypes } from '../../../core/constants/role-types';
-import { UpdateUserComponent } from '../../components/update-user/update-user.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { UpdateUserComponent } from '../../components/update-user/update-user.component';
+import { ConfirmationService } from 'primeng/api';
+import { ToastService } from '../../../core/services/toast.service';
 
 interface SelectOption {
   label: string;
@@ -50,6 +52,7 @@ export class UsersComponent {
   private userService = inject(UserService);
   private orgSvc = inject(OrganizationService);
   private translationService = inject(TranslationService);
+   // Para mostrar mensajes de éxito o error
 
   editVisible = signal(false); // Para el diálogo de edición  
   userToEdit: WritableSignal<Account | null> = signal (null); // Para almacenar el usuario a editar
@@ -93,4 +96,6 @@ export class UsersComponent {
     this.editVisible.set(true);
     this.userToEdit.set(user);
   }
+
+  
 }

@@ -77,3 +77,7 @@ export interface AccountForm
   extends Omit<Account, 'uid' | 'createdAt' | 'updatedAt' | 'deleted'| 'role'> {}
 
   export type RoleAccount = 'Usuario Básico' | 'Admin' | 'Super Admin';
+  export type PermissionType  = 'LICITACIONES_EQM' | 'LICITACIONES_OBRAS_SERVICIOS' | 'CONTROL_INVENTARIO'
+| 'FLUJOS_APROBACION' | 'CONCURSOS' | 'CONTACTO' | 'DOCUMENTOS';
+  ;
+  

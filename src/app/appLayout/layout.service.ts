@@ -11,8 +11,9 @@ export class LayoutService {
   }
 
   ondrawerToggle() {
+    console.log('Drawer toggled');
     this.showDrawer.update(v => !v);
-
+    console.log('Drawer state:', this.showDrawer());
   }
     
 }

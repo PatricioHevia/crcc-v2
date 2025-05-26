@@ -1,0 +1,12 @@
+<p-drawer [(visible)]="layoutService.showDrawer" position="left" [baseZIndex]="10000"
+    styleClass="w-64" [closable]="false">
+    <div class="flex items-center justify-between p-4 w-full">
+    <img [src]="theme.isDarkTheme() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
+         alt="{{ 'companyLogo' | translate }}" class="h-15 w-auto mr-2 flex-shrink-0">
+
+    <p-button icon="pi pi-times" (onClick)="layoutService.ondrawerToggle()"
+              styleClass="p-button-rounded p-button-text p-button-plain flex-shrink-0">
+    </p-button>
+</div>
+    <app-menu></app-menu>  
+</p-drawer>

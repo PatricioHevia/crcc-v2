@@ -24,6 +24,7 @@
     [globalFilterFields]="['name', 'email', 'role', 'organizationName']">
     <!-- HEADER -->
     <ng-template pTemplate="header">
+      <!-- NAME -->
       <tr>
         <th style="width:20%" pFrozenColumn>
           {{ 'ADMIN.USERS.TABLE.NAME' | translate }}
@@ -31,6 +32,7 @@
             class="w-full"></p-columnFilter>
         </th>
         @if(isMandante()){
+        <!-- ORGANIZATION -->
         <th style="width:20%">
           {{ 'ADMIN.USERS.TABLE.ORGANIZATION' | translate }}
           <p-columnFilter field="organizationName" matchMode="in" [showMenu]="false" class="w-full">
@@ -47,12 +49,13 @@
           </p-columnFilter>
         </th>
         }
-
+        <!-- EMAIL -->
         <th style="width:25%">
           {{ 'ADMIN.USERS.TABLE.EMAIL' | translate }}
           <p-columnFilter type="text" field="email" matchMode="contains" [showMenu]="false"
             class="w-full"></p-columnFilter>
         </th>
+        <!-- ACTIVE -->
         <th style="width:10%">
           {{ 'ADMIN.USERS.TABLE.ACTIVE' | translate }}
           <p-columnFilter field="active" matchMode="equals" [showMenu]="false" class="w-full">
@@ -69,6 +72,8 @@
             </ng-template>
           </p-columnFilter>
         </th>
+
+        <!-- ROLE -->
         <th style="width:10%">
           {{ 'ADMIN.USERS.TABLE.ROLE' | translate }}
           <p-columnFilter field="role" matchMode="equals" [showMenu]="false" class="w-full">

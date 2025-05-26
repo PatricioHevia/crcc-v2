@@ -19,6 +19,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FluidModule } from 'primeng/fluid';
 import { orgTypes } from '../../../core/constants/organizationTypes';
+import { ConfirmationService } from 'primeng/api';
+import { ToastService } from '../../../core/services/toast.service';
 
 interface SelectOption {
   label: string;
@@ -50,7 +52,9 @@ interface SelectOption {
 export class OrganizationsComponent {
   private organizationService = inject(OrganizationService);
   private translationService = inject(TranslationService);
-  private userService = inject(UserService); // Inyectado para posible lógica futura, aunque la carga la maneja el servicio
+  private userService = inject(UserService);
+  private confirmationService = inject(ConfirmationService); // Para confirmaciones de acciones
+  private toastService = inject(ToastService);
 
   lang = computed(() => this.translationService.currentLang());
 
@@ -63,6 +67,11 @@ export class OrganizationsComponent {
   globalFilterValue: string = '';
 
   orgTypes = orgTypes;
+
+  isAdmin = computed(() => this.userService.isAdmin()); // Verifica si el usuario es administrador
+  isSuperAdmin = computed(() => this.userService.isSuperAdmin()); // Verifica si el usuario es super administrador
+  isMandante = computed(() => this.userService.isMandante()); // Verifica si el usuario es mandante
+
 
   // Opciones para filtros (ejemplo, adaptar según necesidad)
   typeFilterOptions: WritableSignal<SelectOption[]> = signal([]); // Para filtrar por tipo de organización
@@ -89,17 +98,53 @@ export class OrganizationsComponent {
   }
 
   onDelete(organization: Organization): void {
-    console.log('Delete organization:', organization);
-    // Implementa la lógica para eliminar (preferiblemente borrado lógico).
-    // Podrías mostrar un diálogo de confirmación (ConfirmDialog).
-    // this.organizationService.deleteOrganization(organization.id); // Asumiendo que tienes este método
+    if (!this.isAdmin() && !this.isSuperAdmin() && !this.isMandante()) {
+      this.toastService.error('ADMIN.ORGANIZATIONS.NO_PERMISSION_DELETE_TITLE', 'ADMIN.ORGANIZATIONS.NO_PERMISSION_DELETE_DETAIL');
+      return;
+    }
+    this.confirmationService.confirm({
+      message: this.translationService.instant('ADMIN.ORGANIZATIONS.CONFIRM_DELETE_MESSAGE' ).replace('{name}', organization.name),
+      header: this.translationService.instant('COMMON.CONFIRMATION_TITLE'),
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: this.translationService.instant('ACTIONS.CANCEL'),
+        icon: 'pi pi-times',
+        class: 'p-button-text',
+        severity: 'secondary',
+        size: 'small'
+      },
+      acceptButtonProps: {
+        label: this.translationService.instant('ACTIONS.DELETE'),
+        icon: 'pi pi-check',
+        severity: 'danger',
+        size: 'small'
+      },
+      accept: () => {
+        this.organizationService.delete(organization.id)
+          .then(() => {
+            this.toastService.success('ADMIN.ORGANIZATIONS.DELETE_SUCCESS_TITLE', 
+               this.translationService.instant('ADMIN.ORGANIZATIONS.DELETE_SUCCESS_DETAIL' ));
+          }
+          ).catch(error => {
+            console.error('Error deleting organization:', error);
+            this.toastService.error(
+              'ADMIN.ORGANIZATIONS.DELETE_ERROR_TITLE',
+              this.translationService.instant('ADMIN.ORGANIZATIONS.DELETE_ERROR_DETAIL') + (error?.message ? `: ${error.message}` : '')
+            );
+          }
+          );
+      },
+      reject: () => {
+        this.toastService.info('ADMIN.ORGANIZATIONS.DELETE_CANCELLED_TITLE','ADMIN.ORGANIZATIONS.DELETE_CANCELLED_DETAIL');
+      }
+    });
   }
-
-
   // Opcional: Lógica para limpiar filtros si añades botones específicos
   clearFilters(table: any): void {
     table.clear();
     this.globalFilterValue = '';
     // También resetea los modelos de los filtros de columna si los tienes bindeados
   }
+
+
 }

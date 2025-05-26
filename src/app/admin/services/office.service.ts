@@ -1,7 +1,6 @@
 import { Injectable, inject, Signal, OnDestroy, computed } from '@angular/core'; // 1. Importa OnDestroy
 import { Office } from '../models/office-interface';
 import { FirestoreService } from '../../core/services/firestore.service';
-import { Timestamp } from 'firebase/firestore'; // Importar si se usan campos de auditoría con Timestamp
 
 @Injectable({
     providedIn: 'root'
@@ -81,4 +80,14 @@ export class OfficeService implements OnDestroy { // 2. Implementa OnDestroy
             console.log('OfficeService: Firestore listener para oficinas detenido.');
         }
     }
+
+    // Geter de nombre en label y id en value desde la señal de oficinas
+    public officeOptionsSignal = computed(() => {
+        this.startListening(); // Asegura que el listener esté activo e inicializado
+        const officesData = this.listener?.data() || []; // Obtiene los datos de las oficinas
+        return officesData.map(office => ({
+            label: office.name, // Ajusta 'name' si la propiedad es diferente
+            value: office.id
+        }));
+    });
 }

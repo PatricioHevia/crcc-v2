@@ -104,7 +104,9 @@
     "ORG_TYPE_REQUIRED": "Organization type is required",
     "CREATE_ORG": "Create Organization",
     "TYPE_PRIVATE": "Private",
-    "TYPE_PUBLIC": "Public"
+    "TYPE_PUBLIC": "Public",
+    "PERMISSIONS": "Permissions",
+    "OFFICES": "Offices"
   },
   "HOME": {
     "TITULO": "OUR COMPANY",
@@ -202,6 +204,9 @@
   "ADMIN": {
     "USERS": {
       "TITLE": "User Management",
+      "EDIT_USER_TITLE": "Edit User",
+      "SUCCESS_UPDATED_DETAIL": "User updated successfully.",
+      "NO_CHANGES_DETECTED": "No changes detected.",
       "TABLE": {
         "NAME": "Name",
         "ORGANIZATION": "Organization",
@@ -236,6 +241,18 @@
     },
     "PROJECT": {
       "LIST_SUBTITLE": "List of Projects"
+    },
+    "ORGANIZATIONS": {
+      "NO_PERMISSION_DELETE_TITLE": "Permission Denied",
+      "NO_PERMISSION_DELETE_DETAIL": "You do not have permission to delete organizations.",
+      "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete the organization {name}?",
+      "DELETE_SUCCESS_TITLE": "Organization Deleted",
+      "DELETE_SUCCESS_DETAIL": "The organization has been successfully deleted.",
+      "DELETE_ERROR_TITLE": "Error Deleting",
+      "DELETE_ERROR_DETAIL": "Could not delete the organization. Detail: {error}",
+      "DELETE_ERROR_DETAIL_GENERIC": "Could not delete the organization. Please try again.",
+      "DELETE_CANCELLED_TITLE": "Cancelled",
+      "DELETE_CANCELLED_DETAIL": "Organization deletion has been cancelled."
     }
   },
   "ACTIONS": {
@@ -251,7 +268,8 @@
     "CANCEL": "Cancel",
     "CREATING": "Creating...",
     "UPDATING": "Updating...",
-    "DELETING": "Deleting..."
+    "DELETING": "Deleting...",
+    "SAVE": "Save"
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -316,7 +334,10 @@
     "FORM_INVALID_DETAIL": "Please check the form fields.",
     "ERROR_SAVING_TITLE": "Error Saving",
     "ERROR_DELETING_TITLE": "Error Deleting",
-    "UNEXPECTED_ERROR_DETAIL": "An unexpected error occurred. Please try again."
+    "UNEXPECTED_ERROR_DETAIL": "An unexpected error occurred. Please try again.",
+    "LOADING_USER_DATA": "Cargando datos del usuario...",
+    "NO_ORGANIZATION": "No Organization",
+    "LOADING": "Loading..."
   },
   "VALIDATION": {
     "REQUIRED": "This field is required.",

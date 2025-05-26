@@ -180,6 +180,19 @@ export class OrganizationService {
             });
         });
     }
+
+    /**
+   * Elimina una organización de Firestore (borrado físico).
+   * @param id El ID de la organización a eliminar.
+   * @returns Una promesa que se resuelve cuando la eliminación es exitosa.
+   */
+    public delete(id: string): Promise<void> {
+        // Opcional: Añadir un log para depuración o seguimiento.
+        console.log(`OrganizationService: Solicitando eliminación de la organización con ID: ${id}`);
+
+        // Llama al método delete del FirestoreService, especificando la colección 'organizations'.
+        return this.fs.delete('organizations', id);
+    }
 }
 
 

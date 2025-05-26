@@ -1,10 +1,4 @@
 {
-  "primeng": {
-    "accept": "Aceptar",
-    "reject": "Rechazar",
-    "cancel": "Cancelar",
-    "choose": "Seleccionar"
-  },
   "TOPBAR": {
     "TITUTLO": "CRCC Chile Hospitales",
     "NOMBRE_L1": "Proyectos Hospitalarios",
@@ -23,6 +17,18 @@
     "CONTACTO": "Contacto",
     "ADMIN": "Administración"
   },
+  "SIDEBAR": {
+    "ADMINISTRATION": "Administración",
+    "DASHBOARD": "Panel Principal",
+    "USERS": "Usuarios",
+    "PROJECTS": "Proyectos",
+    "OFFICES": "Oficinas",
+    "ORGANIZATIONS": "Organizaciones",
+    "GENERAL": "General",
+    "HOME": "Inicio",
+    "PROFILE": "Mi Perfil",
+    "JOBS": "Ofertas de Trabajo"
+  },
   "FOOTER": {
     "CRCC": "China Railway Construction Corporation (International) Limited, Agencia en Chile (Hospitales)",
     "DIRECCION": "Cerro El Plomo 5630, Oficina 1602, Las Condes, Chile",
@@ -35,13 +41,12 @@
     "USERNAME": "Nombre de usuario",
     "PASSWORD": "Contraseña",
     "EMAIL": "Correo electrónico",
-    "NO_ACCOUNT": "¿No tienes cuenta?",
     "NAME": "Nombre",
-    "LOGIN_TITULO": "Bienvenido a CRCC Chile Hospitales!",
-    "LOGIN_SUBTITULO": "Inicia sesión para continuar",
     "REPEAT_PASSWORD": "Repetir contraseña",
     "PASSWORD_CONFIRM": "Confirmar contraseña",
     "FORGOT_PASSWORD": "¿Olvistaste tu contraseña?",
+    "LOGIN_TITULO": "Bienvenido a CRCC Chile Hospitales!",
+    "LOGIN_SUBTITULO": "Inicia sesión para continuar",
     "REMEMBER_ME": "Recuérdame",
     "SIGN_IN": "Iniciar sesión",
     "SIGN_UP": "Registrarse",
@@ -53,14 +58,13 @@
     "USER_NOT_FOUND": "No se encontró el usuario",
     "INVALID_PASSWORD": "La contraseña es incorrecta",
     "USER_DISABLED": "El usuario está deshabilitado",
-    "LOGOUT_ERROR": "Error al cerrar sesión",
-    "LOGOUT_SUCCESS": "Sesión cerrada con éxito",
     "EMAIL_NOT_FOUND": "No se encontró el correo electrónico",
     "INVALID_CODE": "El código de verificación es inválido",
-    "NAME_REQUIRED": "El nombre es obligatorio",
     "WRONG_PASSWORD": "La contraseña es incorrecta",
     "PASSWORDS_NOT_MATCH": "Las contraseñas no coinciden",
-    "PASSWORD_CORTA": "La contraseña debe tener al menos 6 caracteres",
+    "LOGOUT_ERROR": "Error al cerrar sesión",
+    "NAME_REQUIRED": "El nombre es obligatorio",
+    "LOGOUT_SUCCESS": "Sesión cerrada con éxito",
     "TOO_MANY_REQUESTS": "Demasiadas solicitudes. Por favor, intenta nuevamente más tarde.",
     "PASSWORD_RESET_SUCCESS": "Se ha enviado un correo electrónico para restablecer la contraseña",
     "PASSWORD_RESET_ERROR": "Error al enviar el correo electrónico para restablecer la contraseña",
@@ -70,12 +74,14 @@
     "PASSWORD_RESET_LINK_ERROR": "Error al enviar el enlace de restablecimiento de contraseña",
     "PASSWORD_REQUIRED": "La contraseña es obligatoria",
     "EMAIL_REQUIRED": "El correo electrónico es obligatorio",
+    "PASSWORD_CORTA": "La contraseña debe tener al menos 6 caracteres",
     "LOADING": "Cargando…",
     "LOGIN_SUCCESS": "¡Ingreso exitoso!",
     "LOGIN_ERROR": "Error al ingresar",
-    "ACCOUNT_ALREADY": "¿Ya tienes cuenta?",
+    "NO_ACCOUNT": "¿No tienes cuenta?",
     "REGISTRO_TITULO": "¡Regístrate en CRCC Chile Hospitales!",
     "REGISTRO_SUBTITULO": "Completa todos los pasos para crear tu cuenta",
+    "ACCOUNT_ALREADY": "¿Ya tienes cuenta?",
     "CREAR_CUENTA": "Crear tu cuenta",
     "ORG_NO_ENCONTRADA": "¿No encuentras tu organización?",
     "ORGANIZACION": "Organización",
@@ -83,7 +89,6 @@
     "REGISTRALA": "Regístrala",
     "REGISTER_SUCCESS": "Registro exitoso",
     "ACCOUNT_TYPE": "Tipo de cuenta",
-    "CREAR_ORGANIZACION": "Crear organización",
     "ORG_NAME": "Nombre de la organización",
     "ORG_NAME_REQUIRED": "El nombre de la organización es obligatorio",
     "ORG_NAME_SHORT": "Debe tener al menos 3 caracteres",
@@ -99,16 +104,11 @@
     "ORG_TYPE": "Tipo de organización",
     "ORG_TYPE_REQUIRED": "El tipo de organización es obligatorio",
     "CREATE_ORG": "Crear organización",
-    "PERMISSIONS": "Permisos",
-    "OFFICES": "Oficinas",
+    "TYPE_PRIVATE": "Privada",
+    "TYPE_PUBLIC": "Pública",
     "PHONE": "Teléfono",
     "WEBSITE": "Sitio Web",
     "LEGAL_REPRESENTATIVE": "Representante Legal"
-  },
-  "ROLES": {
-    "Super Admin": "Administrador General",
-    "Admin": "Administrador de Organización",
-    "Usuario Básico": "Usuario Básico"
   },
   "HOME": {
     "TITULO": "NUESTRA EMPRESA",
@@ -131,10 +131,33 @@
     "SERVICIO_EQP": "Adquisición, Reposición y Mantenimiento de Equipamiento Médico y Mobiliario Clínico",
     "SERVICIO_MANTENIMIENTO": "Mantenimiento de Infraestructura"
   },
-  "PROYECTOS": {
+  "PROJECTS": {
     "TITULO": "Nuestros Proyectos en Chile",
     "SUBTITULO": "En esta sección podrás encontrar los proyectos hospitalarios que actualmente tenemos en ejecución y la Planta Naipú en los cuales podrás acceder y participar en nuestras licitaciones.",
-    "LOADING": "Cargando Proyectos..."
+    "LOADING": "Cargando Proyectos...",
+    "TABLE": {
+      "IMAGE": "Imagen",
+      "NAME": "Nombre",
+      "DESCRIPTION": "Descripción",
+      "AWARD_DATE": "F. Adjudicación",
+      "PHASE": "Fase",
+      "NO_PROJECTS_MATCHING_FILTER": "No se encontraron proyectos que coincidan con el filtro.",
+      "NO_PROJECTS_FOUND": "No se encontraron proyectos.",
+      "SUCCESS_DELETED_DETAIL": "El proyecto '{{name}}' ha sido eliminado exitosamente."
+    },
+    "PHASES": {
+      "DESIGN": "Diseño",
+      "DESIGN_BUILD": "Diseño y Construcción",
+      "BUILD": "Construcción",
+      "BUILD_OPERATE": "Construcción y Explotación",
+      "OPERATE": "Explotación"
+    },
+    "ACTIONS": {
+      "NEW_PROJECT": "Nuevo Proyecto",
+      "EDIT_PROJECT": "Editar Proyecto",
+      "DELETE_PROJECT": "Eliminar Proyecto",
+      "VIEW_PROJECT": "Ver Proyecto"
+    }
   },
   "PROJECTCARD": {
     "INICIO": "Inicio",
@@ -169,7 +192,7 @@
     "LICITACIONES_ILLAPEL": "Licitaciones Hospital Illapel:",
     "LICITACIONES_NAIPU": "Licitaciones Planta Naipú:",
     "LICITACIONES_EQM": "Licitaciones Equipamiento Médico y Mobiliario:",
-    "VER_GOOGLE_MAPS": "Ver en Google Maps",
+    "VER_Maps": "Ver en Google Maps",
     "ERROR_NOMBRE": "El nombre es obligatorio",
     "ERROR_NOMBRE_MIN": "El nombre debe tener al menos 3 caracteres.",
     "ERROR_EMAIL": "El correo electrónico es obligatorio",
@@ -181,34 +204,14 @@
     "TOAST_MENSAJE_ENVIADO": "Mensaje enviado correctamente",
     "TOAST_MENSAJE_ERROR": "Error al enviar el mensaje, por favor intenta nuevamente"
   },
-  "VER_MENSAJES": {
-    "NOMBRE": "Nombre",
-    "ASUNTO": "Asunto",
-    "EMAIL": "Correo electrónico",
-    "MENSAJE": "Mensaje",
-    "FECHA": "Fecha",
-    "LEIDO": "Leído",
-    "NO_LEIDO": "No leído",
-    "ACCIONES": "Acciones",
-    "TITULO": "Mensajes recibidos",
-    "MARCAR_COMO_LEIDO": "Marcar como leído",
-    "MARCAR_COMO_NO_LEIDO": "Marcar como no leído"
-  },
-  "TOAST": {
-    "ERROR": "Error",
-    "EXITO": "Éxito",
-    "INFO": "Información",
-    "ADVERTENCIA": "Advertencia"
-  },
-  "GENERAL": {
-    "SIGUIENTE": "Siguiente"
-  },
   "ADMIN": {
     "USERS": {
       "TITLE": "Administración de usuarios",
       "EDIT_USER_TITLE": "Editar Usuario",
       "SUCCESS_UPDATED_DETAIL": "Usuario actualizado correctamente.",
       "NO_CHANGES_DETECTED": "No se detectaron cambios en el usuario.",
+      "PERMISSIONS": "Permisos",
+      "OFFICES": "Oficinas",
       "TABLE": {
         "NAME": "Nombre",
         "ORGANIZATION": "Organización",
@@ -239,24 +242,36 @@
       "FORM_DESC_EN_LABEL": "Descripción en Inglés",
       "FORM_DESC_ZH_LABEL": "Descripción en Chino",
       "SUCCESS_CREATED_TITLE": "Oficina Creada",
-      "SUCCESS_CREATED_DETAIL": "La oficina '{name}' ha sido creada exitosamente.",
+      "SUCCESS_CREATED_DETAIL": "La oficina '{{name}}' ha sido creada exitosamente.",
       "SUCCESS_UPDATED_TITLE": "Oficina Actualizada",
-      "SUCCESS_UPDATED_DETAIL": "La oficina '{name}' ha sido actualizada exitosamente.",
+      "SUCCESS_UPDATED_DETAIL": "La oficina '{{name}}' ha sido actualizada exitosamente.",
       "SUCCESS_DELETED_TITLE": "Oficina Eliminada",
-      "SUCCESS_DELETED_DETAIL": "La oficina '{name}' ha sido eliminada exitosamente."
+      "SUCCESS_DELETED_DETAIL": "La oficina '{{name}}' ha sido eliminada exitosamente."
     },
     "PROJECT": {
       "LIST_SUBTITLE": "Lista de Proyectos",
-      "CANCEL_DELETE_DETAIL": "La eliminación del proyecto ha sido cancelada."
+      "SUCCESS_CREATED_TITLE": "Proyecto Creado Exitosamente",
+      "SUCCESS_CREATED_DETAIL": "El proyecto '{{name}}' ha sido creado exitosamente.",
+      "SUCCESS_UPDATED_TITLE": "Proyecto Actualizado Exitosamente",
+      "SUCCESS_UPDATED_DETAIL": "El proyecto '{{name}}' ha sido actualizado exitosamente.",
+      "SUCCESS_DELETED_TITLE": "Proyecto Eliminado Exitosamente",
+      "SUCCESS_DELETED_DETAIL": "El proyecto '{{name}}' ha sido eliminado exitosamente.",
+      "CANCEL_DELETE_DETAIL": "La eliminación del proyecto ha sido cancelada.",
+      "DELETE_ERROR_TITLE": "Error al Eliminar Proyecto",
+      "DELETE_ERROR_DETAIL": "No se pudo eliminar el proyecto. Detalle: {{error}}",
+      "CANCEL_UPDATE_TITLE": "Actualización Cancelada",
+      "CANCEL_UPDATE_DETAIL": "La actualización del proyecto ha sido cancelada.",
+      "CANCEL_CREATE_TITLE": "Creación Cancelada",
+      "CANCEL_CREATE_DETAIL": "La creación del proyecto ha sido cancelada."
     },
     "ORGANIZATIONS": {
       "NO_PERMISSION_DELETE_TITLE": "Sin Permiso",
       "NO_PERMISSION_DELETE_DETAIL": "No tienes permiso para eliminar organizaciones.",
-      "CONFIRM_DELETE_MESSAGE": "¿Estás seguro de que deseas eliminar la organización {name}?",
+      "CONFIRM_DELETE_MESSAGE": "¿Estás seguro de que deseas eliminar la organización {{name}}?",
       "DELETE_SUCCESS_TITLE": "Organización Eliminada",
       "DELETE_SUCCESS_DETAIL": "La organización ha sido eliminada exitosamente.",
       "DELETE_ERROR_TITLE": "Error al Eliminar",
-      "DELETE_ERROR_DETAIL": "No se pudo eliminar la organización. Detalle: {error}",
+      "DELETE_ERROR_DETAIL": "No se pudo eliminar la organización. Detalle: {{error}}",
       "DELETE_ERROR_DETAIL_GENERIC": "No se pudo eliminar la organización. Por favor, inténtalo de nuevo.",
       "DELETE_CANCELLED_TITLE": "Cancelado",
       "DELETE_CANCELLED_DETAIL": "La eliminación de la organización ha sido cancelada.",
@@ -269,6 +284,39 @@
         "REMOVE_LOGO": "Quitar Logo"
       }
     }
+  },
+  "USER_ROLES": {
+    "Admin": "Administrador",
+    "Super Admin": "Super Administrador",
+    "Usuario Básico": "Usuario Básico"
+  },
+  "ORGANIZATION_TYPES": {
+    "DESIGN_ENGINEERING_CONSULTANT": "Consultor de Diseño e Ingenierías",
+    "MATERIALS_EQUIPMENT_SUPPLIER": "Proveedor de Materiales o Equipos",
+    "MEDICAL_EQUIPMENT_FURNITURE_SUPPLIER": "Proveedor de Equipamiento Médico y Mobiliario",
+    "CONSTRUCTION_SUBCONTRACTOR": "Subcontratista de Obra",
+    "CTAR": "CTAR",
+    "LEGAL_ADVISOR": "Asesor Legal",
+    "MANDANTE": "Mandante"
+  },
+  "VER_MENSAJES": {
+    "NOMBRE": "Nombre",
+    "EMAIL": "Correo electrónico",
+    "ASUNTO": "Asunto",
+    "MENSAJE": "Mensaje",
+    "FECHA": "Fecha",
+    "LEIDO": "Leído",
+    "NO_LEIDO": "No leído",
+    "ACCIONES": "Acciones",
+    "TITULO": "Mensajes recibidos",
+    "MARCAR_COMO_LEIDO": "Marcar como leído",
+    "MARCAR_COMO_NO_LEIDO": "Marcar como no leído"
+  },
+  "TOAST": {
+    "ERROR": "Error",
+    "EXITO": "Éxito",
+    "INFO": "Información",
+    "ADVERTENCIA": "Advertencia"
   },
   "ACTIONS": {
     "SEARCH_KEYWORD": "Buscar...",
@@ -286,52 +334,12 @@
     "DELETING": "Eliminando...",
     "SAVE": "Guardar"
   },
-  "PRIMENG": {
-    "PAGINATOR": {
-      "SHOWING_OF": "Mostrando {first} a {last} de {totalRecords}"
-    }
+  "VALIDATION": {
+    "REQUIRED": "Este campo es requerido.",
+    "MINLENGTH": "Se requiere un mínimo de {{requiredLength}} caracteres."
   },
-  "SIDEBAR": {
-    "ADMINISTRATION": "Administración",
-    "DASHBOARD": "Panel Principal",
-    "USERS": "Usuarios",
-    "PROJECTS": "Proyectos",
-    "OFFICES": "Oficinas",
-    "ORGANIZATIONS": "Organizaciones",
-    "GENERAL": "General",
-    "HOME": "Inicio",
-    "PROFILE": "Mi Perfil",
-    "JOBS": "Ofertas de Trabajo"
-  },
-  "USER_ROLES": {
-    "Admin": "Administrador",
-    "Super Admin": "Super Administrador",
-    "Usuario Básico": "Usuario Básico"
-  },
-  "PROJECTS": {
-    "TABLE": {
-      "IMAGE": "Imagen",
-      "NAME": "Nombre",
-      "DESCRIPTION": "Descripción",
-      "AWARD_DATE": "F. Adjudicación",
-      "PHASE": "Fase",
-      "NO_PROJECTS_MATCHING_FILTER": "No se encontraron proyectos que coincidan con el filtro.",
-      "NO_PROJECTS_FOUND": "No se encontraron proyectos.",
-      "SUCCESS_DELETED_DETAIL": "El proyecto '{name}' ha sido eliminado exitosamente."
-    },
-    "PHASES": {
-      "DESIGN": "Diseño",
-      "DESIGN_BUILD": "Diseño y Construcción",
-      "BUILD": "Construcción",
-      "BUILD_OPERATE": "Construcción y Explotación",
-      "OPERATE": "Explotación"
-    },
-    "ACTIONS": {
-      "NEW_PROJECT": "Nuevo Proyecto",
-      "EDIT_PROJECT": "Editar Proyecto",
-      "DELETE_PROJECT": "Eliminar Proyecto",
-      "VIEW_PROJECT": "Ver Proyecto"      
-    }
+  "GENERAL": {
+    "SIGUIENTE": "Siguiente"
   },
   "COMMON": {
     "NO_IMAGE": "Sin imagen",
@@ -344,7 +352,7 @@
     "NO": "No",
     "CONFIRM_DELETE_TITLE": "Confirmar Eliminación",
     "CONFIRM_DELETE_MESSAGE_ITEM": "¿Estás seguro de que deseas eliminar el ítem '{{item}}'?",
-    "PAGINATOR_ENTRIES": "Mostrando {first} a {last} de {totalRecords} entradas",
+    "PAGINATOR_ENTRIES": "Mostrando {{first}} a {{last}} de {{totalRecords}} entradas",
     "NO_RECORDS_FOUND": "No se encontraron registros.",
     "FORM_INVALID_TITLE": "Formulario Inválido",
     "FORM_INVALID_DETAIL": "Por favor, revisa los campos del formulario.",
@@ -357,17 +365,9 @@
     "CONFIRMATION_TITLE": "Confirmación",
     "CANCEL_DELETE": "Cancelado"
   },
-  "VALIDATION": {
-    "REQUIRED": "Este campo es requerido.",
-    "MINLENGTH": "Se requiere un mínimo de {requiredLength} caracteres."
-  },
-  "ORGANIZATION_TYPES": {
-    "DESIGN_ENGINEERING_CONSULTANT": "Consultor de Diseño e Ingenierías",
-    "MATERIALS_EQUIPMENT_SUPPLIER": "Proveedor de Materiales o Equipos",
-    "MEDICAL_EQUIPMENT_FURNITURE_SUPPLIER": "Proveedor de Equipamiento Médico y Mobiliario",
-    "CONSTRUCTION_SUBCONTRACTOR": "Subcontratista de Obra",
-    "CTAR": "CTAR",
-    "LEGAL_ADVISOR": "Asesor Legal",
-    "MANDANTE": "Mandante"
+  "PRIMENG": {
+    "PAGINATOR": {
+      "SHOWING_OF": "Mostrando {first} a {last} de {totalRecords}"
+    }
   }
 }

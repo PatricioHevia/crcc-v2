@@ -116,7 +116,7 @@
             <i *ngIf="!user.active"  [pTooltip]="'ADMIN.USERS.TABLE.NO_ACTIVE' | translate" class="pi pi-times-circle text-red-400 text-xl"></i>
           </div>
         </td>
-        <td>{{ 'ROLES.' + user.role | translate }}</td>
+        <td>{{ 'USER_ROLES.' + user.role | translate }}</td>
         <td>{{ user.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>
         <td>
           <p-button  icon="pi pi-pencil" severity="primary" rounded="true"

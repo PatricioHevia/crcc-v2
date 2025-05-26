@@ -1,10 +1,4 @@
 {
-  "primeng": {
-    "accept": "Accept",
-    "reject": "Reject",
-    "cancel": "Cancel",
-    "choose": "Choose"
-  },
   "TOPBAR": {
     "TITUTLO": "CRCC Chile Hospitals",
     "NOMBRE_L1": "Hospital Projects",
@@ -18,76 +12,83 @@
     "MODO_OSCURO": "Dark Mode",
     "MODO_CLARO": "Light Mode",
     "LICITACIONES": "Tenders",
-    "CONCURSOS": "Competitions",
-    "FAQ": "Frequently Asked Questions",
+    "CONCURSOS": "Contests",
+    "FAQ": "FAQ",
     "CONTACTO": "Contact",
-    "ADMIN": "Administration"
+    "ADMIN": "Admin"
+  },
+  "SIDEBAR": {
+    "ADMINISTRATION": "Administration",
+    "DASHBOARD": "Dashboard",
+    "USERS": "Users",
+    "PROJECTS": "Projects",
+    "OFFICES": "Offices",
+    "ORGANIZATIONS": "Organizations",
+    "GENERAL": "General",
+    "HOME": "Home",
+    "PROFILE": "My Profile",
+    "JOBS": "Job Offers"
   },
   "FOOTER": {
-    "CRCC": "China Railway Construction Corporation (International) Limited, Chile Agency (Hospitals)",
+    "CRCC": "China Railway Construction Corporation (International) Limited, Chile Branch (Hospitals)",
     "DIRECCION": "Cerro El Plomo 5630, Office 1602, Las Condes, Chile",
-    "LINKEDIN_CRCC": "LinkedIn CRCC Chile Agency",
-    "LINKEDIN_SCHCQ": "LinkedIn Coquimbo Hospital Concessionaire Company"
-  },
-  "ROLES": {
-    "Super Admin": "General Administrator",
-    "Admin": "Organization Administrator",
-    "Usuario Básico": "Basic User"
+    "LINKEDIN_CRCC": "LinkedIn CRCC Chile Branch",
+    "LINKEDIN_SCHCQ": "LinkedIn Coquimbo Hospital Concessionaire Society"
   },
   "AUTH": {
-    "LOGIN": "Log In",
-    "LOGOUT": "Log Out",
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
     "USERNAME": "Username",
     "PASSWORD": "Password",
     "EMAIL": "Email",
     "NAME": "Name",
     "REPEAT_PASSWORD": "Repeat Password",
     "PASSWORD_CONFIRM": "Confirm Password",
-    "FORGOT_PASSWORD": "Forgot password?",
+    "FORGOT_PASSWORD": "Forgot Password?",
     "LOGIN_TITULO": "Welcome to CRCC Chile Hospitals!",
-    "LOGIN_SUBTITULO": "Please log in to continue.",
-    "REMEMBER_ME": "Remember Me",
+    "LOGIN_SUBTITULO": "Log in to continue.",
+    "REMEMBER_ME": "Remember me",
     "SIGN_IN": "Sign In",
     "SIGN_UP": "Sign Up",
-    "EMAIL_ALREADY_IN_USE": "The email address is already in use",
-    "INVALID_EMAIL": "The email address is not valid",
-    "WEAK_PASSWORD": "The password must be at least 6 characters long",
+    "EMAIL_ALREADY_IN_USE": "Email address already in use",
+    "INVALID_EMAIL": "Invalid email address",
+    "WEAK_PASSWORD": "Password must be at least 6 characters",
     "UNKNOWN_ERROR": "Unknown error",
     "PERMISSION_DENIED": "You do not have permission to access this page",
     "USER_NOT_FOUND": "User not found",
-    "INVALID_PASSWORD": "The password is incorrect",
-    "USER_DISABLED": "The user is disabled",
+    "INVALID_PASSWORD": "Incorrect password",
+    "USER_DISABLED": "User is disabled",
     "EMAIL_NOT_FOUND": "Email address not found",
-    "INVALID_CODE": "The verification code is invalid",
-    "WRONG_PASSWORD": "The password is incorrect",
+    "INVALID_CODE": "Invalid verification code",
+    "WRONG_PASSWORD": "Incorrect password",
     "PASSWORDS_NOT_MATCH": "Passwords do not match",
+    "LOGOUT_ERROR": "Logout error",
     "NAME_REQUIRED": "Name is required",
-    "LOGOUT_ERROR": "Error logging out",
-    "LOGOUT_SUCCESS": "Logged out successfully",
+    "LOGOUT_SUCCESS": "Successfully logged out",
     "TOO_MANY_REQUESTS": "Too many requests. Please try again later.",
-    "PASSWORD_RESET_SUCCESS": "A password reset email has been sent",
+    "PASSWORD_RESET_SUCCESS": "Password reset email sent",
     "PASSWORD_RESET_ERROR": "Error sending password reset email",
-    "PASSWORD_RESET_SUCCESS_MESSAGE": "A password reset email has been sent. Please check your inbox.",
+    "PASSWORD_RESET_SUCCESS_MESSAGE": "Password reset email sent. Please check your inbox.",
     "PASSWORD_RESET_ERROR_MESSAGE": "Error sending password reset email. Please try again later.",
     "PASSWORD_RESET_LINK_SENT": "Password reset link sent",
     "PASSWORD_RESET_LINK_ERROR": "Error sending password reset link",
     "PASSWORD_REQUIRED": "Password is required",
     "EMAIL_REQUIRED": "Email is required",
-    "PASSWORD_CORTA": "Password must be at least 6 characters long",
+    "PASSWORD_CORTA": "Password must be at least 6 characters",
     "LOADING": "Loading…",
-    "LOGIN_SUCCESS": "Logged in!",
-    "LOGIN_ERROR": "Login failed",
+    "LOGIN_SUCCESS": "Login successful!",
+    "LOGIN_ERROR": "Login error",
     "NO_ACCOUNT": "Don't have an account?",
-    "ACCOUNT_ALREADY": "Already have an account?",
     "REGISTRO_TITULO": "Sign up at CRCC Chile Hospitals!",
-    "REGISTRO_SUBTITULO": "Complete all the steps to create your account",
+    "REGISTRO_SUBTITULO": "Complete all steps to create your account",
+    "ACCOUNT_ALREADY": "Already have an account?",
     "CREAR_CUENTA": "Create your account",
     "ORG_NO_ENCONTRADA": "Can't find your organization?",
     "ORGANIZACION": "Organization",
     "SELECT_ORGANIZACION": "Select your organization",
     "REGISTRALA": "Register it",
     "REGISTER_SUCCESS": "Registration successful",
-    "ACCOUNT_TYPE": "Account type",
+    "ACCOUNT_TYPE": "Account Type",
     "ORG_NAME": "Organization Name",
     "ORG_NAME_REQUIRED": "Organization name is required",
     "ORG_NAME_SHORT": "Must be at least 3 characters",
@@ -95,7 +96,7 @@
     "ORG_EMAIL_REQUIRED": "Email is required",
     "INVALID_ORG_EMAIL": "Invalid email address",
     "ORG_TIN": "RUT / Tax ID / Contract No.",
-    "ORG_TIN_REQUIRED": "TRUT / Tax ID / Contract No. is required",
+    "ORG_TIN_REQUIRED": "Tax ID is required",
     "ORG_TIN_SHORT": "Must be at least 3 characters",
     "ORG_ADDRESS": "Address",
     "ORG_ADDRESS_REQUIRED": "Address is required",
@@ -105,8 +106,6 @@
     "CREATE_ORG": "Create Organization",
     "TYPE_PRIVATE": "Private",
     "TYPE_PUBLIC": "Public",
-    "PERMISSIONS": "Permissions",
-    "OFFICES": "Offices",
     "PHONE": "Phone",
     "WEBSITE": "Website",
     "LEGAL_REPRESENTATIVE": "Legal Representative"
@@ -114,47 +113,70 @@
   "HOME": {
     "TITULO": "OUR COMPANY",
     "CRCC": "CHINA RAILWAY CONSTRUCTION CORPORATION (INTERNATIONAL) LIMITED",
-    "PARRAFO_1": "China Railway Construction Corporation (International) Limited (CRCCI), a 100% subsidiary of China Railway Construction Corporation Limited (CRCC), was established in September 2012 and is headquartered in Haidian District, Beijing, with a registered capital of RMB 3.0125 billion. Since its inception, CRCCI has aligned with China’s Belt and Road Initiative (BRI), expanding its presence to over 50 countries across the Asia-Pacific, Eurasia, the Middle East, Africa, and the Americas. Focusing on key markets—Algeria, Saudi Arabia, Qatar, Hong Kong, Chile, and the Caribbean—it has delivered landmark projects such as the Lusail Stadium (main venue of the Qatar World Cup), the Bejaia–Algeria Highway, the Mecca Metro (Al Mashaaer Line), the Talca–Chillán segment of Route 5 in Chile, and the Arima General Hospital in Trinidad and Tobago.",
-    "PARRAFO_2": "As part of the CRCC Group—one of the world’s largest construction companies (ranked 39th on the Fortune Global 500 list in 2022)—CRCCI offers comprehensive services including transportation, civil works, design, consulting, real estate development, equipment manufacturing, material supply, logistics, and healthcare. Its excellence has been recognized with awards such as the Luban Prize, the Zhan Tianyou Prize, and the National Quality Engineering Gold Award, strengthening its global reputation.",
-    "PARRAFO_3": "In Chile, CRCCI is undertaking major projects in healthcare and mobility: the construction and expansion of regional hospitals, the extension of Santiago Metro lines, commuter train projects to improve intercity connections, and the development of key highways that optimize freight and passenger flow.",
-    "PARRAFO_4": "With the core value of “Advancing Together,” we continue to build strong partnerships with governments, communities, and clients to deliver sustainable, world-class solutions.",
+    "PARRAFO_1": "China Railway Construction Corporation (International) Limited (CRCCI), a wholly-owned subsidiary of China Railway Construction Corporation Limited (CRCC), was established in September 2012 and is headquartered in Haidian, Beijing, with a registered capital of RMB 3.0125 billion. Since its inception, CRCCI has aligned with China's Belt and Road Initiative (BRI), expanding its presence to over 50 countries in Asia-Pacific, Eurasia, Middle East, Africa, and Americas. Focusing on key markets—Algeria, Saudi Arabia, Qatar, Hong Kong, Chile, and the Caribbean—it has delivered flagship projects such as Lusail Stadium (main venue for the Qatar World Cup), Bejaia-Algeria Highway, Mecca Metro (Al Mashaaer Line), the Talca-Chillán segment of Route 5 in Chile, and Arima General Hospital in Trinidad and Tobago.",
+    "PARRAFO_2": "As part of the CRCC Group—one of the world's largest construction companies (ranked 39th on the 2022 Fortune Global 500 list)—CRCCI offers comprehensive services including transportation, civil works, design, consulting, real estate development, equipment manufacturing, material supply, logistics, and healthcare. Its excellence has been recognized with awards such as the Luban Prize, Zhan Tianyou Award, and the Gold Medal for Quality Engineering, reinforcing its global reputation.",
+    "PARRAFO_3": "In Chile, CRCCI is executing major projects in health and mobility: construction and expansion of regional hospitals, extension of Santiago Metro lines, commuter train projects to improve interurban connectivity, and development of key highways optimizing cargo and passenger flow.",
+    "PARRAFO_4": "With the core value of “Moving Forward Together,” we continue to build strong partnerships with governments, communities, and clients to provide sustainable, world-class solutions.",
     "GALLERIA_LUSAIL_STADIUM": "Lusail Stadium, Qatar World Cup (Night)",
     "GALLERIA_ARIMA_GENERAL_HOSPITAL": "Arima General Hospital, Trinidad and Tobago",
-    "GALLERIA_MECCA": "Al Mashaaer Metro Station, Mecca Light Rail, Saudi Arabia",
+    "GALLERIA_MECCA": "Al Mashaaer Station of Mecca Metro, Saudi Arabia",
     "GALLERIA_FOUR_SEASONS_HOTEL": "Four Seasons Hotel Project in Kuala Lumpur, Malaysia",
-    "GALLERIA_SEGMENT_EAST_WEST_EXPRESSWAY": "Mid-segment of the Algeria East–West Expressway by CRCCI",
-    "GALLERIA_METRO_MOSCOW": "Southwest section of the third transfer line of the Moscow Metro",
-    "GALLERIA_GEMAS_JOHOR_BAHRU": "The electrified double-track railway project from Gemas to Johor Bahru, Malaysia",
+    "GALLERIA_SEGMENT_EAST_WEST_EXPRESSWAY": "Road view of the middle section of CRCCI's Algeria East-West Expressway",
+    "GALLERIA_METRO_MOSCOW": "Southwest section of the third transfer line of Moscow Metro",
+    "GALLERIA_GEMAS_JOHOR_BAHRU": "Gemas to Johor Bahru electrified double-track railway project, Malaysia",
     "SERVICIOS": "Our Services",
-    "SERVICIOS_CONTENIDO": "At CRCCI, we provide comprehensive, tailored solutions for the management of hospital infrastructure. With a focus on excellence and innovation, our services are designed to ensure that every project meets the highest standards of quality, safety, and efficiency.",
+    "SERVICIOS_CONTENIDO": "At CRCCI, we are dedicated to providing comprehensive and customized solutions for hospital infrastructure management. With a focus on excellence and innovation, our services are designed to ensure that each project meets the highest standards of quality, safety, and efficiency.",
     "SERVICIO_DISENIO": "Engineering Design",
     "SERVICIO_CONSTRUCCION": "Construction",
-    "SERVICIO_EQP": "Procurement, Replacement and Maintenance of Medical Equipment and Clinical Furniture",
+    "SERVICIO_EQP": "Procurement, Replacement, and Maintenance of Medical Equipment and Clinical Furniture",
     "SERVICIO_MANTENIMIENTO": "Infrastructure Maintenance"
   },
-  "PROYECTOS": {
+  "PROJECTS": {
     "TITULO": "Our Projects in Chile",
-    "SUBTITULO": "In this section you can find the hospital projects we currently have underway and the Naipú Plant, for which you can apply and participate in our tenders.",
-    "LOADING": "Loading Projects..."
+    "SUBTITULO": "In this section, you can find the hospital projects we currently have underway and the Naipú Plant, where you can access and participate in our tenders.",
+    "LOADING": "Loading Projects...",
+    "TABLE": {
+      "IMAGE": "Image",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "AWARD_DATE": "Award Date",
+      "PHASE": "Phase",
+      "NO_PROJECTS_MATCHING_FILTER": "No projects found matching the filter.",
+      "NO_PROJECTS_FOUND": "No projects found.",
+      "SUCCESS_DELETED_DETAIL": "Project '{{name}}' has been successfully deleted."
+    },
+    "PHASES": {
+      "DESIGN": "Design",
+      "DESIGN_BUILD": "Design and Construction",
+      "BUILD": "Construction",
+      "BUILD_OPERATE": "Construction and Operation",
+      "OPERATE": "Operation"
+    },
+    "ACTIONS": {
+      "NEW_PROJECT": "New Project",
+      "EDIT_PROJECT": "Edit Project",
+      "DELETE_PROJECT": "Delete Project",
+      "VIEW_PROJECT": "View Project"
+    }
   },
   "PROJECTCARD": {
-    "INICIO": "Start",
+    "INICIO": "Home",
     "VER": "View Project",
     "SOLICITAR": "Request Access"
   },
   "CONCURSOS": {
-    "TITULO": "🏆 Architecture and Engineering Innovation Competitions 🌍",
-    "SUBTITULO": "Explore the architecture and engineering challenges launched by CRCC in collaboration with prestigious organizations. We drive creativity and innovation in projects that shape the future. Dare to participate and leave your mark on the industry!",
-    "BTN_NUEVO": "New Competition",
+    "TITULO": "🏆 Innovation Contests in Architecture and Engineering 🌍",
+    "SUBTITULO": "Explore the architecture and engineering challenges CRCC launches in collaboration with prestigious entities. We promote creativity and innovation in projects that transform the future. Dare to participate and leave your mark on the industry!",
+    "BTN_NUEVO": "New Contest",
     "BTN_ENTRAR": "Enter"
   },
   "FAQ": {
     "TITULO": "Frequently Asked Questions",
-    "SUBTITULO": "Here you can find answers to the most common questions about using the platform and the bidding processes. If you have any further doubts, feel free to contact us."
+    "SUBTITULO": "Here you can find answers to the most common questions about using the platform and the bidding processes. If you have more questions, feel free to contact us."
   },
   "CONTACTO": {
     "TITULO": "Contact Form",
-    "SUBTITULO": "If you have any questions or need more information, please don't hesitate to contact us. We are here to help you.",
+    "SUBTITULO": "If you have any questions or need more information, please do not hesitate to contact us. We are here to help you.",
     "NOMBRE": "Name*",
     "EMAIL": "Email*",
     "EMPRESA": "Company",
@@ -162,47 +184,25 @@
     "ASUNTO": "Subject*",
     "ENVIAR": "Send",
     "IMPORTANTE": "Important!",
-    "PARRAFO_1": "Through this form you can communicate only with the hospital area of CRCCI Agency in Chile.",
-    "PARRAFO_2": "Messages regarding road projects, the metro, or other projects not displayed on this platform will not be answered.",
-    "CONTACTO_HOSPITALES": "General Hospital Contact:",
+    "PARRAFO_1": "Through this form, you can only communicate with the hospital area of CRCCI Chile Branch.",
+    "PARRAFO_2": "Messages regarding Road Projects, Metro, or other projects not shown on this platform will not be answered.",
+    "CONTACTO_HOSPITALES": "General Hospitals Contact:",
     "LICITACIONES_HCQ": "Coquimbo Hospital Tenders:",
     "RRHH_HCQ": "Coquimbo Hospital HR:",
     "LICITACIONES_ILLAPEL": "Illapel Hospital Tenders:",
     "LICITACIONES_NAIPU": "Naipú Plant Tenders:",
     "LICITACIONES_EQM": "Medical Equipment and Furniture Tenders:",
-    "VER_GOOGLE_MAPS": "View on Google Maps",
+    "VER_Maps": "View on Google Maps",
     "ERROR_NOMBRE": "Name is required",
-    "ERROR_NOMBRE_MIN": "Name must be at least 3 characters long",
+    "ERROR_NOMBRE_MIN": "Name must be at least 3 characters.",
     "ERROR_EMAIL": "Email is required",
-    "ERROR_EMAIL_INVALIDO": "Email is not valid",
+    "ERROR_EMAIL_INVALIDO": "Invalid email",
     "ERROR_ASUNTO": "Subject is required",
-    "ERROR_ASUNTO_MIN": "Subject must be at least 3 characters long",
+    "ERROR_ASUNTO_MIN": "Subject must be at least 3 characters.",
     "ERROR_MENSAJE": "Message is required",
-    "ERROR_MENSAJE_MIN": "Message must be at least 20 characters long",
+    "ERROR_MENSAJE_MIN": "Message must be at least 20 characters.",
     "TOAST_MENSAJE_ENVIADO": "Message sent successfully",
     "TOAST_MENSAJE_ERROR": "Error sending message, please try again"
-  },
-  "VER_MENSAJES": {
-    "NOMBRE": "Name",
-    "EMAIL": "Email",
-    "ASUNTO": "Subject",
-    "MENSAJE": "Message",
-    "FECHA": "Date",
-    "LEIDO": "Read",
-    "NO_LEIDO": "Unread",
-    "ACCIONES": "Actions",
-    "TITULO": "Received Messages",
-    "MARCAR_COMO_LEIDO": "Mark as Read",
-    "MARCAR_COMO_NO_LEIDO": "Mark as Unread"
-  },
-  "TOAST": {
-    "ERROR": "Error",
-    "EXITO": "Success",
-    "INFO": "Information",
-    "ADVERTENCIA": "Warning"
-  },
-  "GENERAL": {
-    "SIGUIENTE": "Next"
   },
   "ADMIN": {
     "USERS": {
@@ -210,6 +210,8 @@
       "EDIT_USER_TITLE": "Edit User",
       "SUCCESS_UPDATED_DETAIL": "User updated successfully.",
       "NO_CHANGES_DETECTED": "No changes detected.",
+      "PERMISSIONS": "Permissions",
+      "OFFICES": "Offices",
       "TABLE": {
         "NAME": "Name",
         "ORGANIZATION": "Organization",
@@ -219,7 +221,7 @@
         "ROLE": "Role",
         "UPDATED_AT": "Updated At",
         "ACTIONS": "Actions",
-        "NO_USERS_MATCHING_FILTER": "No users match the filter",
+        "NO_USERS_MATCHING_FILTER": "No users matching the filter",
         "NO_USERS_FOUND": "No users found",
         "LOADING_USERS": "Loading users..."
       }
@@ -232,33 +234,45 @@
       "EDIT_TITLE": "Edit Office",
       "TABLE_HEADER_NAME": "Name",
       "TABLE_HEADER_CREATED_AT": "Creation Date",
-      "TABLE_HEADER_UPDATED_AT": "Last Updated",
+      "TABLE_HEADER_UPDATED_AT": "Last Update",
       "FORM_NAME_ES_LABEL": "Name (Spanish)",
       "FORM_NAME_EN_LABEL": "Name (English)",
       "FORM_NAME_ZH_LABEL": "Name (Chinese)",
       "FORM_DESC_ES_LABEL": "Description (Spanish)",
-      "FORM_DESC_EN_LABEL": "Description (English)",  
+      "FORM_DESC_EN_LABEL": "Description (English)",
       "FORM_DESC_ZH_LABEL": "Description (Chinese)",
       "SUCCESS_CREATED_TITLE": "Office Created",
-      "SUCCESS_CREATED_DETAIL": "Office '{name}' has been created successfully.",
+      "SUCCESS_CREATED_DETAIL": "Office '{{name}}' has been created successfully.",
       "SUCCESS_UPDATED_TITLE": "Office Updated",
-      "SUCCESS_UPDATED_DETAIL": "Office '{name}' has been updated successfully.",
+      "SUCCESS_UPDATED_DETAIL": "Office '{{name}}' has been updated successfully.",
       "SUCCESS_DELETED_TITLE": "Office Deleted",
-      "SUCCESS_DELETED_DETAIL": "Office '{name}' has been deleted successfully."
+      "SUCCESS_DELETED_DETAIL": "Office '{{name}}' has been deleted successfully."
     },
     "PROJECT": {
-      "LIST_SUBTITLE": "List of Projects",
-      "SUCCESS_DELETED_DETAIL": "The project '{name}' has been deleted successfully."
+      "LIST_SUBTITLE": "Project List",
+      "SUCCESS_CREATED_TITLE": "Project Created Successfully",
+      "SUCCESS_CREATED_DETAIL": "Project '{{name}}' has been created successfully.",
+      "SUCCESS_UPDATED_TITLE": "Project Updated Successfully",
+      "SUCCESS_UPDATED_DETAIL": "Project '{{name}}' has been updated successfully.",
+      "SUCCESS_DELETED_TITLE": "Project Deleted Successfully",
+      "SUCCESS_DELETED_DETAIL": "Project '{{name}}' has been deleted successfully.",
+      "CANCEL_DELETE_DETAIL": "Project deletion has been cancelled.",
+      "DELETE_ERROR_TITLE": "Error Deleting Project",
+      "DELETE_ERROR_DETAIL": "Could not delete project. Detail: {{error}}",
+      "CANCEL_UPDATE_TITLE": "Update Cancelled",
+      "CANCEL_UPDATE_DETAIL": "Project update has been cancelled.",
+      "CANCEL_CREATE_TITLE": "Creation Cancelled",
+      "CANCEL_CREATE_DETAIL": "Project creation has been cancelled."
     },
     "ORGANIZATIONS": {
-      "NO_PERMISSION_DELETE_TITLE": "Permission Denied",
+      "NO_PERMISSION_DELETE_TITLE": "No Permission",
       "NO_PERMISSION_DELETE_DETAIL": "You do not have permission to delete organizations.",
-      "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete the organization {name}?",
+      "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete the organization {{name}}?",
       "DELETE_SUCCESS_TITLE": "Organization Deleted",
       "DELETE_SUCCESS_DETAIL": "The organization has been successfully deleted.",
       "DELETE_ERROR_TITLE": "Error Deleting",
-      "DELETE_ERROR_DETAIL": "Could not delete the organization. Detail: {error}",
-      "DELETE_ERROR_DETAIL_GENERIC": "Could not delete the organization. Please try again.",
+      "DELETE_ERROR_DETAIL": "Could not delete organization. Detail: {{error}}",
+      "DELETE_ERROR_DETAIL_GENERIC": "Could not delete organization. Please try again.",
       "DELETE_CANCELLED_TITLE": "Cancelled",
       "DELETE_CANCELLED_DETAIL": "Organization deletion has been cancelled.",
       "EDIT_TITLE": "Edit Organization",
@@ -270,6 +284,39 @@
         "REMOVE_LOGO": "Remove Logo"
       }
     }
+  },
+  "USER_ROLES": {
+    "Admin": "Administrator",
+    "Super Admin": "Super Administrator",
+    "Usuario Básico": "Basic User"
+  },
+  "ORGANIZATION_TYPES": {
+    "DESIGN_ENGINEERING_CONSULTANT": "Design and Engineering Consultant",
+    "MATERIALS_EQUIPMENT_SUPPLIER": "Materials or Equipment Supplier",
+    "MEDICAL_EQUIPMENT_FURNITURE_SUPPLIER": "Medical Equipment and Furniture Supplier",
+    "CONSTRUCTION_SUBCONTRACTOR": "Construction Subcontractor",
+    "CTAR": "CTAR",
+    "LEGAL_ADVISOR": "Legal Advisor",
+    "MANDANTE": "Client"
+  },
+  "VER_MENSAJES": {
+    "NOMBRE": "Name",
+    "EMAIL": "Email",
+    "ASUNTO": "Subject",
+    "MENSAJE": "Message",
+    "FECHA": "Date",
+    "LEIDO": "Read",
+    "NO_LEIDO": "Unread",
+    "ACCIONES": "Actions",
+    "TITULO": "Received Messages",
+    "MARCAR_COMO_LEIDO": "Mark as read",
+    "MARCAR_COMO_NO_LEIDO": "Mark as unread"
+  },
+  "TOAST": {
+    "ERROR": "Error",
+    "EXITO": "Success",
+    "INFO": "Info",
+    "ADVERTENCIA": "Warning"
   },
   "ACTIONS": {
     "SEARCH_KEYWORD": "Search...",
@@ -287,51 +334,12 @@
     "DELETING": "Deleting...",
     "SAVE": "Save"
   },
-  "PRIMENG": {
-    "PAGINATOR": {
-      "SHOWING_OF": "Showing {first} to {last} of {totalRecords}"
-    }
+  "VALIDATION": {
+    "REQUIRED": "This field is required.",
+    "MINLENGTH": "A minimum of {{requiredLength}} characters is required."
   },
-  "SIDEBAR": {
-    "ADMINISTRATION": "Administration",
-    "DASHBOARD": "Dashboard",
-    "USERS": "Users",
-    "PROJECTS": "Projects",
-    "OFFICES": "Offices",
-    "ORGANIZATIONS": "Organizations",
-    "GENERAL": "General",
-    "HOME": "Home",
-    "PROFILE": "My Profile",
-    "JOBS": "Jobs offers"
-  },
-  "USER_ROLES": {
-    "Admin": "Administrator",
-    "Super Admin": "Super Administrator",
-    "Usuario Básico": "Basic User"
-  },
-  "PROJECTS": {
-    "TABLE": {
-      "IMAGE": "Image",
-      "NAME": "Name",
-      "DESCRIPTION": "Description",
-      "AWARD_DATE": "Award Date",
-      "PHASE": "Phase",
-      "NO_PROJECTS_MATCHING_FILTER": "No projects matching the filter.",
-      "NO_PROJECTS_FOUND": "No projects found."
-    },
-    "PHASES": {
-      "DESIGN": "Design",
-      "DESIGN_BUILD": "Design & Build",
-      "BUILD": "Construction",
-      "BUILD_OPERATE": "Construction & Operate",
-      "OPERATE": "Operation"
-    },
-    "ACTIONS": {
-      "NEW_PROJECT": "New Project",
-      "EDIT_PROJECT": "Edit Project",
-      "DELETE_PROJECT": "Delete Project",
-      "VIEW_PROJECT": "View Project"
-    }
+  "GENERAL": {
+    "SIGUIENTE": "Next"
   },
   "COMMON": {
     "NO_IMAGE": "No image",
@@ -343,31 +351,23 @@
     "YES": "Yes",
     "NO": "No",
     "CONFIRM_DELETE_TITLE": "Confirm Deletion",
-    "CONFIRM_DELETE_MESSAGE_ITEM": "Are you sure you want to delete the item '{item}'?",
-    "PAGINATOR_ENTRIES": "Showing {first} to {last} of {totalRecords} entries",
+    "CONFIRM_DELETE_MESSAGE_ITEM": "Are you sure you want to delete the item '{{item}}'?",
+    "PAGINATOR_ENTRIES": "Showing {{first}} to {{last}} of {{totalRecords}} entries",
     "NO_RECORDS_FOUND": "No records found.",
     "FORM_INVALID_TITLE": "Invalid Form",
-    "FORM_INVALID_DETAIL": "Please check the form fields.",
+    "FORM_INVALID_DETAIL": "Please review the form fields.",
     "ERROR_SAVING_TITLE": "Error Saving",
     "ERROR_DELETING_TITLE": "Error Deleting",
     "UNEXPECTED_ERROR_DETAIL": "An unexpected error occurred. Please try again.",
-    "LOADING_USER_DATA": "Cargando datos del usuario...",
-    "NO_ORGANIZATION": "No Organization",
+    "LOADING_USER_DATA": "Loading user data...",
+    "NO_ORGANIZATION": "No organization",
     "LOADING": "Loading...",
     "CONFIRMATION_TITLE": "Confirmation",
     "CANCEL_DELETE": "Cancelled"
   },
-  "VALIDATION": {
-    "REQUIRED": "This field is required.",
-    "MINLENGTH": "A minimum of {requiredLength} characters is required."
-  },
-  "ORGANIZATION_TYPES": {
-    "DESIGN_ENGINEERING_CONSULTANT": "Design and Engineering Consultant",
-    "MATERIALS_EQUIPMENT_SUPPLIER": "Materials or Equipment Supplier",
-    "MEDICAL_EQUIPMENT_FURNITURE_SUPPLIER": "Medical Equipment and Furniture Supplier",
-    "CONSTRUCTION_SUBCONTRACTOR": "Construction Subcontractor",
-    "CTAR": "CTAR",
-    "LEGAL_ADVISOR": "Legal Advisor",
-    "MANDANTE": "Principal"
-  }
+  "PRIMENG": {
+    "PAGINATOR": {
+      "SHOWING_OF": "Showing {first} to {last} of {totalRecords}"
+    }
+  }  
 }

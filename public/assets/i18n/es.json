@@ -246,7 +246,8 @@
       "SUCCESS_DELETED_DETAIL": "La oficina '{name}' ha sido eliminada exitosamente."
     },
     "PROJECT": {
-      "LIST_SUBTITLE": "Lista de Proyectos"
+      "LIST_SUBTITLE": "Lista de Proyectos",
+      "CANCEL_DELETE_DETAIL": "La eliminación del proyecto ha sido cancelada."
     },
     "ORGANIZATIONS": {
       "NO_PERMISSION_DELETE_TITLE": "Sin Permiso",
@@ -315,7 +316,8 @@
       "AWARD_DATE": "F. Adjudicación",
       "PHASE": "Fase",
       "NO_PROJECTS_MATCHING_FILTER": "No se encontraron proyectos que coincidan con el filtro.",
-      "NO_PROJECTS_FOUND": "No se encontraron proyectos."
+      "NO_PROJECTS_FOUND": "No se encontraron proyectos.",
+      "SUCCESS_DELETED_DETAIL": "El proyecto '{name}' ha sido eliminado exitosamente."
     },
     "PHASES": {
       "DESIGN": "Diseño",
@@ -328,7 +330,7 @@
       "NEW_PROJECT": "Nuevo Proyecto",
       "EDIT_PROJECT": "Editar Proyecto",
       "DELETE_PROJECT": "Eliminar Proyecto",
-      "VIEW_PROJECT": "Ver Proyecto"
+      "VIEW_PROJECT": "Ver Proyecto"      
     }
   },
   "COMMON": {
@@ -341,7 +343,7 @@
     "YES": "Sí",
     "NO": "No",
     "CONFIRM_DELETE_TITLE": "Confirmar Eliminación",
-    "CONFIRM_DELETE_MESSAGE_ITEM": "¿Estás seguro de que deseas eliminar el ítem '{item}'?",
+    "CONFIRM_DELETE_MESSAGE_ITEM": "¿Estás seguro de que deseas eliminar el ítem '{{item}}'?",
     "PAGINATOR_ENTRIES": "Mostrando {first} a {last} de {totalRecords} entradas",
     "NO_RECORDS_FOUND": "No se encontraron registros.",
     "FORM_INVALID_TITLE": "Formulario Inválido",
@@ -352,7 +354,8 @@
     "LOADING_USER_DATA": "Cargando datos del usuario...",
     "NO_ORGANIZATION": "Sin organización",
     "LOADING": "Cargando...",
-    "CONFIRMATION_TITLE": "Confirmación"
+    "CONFIRMATION_TITLE": "Confirmación",
+    "CANCEL_DELETE": "Cancelado"
   },
   "VALIDATION": {
     "REQUIRED": "Este campo es requerido.",

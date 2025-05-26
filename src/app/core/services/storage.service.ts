@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Storage, ref, uploadBytesResumable, getDownloadURL, UploadTaskSnapshot } from '@angular/fire/storage';
+import { Storage, ref, uploadBytesResumable, getDownloadURL, UploadTaskSnapshot, deleteObject } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 
 export interface UploadTask {
@@ -65,6 +65,16 @@ export class StorageService {
       const timestamp = Date.now();
       const filePath = `${basePath}/${timestamp}_${file.name}`;
       return this.uploadFile(file, filePath);
+    });
+  }
+
+  async deleteFileByUrl(url: string): Promise<void> {
+    const storageRef = ref(this.storage, url);
+    return deleteObject(storageRef).then(() => {
+      console.log(`Archivo eliminado: ${url}`);
+    }).catch(error => {
+      console.error(`Error al eliminar el archivo: ${error}`);
+      throw error;
     });
   }
 }

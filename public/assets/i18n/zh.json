@@ -240,23 +240,25 @@
             "FORM_DESC_EN_LABEL": "描述 (英语)",
             "FORM_DESC_ZH_LABEL": "描述 (中文)",
             "SUCCESS_CREATED_TITLE": "办公室已创建",
-            "SUCCESS_CREATED_DETAIL": "办公室 '{name}' 已成功创建。",
+            "SUCCESS_CREATED_DETAIL": "办公室 '{{name}}' 已成功创建。",
             "SUCCESS_UPDATED_TITLE": "办公室已更新",
-            "SUCCESS_UPDATED_DETAIL": "办公室 '{name}' 已成功更新。",
+            "SUCCESS_UPDATED_DETAIL": "办公室 '{{name}}' 已成功更新。",
             "SUCCESS_DELETED_TITLE": "办公室已删除",
-            "SUCCESS_DELETED_DETAIL": "办公室 '{name}' 已成功删除。"
+            "SUCCESS_DELETED_DETAIL": "办公室 '{{name}}' 已成功删除。"
         },
         "PROJECT": {
-            "LIST_SUBTITLE": "项目列表"
+            "LIST_SUBTITLE": "项目列表",
+            "SUCCESS_DELETED_DETAIL": "项目 '{{name}}' 已成功删除。",
+            "CANCEL_DELETE_DETAIL": "项目删除操作已取消。"
         },
         "ORGANIZATIONS": {
             "NO_PERMISSION_DELETE_TITLE": "没有权限",
             "NO_PERMISSION_DELETE_DETAIL": "您没有删除组织的权限。",
-            "CONFIRM_DELETE_MESSAGE": "您确定要删除组织 {name} 吗？",
+            "CONFIRM_DELETE_MESSAGE": "您确定要删除组织 {{name}} 吗？",
             "DELETE_SUCCESS_TITLE": "组织已删除",
             "DELETE_SUCCESS_DETAIL": "组织已成功删除。",
             "DELETE_ERROR_TITLE": "删除错误",
-            "DELETE_ERROR_DETAIL": "无法删除组织。详情: {error}",
+            "DELETE_ERROR_DETAIL": "无法删除组织。详情: {{error}}",
             "DELETE_ERROR_DETAIL_GENERIC": "无法删除组织。请再试一次。",
             "DELETE_CANCELLED_TITLE": "已取消",
             "DELETE_CANCELLED_DETAIL": "组织删除操作已取消。",
@@ -342,7 +344,7 @@
         "YES": "是",
         "NO": "否",
         "CONFIRM_DELETE_TITLE": "确认删除",
-        "CONFIRM_DELETE_MESSAGE_ITEM": "您确定要删除项目 '{item}' 吗？",
+        "CONFIRM_DELETE_MESSAGE_ITEM": "您确定要删除项目 '{{item}}' 吗？",
         "PAGINATOR_ENTRIES": "显示 {first} 到 {last} 条，共 {totalRecords} 条记录",
         "NO_RECORDS_FOUND": "未找到记录。",
         "FORM_INVALID_TITLE": "表单无效",
@@ -353,7 +355,8 @@
         "LOADING_USER_DATA": "正在加载用户数据...",
         "NO_ORGANIZATION": "无组织",
         "LOADING": "加载中...",
-        "CONFIRMATION_TITLE": "确认"
+        "CONFIRMATION_TITLE": "确认",
+        "CANCEL_DELETE": "已取消"
     },
     "VALIDATION": {
         "REQUIRED": "此字段是必需的。",

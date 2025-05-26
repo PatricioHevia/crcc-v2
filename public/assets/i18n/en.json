@@ -247,7 +247,8 @@
       "SUCCESS_DELETED_DETAIL": "Office '{name}' has been deleted successfully."
     },
     "PROJECT": {
-      "LIST_SUBTITLE": "List of Projects"
+      "LIST_SUBTITLE": "List of Projects",
+      "SUCCESS_DELETED_DETAIL": "The project '{name}' has been deleted successfully."
     },
     "ORGANIZATIONS": {
       "NO_PERMISSION_DELETE_TITLE": "Permission Denied",
@@ -353,7 +354,8 @@
     "LOADING_USER_DATA": "Cargando datos del usuario...",
     "NO_ORGANIZATION": "No Organization",
     "LOADING": "Loading...",
-    "CONFIRMATION_TITLE": "Confirmation"
+    "CONFIRMATION_TITLE": "Confirmation",
+    "CANCEL_DELETE": "Cancelled"
   },
   "VALIDATION": {
     "REQUIRED": "This field is required.",

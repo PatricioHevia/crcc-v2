@@ -44,9 +44,6 @@ export class ProjectService {
     return this.listener!.loading();
   }
 
-
-
-
   // Mapa id → nombres multilenguaje
   public projectNames = computed(() => {
     const list = this.projects();
@@ -150,10 +147,35 @@ export class ProjectService {
     return { mainTask, galleryTasks, complete };
   }
 
+
+
   // --- Métodos DESDE ADMIN PANEL ---
   public update(id: string, changes: Partial<Project>) {
     return this.fs.update<Project>('projects', id, changes);
   }
+
+  async deleteProject(projectId: string): Promise<void> {
+    try {
+      const project = await this.fs.readOne<Project>('projects', projectId);
+      if (project?.image) {
+        await this.storageService.deleteFileByUrl(project.image);
+      }
+      if (project?.galleryImages && project.galleryImages.length > 0) {
+        for (const img of project.galleryImages) {
+          await this.storageService.deleteFileByUrl(img.url);
+        }
+      }
+
+      await this.fs.delete('projects', projectId);
+      console.log(`Proyecto con ID: ${projectId} eliminado exitosamente.`);
+    } catch (error) {
+      console.error(`Error al eliminar el proyecto ${projectId}:`, error);
+      // Asegúrate de que el error sea propagado para que el componente pueda manejarlo (e.g., mostrar un toast de error)
+      throw error;
+    }
+  }
+
+  // --- Métodos de limpieza ---
 
   ngOnDestroy(): void {
     if (this.listener && typeof this.listener.unsubscribe === 'function') {

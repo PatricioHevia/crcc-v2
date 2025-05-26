@@ -13,7 +13,7 @@ export interface Project {
     description_zh  : string;
     image?          : string;
     galleryImages?  : GalleryImageFirestore [];
-    adwardDate?     : Timestamp;
+    awardDate?     : Timestamp;
     phase          : ProjectPhaseCode;
     url             : string;
 }

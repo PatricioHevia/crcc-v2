@@ -1,7 +1,7 @@
 import { Component, computed, inject, Signal, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule,  } from '@ngx-translate/core';
+import { TranslateModule, } from '@ngx-translate/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,6 +17,7 @@ import { PROJECT_PHASE_CODES, PROJECT_PHASE_COLORS, PROJECT_PHASE_TRANSLATION_KE
 import { ProjectService } from '../../services/project.service';
 import { NuevoProyectoComponent } from '../../components/nuevo-proyecto/nuevo-proyecto.component';
 import { ToolbarModule } from 'primeng/toolbar';
+import { UpdateProjectComponent } from '../../components/update-project/update-project.component';
 
 @Component({
   selector: 'app-admin-projects',
@@ -33,7 +34,8 @@ import { ToolbarModule } from 'primeng/toolbar';
     IconFieldModule,
     InputIconModule,
     ToolbarModule,
-    NuevoProyectoComponent
+    NuevoProyectoComponent,
+    UpdateProjectComponent
   ],
   templateUrl: './admin-projects.component.html',
   // styleUrls: ['./admin-projects.component.css']
@@ -42,7 +44,11 @@ export class AdminProjectsComponent {
   private projectService = inject(ProjectService);
   private translationService = inject(TranslationService);
 
-  //Dialogs
+  // Update signals for project management 
+  editProjectVisible = signal(false);
+  projectToEdit: WritableSignal<Project | null> = signal(null);
+
+  //Drawer para crear un nuevo proyecto
   newProjectVisible = signal(false);
 
   lang = computed(() => this.translationService.currentLang());
@@ -80,8 +86,8 @@ export class AdminProjectsComponent {
 
 
   onEditProject(project: Project): void {
-    console.log('Edit project:', project);
-    // Lógica para editar proyecto (ej. abrir un diálogo o navegar a otra ruta)
+    this.projectToEdit.set(project);
+    this.editProjectVisible.set(true);
   }
 
   onDeleteProject(project: Project): void {

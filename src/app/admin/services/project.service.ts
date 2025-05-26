@@ -93,14 +93,14 @@ export class ProjectService {
         image: '',
         galleryImages: [],
         url: '',
-        adwardDate: adwardDateAsFirestoreTimestamp 
+        awardDate: adwardDateAsFirestoreTimestamp
       }
       const traducido = await this.translationService.translateJson(project);
       traducido.url = parseUrl(removeAccents(traducido.name_es));
       const proyecto: Project = {
         ...traducido,
         id: traducido.url,
-        adwardDate: adwardDateAsFirestoreTimestamp
+        awardDate: adwardDateAsFirestoreTimestamp
       }
       return await this.fs.create<Project>('projects', proyecto, traducido.url);
     } catch (error) {
@@ -148,6 +148,11 @@ export class ProjectService {
     })();
 
     return { mainTask, galleryTasks, complete };
+  }
+
+  // --- Métodos DESDE ADMIN PANEL ---
+  public update(id: string, changes: Partial<Project>) {
+    return this.fs.update<Project>('projects', id, changes);
   }
 
   ngOnDestroy(): void {

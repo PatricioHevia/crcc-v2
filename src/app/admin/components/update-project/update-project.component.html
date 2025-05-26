@@ -1,3 +1,117 @@
-<p>
-  update-project works!
-</p>
+<p-drawer [(visible)]="visible" position="right" [baseZIndex]="10000"
+    styleClass="!w-full md:!w-[70%] lg:!w-[50%] xl:!w-[35%] flex flex-col" [closable]="false">
+
+    <div class="flex items-center p-4 w-full flex-shrink-0">
+        <img
+            [src]="themeService.isDarkTheme() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
+            alt="{{ 'TOPBAR.TITUTLO' | translate }}" class="h-12 w-auto mr-2 flex-shrink-0">
+        <span class="flex-grow text-xl text-center font-semibold dark:text-gray-200">
+            {{ 'PROJECTS.ACTIONS.EDIT_PROJECT' | translate }}
+        </span>
+        <p-button icon="pi pi-times" (onClick)="onCancel()"
+            styleClass="p-button-rounded p-button-text p-button-plain flex-shrink-0">
+        </p-button>
+    </div>
+    <p-divider class="flex-shrink-0"></p-divider>
+
+    <div class="flex-grow overflow-y-auto">
+        @if (visible() && projectToUpdate(); as proj) {
+        <form [formGroup]="projectForm" class="p-4 flex flex-col gap-4">
+
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col">
+                    <label htmlFor="name_es" class="font-medium mb-1">{{ 'ADMIN.OFFICES.FORM_NAME_ES_LABEL' | translate }} <span
+                            class="text-red-500">*</span></label>
+                    <input pInputText id="name_es" formControlName="name_es" class="w-full"/>
+                    @if (f['name_es'].invalid && (f['name_es'].dirty || f['name_es'].touched)) {
+                        @if (f['name_es'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+                        @if (f['name_es'].errors?.['minlength']) { <small class="text-red-500">{{ 'VALIDATION.MINLENGTH' | translate:{ requiredLength: f['name_es'].errors?.['minlength'].requiredLength } }}</small> }
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label htmlFor="name_en" class="font-medium mb-1">{{ 'ADMIN.OFFICES.FORM_NAME_EN_LABEL' | translate }} <span
+                            class="text-red-500">*</span></label>
+                    <input pInputText id="name_en" formControlName="name_en" class="w-full"/>
+                    @if (f['name_en'].invalid && (f['name_en'].dirty || f['name_en'].touched)) {
+                        @if (f['name_en'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+                        @if (f['name_en'].errors?.['minlength']) { <small class="text-red-500">{{ 'VALIDATION.MINLENGTH' | translate:{ requiredLength: f['name_en'].errors?.['minlength'].requiredLength } }}</small> }
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label htmlFor="name_zh" class="font-medium mb-1">{{ 'ADMIN.OFFICES.FORM_NAME_ZH_LABEL' | translate }} <span
+                            class="text-red-500">*</span></label>
+                    <input pInputText id="name_zh" formControlName="name_zh" class="w-full"/>
+                    @if (f['name_zh'].invalid && (f['name_zh'].dirty || f['name_zh'].touched)) {
+                        @if (f['name_zh'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+                        @if (f['name_zh'].errors?.['minlength']) { <small class="text-red-500">{{ 'VALIDATION.MINLENGTH' | translate:{ requiredLength: f['name_zh'].errors?.['minlength'].requiredLength } }}</small> }
+                    }
+                </div>
+            </div>
+            <p-divider></p-divider>
+
+            <label class="font-semibold text-lg mb-1">{{ 'PROJECTS.TABLE.DESCRIPTION' | translate }} <span
+                    class="text-red-500">*</span></label>
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col">
+                    <label htmlFor="description_es" class="font-medium mb-1 text-sm">{{ 'ADMIN.OFFICES.FORM_DESC_ES_LABEL' | translate }}</label>
+                    <textarea pInputTextarea id="description_es" formControlName="description_es" rows="3"
+                        class="w-full"></textarea>
+                    @if (f['description_es'].invalid && (f['description_es'].dirty || f['description_es'].touched)) {
+                        @if (f['description_es'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+                        @if (f['description_es'].errors?.['minlength']) { <small class="text-red-500">{{ 'VALIDATION.MINLENGTH' | translate:{ requiredLength: f['description_es'].errors?.['minlength'].requiredLength } }}</small> }
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label htmlFor="description_en" class="font-medium mb-1 text-sm">{{ 'ADMIN.OFFICES.FORM_DESC_EN_LABEL' | translate }}</label>
+                    <textarea pInputTextarea id="description_en" formControlName="description_en" rows="3"
+                        class="w-full"></textarea>
+                    @if (f['description_en'].invalid && (f['description_en'].dirty || f['description_en'].touched)) {
+                        @if (f['description_en'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+                        @if (f['description_en'].errors?.['minlength']) { <small class="text-red-500">{{ 'VALIDATION.MINLENGTH' | translate:{ requiredLength: f['description_en'].errors?.['minlength'].requiredLength } }}</small> }
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label htmlFor="description_zh" class="font-medium mb-1 text-sm">{{ 'ADMIN.OFFICES.FORM_DESC_ZH_LABEL' | translate }}</label>
+                    <textarea pInputTextarea id="description_zh" formControlName="description_zh" rows="3"
+                        class="w-full"></textarea>
+                    @if (f['description_zh'].invalid && (f['description_zh'].dirty || f['description_zh'].touched)) {
+                        @if (f['description_zh'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+                        @if (f['description_zh'].errors?.['minlength']) { <small class="text-red-500">{{ 'VALIDATION.MINLENGTH' | translate:{ requiredLength: f['description_zh'].errors?.['minlength'].requiredLength } }}</small> }
+                    }
+                </div>
+            </div>
+            <p-divider></p-divider>
+
+            <div class="flex flex-col">
+                <label htmlFor="awardDate" class="font-medium mb-1">{{ 'PROJECTS.TABLE.AWARD_DATE' | translate }} <span
+                        class="text-red-500">*</span></label>
+                <p-date-picker id="awardDate" formControlName="awardDate" [showIcon]="true" dateFormat="dd/mm/yy" appendTo="body"
+                    styleClass="w-full"></p-date-picker> @if (f['awardDate'].invalid && (f['awardDate'].dirty || f['awardDate'].touched)) {
+                   @if (f['awardDate'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+                }
+            </div>
+
+            <div class="flex flex-col">
+                <label htmlFor="phase" class="font-medium mb-1">{{ 'PROJECTS.TABLE.PHASE' | translate }} <span
+                        class="text-red-500">*</span></label>
+                <p-select id="phase" formControlName="phase" [options]="projectPhases" optionLabel="label" optionValue="value"
+                    placeholder="{{'ACTIONS.SELECT_OPTION' | translate}}" appendTo="body" styleClass="w-full">
+                </p-select>
+                @if (f['phase'].invalid && (f['phase'].dirty || f['phase'].touched)) {
+                    @if (f['phase'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+                }
+            </div>
+        </form>
+        } @else {
+            <div class="p-4 text-center text-gray-500 dark:text-gray-400 flex-grow flex items-center justify-center">{{ 'COMMON.LOADING' | translate }}</div>
+        }
+    </div>
+
+    <p-divider class="flex-shrink-0"></p-divider>
+    <div class="p-4 flex justify-end gap-2 flex-shrink-0">
+        <p-button [label]="'ACTIONS.CANCEL' | translate" severity="danger" (onClick)="onCancel()"></p-button>
+        <p-button [icon]="buttonIcon()" [disabled]="projectForm.invalid || isLoading()" [label]="buttonLabel() | translate"
+            (onClick)="onUpdateProject()"></p-button>
+    </div>
+
+</p-drawer>

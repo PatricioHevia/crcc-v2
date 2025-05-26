@@ -91,9 +91,9 @@
         <td>{{ ('ORGANIZATION_TYPES.' + org.type) | translate }}</td>
         <td>
           <div class="flex justify-center items-center w-full">
-            <i *ngIf="org.active" class="pi pi-check-circle text-green-300 text-xl" [pTooltip]="'Activa' | translate"
+            <i *ngIf="org.active" class="pi pi-check-circle text-green-300 text-xl" [pTooltip]="'ADMIN.USERS.TABLE.ACTIVE' | translate"
               tooltipPosition="top"></i>
-            <i *ngIf="!org.active" class="pi pi-times-circle text-red-300 text-xl" [pTooltip]="'Inactiva' | translate"
+            <i *ngIf="!org.active" class="pi pi-times-circle text-red-300 text-xl" [pTooltip]="'ADMIN.USERS.TABLE.NO_ACTIVE' | translate"
               tooltipPosition="top"></i>
           </div>
         </td>
@@ -101,9 +101,9 @@
         <td>
           <div class="flex gap-2">
             <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-info"
-              (click)="onEdit(org)" [pTooltip]="'Editar' | translate" tooltipPosition="top"></button>
+              (click)="onEdit(org)" [pTooltip]="'ACTIONS.EDIT' | translate" tooltipPosition="top"></button>
             <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
-              (click)="onDelete(org)" [pTooltip]="'Eliminar' | translate" tooltipPosition="top"></button>
+              (click)="onDelete(org)" [pTooltip]="'ACTIONS.DELETE' | translate" tooltipPosition="top"></button>
           </div>
         </td>
       </tr>

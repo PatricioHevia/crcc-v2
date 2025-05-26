@@ -112,8 +112,8 @@
         <td>
           <div class="flex justify-center">
 
-            <i *ngIf="user.active" class="pi pi-check-circle text-green-400 text-xl"></i>
-            <i *ngIf="!user.active" class="pi pi-times-circle text-red-400 text-xl"></i>
+            <i *ngIf="user.active"  [pTooltip]="'ADMIN.USERS.TABLE.ACTIVE' | translate" class="pi pi-check-circle text-green-400 text-xl"></i>
+            <i *ngIf="!user.active"  [pTooltip]="'ADMIN.USERS.TABLE.NO_ACTIVE' | translate" class="pi pi-times-circle text-red-400 text-xl"></i>
           </div>
         </td>
         <td>{{ 'ROLES.' + user.role | translate }}</td>

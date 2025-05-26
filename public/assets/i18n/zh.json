@@ -212,6 +212,7 @@
                 "ORGANIZATION": "组织",
                 "EMAIL": "电子邮件",
                 "ACTIVE": "激活",
+                "NO_ACTIVE": "未激活",
                 "ROLE": "角色",
                 "UPDATED_AT": "更新于",
                 "ACTIONS": "操作",
@@ -337,7 +338,8 @@
         "UNEXPECTED_ERROR_DETAIL": "发生意外错误。请再试一次。",
         "LOADING_USER_DATA": "正在加载用户数据...",
         "NO_ORGANIZATION": "无组织",
-        "LOADING": "加载中..."
+        "LOADING": "加载中...",
+        "CONFIRMATION_TITLE": "确认"
     },
     "VALIDATION": {
         "REQUIRED": "此字段是必需的。",

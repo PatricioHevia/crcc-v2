@@ -212,6 +212,7 @@
         "ORGANIZATION": "Organization",
         "EMAIL": "Email",
         "ACTIVE": "Active",
+        "NO_ACTIVE": "Inactive",
         "ROLE": "Role",
         "UPDATED_AT": "Updated At",
         "ACTIONS": "Actions",
@@ -337,7 +338,8 @@
     "UNEXPECTED_ERROR_DETAIL": "An unexpected error occurred. Please try again.",
     "LOADING_USER_DATA": "Cargando datos del usuario...",
     "NO_ORGANIZATION": "No Organization",
-    "LOADING": "Loading..."
+    "LOADING": "Loading...",
+    "CONFIRMATION_TITLE": "Confirmation"
   },
   "VALIDATION": {
     "REQUIRED": "This field is required.",

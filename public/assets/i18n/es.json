@@ -211,6 +211,7 @@
         "ORGANIZATION": "Organización",
         "EMAIL": "Correo electrónico",
         "ACTIVE": "Activo",
+        "NO_ACTIVE": "Inactivo",
         "ROLE": "Rol",
         "UPDATED_AT": "Actualizado el",
         "ACTIONS": "Acciones",
@@ -338,6 +339,7 @@
     "NO_ORGANIZATION": "Sin organización",
     "LOADING": "Cargando...",
     "CONFIRMATION_TITLE": "Confirmación"
+    
   },
   "VALIDATION": {
     "REQUIRED": "Este campo es requerido.",

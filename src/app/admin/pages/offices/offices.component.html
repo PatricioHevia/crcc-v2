@@ -43,16 +43,14 @@
           </th>
           <th style="width:10rem">{{ 'COMMON.TABLE_HEADER_ACTIONS' | translate }}</th>
         </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-office>
+      </ng-template>      <ng-template pTemplate="body" let-office>
         <tr>
-          <td>{{ office.name }}</td>
+          <td>{{ office['name_' + lang()] || office.name_es || office.name_en || office.name_zh }}</td>
           <td>{{ office.createdAt?.toDate() | date:'mediumDate':undefined:translationService.currentLang() }}</td>
-          <td>{{ office.updatedAt?.toDate() | date:'mediumDate':undefined:translationService.currentLang() }}</td>
-          <td>
+          <td>{{ office.updatedAt?.toDate() | date:'mediumDate':undefined:translationService.currentLang() }}</td>          <td>
             <p-button pRipple icon="pi pi-pencil" class="mr-2" rounded="true" severity="primary" text="true"
-              pTooltip="{{'COMMON.TOOLTIP_EDIT' | translate}}" tooltipPosition="top"></p-button>
+              pTooltip="{{'COMMON.TOOLTIP_EDIT' | translate}}" tooltipPosition="top"
+              (click)="openEdit(office)"></p-button>
             <p-button pRipple icon="pi pi-trash" severity="danger" rounded="true" text="true"
               pTooltip="{{'COMMON.TOOLTIP_DELETE' | translate}}" tooltipPosition="top"
               (click)="deleteOffice(office)"></p-button>
@@ -66,9 +64,32 @@
           </td>
         </tr>
       </ng-template>
-    </p-table>
-
-    }
+    </p-table>    }
   </div>
 
 </div>
+
+<!-- Drawer para Nueva Oficina -->
+<p-drawer 
+  [visible]="isNewOfficeDrawerVisible" 
+  (onHide)="closeNewOfficeDrawer()" 
+  position="right" 
+  [baseZIndex]="10000"
+  styleClass="!w-full md:!w-[60%] lg:!w-[40%] xl:!w-[35%] flex flex-col"
+  [closable]="false">
+  <app-nueva-oficina (onOfficeSaved)="onOfficeSaved()"></app-nueva-oficina>
+</p-drawer>
+
+<!-- Drawer para Actualizar Oficina -->
+<p-drawer 
+  [visible]="isUpdateOfficeDrawerVisible" 
+  (onHide)="closeUpdateOfficeDrawer()" 
+  position="right" 
+  [baseZIndex]="10000"
+  styleClass="!w-full md:!w-[60%] lg:!w-[40%] xl:!w-[35%] flex flex-col"
+  [closable]="false">
+  <app-update-office 
+    [office]="selectedOffice" 
+    (onOfficeSaved)="onOfficeSaved()">
+  </app-update-office>
+</p-drawer>

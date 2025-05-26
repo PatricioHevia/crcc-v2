@@ -20,11 +20,14 @@ import { ToastService } from '../../../core/services/toast.service';
 import { TranslationService } from '../../../core/services/translation.service'; // Para obtener lang actual si es necesario
 import { TooltipModule } from 'primeng/tooltip';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DrawerModule } from 'primeng/drawer';
+
+import { NuevaOficinaComponent } from '../../components/nueva-oficina/nueva-oficina.component';
+import { UpdateOfficeComponent } from '../../components/update-office/update-office.component';
 
 @Component({
   selector: 'app-offices',
-  standalone: true,
-  imports: [
+  standalone: true,  imports: [
     CommonModule,
     ReactiveFormsModule,
     TableModule,
@@ -37,7 +40,10 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ToastModule,
     ConfirmDialogModule,
     TranslateModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    DrawerModule,
+    NuevaOficinaComponent,
+    UpdateOfficeComponent
   ],
   templateUrl: './offices.component.html',
   // styleUrls: ['./offices.component.css'], // Descomentar si se añaden estilos específicos
@@ -51,23 +57,50 @@ export class OfficesComponent {
   public translateService = inject(TranslateService);
   private fb = inject(FormBuilder);
   private cdr = inject(ChangeDetectorRef);
-
   lang = computed(() => this.translationService.currentLang);
 
- 
   offices: Signal<Office[]> = computed(() => this.officeService.offices());
   loading: Signal<boolean> = computed(() => this.officeService.loading());
 
+  // Drawer visibility controls
+  isNewOfficeDrawerVisible = false;
+  isUpdateOfficeDrawerVisible = false;
+  selectedOffice: Office | null = null;
 
 
 
   openNew(): void {
-
+    this.isNewOfficeDrawerVisible = true;
   }
 
+  openEdit(office: Office): void {
+    this.selectedOffice = office;
+    this.isUpdateOfficeDrawerVisible = true;
+  }
+
+  closeNewOfficeDrawer(): void {
+    this.isNewOfficeDrawerVisible = false;
+  }
+
+  closeUpdateOfficeDrawer(): void {
+    this.isUpdateOfficeDrawerVisible = false;
+    this.selectedOffice = null;
+  }
+  onOfficeSaved(): void {
+    this.closeNewOfficeDrawer();
+    this.closeUpdateOfficeDrawer();
+    // Forzar detección de cambios si es necesario
+    this.cdr.detectChanges();
+  }
+
+  private getOfficeName(office: Office): string {
+    const currentLang = this.lang();
+    return office[`name_${currentLang}` as keyof Office] as string || office.name_es || office.name_en || office.name_zh || '';
+  }
   async deleteOffice(office: Office): Promise<void> {
+    const officeName = this.getOfficeName(office);
     this.confirmationService.confirm({
-      message: this.translateService.instant('COMMON.CONFIRM_DELETE_MESSAGE_ITEM', { item: office.name }),
+      message: this.translateService.instant('COMMON.CONFIRM_DELETE_MESSAGE_ITEM', { item: officeName }),
       header: this.translationService.instant('COMMON.CONFIRM_DELETE_TITLE'),
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: this.translationService.instant('COMMON.YES'),
@@ -77,7 +110,7 @@ export class OfficesComponent {
           await this.officeService.deleteOffice(office.id);
           this.toastService.success(
             this.translationService.instant('ADMIN.OFFICES.SUCCESS_DELETED_TITLE'),
-            this.translateService.instant('ADMIN.OFFICES.SUCCESS_DELETED_DETAIL', { item: office.name } )
+            this.translateService.instant('ADMIN.OFFICES.SUCCESS_DELETED_DETAIL', { item: officeName } )
           );
         } catch (error) {
           console.error('Error deleting office:', error);

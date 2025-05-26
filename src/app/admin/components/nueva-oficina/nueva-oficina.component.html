@@ -4,7 +4,7 @@
     [src]="themeService.isDarkTheme() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
     alt="{{ 'TOPBAR.TITUTLO' | translate }}" class="h-12 w-auto mr-2 flex-shrink-0">
   <span class="flex-grow text-xl text-center font-semibold dark:text-gray-200">
-    {{ 'ADMIN.OFFICES.UPDATE_OFFICE_TITLE' | translate }}
+    {{ 'ADMIN.OFFICES.NEW_OFFICE_TITLE' | translate }}
   </span>
   <p-button icon="pi pi-times" (onClick)="onOfficeSaved.emit()"
     styleClass="p-button-rounded p-button-text p-button-plain flex-shrink-0">
@@ -15,7 +15,6 @@
 
 <!-- Contenido del formulario -->
 <div class="flex-grow overflow-y-auto">
-  @if (office) {
   <form [formGroup]="officeForm" (ngSubmit)="onSubmit()" class="p-4 flex flex-col gap-4">
     
     <!-- Nombre en Español -->
@@ -79,11 +78,6 @@
     </div>
 
   </form>
-  } @else {
-  <div class="p-4 text-center text-gray-500">
-    {{ 'COMMON.LOADING' | translate }}
-  </div>
-  }
 </div>
 
 <p-divider></p-divider>
@@ -98,7 +92,7 @@
   <p-button 
     [label]="'COMMON.SAVE' | translate" 
     type="submit" 
-    [disabled]="officeForm.invalid || loading || !office"
+    [disabled]="officeForm.invalid || loading"
     [loading]="loading"
     (onClick)="onSubmit()">
   </p-button>

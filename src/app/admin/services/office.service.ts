@@ -79,14 +79,12 @@ export class OfficeService implements OnDestroy { // 2. Implementa OnDestroy
             this.listener = null; // Limpia la referencia
             console.log('OfficeService: Firestore listener para oficinas detenido.');
         }
-    }
-
-    // Geter de nombre en label y id en value desde la señal de oficinas
+    }    // Geter de nombre en label y id en value desde la señal de oficinas
     public officeOptionsSignal = computed(() => {
         this.startListening(); // Asegura que el listener esté activo e inicializado
         const officesData = this.listener?.data() || []; // Obtiene los datos de las oficinas
         return officesData.map(office => ({
-            label: office.name, // Ajusta 'name' si la propiedad es diferente
+            label: office.name_es || office.name_en || office.name_zh || office.name, // Prioriza español, luego inglés, luego chino
             value: office.id
         }));
     });

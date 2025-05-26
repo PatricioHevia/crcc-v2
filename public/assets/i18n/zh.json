@@ -201,7 +201,8 @@
     "ERROR_MENSAJE": "消息为必填项",
     "ERROR_MENSAJE_MIN": "消息必须至少包含 20 个字符",
     "TOAST_MENSAJE_ENVIADO": "消息发送成功",
-    "TOAST_MENSAJE_ERROR": "发送消息时出错，请重试"
+    "TOAST_MENSAJE_ERROR": "发送消息时出错，请重试",
+    "VER_MENSAJES": "查看消息"
   },
   "ADMIN": {
     "USERS": {
@@ -224,28 +225,29 @@
         "NO_USERS_FOUND": "未找到用户",
         "LOADING_USERS": "正在加载用户..."
       }
-    },
-    "OFFICES": {
+    },    "OFFICES": {
       "TITLE": "办公室管理",
       "LIST_SUBTITLE": "办公室列表",
       "NEW_BUTTON": "新增办公室",
-      "NEW_TITLE": "创建新办公室",
+      "NEW_OFFICE_TITLE": "创建新办公室",
+      "UPDATE_OFFICE_TITLE": "更新办公室",
       "EDIT_TITLE": "编辑办公室",
       "TABLE_HEADER_NAME": "名称",
       "TABLE_HEADER_CREATED_AT": "创建日期",
       "TABLE_HEADER_UPDATED_AT": "最后更新",
-      "FORM_NAME_ES_LABEL": "名称 (西班牙语)",
-      "FORM_NAME_EN_LABEL": "名称 (英语)",
-      "FORM_NAME_ZH_LABEL": "名称 (中文)",
+      "FORM_NAME_ES": "西班牙语名称",
+      "FORM_NAME_EN": "英语名称",
+      "FORM_NAME_ZH": "中文名称",
+      "FORM_NAME_REQUIRED": "名称为必填项，至少需要2个字符",
       "FORM_DESC_ES_LABEL": "描述 (西班牙语)",
       "FORM_DESC_EN_LABEL": "描述 (英语)",
       "FORM_DESC_ZH_LABEL": "描述 (中文)",
       "SUCCESS_CREATED_TITLE": "办公室已创建",
-      "SUCCESS_CREATED_DETAIL": "办公室 '{{name}}' 已成功创建。",
+      "SUCCESS_CREATED_DETAIL": "办公室已成功创建",
       "SUCCESS_UPDATED_TITLE": "办公室已更新",
-      "SUCCESS_UPDATED_DETAIL": "办公室 '{{name}}' 已成功更新。",
+      "SUCCESS_UPDATED_DETAIL": "办公室已成功更新",
       "SUCCESS_DELETED_TITLE": "办公室已删除",
-      "SUCCESS_DELETED_DETAIL": "办公室 '{{name}}' 已成功删除。"
+      "SUCCESS_DELETED_DETAIL": "办公室 '{{item}}' 已成功删除"
     },
     "PROJECT": {
       "LIST_SUBTITLE": "项目列表",
@@ -338,13 +340,20 @@
     "MINLENGTH": "至少需要 {{requiredLength}} 个字符。"
   },
   "GENERAL": {
-    "SIGUIENTE": "下一步"
-  },
-  "COMMON": {
+    "SIGUIENTE": "下一步",
+    "DELETE_SELECTED": "删除选中项",
+    "SEARCH": "搜索",
+    "LOADING": "加载中...",
+    "ACTIONS": "操作",
+    "EDIT": "编辑",
+    "DELETE": "删除"
+  },  "COMMON": {
     "NO_IMAGE": "无图片",
     "TABLE_HEADER_ACTIONS": "操作",
     "TOOLTIP_EDIT": "编辑",
     "TOOLTIP_DELETE": "删除",
+    "SAVE": "保存",
+    "CANCEL": "取消",
     "BUTTON_SAVE": "保存",
     "BUTTON_CANCEL": "取消",
     "YES": "是",
@@ -356,6 +365,8 @@
     "FORM_INVALID_TITLE": "表单无效",
     "FORM_INVALID_DETAIL": "请检查表单字段。",
     "ERROR_SAVING_TITLE": "保存错误",
+    "ERROR_CREATING_TITLE": "创建错误",
+    "ERROR_UPDATING_TITLE": "更新错误",
     "ERROR_DELETING_TITLE": "删除错误",
     "UNEXPECTED_ERROR_DETAIL": "发生意外错误。请再试一次。",
     "LOADING_USER_DATA": "正在加载用户数据...",
@@ -368,5 +379,55 @@
     "PAGINATOR": {
       "SHOWING_OF": "显示 {first} 到 {last} 共 {totalRecords} 条"
     }
+  },
+  "JOBS": {
+    "TITLE": "工作机会管理",
+    "ACTIONS": {
+      "NEW_JOB": "新建职位"
+    },
+    "FIELDS": {
+      "NAME": "名称",
+      "STATUS": "状态",
+      "PROJECT": "项目",
+      "LOCATION": "地点",
+      "WORK_TYPE": "工作类型",
+      "VACANCIES": "空缺",
+      "CLOSING_DATE": "截止日期"
+    },
+    "NO_JOBS_FOUND": "未找到工作机会",
+    "STATUS": {
+      "DELETED": "已删除",
+      "ACTIVE": "活跃",
+      "OPEN": "开放",
+      "CLOSED": "已关闭",
+      "UNDER_REVIEW": "审核中"
+    },    "ACTIONS_TOOLTIPS": {
+      "CLOSE_OFFER": "关闭职位",
+      "REOPEN_OFFER": "重新开放职位"
+    },
+    "CONFIRM": {
+      "DELETE_TITLE": "确认删除",
+      "DELETE_MESSAGE": "您确定要删除职位\"{{name}}\"吗？",
+      "DELETE_MULTIPLE_TITLE": "确认批量删除",
+      "DELETE_MULTIPLE_MESSAGE": "您确定要删除选中的{{count}}个职位吗？",
+      "DELETE_ACCEPT": "是的，删除",
+      "DELETE_REJECT": "取消"
+    },
+    "MESSAGES": {
+      "DELETE_SUCCESS": "职位已成功删除",
+      "DELETE_MULTIPLE_SUCCESS": "{{count}}个职位已成功删除",
+      "DELETE_ERROR": "删除职位时出错",
+      "DELETE_MULTIPLE_ERROR": "删除职位时出错",
+      "STATUS_CHANGE_SUCCESS": "状态已更改为{{status}}",
+      "STATUS_CHANGE_ERROR": "更改状态时出错",
+      "SUCCESS_TITLE": "成功",
+      "ERROR_TITLE": "错误"
+    }
+  },
+  "TABLE": {
+    "SHOWING": "显示",
+    "TO": "到",
+    "OF": "共",
+    "ENTRIES": "条记录"
   }
 }

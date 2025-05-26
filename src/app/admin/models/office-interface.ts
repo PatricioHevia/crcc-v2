@@ -14,7 +14,10 @@ export interface OfficeMember {
 
 export interface Office {
   id: string;               
-  name: string; // Nombre de la oficina (en español, inglés y chino)
+  name: string; // Nombre de la oficina - campo computado para mostrar según idioma actual
+  name_es: string; // Nombre en español
+  name_en: string; // Nombre en inglés
+  name_zh: string; // Nombre en chino
   members?: OfficeMember[];
 
   // Campos de Auditoría

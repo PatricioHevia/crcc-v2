@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, Signal, } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
-import { Project } from '../../admin/models/project-interface';
+import { firstValueFrom, Observable } from 'rxjs';
+import { Project, GalleryImageFirestore } from '../../admin/models/project-interface';
 import { FirestoreService } from '../../core/services/firestore.service';
 import { StorageService, UploadTask } from '../../core/services/storage.service';
 import { parseUrl, removeAccents } from '../../core/helpers/remove-acents';
@@ -70,10 +70,170 @@ export class ProjectService {
   }
 
   /**
-   * Crea un proyecto:
-   * - devuelve mainTask y galleryTasks para mostrar progreso
-   * - la promesa `complete` espera a que todo se suba y luego escribe Firestore
+   * Actualiza la imagen principal de un proyecto
+   * @param projectId ID del proyecto
+   * @param newImageFile Nueva imagen
+   * @param deleteOldImage Si debe eliminar la imagen anterior
+   * @returns Objeto con la tarea de subida y promesa de completado
    */
+  updateMainImage(
+    projectId: string, 
+    newImageFile: File, 
+    deleteOldImage: boolean = true
+  ): { uploadTask: UploadTask; complete: Promise<void> } {
+    const uploadTask = this.uploadMainImage(newImageFile, projectId);
+    
+    const complete = (async () => {
+      try {        // Obtener datos actuales del proyecto si necesitamos eliminar la imagen anterior
+        let currentProject: Project | null = null;
+        if (deleteOldImage) {
+          const projectData = await this.fs.readOne<Project>('projects', projectId);
+          currentProject = projectData || null;
+        }
+
+        // Esperar a que termine la subida y obtener la URL
+        const newImageUrl = await firstValueFrom(uploadTask.downloadURL$);
+        
+        // Eliminar imagen anterior si existe y se solicitó
+        if (deleteOldImage && currentProject?.image) {
+          try {
+            await this.storageService.deleteFileByUrl(currentProject.image);
+          } catch (error) {
+            console.warn('No se pudo eliminar la imagen anterior:', error);
+          }
+        }
+
+        // Actualizar el proyecto en Firestore
+        await this.update(projectId, { image: newImageUrl });
+        
+      } catch (error) {
+        console.error('Error al actualizar imagen principal:', error);
+        throw error;
+      }
+    })();
+
+    return { uploadTask, complete };
+  }
+
+  /**
+   * Actualiza las imágenes de galería de un proyecto
+   * @param projectId ID del proyecto
+   * @param newImages Nuevas imágenes para la galería
+   * @param replaceAll Si debe reemplazar todas las imágenes o añadir a las existentes
+   * @returns Objeto con las tareas de subida y promesa de completado
+   */
+  updateGalleryImages(
+    projectId: string,
+    newImages: File[],
+    replaceAll: boolean = false
+  ): { uploadTasks: UploadTask[]; complete: Promise<void> } {
+    const uploadTasks = this.uploadGalleryImages(newImages, projectId);
+    
+    const complete = (async () => {
+      try {        // Obtener datos actuales del proyecto
+        const projectData = await this.fs.readOne<Project>('projects', projectId);
+        const currentProject = projectData || null;
+        
+        // Si replaceAll es true, eliminar imágenes existentes
+        if (replaceAll && currentProject?.galleryImages?.length) {
+          for (const img of currentProject.galleryImages) {
+            try {
+              await this.storageService.deleteFileByUrl(img.url);
+            } catch (error) {
+              console.warn('No se pudo eliminar imagen de galería:', img.url, error);
+            }
+          }
+        }
+
+        // Esperar a que terminen todas las subidas
+        const newImageUrls = await Promise.all(
+          uploadTasks.map(task => firstValueFrom(task.downloadURL$))
+        );
+
+        // Crear objetos GalleryImageFirestore
+        const newGalleryImages: GalleryImageFirestore[] = newImages.map((file, index) => ({
+          url: newImageUrls[index],
+          name: file.name
+        }));
+
+        // Determinar las imágenes finales de la galería
+        const finalGalleryImages = replaceAll 
+          ? newGalleryImages 
+          : [...(currentProject?.galleryImages || []), ...newGalleryImages];
+
+        // Actualizar el proyecto en Firestore
+        await this.update(projectId, { galleryImages: finalGalleryImages });
+        
+      } catch (error) {
+        console.error('Error al actualizar imágenes de galería:', error);
+        throw error;
+      }
+    })();
+
+    return { uploadTasks, complete };
+  }
+
+  /**
+   * Elimina una imagen específica de la galería
+   * @param projectId ID del proyecto
+   * @param imageUrl URL de la imagen a eliminar
+   */
+  async removeGalleryImage(projectId: string, imageUrl: string): Promise<void> {
+    try {      // Obtener proyecto actual
+      const projectData = await this.fs.readOne<Project>('projects', projectId);
+      const project = projectData || null;
+      if (!project?.galleryImages) return;
+
+      // Filtrar la imagen a eliminar
+      const updatedGallery = project.galleryImages.filter(img => img.url !== imageUrl);
+
+      // Eliminar archivo del storage
+      await this.storageService.deleteFileByUrl(imageUrl);
+
+      // Actualizar proyecto en Firestore
+      await this.update(projectId, { galleryImages: updatedGallery });
+
+    } catch (error) {
+      console.error('Error al eliminar imagen de galería:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Obtiene el progreso combinado de múltiples tareas de subida
+   * @param uploadTasks Array de tareas de subida
+   * @returns Observable con el progreso promedio (0-100)
+   */  getCombinedProgress(uploadTasks: UploadTask[]): Observable<number> {
+    if (uploadTasks.length === 0) {
+      return new Observable<number>((observer) => {
+        observer.next(100);
+        observer.complete();
+      });
+    }
+
+    return new Observable<number>((observer) => {
+      const progresses: number[] = new Array(uploadTasks.length).fill(0);
+      let completedTasks = 0;
+
+      uploadTasks.forEach((task, index) => {
+        task.percentage$.subscribe({
+          next: (progress) => {
+            progresses[index] = progress;
+            const averageProgress = progresses.reduce((sum, p) => sum + p, 0) / uploadTasks.length;
+            observer.next(Math.round(averageProgress));
+          },
+          complete: () => {
+            completedTasks++;
+            if (completedTasks === uploadTasks.length) {
+              observer.complete();
+            }
+          },
+          error: (error) => observer.error(error)
+        });
+      });
+    });
+  }
+
   async createProject(name: string, description: string, phase: ProjectPhaseCode, adwardDate: Date) {
     const adwardDateAsFirestoreTimestamp: Timestamp = Timestamp.fromDate(adwardDate)
     try {
@@ -105,49 +265,6 @@ export class ProjectService {
       throw error; // Re-lanza el error para manejarlo en el componente
     }
   }
-
-  /**
-   * Actualiza un proyecto:
-   * - idéntico patrón: devuelve tareas y promesa final
-   */
-  updateProject(
-    id: string,
-    data: Partial<ProjectForm>,
-    imageFile?: File,
-    galleryFiles?: File[]
-  ): {
-    mainTask?: UploadTask;
-    galleryTasks?: UploadTask[];
-    complete: Promise<void>;
-  } {
-    const updateData = { ...data, image: undefined, galleryImages: undefined } as any;
-
-    let mainTask: UploadTask | undefined;
-    let galleryTasks: UploadTask[] | undefined;
-
-    if (imageFile) {
-      mainTask = this.uploadMainImage(imageFile, id);
-    }
-    if (galleryFiles?.length) {
-      galleryTasks = this.uploadGalleryImages(galleryFiles, id);
-    }
-
-    const complete = (async () => {
-      if (mainTask) {
-        updateData.image = await firstValueFrom(mainTask.downloadURL$);
-      }
-      if (galleryTasks) {
-        updateData.galleryImages = await Promise.all(
-          galleryTasks.map(t => firstValueFrom(t.downloadURL$))
-        );
-      }
-      await this.fs.update<ProjectForm>('projects', id, updateData);
-    })();
-
-    return { mainTask, galleryTasks, complete };
-  }
-
-
 
   // --- Métodos DESDE ADMIN PANEL ---
   public update(id: string, changes: Partial<Project>) {
@@ -184,6 +301,9 @@ export class ProjectService {
       console.log('ProjectService: Firestore listener unsubscribed.'); // Para verificar en consola
     }
   }
+
+
+  
 
 
 }

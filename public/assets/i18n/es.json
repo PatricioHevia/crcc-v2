@@ -202,7 +202,8 @@
     "ERROR_MENSAJE": "El mensaje es obligatorio",
     "ERROR_MENSAJE_MIN": "El mensaje debe tener al menos 20 caracteres.",
     "TOAST_MENSAJE_ENVIADO": "Mensaje enviado correctamente",
-    "TOAST_MENSAJE_ERROR": "Error al enviar el mensaje, por favor intenta nuevamente"
+    "TOAST_MENSAJE_ERROR": "Error al enviar el mensaje, por favor intenta nuevamente",
+    "VER_MENSAJES": "Ver Mensajes"
   },
   "ADMIN": {
     "USERS": {
@@ -225,28 +226,29 @@
         "NO_USERS_FOUND": "No se encontraron usuarios",
         "LOADING_USERS": "Cargando usuarios..."
       }
-    },
-    "OFFICES": {
+    },    "OFFICES": {
       "TITLE": "Gestión de Oficinas",
       "LIST_SUBTITLE": "Lista de Oficinas",
       "NEW_BUTTON": "Nueva Oficina",
-      "NEW_TITLE": "Crear Nueva Oficina",
+      "NEW_OFFICE_TITLE": "Crear Nueva Oficina",
+      "UPDATE_OFFICE_TITLE": "Actualizar Oficina",
       "EDIT_TITLE": "Editar Oficina",
       "TABLE_HEADER_NAME": "Nombre",
       "TABLE_HEADER_CREATED_AT": "Fecha Creación",
       "TABLE_HEADER_UPDATED_AT": "Última Actualización",
-      "FORM_NAME_ES_LABEL": "Nombre en Español",
-      "FORM_NAME_EN_LABEL": "Nombre en Inglés",
-      "FORM_NAME_ZH_LABEL": "Nombre en Chino",
+      "FORM_NAME_ES": "Nombre en Español",
+      "FORM_NAME_EN": "Nombre en Inglés",
+      "FORM_NAME_ZH": "Nombre en Chino",
+      "FORM_NAME_REQUIRED": "El nombre es obligatorio y debe tener al menos 2 caracteres",
       "FORM_DESC_ES_LABEL": "Descripción en Español",
       "FORM_DESC_EN_LABEL": "Descripción en Inglés",
       "FORM_DESC_ZH_LABEL": "Descripción en Chino",
       "SUCCESS_CREATED_TITLE": "Oficina Creada",
-      "SUCCESS_CREATED_DETAIL": "La oficina '{{name}}' ha sido creada exitosamente.",
+      "SUCCESS_CREATED_DETAIL": "La oficina ha sido creada exitosamente",
       "SUCCESS_UPDATED_TITLE": "Oficina Actualizada",
-      "SUCCESS_UPDATED_DETAIL": "La oficina '{{name}}' ha sido actualizada exitosamente.",
+      "SUCCESS_UPDATED_DETAIL": "La oficina ha sido actualizada exitosamente",
       "SUCCESS_DELETED_TITLE": "Oficina Eliminada",
-      "SUCCESS_DELETED_DETAIL": "La oficina '{{name}}' ha sido eliminada exitosamente."
+      "SUCCESS_DELETED_DETAIL": "La oficina '{{item}}' ha sido eliminada exitosamente"
     },
     "PROJECT": {
       "LIST_SUBTITLE": "Lista de Proyectos",
@@ -339,13 +341,21 @@
     "MINLENGTH": "Se requiere un mínimo de {{requiredLength}} caracteres."
   },
   "GENERAL": {
-    "SIGUIENTE": "Siguiente"
+    "SIGUIENTE": "Siguiente",
+    "DELETE_SELECTED": "Eliminar Seleccionados",
+    "SEARCH": "Buscar",
+    "LOADING": "Cargando...",
+    "ACTIONS": "Acciones",
+    "EDIT": "Editar",
+    "DELETE": "Eliminar"
   },
   "COMMON": {
     "NO_IMAGE": "Sin imagen",
     "TABLE_HEADER_ACTIONS": "Acciones",
     "TOOLTIP_EDIT": "Editar",
     "TOOLTIP_DELETE": "Eliminar",
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar",
     "BUTTON_SAVE": "Guardar",
     "BUTTON_CANCEL": "Cancelar",
     "YES": "Sí",
@@ -357,6 +367,8 @@
     "FORM_INVALID_TITLE": "Formulario Inválido",
     "FORM_INVALID_DETAIL": "Por favor, revisa los campos del formulario.",
     "ERROR_SAVING_TITLE": "Error al Guardar",
+    "ERROR_CREATING_TITLE": "Error al Crear",
+    "ERROR_UPDATING_TITLE": "Error al Actualizar",
     "ERROR_DELETING_TITLE": "Error al Eliminar",
     "UNEXPECTED_ERROR_DETAIL": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
     "LOADING_USER_DATA": "Cargando datos del usuario...",
@@ -369,5 +381,56 @@
     "PAGINATOR": {
       "SHOWING_OF": "Mostrando {first} a {last} de {totalRecords}"
     }
+  },
+  "JOBS": {
+    "TITLE": "Gestión de Ofertas de Empleo",
+    "ACTIONS": {
+      "NEW_JOB": "Nueva Oferta"
+    },
+    "FIELDS": {
+      "NAME": "Nombre",
+      "STATUS": "Estado",
+      "PROJECT": "Proyecto",
+      "LOCATION": "Ubicación",
+      "WORK_TYPE": "Tipo de Trabajo",
+      "VACANCIES": "Vacantes",
+      "CLOSING_DATE": "Fecha de Cierre"
+    },
+    "NO_JOBS_FOUND": "No se encontraron ofertas de empleo",
+    "STATUS": {
+      "DELETED": "Eliminado",
+      "ACTIVE": "Activa",
+      "OPEN": "Abierto",
+      "CLOSED": "Cerrado",
+      "UNDER_REVIEW": "En Revisión"
+    },
+    "ACTIONS_TOOLTIPS": {
+      "CLOSE_OFFER": "Cerrar oferta",
+      "REOPEN_OFFER": "Reabrir oferta"
+    },
+    "CONFIRM": {
+      "DELETE_TITLE": "Confirmar eliminación",
+      "DELETE_MESSAGE": "¿Está seguro de que desea eliminar la oferta \"{{name}}\"?",
+      "DELETE_MULTIPLE_TITLE": "Confirmar eliminación múltiple",
+      "DELETE_MULTIPLE_MESSAGE": "¿Está seguro de que desea eliminar {{count}} oferta(s) seleccionada(s)?",
+      "DELETE_ACCEPT": "Sí, eliminar",
+      "DELETE_REJECT": "Cancelar"
+    },
+    "MESSAGES": {
+      "DELETE_SUCCESS": "Oferta eliminada correctamente",
+      "DELETE_MULTIPLE_SUCCESS": "{{count}} oferta(s) eliminada(s) correctamente",
+      "DELETE_ERROR": "Error al eliminar la oferta",
+      "DELETE_MULTIPLE_ERROR": "Error al eliminar las ofertas",
+      "STATUS_CHANGE_SUCCESS": "Estado cambiado a {{status}}",
+      "STATUS_CHANGE_ERROR": "Error al cambiar el estado",
+      "SUCCESS_TITLE": "Éxito",
+      "ERROR_TITLE": "Error"
+    }
+  },
+  "TABLE": {
+    "SHOWING": "Mostrando",
+    "TO": "a",
+    "OF": "de",
+    "ENTRIES": "entradas"
   }
 }

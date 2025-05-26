@@ -202,7 +202,8 @@
     "ERROR_MENSAJE": "Message is required",
     "ERROR_MENSAJE_MIN": "Message must be at least 20 characters.",
     "TOAST_MENSAJE_ENVIADO": "Message sent successfully",
-    "TOAST_MENSAJE_ERROR": "Error sending message, please try again"
+    "TOAST_MENSAJE_ERROR": "Error sending message, please try again",
+    "VER_MENSAJES": "View Messages"
   },
   "ADMIN": {
     "USERS": {
@@ -225,28 +226,29 @@
         "NO_USERS_FOUND": "No users found",
         "LOADING_USERS": "Loading users..."
       }
-    },
-    "OFFICES": {
+    },    "OFFICES": {
       "TITLE": "Office Management",
       "LIST_SUBTITLE": "List of Offices",
       "NEW_BUTTON": "New Office",
-      "NEW_TITLE": "Create New Office",
+      "NEW_OFFICE_TITLE": "Create New Office",
+      "UPDATE_OFFICE_TITLE": "Update Office",
       "EDIT_TITLE": "Edit Office",
       "TABLE_HEADER_NAME": "Name",
       "TABLE_HEADER_CREATED_AT": "Creation Date",
       "TABLE_HEADER_UPDATED_AT": "Last Update",
-      "FORM_NAME_ES_LABEL": "Name (Spanish)",
-      "FORM_NAME_EN_LABEL": "Name (English)",
-      "FORM_NAME_ZH_LABEL": "Name (Chinese)",
+      "FORM_NAME_ES": "Name in Spanish",
+      "FORM_NAME_EN": "Name in English",
+      "FORM_NAME_ZH": "Name in Chinese",
+      "FORM_NAME_REQUIRED": "Name is required and must be at least 2 characters",
       "FORM_DESC_ES_LABEL": "Description (Spanish)",
       "FORM_DESC_EN_LABEL": "Description (English)",
       "FORM_DESC_ZH_LABEL": "Description (Chinese)",
       "SUCCESS_CREATED_TITLE": "Office Created",
-      "SUCCESS_CREATED_DETAIL": "Office '{{name}}' has been created successfully.",
+      "SUCCESS_CREATED_DETAIL": "Office has been created successfully",
       "SUCCESS_UPDATED_TITLE": "Office Updated",
-      "SUCCESS_UPDATED_DETAIL": "Office '{{name}}' has been updated successfully.",
+      "SUCCESS_UPDATED_DETAIL": "Office has been updated successfully",
       "SUCCESS_DELETED_TITLE": "Office Deleted",
-      "SUCCESS_DELETED_DETAIL": "Office '{{name}}' has been deleted successfully."
+      "SUCCESS_DELETED_DETAIL": "Office '{{item}}' has been deleted successfully"
     },
     "PROJECT": {
       "LIST_SUBTITLE": "Project List",
@@ -339,13 +341,21 @@
     "MINLENGTH": "A minimum of {{requiredLength}} characters is required."
   },
   "GENERAL": {
-    "SIGUIENTE": "Next"
+    "SIGUIENTE": "Next",
+    "DELETE_SELECTED": "Delete Selected",
+    "SEARCH": "Search",
+    "LOADING": "Loading...",
+    "ACTIONS": "Actions",
+    "EDIT": "Edit",
+    "DELETE": "Delete"
   },
   "COMMON": {
     "NO_IMAGE": "No image",
     "TABLE_HEADER_ACTIONS": "Actions",
     "TOOLTIP_EDIT": "Edit",
     "TOOLTIP_DELETE": "Delete",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
     "BUTTON_SAVE": "Save",
     "BUTTON_CANCEL": "Cancel",
     "YES": "Yes",
@@ -357,6 +367,8 @@
     "FORM_INVALID_TITLE": "Invalid Form",
     "FORM_INVALID_DETAIL": "Please review the form fields.",
     "ERROR_SAVING_TITLE": "Error Saving",
+    "ERROR_CREATING_TITLE": "Error Creating",
+    "ERROR_UPDATING_TITLE": "Error Updating",
     "ERROR_DELETING_TITLE": "Error Deleting",
     "UNEXPECTED_ERROR_DETAIL": "An unexpected error occurred. Please try again.",
     "LOADING_USER_DATA": "Loading user data...",
@@ -369,5 +381,55 @@
     "PAGINATOR": {
       "SHOWING_OF": "Showing {first} to {last} of {totalRecords}"
     }
-  }  
+  },
+  "JOBS": {
+    "TITLE": "Job Offer Management",
+    "ACTIONS": {
+      "NEW_JOB": "New Job Offer"
+    },
+    "FIELDS": {
+      "NAME": "Name",
+      "STATUS": "Status",
+      "PROJECT": "Project",
+      "LOCATION": "Location",
+      "WORK_TYPE": "Work Type",
+      "VACANCIES": "Vacancies",
+      "CLOSING_DATE": "Closing Date"
+    },
+    "NO_JOBS_FOUND": "No job offers found",
+    "STATUS": {
+      "DELETED": "Deleted",
+      "ACTIVE": "Active",
+      "OPEN": "Open",
+      "CLOSED": "Closed",
+      "UNDER_REVIEW": "Under Review"
+    },    "ACTIONS_TOOLTIPS": {
+      "CLOSE_OFFER": "Close offer",
+      "REOPEN_OFFER": "Reopen offer"
+    },
+    "CONFIRM": {
+      "DELETE_TITLE": "Confirm Deletion",
+      "DELETE_MESSAGE": "Are you sure you want to delete the offer \"{{name}}\"?",
+      "DELETE_MULTIPLE_TITLE": "Confirm Multiple Deletion",
+      "DELETE_MULTIPLE_MESSAGE": "Are you sure you want to delete {{count}} selected offer(s)?",
+      "DELETE_ACCEPT": "Yes, delete",
+      "DELETE_REJECT": "Cancel"
+    },
+    "MESSAGES": {
+      "DELETE_SUCCESS": "Offer deleted successfully",
+      "DELETE_MULTIPLE_SUCCESS": "{{count}} offer(s) deleted successfully",
+      "DELETE_ERROR": "Error deleting the offer",
+      "DELETE_MULTIPLE_ERROR": "Error deleting the offers",
+      "STATUS_CHANGE_SUCCESS": "Status changed to {{status}}",
+      "STATUS_CHANGE_ERROR": "Error changing the status",
+      "SUCCESS_TITLE": "Success",
+      "ERROR_TITLE": "Error"
+    }
+  },
+  "TABLE": {
+    "SHOWING": "Showing",
+    "TO": "to",
+    "OF": "of",
+    "ENTRIES": "entries"
+  }
 }

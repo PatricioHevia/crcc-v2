@@ -1,1 +1,200 @@
-COMMING SOON
+<div class="grid grid-cols-1 w-full bg-stone-50 dark:bg-gris rounded p-4">
+  <div class="card w-full">
+    
+    <!-- Toolbar -->
+    <p-toolbar styleClass="mb-4">
+      <ng-template pTemplate="start">
+        <div class="flex items-center gap-2">
+          <h2 class="text-xl font-bold">{{ 'JOBS.TITLE' | translate }}</h2>
+          @if (selectedOfertas().length > 0) {
+            <p-button 
+              severity="danger" 
+              icon="pi pi-trash" 
+              label="{{ 'GENERAL.DELETE_SELECTED' | translate }}"
+              [disabled]="!canDelete()"
+              (onClick)="deleteSelectedOfertas()">
+            </p-button>
+          }
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="end">
+        <div class="flex items-center gap-2">
+          @if (canCreate()) {
+            <p-button 
+              icon="pi pi-plus" 
+              label="{{ 'JOBS.ACTIONS.NEW_JOB' | translate }}"
+              (onClick)="createOferta()"
+              styleClass="p-button-success mr-2">
+            </p-button>
+          }
+          <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input 
+              pInputText 
+              type="text" 
+              [value]="globalFilterValue()"
+              (input)="onGlobalFilter($event)"
+              placeholder="{{'GENERAL.SEARCH' | translate}}" />
+          </p-iconfield>
+        </div>
+      </ng-template>
+    </p-toolbar>    <!-- Tabla de ofertas -->
+    @if (loading()) {
+      <div class="flex justify-center items-center py-8">
+        <p-progress-spinner styleClass="w-16 h-16" strokeWidth="8" animationDuration=".5s">
+        </p-progress-spinner>
+        <span class="text-xl ml-4 font-semibold">{{ 'GENERAL.LOADING' | translate }}</span>
+      </div>
+    } @else {
+      <p-table 
+        #dt
+        [value]="ofertas()" 
+        [rows]="10" 
+        [paginator]="true" 
+        [globalFilterFields]="['nombre', 'nombre_es', 'nombre_en', 'proyecto', 'lugar']"
+        [tableStyle]="{'min-width': '75rem'}"
+        [rowHover]="true" 
+        dataKey="id"
+        [responsiveLayout]="'scroll'"
+        [showCurrentPageReport]="true"
+        [currentPageReportTemplate]="'PRIMENG.PAGINATOR.SHOWING_OF' | translate"
+        [rowsPerPageOptions]="[10, 20, 50]"
+        paginatorLocale="es-ES"
+        [(selection)]="selectedOfertas"
+        [selectAll]="false">          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 4rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="nombre" style="min-width:15rem">
+                {{ 'JOBS.FIELDS.NAME' | translate }}
+                <p-sortIcon field="nombre"></p-sortIcon>
+              </th>
+              <th pSortableColumn="estado" style="min-width:10rem">
+                {{ 'JOBS.FIELDS.STATUS' | translate }}
+                <p-sortIcon field="estado"></p-sortIcon>
+              </th>
+              <th pSortableColumn="proyecto" style="min-width:12rem">
+                {{ 'JOBS.FIELDS.PROJECT' | translate }}
+                <p-sortIcon field="proyecto"></p-sortIcon>
+              </th>
+              <th pSortableColumn="lugar" style="min-width:10rem">
+                {{ 'JOBS.FIELDS.LOCATION' | translate }}
+                <p-sortIcon field="lugar"></p-sortIcon>
+              </th>
+              <th pSortableColumn="tipoTrabajo" style="min-width:10rem">
+                {{ 'JOBS.FIELDS.WORK_TYPE' | translate }}
+                <p-sortIcon field="tipoTrabajo"></p-sortIcon>
+              </th>
+              <th pSortableColumn="vacantes" style="min-width:8rem">
+                {{ 'JOBS.FIELDS.VACANCIES' | translate }}
+                <p-sortIcon field="vacantes"></p-sortIcon>
+              </th>
+              <th pSortableColumn="fechaCierre" style="min-width:10rem">
+                {{ 'JOBS.FIELDS.CLOSING_DATE' | translate }}
+                <p-sortIcon field="fechaCierre"></p-sortIcon>
+              </th>
+              <th style="min-width:12rem">{{ 'GENERAL.ACTIONS' | translate }}</th>
+            </tr>
+          </ng-template><ng-template pTemplate="body" let-oferta let-expanded="expanded">
+            <tr class="p-selectable-row">
+              <td>
+                <p-tableCheckbox [value]="oferta"></p-tableCheckbox>
+              </td>
+              <td>
+                <div class="flex flex-col">
+                  <span class="font-medium">{{ oferta.nombre || oferta.nombre_es }}</span>
+                  @if (oferta.eliminado) {
+                    <p-tag severity="danger" [value]="'JOBS.STATUS.DELETED' | translate"></p-tag>
+                  } @else if (isOfertaActive(oferta)) {
+                    <p-tag severity="success" [value]="'JOBS.STATUS.ACTIVE' | translate"></p-tag>
+                  }                </div>
+              </td>
+              <td>
+                <p-tag 
+                  [value]="getTranslatedEstado(oferta.estado)" 
+                  [severity]="getSeverity(oferta.estado)">
+                </p-tag>
+              </td>
+              <td>{{ oferta.proyecto }}</td>
+              <td>{{ oferta.lugar }}</td>
+              <td>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  {{ oferta.tipoTrabajo }}
+                </span>
+              </td>
+              <td>
+                <p-badge [value]="oferta.vacantes" severity="info"></p-badge>
+              </td>
+              <td>
+                <span [class]="isDateExpired(oferta.fechaCierre) ? 'text-red-600 font-medium' : ''">
+                  {{ formatDate(oferta.fechaCierre) }}
+                </span>
+              </td>
+              <td>
+                <div class="flex gap-2">
+                  @if (canEdit()) {
+                    <p-button 
+                      icon="pi pi-pencil" 
+                      styleClass="p-button-rounded p-button-text p-button-warning" 
+                      pTooltip="{{ 'GENERAL.EDIT' | translate }}"
+                      (onClick)="editOferta(oferta)">
+                    </p-button>                  }
+                  @if (oferta.estado === 'Abierto' && canEdit()) {
+                    <p-button 
+                      icon="pi pi-times-circle" 
+                      styleClass="p-button-rounded p-button-text p-button-secondary" 
+                      pTooltip="{{ 'JOBS.ACTIONS_TOOLTIPS.CLOSE_OFFER' | translate }}"
+                      (onClick)="cambiarEstado(oferta, 'Cerrado')">
+                    </p-button>
+                  }
+                  
+                  @if (oferta.estado === 'Cerrado' && canEdit()) {
+                    <p-button 
+                      icon="pi pi-check-circle" 
+                      styleClass="p-button-rounded p-button-text p-button-success" 
+                      pTooltip="{{ 'JOBS.ACTIONS_TOOLTIPS.REOPEN_OFFER' | translate }}"
+                      (onClick)="cambiarEstado(oferta, 'Abierto')">
+                    </p-button>
+                  }
+                  
+                  @if (canDelete() && !oferta.eliminado) {
+                    <p-button 
+                      icon="pi pi-trash" 
+                      styleClass="p-button-rounded p-button-text p-button-danger" 
+                      pTooltip="{{ 'GENERAL.DELETE' | translate }}"
+                      (onClick)="deleteOferta(oferta)">
+                    </p-button>
+                  }
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="9" class="text-center py-4">
+                {{ 'JOBS.NO_JOBS_FOUND' | translate }}
+              </td>
+            </tr>
+          </ng-template>        </p-table>
+      }
+  </div>
+</div>
+
+<!-- Toast para notificaciones -->
+<p-toast></p-toast>
+
+<!-- Dialog de confirmación -->
+<p-confirm-dialog 
+  [style]="{ width: '450px' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text">
+</p-confirm-dialog>
+
+<!-- TODO: Agregar drawers para crear/editar ofertas -->
+<!-- 
+<p-drawer para crear oferta>
+<p-drawer para editar oferta>
+-->

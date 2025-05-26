@@ -2,7 +2,7 @@
 
   <div class="container mx-auto px-4 lg:px-8 ">
     <div class="w-full flex justify-end mb-4">
-      <p-button label="Ver Mensajes" icon="pi pi-eyes" [routerLink]="['/contacto/ver-mensajes']"></p-button>
+      <p-button [label]="'CONTACTO.VER_MENSAJES' | translate" icon="pi pi-eyes" [routerLink]="['/contacto/ver-mensajes']"></p-button>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 border-0 shadow-none">
 
@@ -148,7 +148,7 @@
           <div class="w-full text-center pb-2">
             <a href="https://maps.google.com/maps?ll=-33.405711,-70.574216&z=13&t=h&hl=es&gl=CL&mapclient=embed&q=Cerro%20El%20Plomo%205630%207560742%20Las%20Condes%20Regi%C3%B3n%20Metropolitana"
               target="_blank" class="text-primary-600 dark:text-primary-300 w-full text-center mt-4 font-medium">
-              <i class="pi pi-map-marker mr-2"></i>{{ 'CONTACTO.VER_GOOGLE_MAPS' | translate }}
+              <i class="pi pi-map-marker mr-2"></i>{{ 'CONTACTO.VER_Maps' | translate }}
             </a>
           </div>
           <iframe class="w-full h-100"

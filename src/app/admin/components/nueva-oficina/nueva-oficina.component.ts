@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, inject, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,8 +13,9 @@ import { ThemeService } from '../../../core/services/theme.service';
 import { Office } from '../../models/office-interface';
 
 @Component({
-  selector: 'app-update-office',
-  standalone: true,  imports: [
+  selector: 'app-nueva-oficina',
+  standalone: true,
+  imports: [
     CommonModule,
     ReactiveFormsModule,
     InputTextModule,
@@ -22,12 +23,12 @@ import { Office } from '../../models/office-interface';
     DividerModule,
     TranslateModule
   ],
-  templateUrl: './update-office.component.html',
-  styleUrls: ['./update-office.component.css']
+  templateUrl: './nueva-oficina.component.html',
+  styleUrls: ['./nueva-oficina.component.css']
 })
-export class UpdateOfficeComponent implements OnInit, OnChanges {
-  @Input() office: Office | null = null;
+export class NuevaOficinaComponent implements OnInit {
   @Output() onOfficeSaved = new EventEmitter<void>();
+
   private fb = inject(FormBuilder);
   private officeService = inject(OfficeService);
   private toastService = inject(ToastService);
@@ -43,58 +44,43 @@ export class UpdateOfficeComponent implements OnInit, OnChanges {
     this.initForm();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['office'] && this.office && this.officeForm) {
-      this.loadOfficeData();
-    }
-  }
-
   private initForm(): void {
     this.officeForm = this.fb.group({
       name_es: ['', [Validators.required, Validators.minLength(2)]],
       name_en: ['', [Validators.required, Validators.minLength(2)]],
       name_zh: ['', [Validators.required, Validators.minLength(2)]]
     });
+  }
 
-    if (this.office) {
-      this.loadOfficeData();
-    }
-  }
-  private loadOfficeData(): void {
-    if (this.office) {
-      this.officeForm.patchValue({
-        name_es: this.office.name_es || '',
-        name_en: this.office.name_en || '',
-        name_zh: this.office.name_zh || ''
-      });
-    }
-  }
   async onSubmit(): Promise<void> {
-    if (this.officeForm.valid && this.office) {
+    if (this.officeForm.valid) {
       this.loading = true;
       try {
         const formData = this.officeForm.value;
+        const currentTime = Timestamp.now();
         
-        const officeData: Partial<Office> = {
+        const officeData: Omit<Office, 'id'> = {
           name_es: formData.name_es,
           name_en: formData.name_en,
           name_zh: formData.name_zh,
-          name: formData.name_es, // Actualizar el campo name con el valor en español
-          updatedAt: Timestamp.now() // Agregar timestamp de actualización
+          name: formData.name_es, // Por defecto usar español
+          createdAt: currentTime,
+          updatedAt: currentTime
         };
         
-        await this.officeService.updateOffice(this.office.id, officeData);
+        await this.officeService.createOffice(officeData);
         
         this.toastService.success(
-          this.translationService.instant('ADMIN.OFFICES.SUCCESS_UPDATED_TITLE'),
-          this.translationService.instant('ADMIN.OFFICES.SUCCESS_UPDATED_DETAIL')
+          this.translationService.instant('ADMIN.OFFICES.SUCCESS_CREATED_TITLE'),
+          this.translationService.instant('ADMIN.OFFICES.SUCCESS_CREATED_DETAIL')
         );
         
+        this.officeForm.reset();
         this.onOfficeSaved.emit();
       } catch (error) {
-        console.error('Error updating office:', error);
+        console.error('Error creating office:', error);
         this.toastService.error(
-          this.translationService.instant('COMMON.ERROR_UPDATING_TITLE'),
+          this.translationService.instant('COMMON.ERROR_CREATING_TITLE'),
           this.getErrorMessage(error)
         );
       } finally {

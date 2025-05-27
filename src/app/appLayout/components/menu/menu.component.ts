@@ -112,7 +112,7 @@ export class MenuComponent  {
     const projectsList = this.projects();
     const finalMenu: MenuItem[] = [];
 
-    // Sección de Administración (como ya la tienes)
+    // Sección de Administración
     if (adminItemsResult.length > 0) {
       finalMenu.push({
         label: 'SIDEBAR.ADMINISTRATION', // Llave para el título de la sección
@@ -122,9 +122,12 @@ export class MenuComponent  {
       });
     }
 
-    // Nuevas secciones, una por cada proyecto
+    // Sección de Proyectos
     if (projectsList && projectsList.length > 0) {
-      projectsList.forEach((project: Project) => { // Especificar el tipo Project
+      const projectMenuItems: MenuItem[] = [];
+      
+      // Crear un item del menú para cada proyecto
+      projectsList.forEach((project: Project) => {
         let projectName = '';
         // Seleccionar el nombre del proyecto según el idioma actual
         switch (currentLang) {
@@ -138,21 +141,32 @@ export class MenuComponent  {
             projectName = project.name_zh;
             break;
           default:
-            projectName = 'Prueba'; // Fallback al español o tu idioma por defecto
+            projectName = project.name_es; // Fallback al español
         }
 
-        finalMenu.push({
-          label: projectName, // El nombre del proyecto ya traducido
-          // icon: 'pi pi-folder', // Icono de PrimeNG si lo deseas
-          faIcon: 'fa-solid fa-diagram-project', // Icono de FontAwesome para proyectos
-          items: [], // Aquí irán los subítems del proyecto en el futuro
-          styleClass: 'menu-section-title project-title', // Clase para estilo de título
-          // Opcional: si quieres que el título del proyecto sea un enlace:
-          // routerLink: ['/admin/projects', project.id], // Asegúrate que project.id exista y la ruta sea correcta
-          // Opcional: tooltip si el nombre es muy largo y se corta
-          // tooltip: projectName,
-          // tooltipPosition: 'right',
+        projectMenuItems.push({
+          label: projectName,
+          icon: 'pi pi-folder',
+          routerLink: ['/app/project', project.id], // Navegación a la información general del proyecto
+          styleClass: 'text-sm',
+          tooltip: projectName,
+          tooltipPosition: 'right',
+          items: [ // Estructura para futuros submenús
+            // Placeholder para licitaciones
+            // { label: 'SIDEBAR.TENDERS', icon: 'pi pi-file-edit', routerLink: ['/project', project.id, 'tenders'] },
+            // Placeholder para documentos
+            // { label: 'SIDEBAR.DOCUMENTS', icon: 'pi pi-file', routerLink: ['/project', project.id, 'documents'] },
+          ]
         });
+      });      // Agregar la sección de Proyectos con header clickeable
+      finalMenu.push({
+        label: 'SIDEBAR.PROJECTS', // Llave para el título de la sección
+        icon: 'pi pi-sitemap',
+        routerLink: ['/app/projects'], // Header clickeable que navega a la lista de proyectos
+        items: projectMenuItems,
+        styleClass: 'menu-section-title',
+        tooltip: 'SIDEBAR.PROJECTS',
+        tooltipPosition: 'right'
       });
     }
 

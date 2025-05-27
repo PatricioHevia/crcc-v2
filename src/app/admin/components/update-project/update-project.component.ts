@@ -1,5 +1,5 @@
 import { Component, effect, inject, input, model, signal } from '@angular/core';
-import { Project, ProjectForm } from '../../models/project-interface';
+import { Project, ProjectForm, ImagePosition } from '../../models/project-interface';
 import { DrawerModule } from 'primeng/drawer';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '../../../core/services/theme.service';
@@ -47,11 +47,19 @@ export class UpdateProjectComponent {
   isLoading = signal(false);
   buttonLabel = signal('ACTIONS.SAVE');
   buttonIcon = signal('pi pi-save');
-
   projectPhases = PROJECT_PHASE_CODES.map(code => ({
     label: this.translationService.instant(PROJECT_PHASE_TRANSLATION_KEYS[code]), // Traduce la etiqueta para mostrar en el dropdown
     value: code // El valor del filtro será el código
   }));
+
+  // Opciones de posición de imagen
+  imagePositionOptions = [
+    { label: 'Centro', value: 'center center' as ImagePosition },
+    { label: 'Parte Superior', value: 'center top' as ImagePosition },
+    { label: 'Parte Inferior', value: 'center bottom' as ImagePosition },
+    { label: 'Lado Izquierdo', value: 'left center' as ImagePosition },
+    { label: 'Lado Derecho', value: 'right center' as ImagePosition }
+  ];
 
   constructor() {
     this.projectForm = this.fb.group({
@@ -63,9 +71,8 @@ export class UpdateProjectComponent {
       description_zh: ['', [Validators.required, Validators.minLength(10)]],
       awardDate: [null, [Validators.required]],
       phase: [null, [Validators.required]],
-    });
-
-    effect(() => {
+      imagePosition: ['center bottom'], // Valor por defecto
+    });    effect(() => {
       const project = this.projectToUpdate();
       if (project) {
         this.projectForm.patchValue({
@@ -77,6 +84,7 @@ export class UpdateProjectComponent {
           description_zh: project.description_zh || '',
           awardDate: project.awardDate ? (project.awardDate as any).toDate ? (project.awardDate as any).toDate() : new Date(project.awardDate as any) : null,
           phase: project.phase || null,
+          imagePosition: project.imagePosition || 'center bottom',
         });
       } else {
         this.projectForm.reset();
@@ -135,10 +143,11 @@ export class UpdateProjectComponent {
 
     if (formAwardDateTime !== currentAwardDateTime) {
       projectChanges.awardDate = Timestamp.fromDate(formAwardDate!); // Enviar el objeto Date, el servicio lo convertirá a Timestamp
-    }
-
-    // Phase
+    }    // Phase
     if (formValues.phase !== currentProject.phase) projectChanges.phase = formValues.phase;
+
+    // Image Position
+    if (formValues.imagePosition !== currentProject.imagePosition) projectChanges.imagePosition = formValues.imagePosition;
 
     if (Object.keys(projectChanges).length === 0) {
       this.toastService.info('TOAST.INFO', 'PROJECTS.ACTIONS.NO_CHANGES_DETECTED');

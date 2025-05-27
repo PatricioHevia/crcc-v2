@@ -1,3 +1,121 @@
-<p>
-  ficha-general works!
-</p>
+<div class="project-detail-container">
+  <!-- Estado de carga -->
+  <div *ngIf="loading()" class="loading-state">
+    <div class="banner-skeleton">
+      <p-skeleton height="500px" class="mb-2"></p-skeleton>
+    </div>
+    <div class="content-skeleton">
+      <p-skeleton height="2rem" class="mb-3"></p-skeleton>
+      <p-skeleton height="1rem" class="mb-2"></p-skeleton>
+      <p-skeleton height="1rem" class="mb-2"></p-skeleton>
+      <p-skeleton height="8rem" class="mb-3"></p-skeleton>
+    </div>
+  </div>
+
+  <!-- Proyecto no encontrado -->
+  <div *ngIf="notFound()" class="not-found-state">
+    <p-message 
+      severity="warn" 
+      [text]="'PROJECTS.PROJECT_NOT_FOUND' | translate"
+      styleClass="w-full">
+    </p-message>
+    <p class="redirect-message">
+      {{ 'PROJECTS.REDIRECTING_TO_PROJECTS' | translate }}
+    </p>
+    <p-button 
+      [label]="'COMMON.GO_BACK' | translate"
+      icon="pi pi-arrow-left"
+      (click)="goBack()">
+    </p-button>
+  </div>
+
+  <!-- Contenido del proyecto -->
+  <div *ngIf="!loading() && !notFound() && project()" class="project-content">
+    <!-- Banner del proyecto -->
+    <div class="project-banner">
+      <div class="banner-image-container">
+        <p-image 
+          [src]="project()!.image"
+          [alt]="getProjectName()"
+          width="100%"
+          height="500"
+          [preview]="true"
+          >
+        </p-image>
+        <div class="banner-overlay">
+          <div class="banner-content">
+            <h1 class="project-title">{{ getProjectName() }}</h1>
+            <p-tag 
+              *ngIf="project()!.phase"
+              [value]="getPhaseTranslationKey() | translate"
+              [ngClass]="getPhaseTagClasses()"
+              class="phase-tag">
+            </p-tag>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel de información del proyecto -->
+    <div class="project-info-section">
+      <p-panel [header]="'PROJECTS.PROJECT_INFORMATION' | translate" [toggleable]="false">
+        <div class="info-grid">
+          <!-- Descripción -->
+          <div class="info-item description-item">
+            <h3>{{ 'PROJECTS.DESCRIPTION' | translate }}</h3>
+            <p class="description-text">{{ getProjectDescription() }}</p>
+          </div>
+
+          <!-- Detalles del proyecto -->
+          <div class="info-item details-item">
+            <div class="detail-row" *ngIf="project()!.awardDate">
+              <strong class="text-end">{{ 'PROJECTS.START_DATE' | translate }}:</strong>
+              <span>{{ project()!.awardDate?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang()}}</span>
+            </div>
+            
+            
+            
+            <div class="detail-row" *ngIf="project()!.phase">
+              <strong class="text-end">{{ 'PROJECTS.TABLE.PHASE' | translate }}:</strong>
+              <p-tag 
+                [value]="getPhaseTranslationKey() | translate"
+                [ngClass]="getPhaseTagClasses()"
+                class="inline-phase-tag">
+              </p-tag>
+            </div>
+            
+            <div class="detail-row" *ngIf="project()!.url">
+              <strong class="text-end">{{ 'PROJECTS.PROJECT_URL' | translate }}:</strong>
+              <span class="project-url">{{ project()!.url }}</span>
+            </div>
+          </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <!-- Botones de acción -->
+        <div class="action-buttons">
+          <p-button 
+            [label]="'COMMON.GO_BACK' | translate"
+            icon="pi pi-arrow-left"
+            severity="secondary"
+            (click)="goBack()">
+          </p-button>
+        </div>
+      </p-panel>
+    </div>
+
+    <!-- Placeholder para galería de imágenes -->
+    <div class="gallery-section">
+      <p-panel [header]="'PROJECTS.IMAGE_GALLERY' | translate" [toggleable]="true" [collapsed]="false">
+        <div class="gallery-placeholder">
+          <div class="placeholder-content">
+            <i class="pi pi-images placeholder-icon"></i>
+            <h3>{{ 'PROJECTS.GALLERY_COMING_SOON' | translate }}</h3>
+            <p>{{ 'PROJECTS.GALLERY_DESCRIPTION' | translate }}</p>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+  </div>
+</div>

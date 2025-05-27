@@ -3,8 +3,25 @@
       <div class="mb-2">
         @if (section.label) {
         <p-divider align="center" >
+          @if (section.routerLink) {
+          <!-- Header clickeable para secciones con navegación -->
+          <a [routerLink]="section.routerLink"
+            routerLinkActive="bg-primary-50 dark:bg-primary-700/20 text-primary-600 dark:text-primary-300"
+            class="block w-full hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-md transition-colors duration-150 px-2 py-1 {{ section.styleClass }}"
+            [pTooltip]="section.tooltip! | translate" tooltipPosition="right">
+            <h2 class="text-xs font-bold text-center w-full text-gray-800 dark:text-gray-200 uppercase tracking-wider flex items-center justify-center gap-2">
+              @if (section.icon) {
+              <i class="{{ section.icon }} text-sm"></i>
+              }
+              {{ section.label | translate }}
+            </h2>
+          </a>
+          } @else {
+          <!-- Header no clickeable -->
           <h2 class="text-xs font-bold text-center w-full text-gray-800 dark:text-gray-200 uppercase tracking-wider {{ section.styleClass }}">
-            {{ section.label | translate }} </h2>
+            {{ section.label | translate }} 
+          </h2>
+          }
         </p-divider>
         }
         @if (section.items && section.items.length > 0) {

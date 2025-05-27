@@ -81,7 +81,8 @@
     "NO_ACCOUNT": "¿No tienes cuenta?",
     "REGISTRO_TITULO": "¡Regístrate en CRCC Chile Hospitales!",
     "REGISTRO_SUBTITULO": "Completa todos los pasos para crear tu cuenta",
-    "ACCOUNT_ALREADY": "¿Ya tienes cuenta?",    "CREAR_CUENTA": "Crear tu cuenta",
+    "ACCOUNT_ALREADY": "¿Ya tienes cuenta?",
+    "CREAR_CUENTA": "Crear tu cuenta",
     "USER_ACCOUNT_DETAILS": "Detalles de la cuenta de usuario",
     "ORG_NO_ENCONTRADA": "¿No encuentras tu organización?",
     "ORGANIZACION": "Organización",
@@ -94,7 +95,8 @@
     "CREAR_ORGANIZACION": "Crear organización",
     "REGISTRALA": "Regístrala",
     "REGISTER_SUCCESS": "Registro exitoso",
-    "ACCOUNT_TYPE": "Tipo de cuenta",    "ORG_NAME": "Nombre de la organización",
+    "ACCOUNT_TYPE": "Tipo de cuenta",
+    "ORG_NAME": "Nombre de la organización",
     "ORG_NAME_PLACEHOLDER": "Ingresa el nombre de la organización",
     "ORG_NAME_REQUIRED": "El nombre de la organización es obligatorio",
     "ORG_NAME_SHORT": "Debe tener al menos 3 caracteres",
@@ -106,7 +108,8 @@
     "ORG_TIN_SHORT": "Debe tener al menos 3 caracteres",
     "ORG_ADDRESS": "Dirección",
     "ORG_ADDRESS_REQUIRED": "La dirección es obligatoria",
-    "ORG_ADDRESS_SHORT": "Debe tener al menos 3 caracteres",    "ORG_TYPE": "Tipo de organización",
+    "ORG_ADDRESS_SHORT": "Debe tener al menos 3 caracteres",
+    "ORG_TYPE": "Tipo de organización",
     "SELECT_ORG_TYPE": "Selecciona el tipo de organización",
     "ORG_TYPE_REQUIRED": "El tipo de organización es obligatorio",
     "CREATE_ORG": "Crear organización",
@@ -144,12 +147,22 @@
     "SERVICIO_CONSTRUCCION": "Construcción",
     "SERVICIO_EQP": "Adquisición, Reposición y Mantenimiento de Equipamiento Médico y Mobiliario Clínico",
     "SERVICIO_MANTENIMIENTO": "Mantenimiento de Infraestructura"
-  },  "PROJECTS": {
+  },
+  "PROJECTS": {
     "TITULO": "Nuestros Proyectos en Chile",
     "SUBTITULO": "En esta sección podrás encontrar los proyectos hospitalarios que actualmente tenemos en ejecución y la Planta Naipú en los cuales podrás acceder y participar en nuestras licitaciones.",
     "SECTION_TITLE": "Nuestros Proyectos en Ejecución",
     "SECTION_SUBTITLE": "Descubre la excelencia en cada proyecto que estamos elaborando con pasión y dedicación",
     "LOADING": "Cargando Proyectos...",
+    "PROJECT_NOT_FOUND": "Proyecto no encontrado",
+    "REDIRECTING_TO_PROJECTS": "Redirigiendo a la lista de proyectos...",
+    "PROJECT_INFORMATION": "Información del Proyecto",
+    "DESCRIPTION": "Descripción",
+    "START_DATE": "Fecha de Inicio",
+    "PROJECT_URL": "URL del Proyecto",
+    "IMAGE_GALLERY": "Galería de Imágenes",
+    "GALLERY_COMING_SOON": "Galería Próximamente",
+    "GALLERY_DESCRIPTION": "La funcionalidad de galería de imágenes estará disponible próximamente.",
     "TABLE": {
       "IMAGE": "Imagen",
       "NAME": "Nombre",
@@ -166,7 +179,8 @@
       "BUILD": "Construcción",
       "BUILD_OPERATE": "Construcción y Explotación",
       "OPERATE": "Explotación"
-    },    "ACTIONS": {
+    },
+    "ACTIONS": {
       "NEW_PROJECT": "Nuevo Proyecto",
       "EDIT_PROJECT": "Editar Proyecto",
       "DELETE_PROJECT": "Eliminar Proyecto",
@@ -193,7 +207,8 @@
         "TITLE": "No se encontraron proyectos",
         "SUBTITLE": "No hay proyectos que coincidan con sus criterios de búsqueda.",
         "CLEAR_FILTERS": "Limpiar filtros"
-      },      "ERROR_STATE": {
+      },
+      "ERROR_STATE": {
         "TITLE": "Error al cargar proyectos",
         "SUBTITLE": "Ocurrió un error al intentar cargar los proyectos. Por favor, inténtelo de nuevo.",
         "RETRY": "Reintentar"
@@ -201,8 +216,12 @@
       "VIEW_PROJECTS": "Ver Proyectos",
       "FOOTER_TEXT": "¿Interesado en conocer más detalles sobre nuestros proyectos?",
       "VIEW_ALL_DETAILS": "Ver Todos los Detalles"
+    },
+    "FORM": {
+      "IMAGE_POSITION_LABEL": "Posición de la Imagen"
     }
-  },  "PROJECTCARD": {
+  },
+  "PROJECTCARD": {
     "INICIO": "Inicio",
     "VER": "Ver Proyecto",
     "SOLICITAR": "Solicitar Acceso"
@@ -220,7 +239,8 @@
   "FAQ": {
     "TITULO": "Preguntas Frecuentes",
     "SUBTITULO": "Aquí puedes encontrar respuestas a las preguntas más comunes sobre el uso de la plataforma y los procesos de licitación. Si tienes más dudas, no dudes en contactarnos."
-  },  "CONTACTO": {
+  },
+  "CONTACTO": {
     "TITULO": "Formulario de Contacto",
     "SUBTITULO": "Si tienes alguna pregunta o necesitas más información, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.",
     "NOMBRE": "Nombre*",
@@ -261,7 +281,8 @@
       "SUCCESS_UPDATED_DETAIL": "Usuario actualizado correctamente.",
       "NO_CHANGES_DETECTED": "No se detectaron cambios en el usuario.",
       "PERMISSIONS": "Permisos",
-      "OFFICES": "Oficinas",      "TABLE": {
+      "OFFICES": "Oficinas",
+      "TABLE": {
         "NAME": "Nombre",
         "ORGANIZATION": "Organización",
         "EMAIL": "Correo electrónico",
@@ -281,7 +302,8 @@
       "USER_ACTIVATED_SUCCESS": "Usuario activado exitosamente",
       "USER_DEACTIVATED_SUCCESS": "Usuario desactivado exitosamente",
       "USER_STATUS_UPDATE_ERROR": "Error al actualizar el estado del usuario"
-    },    "OFFICES": {
+    },
+    "OFFICES": {
       "TITLE": "Gestión de Oficinas",
       "LIST_SUBTITLE": "Lista de Oficinas",
       "NEW_BUTTON": "Nueva Oficina",
@@ -334,7 +356,8 @@
       "DELETE_CANCELLED_DETAIL": "La eliminación de la organización ha sido cancelada.",
       "EDIT_TITLE": "Editar Organización",
       "NO_CHANGES_DETECTED": "No se detectaron cambios en la organización.",
-      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",      "FORM": {
+      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",
+      "FORM": {
         "CURRENT_LOGO": "Logo Actual",
         "CHANGE_LOGO": "Cambiar Logo",
         "REMOVE_LOGO": "Quitar Logo"
@@ -460,7 +483,8 @@
     "ACTIONS": "Acciones",
     "EDIT": "Editar",
     "DELETE": "Eliminar"
-  },  "COMMON": {
+  },
+  "COMMON": {
     "NO_IMAGE": "Sin imagen",
     "TABLE_HEADER_ACTIONS": "Acciones",
     "TOOLTIP_EDIT": "Editar",
@@ -487,7 +511,8 @@
     "NO_ORGANIZATION": "Sin organización",
     "LOADING": "Cargando...",
     "CONFIRMATION_TITLE": "Confirmación",
-    "CANCEL_DELETE": "Cancelado"
+    "CANCEL_DELETE": "Cancelado",
+    "GO_BACK": "Volver"
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -495,10 +520,12 @@
     }
   },
   "JOBS": {
-    "TITLE": "Gestión de Ofertas de Empleo",    "ACTIONS": {
+    "TITLE": "Gestión de Ofertas de Empleo",
+    "ACTIONS": {
       "NEW_JOB": "Nueva Oferta",
       "EDIT_JOB": "Editar Oferta"
-    },    "FIELDS": {
+    },
+    "FIELDS": {
       "NAME": "Nombre",
       "STATUS": "Estado",
       "PROJECT": "Proyecto",
@@ -544,8 +571,6 @@
       "CREATE_ERROR": "Error al crear la oferta de empleo",
       "UPDATE_SUCCESS": "Oferta de empleo actualizada exitosamente",
       "UPDATE_ERROR": "Error al actualizar la oferta de empleo",
-      "DELETE_SUCCESS": "Oferta de empleo eliminada exitosamente",
-      "DELETE_ERROR": "Error al eliminar la oferta de empleo",
       "TRANSLATION_NOTE": "Nota: Los campos nombre y descripción se traducirán automáticamente a los tres idiomas."
     }
   },

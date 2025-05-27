@@ -49,7 +49,7 @@
   box-shadow: 0 8px 20px rgba(29, 78, 216, 0.2);
 }
 
-:host-context(.dark) ::ng-deep .p-button:hover {
+:host-context(.dark-mode) ::ng-deep .p-button:hover {
   box-shadow: 0 8px 20px rgba(96, 165, 250, 0.2);
 }
 
@@ -102,7 +102,7 @@
   background: rgba(255, 255, 255, 0.95);
 }
 
-:host-context(.dark) ::ng-deep .auth-dialog .p-dialog-content {
+:host-context(.dark-mode) ::ng-deep .auth-dialog .p-dialog-content {
   background: rgba(31, 41, 55, 0.95);
   color: var(--surface-0, #ffffff);
 }
@@ -114,11 +114,11 @@
 
 /* Estilos para el checkbox */
 :host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
-  border-color: var(--primary-color, #1D4ED8);
-  background: var(--primary-color, #1D4ED8);
+  border-color: var(--primary-color, #294eb3);
+  background: var(--primary-color, #284eb6);
 }
 
-:host-context(.dark) ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+:host-context(.dark-mode) ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
   border-color: var(--primary-400, #60A5FA);
   background: var(--primary-400, #60A5FA);
 }

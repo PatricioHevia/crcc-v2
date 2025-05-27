@@ -145,10 +145,18 @@
     "SERVICIO_MANTENIMIENTO": "基础设施维护"
   },  "PROJECTS": {
     "TITULO": "我们在智利的项目",
-    "SUBTITULO": "在此部分，您可以查看我们目前正在进行的医院项目和Naipú工厂，并可申请并参与我们的招标。",
-    "SECTION_TITLE": "我们正在进行的项目",
+    "SUBTITULO": "在此部分，您可以查看我们目前正在进行的医院项目和Naipú工厂，并可申请并参与我们的招标。",    "SECTION_TITLE": "我们正在进行的项目",
     "SECTION_SUBTITLE": "探索我们正在用热情和奉献精神打造的每一个卓越项目",
     "LOADING": "正在加载项目...",
+    "PROJECT_NOT_FOUND": "项目未找到",
+    "REDIRECTING_TO_PROJECTS": "正在重定向到项目列表...",
+    "PROJECT_INFORMATION": "项目信息",
+    "DESCRIPTION": "描述",
+    "START_DATE": "开始日期",
+    "PROJECT_URL": "项目链接",
+    "IMAGE_GALLERY": "图片画廊",
+    "GALLERY_COMING_SOON": "画廊即将推出",
+    "GALLERY_DESCRIPTION": "图片画廊功能将很快上线。",
     "TABLE": {
       "IMAGE": "图片",
       "NAME": "名称",
@@ -195,10 +203,12 @@
         "TITLE": "加载项目时出错",
         "SUBTITLE": "尝试加载项目时发生错误。请重试。",
         "RETRY": "重试"
-      },
-      "VIEW_PROJECTS": "查看项目",
+      },      "VIEW_PROJECTS": "查看项目",
       "FOOTER_TEXT": "有兴趣了解我们项目的更多详情吗？",
       "VIEW_ALL_DETAILS": "查看所有详情"
+    },
+    "FORM": {
+      "IMAGE_POSITION_LABEL": "图片位置"
     }
   },
   "PROJECTCARD": {
@@ -454,10 +464,10 @@
     "ERROR_DELETING_TITLE": "删除错误",
     "UNEXPECTED_ERROR_DETAIL": "发生意外错误。请再试一次。",
     "LOADING_USER_DATA": "正在加载用户数据...",
-    "NO_ORGANIZATION": "无组织",
-    "LOADING": "加载中...",
+    "NO_ORGANIZATION": "无组织",    "LOADING": "加载中...",
     "CONFIRMATION_TITLE": "确认",
-    "CANCEL_DELETE": "已取消"
+    "CANCEL_DELETE": "已取消",
+    "GO_BACK": "返回"
   },
   "PRIMENG": {
     "PAGINATOR": {

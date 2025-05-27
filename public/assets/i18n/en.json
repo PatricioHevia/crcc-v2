@@ -146,10 +146,18 @@
     "SERVICIO_MANTENIMIENTO": "Infrastructure Maintenance"
   },  "PROJECTS": {
     "TITULO": "Our Projects in Chile",
-    "SUBTITULO": "In this section, you can find the hospital projects we currently have underway and the Naipú Plant, where you can access and participate in our tenders.",
-    "SECTION_TITLE": "Our Projects in Progress",
+    "SUBTITULO": "In this section, you can find the hospital projects we currently have underway and the Naipú Plant, where you can access and participate in our tenders.",    "SECTION_TITLE": "Our Projects in Progress",
     "SECTION_SUBTITLE": "Discover excellence in each project we are building with passion and dedication",
     "LOADING": "Loading Projects...",
+    "PROJECT_NOT_FOUND": "Project not found",
+    "REDIRECTING_TO_PROJECTS": "Redirecting to projects list...",
+    "PROJECT_INFORMATION": "Project Information",
+    "DESCRIPTION": "Description",
+    "START_DATE": "Start Date",
+    "PROJECT_URL": "Project URL",
+    "IMAGE_GALLERY": "Image Gallery",
+    "GALLERY_COMING_SOON": "Gallery Coming Soon",
+    "GALLERY_DESCRIPTION": "The image gallery functionality will be available soon.",
     "TABLE": {
       "IMAGE": "Image",
       "NAME": "Name",
@@ -197,10 +205,12 @@
         "TITLE": "Error loading projects",
         "SUBTITLE": "An error occurred while trying to load the projects. Please try again.",
         "RETRY": "Retry"
-      },
-      "VIEW_PROJECTS": "View Projects",
+      },      "VIEW_PROJECTS": "View Projects",
       "FOOTER_TEXT": "Interested in learning more details about our projects?",
       "VIEW_ALL_DETAILS": "View All Details"
+    },
+    "FORM": {
+      "IMAGE_POSITION_LABEL": "Image Position"
     }
   },
   "PROJECTCARD": {
@@ -457,10 +467,10 @@
     "ERROR_DELETING_TITLE": "Error Deleting",
     "UNEXPECTED_ERROR_DETAIL": "An unexpected error occurred. Please try again.",
     "LOADING_USER_DATA": "Loading user data...",
-    "NO_ORGANIZATION": "No organization",
-    "LOADING": "Loading...",
+    "NO_ORGANIZATION": "No organization",    "LOADING": "Loading...",
     "CONFIRMATION_TITLE": "Confirmation",
-    "CANCEL_DELETE": "Cancelled"
+    "CANCEL_DELETE": "Cancelled",
+    "GO_BACK": "Go Back"
   },
   "PRIMENG": {
     "PAGINATOR": {

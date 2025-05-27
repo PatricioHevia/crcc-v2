@@ -70,21 +70,21 @@
 }
 
 /* Mejoras para el modo oscuro */
-:host-context(.dark) ::ng-deep .p-stepper .p-stepper-header {
+:host-context(.dark-mode) ::ng-deep .p-stepper .p-stepper-header {
   border-color: rgba(148, 163, 184, 0.15);
 }
 
-:host-context(.dark) ::ng-deep .p-stepper .p-stepper-header .p-stepper-item.p-highlight .p-stepper-title {
+:host-context(.dark-mode) ::ng-deep .p-stepper .p-stepper-header .p-stepper-item.p-highlight .p-stepper-title {
   color: var(--primary-200, #60A5FA);
 }
 
-:host-context(.dark) ::ng-deep .p-stepper .p-stepper-header .p-stepper-item .p-stepper-number {
+:host-context(.dark-mode) ::ng-deep .p-stepper .p-stepper-header .p-stepper-item .p-stepper-number {
   background-color: rgba(67, 56, 202, 0.2); /* Indigo-700 con transparencia */
   color: #A5B4FC; /* Indigo-300 */
   border: 2px solid rgba(99, 102, 241, 0.4); /* Indigo-500 con transparencia */
 }
 
-:host-context(.dark) ::ng-deep .p-stepper .p-stepper-header .p-stepper-item.p-highlight .p-stepper-number {
+:host-context(.dark-mode) ::ng-deep .p-stepper .p-stepper-header .p-stepper-item.p-highlight .p-stepper-number {
   background-color: #3B82F6; /* Blue-500 */
   color: white;
   border-color: #93C5FD; /* Blue-300 */
@@ -148,7 +148,7 @@
   border-color: #3567ad;
 }
 
-:host-context(.dark) ::ng-deep .modern-select-btn .p-selectbutton .p-button.p-highlight {
+:host-context(.dark-mode) ::ng-deep .modern-select-btn .p-selectbutton .p-button.p-highlight {
   background-color: #0c7bb5; /* Primary-500 del tema oscuro */
   border-color: #0c7bb5;
 }
@@ -179,7 +179,7 @@
   box-shadow: 0 0 0 2px rgba(53, 103, 173, 0.25);
 }
 
-:host-context(.dark) ::ng-deep .p-select:focus {
+:host-context(.dark-mode) ::ng-deep .p-select:focus {
   border-color: var(--primary-color, #0c7bb5);
   box-shadow: 0 0 0 2px rgba(12, 123, 181, 0.25);
 }
@@ -194,12 +194,12 @@
   color: #3567ad; /* Primary-500 del tema claro */
 }
 
-:host-context(.dark) ::ng-deep .pi-id-card,
-:host-context(.dark) ::ng-deep .pi-envelope,
-:host-context(.dark) ::ng-deep .pi-map-marker,
-:host-context(.dark) ::ng-deep .pi-tag,
-:host-context(.dark) ::ng-deep .pi-user,
-:host-context(.dark) ::ng-deep .pi-lock {
+:host-context(.dark-mode) ::ng-deep .pi-id-card,
+:host-context(.dark-mode) ::ng-deep .pi-envelope,
+:host-context(.dark-mode) ::ng-deep .pi-map-marker,
+:host-context(.dark-mode) ::ng-deep .pi-tag,
+:host-context(.dark-mode) ::ng-deep .pi-user,
+:host-context(.dark-mode) ::ng-deep .pi-lock {
   color: #46b8e9; /* Primary de tema oscuro */
 }
 
@@ -226,4 +226,25 @@
 /* Animación para efectos de aparición progresiva */
 .animate-fade-in-up {
   animation: fadeInUp 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Fondo oscuro para el diálogo de registro en modo oscuro */
+:host-context(.dark-mode) ::ng-deep .auth-dialog .p-dialog-content {
+  background: rgba(31, 41, 55, 0.95) !important;
+  color: var(--surface-0, #ffffff) !important;
+}
+
+:host ::ng-deep .auth-dialog .p-dialog-header {
+  display: none;
+}
+
+:host ::ng-deep .auth-dialog .p-dialog-content {
+  border-radius: 20px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+:host ::ng-deep .auth-dialog {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
 }

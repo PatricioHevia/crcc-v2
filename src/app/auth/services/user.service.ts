@@ -7,6 +7,7 @@ import { orderBy, where, QueryConstraint } from '@angular/fire/firestore';
 import type { Account } from '../models/account-interface';
 import type { Organization } from '../models/organization-interface';
 import { Subscription, Observable } from 'rxjs';
+import { TranslationService } from '../../core/services/translation.service';
 
 // Definimos FirestoreCollectionEvent aquí si no está exportada desde firestore.service
 // interface FirestoreCollectionEvent<T> {
@@ -20,6 +21,7 @@ import { Subscription, Observable } from 'rxjs';
 export class UserService {
   private fs = inject(FirestoreService);
   private auth = inject(Auth);
+  private translationService = inject(TranslationService);
   // private zone = inject(NgZone); // No es necesario aquí si FirestoreService ya usa NgZone en sus métodos internos de onSnapshot
 
   // --- señales internas ---
@@ -241,13 +243,22 @@ export class UserService {
           email: user.email || '',
           role: user.role || 'USER',
           createdAt: user.createdAt!.toDate().toISOString()
-        }));
-
-      // Generar datos mensuales para los últimos 6 meses
+        }));      // Generar datos mensuales para los últimos 6 meses
       const monthlyData = [];
+      const currentLang = this.translationService.currentLang();
+      
+      // Mapeo de idiomas a locales
+      const localeMap: Record<'es' | 'en' | 'zh', string> = {
+        'es': 'es-ES',
+        'en': 'en-US', 
+        'zh': 'zh-CN'
+      };
+      
+      const locale = localeMap[currentLang] || 'es-ES';
+      
       for (let i = 5; i >= 0; i--) {
         const date = new Date(currentYear, currentMonth - i, 1);
-        const monthName = date.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
+        const monthName = date.toLocaleDateString(locale, { month: 'short', year: 'numeric' });
         
         const usersInMonth = allUsers.filter(user => {
           if (!user.createdAt) return false;

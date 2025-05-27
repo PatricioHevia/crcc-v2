@@ -1,12 +1,13 @@
 import { Component, inject, OnInit, ViewChild, ElementRef, computed, signal, AfterViewInit, OnDestroy, effect } from '@angular/core';
 import { UserService } from '../../../auth/services/user.service';
+import { TranslationService } from '../../../core/services/translation.service';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TagModule } from 'primeng/tag';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 
 // Register Chart.js components
@@ -64,6 +65,8 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
   @ViewChild('roleChart') roleChartRef!: ElementRef<HTMLCanvasElement>;
 
   private userService = inject(UserService);
+  private translationService = inject(TranslationService);
+  private translateService = inject(TranslateService);
   
   // Signals
   private dashboardData = signal<DashboardStats | null>(null);
@@ -72,6 +75,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
   // Computed properties
   dashboardStats = computed(() => this.dashboardData());
   isLoading = computed(() => this.loading());
+  currentLang = computed(() => this.translationService.currentLang());
 
   // Chart instances
   private monthlyChart: Chart | null = null;
@@ -104,6 +108,20 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
 
       // Now we can load dashboard data
       this.loadDashboardStats();
+    });
+
+    // Effect to watch for language changes and regenerate charts
+    effect(() => {
+      const currentLang = this.currentLang();
+      const stats = this.dashboardStats();
+      
+      // Only regenerate charts if we have data and charts exist
+      if (stats && (this.monthlyChart || this.roleChart)) {
+        // Small timeout to ensure translation service has updated
+        setTimeout(() => {
+          this.initializeCharts();
+        }, 100);
+      }
     });
   }
 
@@ -148,6 +166,14 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
+  private getTranslatedRole(role: string): string {
+    return this.translateService.instant(`USER_ROLES.${role}`) || role;
+  }
+
+  private getTranslatedUsersRegistered(): string {
+    return this.translateService.instant('ADMIN.CHARTS.USERS_REGISTERED') || 'Users Registered';
+  }
+
   private initializeCharts() {
     const stats = this.dashboardStats();
     if (!stats) return;
@@ -172,7 +198,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
       data: {
         labels: monthlyData.map(d => d.month),
         datasets: [{
-          label: 'New Users',
+          label: this.getTranslatedUsersRegistered(),
           data: monthlyData.map(d => d.users),
           borderColor: 'rgb(59, 130, 246)',
           backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -230,7 +256,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
     const config: ChartConfiguration = {
       type: 'doughnut',
       data: {
-        labels: roleData.map(d => d.role),
+        labels: roleData.map(d => this.getTranslatedRole(d.role)),
         datasets: [{
           data: roleData.map(d => d.count),
           backgroundColor: colors.slice(0, roleData.length),
@@ -269,7 +295,18 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
 
   formatUserDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('es-ES', {
+    const lang = this.currentLang();
+    
+    // Mapeo de idiomas a locales
+    const localeMap: Record<'es' | 'en' | 'zh', string> = {
+      'es': 'es-ES',
+      'en': 'en-US', 
+      'zh': 'zh-CN'
+    };
+    
+    const locale = localeMap[lang] || 'es-ES';
+    
+    return date.toLocaleDateString(locale, {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric'

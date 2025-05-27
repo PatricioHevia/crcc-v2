@@ -218,12 +218,12 @@
         "INACTIVE_USERS": "非活跃用户",
         "ORGANIZATIONS": "组织",
         "REGISTERED_USERS": "注册用户"
-      },
-      "CHARTS": {
+      },      "CHARTS": {
         "MONTHLY_TREND": "月度注册趋势",
         "MONTHLY_TREND_SUBTITLE": "过去6个月注册的新用户",
         "ROLE_DISTRIBUTION": "角色分布",
-        "ROLE_DISTRIBUTION_SUBTITLE": "系统中按角色类型的用户"
+        "ROLE_DISTRIBUTION_SUBTITLE": "系统中按角色类型的用户",
+        "USERS_REGISTERED": "注册用户"
       },
       "RECENT_USERS": {
         "TITLE": "最近用户",

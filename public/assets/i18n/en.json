@@ -219,12 +219,12 @@
         "ORGANIZATIONS": "Organizations",
         "ACTIVE_USERS": "Active Users",
         "INACTIVE_USERS": "Inactive Users"
-      },
-      "CHARTS": {
+      },      "CHARTS": {
         "MONTHLY_TREND": "Monthly Registration Trend",
         "MONTHLY_TREND_SUBTITLE": "New users registered in the last 6 months",
         "ROLE_DISTRIBUTION": "Role Distribution",
-        "ROLE_DISTRIBUTION_SUBTITLE": "Users by role type in the system"
+        "ROLE_DISTRIBUTION_SUBTITLE": "Users by role type in the system",
+        "USERS_REGISTERED": "Users Registered"
       },
       "RECENT_USERS": {
         "TITLE": "Recent Users",

@@ -1,0 +1,128 @@
+/* Animación para elementos del formulario */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Mejoras para campos de entrada */
+:host ::ng-deep .p-inputtext:enabled:focus {
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.25);
+  border-color: var(--primary-color, #1D4ED8);
+  transform: translateY(-1px);
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .p-password .p-password-input:enabled:focus {
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.25);
+  border-color: var(--primary-color, #1D4ED8);
+}
+
+/* Mejoras para las etiquetas de los campos */
+:host ::ng-deep label {
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+:host ::ng-deep .p-inputtext:enabled:focus + label {
+  color: var(--primary-color, #1D4ED8);
+}
+
+/* Efecto hover para botones */
+:host ::ng-deep .p-button {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+:host ::ng-deep .p-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.2);
+}
+
+:host-context(.dark) ::ng-deep .p-button:hover {
+  box-shadow: 0 8px 20px rgba(96, 165, 250, 0.2);
+}
+
+:host ::ng-deep .p-button:active {
+  transform: translateY(0);
+}
+
+/* Efecto de onda al hacer clic */
+:host ::ng-deep .p-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+:host ::ng-deep .p-button:focus::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Estilos para el diálogo modal */
+:host ::ng-deep .auth-dialog .p-dialog-header {
+  display: none;
+}
+
+:host ::ng-deep .auth-dialog .p-dialog-content {
+  border-radius: 20px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+:host-context(.dark) ::ng-deep .auth-dialog .p-dialog-content {
+  background: rgba(31, 41, 55, 0.95);
+  color: var(--surface-0, #ffffff);
+}
+
+:host ::ng-deep .auth-dialog {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+}
+
+/* Estilos para el checkbox */
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  border-color: var(--primary-color, #1D4ED8);
+  background: var(--primary-color, #1D4ED8);
+}
+
+:host-context(.dark) ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  border-color: var(--primary-400, #60A5FA);
+  background: var(--primary-400, #60A5FA);
+}
+
+:host ::ng-deep .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  border-color: var(--primary-color, #1D4ED8);
+}

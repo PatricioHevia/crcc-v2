@@ -8,6 +8,8 @@ import { FluidModule } from 'primeng/fluid';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PasswordModule } from 'primeng/password';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -26,8 +28,7 @@ interface LoginStorage {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  imports: [
+  styleUrls: ['./login.component.css'],  imports: [
     ButtonModule,
     CommonModule,
     InputTextModule,
@@ -35,6 +36,8 @@ interface LoginStorage {
     FluidModule,
     IconFieldModule,
     InputIconModule,
+    InputGroupModule,
+    InputGroupAddonModule,
     PasswordModule,
     TranslateModule,
     ReactiveFormsModule,

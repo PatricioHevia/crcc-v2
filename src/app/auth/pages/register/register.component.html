@@ -1,239 +1,426 @@
-<div class="min-w-75 lg:min-w-100 p-0 
-">
-  <div class="flex flex-col items-center justify-center">
-    <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'" alt="CRCC Logo"
-      class="h-18 w-auto" />
-    <h2 class="text-xl font-semibold mt-2">
+<div class="min-w-75 lg:min-w-100 p-0">
+  <!-- Logo y título -->
+  <div class="flex flex-col items-center justify-center mb-4">
+    <div class="relative w-full flex justify-center">
+      <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'" 
+        alt="CRCC Logo" class="h-20 w-auto mb-2 transition-all duration-300 hover:scale-105" />
+      <div class="absolute h-1.5 w-20 bg-blue-500 dark:bg-blue-400 rounded-full bottom-0 
+        transform transition-all duration-500 opacity-70"></div>
+    </div>
+    <h2 class="text-2xl font-semibold mt-4 bg-gradient-to-r from-blue-800 to-blue-500 
+      dark:from-blue-500 dark:to-blue-300 bg-clip-text text-transparent">
       {{'AUTH.REGISTRO_TITULO' | translate}}
     </h2>
-    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 px-5 text-center max-w-xs">
       {{'AUTH.REGISTRO_SUBTITULO' | translate}}
     </p>
   </div>
-
-  <div class="mt-4 w-full max-w-lg mx-auto px-2">
-  <p-stepper [value]="1" [linear]="true" class="w-full">
+  <div class="mt-4 w-full max-w-lg mx-auto px-4">
+  <p-stepper [value]="1" [linear]="true" class="w-full" 
+    styleClass="custom-stepper">
 
       <!-- PASO 1 -->
       <p-step-item [value]="1">
-        <p-step>{{ 'AUTH.ACCOUNT_TYPE' | translate }}</p-step>
-        <p-step-panel styleClass="bg-transparent shadow-none"
-          [style]="{ background: 'transparent', boxShadow: 'none' }">
-          <ng-template #content let-activateCallback="activateCallback">
-            <div class="flex flex-col min-h-15 w-full">
-
+        <p-step>
+          <span class="flex items-center">
+            <i class="pi pi-user-edit mr-2"></i>
+            {{ 'AUTH.ACCOUNT_TYPE' | translate }}
+          </span>
+        </p-step>
+        <p-step-panel styleClass="bg-transparent shadow-none rounded-md 
+          border border-gray-200 dark:border-gray-700 mt-4"
+          [style]="{ background: 'transparent' }">          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col min-h-15 w-full p-4 animate-fade-in-up">
+              <h3 class="text-center mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">
+                {{ 'AUTH.SELECT_ACCOUNT_TYPE' | translate }}
+              </h3>              
               <form [formGroup]="step1Form" class="grid grid-cols-1 font-medium w-full items-center">
+                <div class="w-full max-w-md mx-auto flex flex-col space-y-4 items-center justify-center">
+                  <!-- Reemplazo del p-selectButton por botones personalizados -->
+                  <div class="grid grid-cols-2 gap-2 w-full">
+                    <!-- Botón Empresa -->
+                    <button type="button" 
+                      (click)="step1Form.get('asOrg')?.setValue('empresa')" 
+                      class="flex items-center justify-center px-2 py-2 rounded-lg transition-all duration-300 border-2 focus:outline-none min-h-0 min-w-0 cursor-pointer"
+                      [ngClass]="step1Form.get('asOrg')?.value === 'empresa' ? 
+                        'bg-blue-50 dark:bg-blue-900/50 border-[#3567ad] dark:border-[#0c7bb5] shadow-md' : 
+                        'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-sm'">
+                      <span class="font-medium text-sm truncate"
+                        [ngClass]="step1Form.get('asOrg')?.value === 'empresa' ? 
+                          'text-[#3567ad] dark:text-[#46b8e9]' : 
+                          'text-gray-700 dark:text-gray-300'">
+                        {{ typeOption[0].label[lang()] }}
+                      </span>
+                    </button>
 
-                <p-selectButton fluid [options]="typeOption" formControlName="asOrg" optionLabel="label"
-                  optionValue="value">
-
-                  <ng-template pTemplate="item" let-option>
-                    <p-button size="small" [label]="option.label[lang()]" [severity]="isSelected(option) ? 'primary' : 'secondary'"
-                      [icon]="option.icon" [pTooltip]="option.tooltip[lang()]" tooltipPosition="top" [escape]="false">
-                    </p-button>
-
-                  </ng-template>
-
-                </p-selectButton>
-
+                    <!-- Botón Individual -->
+                    <button type="button" 
+                      (click)="step1Form.get('asOrg')?.setValue('individual')" 
+                      class="flex items-center justify-center px-2 py-2 rounded-lg transition-all duration-300 border-2 focus:outline-none min-h-0 min-w-0 cursor-pointer"
+                      [ngClass]="step1Form.get('asOrg')?.value === 'individual' ? 
+                        'bg-blue-50 dark:bg-blue-900/50 border-[#3567ad] dark:border-[#0c7bb5] shadow-md' : 
+                        'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-sm'">
+                      <span class="font-medium text-sm truncate"
+                        [ngClass]="step1Form.get('asOrg')?.value === 'individual' ? 
+                          'text-[#3567ad] dark:text-[#46b8e9]' : 
+                          'text-gray-700 dark:text-gray-300'">
+                        {{ typeOption[1].label[lang()] }}
+                      </span>
+                    </button>
+                  </div>
+                </div>
               </form>
-
-            </div>
-
-
-            <div class="py-6">
-              @if( step1Form.get('asOrg')?.value === 'empresa') {
-              <p-button size="small" [label]="'GENERAL.SIGUIENTE' | translate" (onClick)="activateCallback(2)" />
-              } @else if (step1Form.get('asOrg')?.value === 'individual') {
-              <p-button size="small" [label]="'GENERAL.SIGUIENTE' | translate" (onClick)="activateCallback(4)" />
-              }
+            </div>            <!-- Corrección del botón de selección para que el ícono no quede cortado -->
+            <div class="py-6 flex justify-center">
+              <p-button size="large" 
+                [label]="'GENERAL.SIGUIENTE' | translate" 
+                icon="pi pi-arrow-right" 
+                iconPos="right"
+                styleClass="stepper-btn shadow-md hover:shadow-lg"
+                (onClick)="activateCallback(step1Form.get('asOrg')?.value === 'empresa' ? 2 : 4)" />
             </div>
           </ng-template>
         </p-step-panel>
-      </p-step-item>
-
-      <!-- PASO 2 -->
+      </p-step-item>      <!-- PASO 2 -->
       <p-step-item [value]="2" class="border-surface-50">
-        <p-step>{{ 'AUTH.SELECT_ORGANIZACION' | translate }}</p-step>
-        <p-step-panel styleClass="bg-transparent shadow-none"
-          [style]="{ background: 'transparent', boxShadow: 'none' }">
+        <p-step>
+          <span class="flex items-center">
+            <i class="pi pi-briefcase mr-2"></i>
+            {{ 'AUTH.SELECT_ORGANIZACION' | translate }}
+          </span>
+        </p-step>
+        <p-step-panel styleClass="bg-transparent shadow-none rounded-md 
+          border border-gray-200 dark:border-gray-700 mt-4"
+          [style]="{ background: 'transparent', padding: '1rem' }">
           <ng-template #content let-activateCallback="activateCallback">
-            <div class="flex flex-col min-h-21 p-2">
-              <span class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">{{ 'AUTH.ORGANIZACION' |
-                translate }}</span>
-
-
-
-              <p-select id="organizacion" [options]="orgOptions()" appendTo="body" [filter]="true" filterBy="label"
-                [style]="{ 'max-width': '99%' }" styleClass="w-full" [panelStyle]="{ 'max-width': '99%' }"
-                panelStyleClass="w-full" [(ngModel)]="orgSelected">
-              </p-select>
-              <p-divider></p-divider>
-              <div class="flex flex-col items-center justify-center">
-                <span class="text-sm text-left mb-1 font-semibold text-red-500">{{ 'AUTH.ORG_NO_ENCONTRADA' | translate
-                  }}</span>
-                <p-button size="small" variant="outlined" [label]="'AUTH.REGISTRALA' | translate" severity="danger"
-                  (onClick)="activateCallback(3)"></p-button>
+            <div class="flex flex-col min-h-21 p-4 animate-fade-in-up">
+              <h3 class="text-center mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">
+                {{ 'AUTH.SELECT_YOUR_ORGANIZATION' | translate }}
+              </h3>
+                <div class="mb-4 w-full max-w-md mx-auto">
+                <label for="organizacion" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                  <i class="pi pi-building mr-2 text-[#3567ad] dark:text-[#46b8e9]"></i>
+                  {{ 'AUTH.ORGANIZACION' | translate }}
+                </label>
+                <p-select id="organizacion" [options]="orgOptions()" appendTo="body" [filter]="true" filterBy="label"
+                  styleClass="w-full shadow-sm input-transition" 
+                  [style]="{'width': '100%', 'max-width': '100%'}"
+                  panelStyleClass="org-select-panel" 
+                  [(ngModel)]="orgSelected">
+                  <ng-template pTemplate="header">
+                    <div class="p-2 font-medium text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800">
+                      {{ 'AUTH.SEARCH_ORGANIZATION' | translate }}
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="empty">
+                    <div class="p-2 text-gray-500 dark:text-gray-400 text-center">
+                      {{ 'AUTH.NO_ORGANIZATIONS_FOUND' | translate }}
+                    </div>
+                  </ng-template>
+                </p-select>
+              </div>
+                <div class="my-4">
+                <div class="relative flex items-center">
+                  <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+                  <span class="flex-shrink mx-4 text-sm text-gray-600 dark:text-gray-300 font-medium bg-white/50 dark:bg-gray-800/50 px-3 py-1 rounded-full">
+                    {{ 'COMMON.OR' | translate }}
+                  </span>
+                  <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+                </div>
+              </div>
+              
+              <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-100 dark:border-blue-800 
+                shadow-sm flex flex-col items-center space-y-3">
+                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center">
+                  <i class="pi pi-plus text-blue-600 dark:text-blue-300"></i>
+                </div>
+                <span class="text-sm font-medium text-blue-800 dark:text-blue-200">
+                  {{ 'AUTH.ORG_NO_ENCONTRADA' | translate }}
+                </span>
+                <p-button size="small" 
+                  [label]="'AUTH.REGISTRALA' | translate" 
+                  icon="pi pi-plus-circle"
+                  severity="info" 
+                  [outlined]="true"
+                  (onClick)="activateCallback(3)">
+                </p-button>
               </div>
             </div>
-            <div class="py-6">
-              <p-button [label]="'GENERAL.SIGUIENTE' | translate" (onClick)="activateCallback(4)"
-                [disabled]="orgSelected === ''"></p-button>
+            
+            <div class="py-6 flex justify-center">
+              <p-button [label]="'GENERAL.SIGUIENTE' | translate" 
+                icon="pi pi-arrow-right" 
+                iconPos="right"
+                styleClass="stepper-btn shadow-md hover:shadow-lg"
+                (onClick)="activateCallback(4)"
+                [disabled]="orgSelected === ''">
+              </p-button>
             </div>
           </ng-template>
         </p-step-panel>
 
-      </p-step-item>
-
-      <!-- PASO 3 -->
+      </p-step-item>      <!-- PASO 3 -->
       <p-step-item [value]="3">
-        <p-step>{{ 'AUTH.CREAR_ORGANIZACION' | translate }}</p-step>
-        <p-step-panel styleClass="bg-transparent shadow-none"
-          [style]="{ background: 'transparent', boxShadow: 'none' }">
+        <p-step>
+          <span class="flex items-center">
+            <i class="pi pi-plus-circle mr-2"></i>
+            {{ 'AUTH.CREAR_ORGANIZACION' | translate }}
+          </span>
+        </p-step>
+        <p-step-panel styleClass="bg-transparent shadow-none rounded-md 
+          border border-gray-200 dark:border-gray-700 mt-4"
+          [style]="{ background: 'transparent', padding: '1rem' }">
           <ng-template #content let-activateCallback="activateCallback" class="">
-            <div class="flex flex-col min-h-21">
+            <div class="flex flex-col min-h-21 animate-fade-in-up">
+              <h3 class="text-center mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">
+                {{ 'AUTH.NEW_ORGANIZATION_DETAILS' | translate }}
+              </h3>
+              
               <!-- register-organization.component.html -->
-              <form [formGroup]="newOrgForm" (ngSubmit)="saveOrg(activateCallback)" class="grid grid-cols-1 font-medium p-2 space-y-4">
+              <form [formGroup]="newOrgForm" (ngSubmit)="saveOrg(activateCallback)" class="grid grid-cols-1 font-medium p-2 space-y-5">
                 <!-- Nombre de la organización -->
-                <div class="w-full text-left">
-                  <label for="name">{{ 'AUTH.ORG_NAME' | translate }}</label>
-                  <input id="name" pSize="small" pInputText fluid formControlName="name" class="w-full mb-1" />
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('name','required')">
-                    {{ 'AUTH.ORG_NAME_REQUIRED' | translate }}
-                  </small>
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('name','minlength')">
-                    {{ 'AUTH.ORG_NAME_SHORT' | translate }}
-                  </small>
+                <div class="w-full">
+                  <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-id-card mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.ORG_NAME' | translate }}
+                  </label>
+                  <p-inputGroup>
+                    <p-inputGroupAddon>
+                      <i class="pi pi-building text-gray-500 dark:text-gray-400"></i>
+                    </p-inputGroupAddon>
+                    <input id="name" pInputText fluid formControlName="name" class="w-full p-2 input-transition" 
+                      [placeholder]="'AUTH.ORG_NAME_PLACEHOLDER' | translate" />
+                  </p-inputGroup>
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('name','required')">
+                      {{ 'AUTH.ORG_NAME_REQUIRED' | translate }}
+                    </small>
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('name','minlength')">
+                      {{ 'AUTH.ORG_NAME_SHORT' | translate }}
+                    </small>
+                  </div>
                 </div>
 
                 <!-- Email de la organización -->
-                <div class="w-full text-left">
-                  <label for="email">{{ 'AUTH.ORG_EMAIL' | translate }}</label>
-                  <input id="email" type="email" autocomplete="email" pSize="small" pInputText fluid
-                    formControlName="email" class="w-full mb-1" />
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('email','required')">
-                    {{ 'AUTH.ORG_EMAIL_REQUIRED' | translate }}
-                  </small>
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('email','email')">
-                    {{ 'AUTH.INVALID_ORG_EMAIL' | translate }}
-                  </small>
+                <div class="w-full">
+                  <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-envelope mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.ORG_EMAIL' | translate }}
+                  </label>
+                  <p-inputGroup>
+                    <p-inputGroupAddon>
+                      <i class="pi pi-at text-gray-500 dark:text-gray-400"></i>
+                    </p-inputGroupAddon>
+                    <input id="email" type="email" autocomplete="email" pInputText fluid
+                      formControlName="email" class="w-full p-2 input-transition" 
+                      [placeholder]="'AUTH.ORG_EMAIL_PLACEHOLDER' | translate" />
+                  </p-inputGroup>
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('email','required')">
+                      {{ 'AUTH.ORG_EMAIL_REQUIRED' | translate }}
+                    </small>
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('email','email')">
+                      {{ 'AUTH.INVALID_ORG_EMAIL' | translate }}
+                    </small>
+                  </div>
                 </div>
 
                 <!-- RUT / ID fiscal -->
-                <div class="w-full text-left">
-                  <label for="tin">{{ 'AUTH.ORG_TIN' | translate }}</label>
-                  <input id="tin" pSize="small" pInputText fluid formControlName="tin" class="w-full mb-1" />
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('tin','required')">
-                    {{ 'AUTH.ORG_TIN_REQUIRED' | translate }}
-                  </small>
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('tin','minlength')">
-                    {{ 'AUTH.ORG_TIN_SHORT' | translate }}
-                  </small>
+                <div class="w-full">
+                  <label for="tin" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-id-card mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.ORG_TIN' | translate }}
+                  </label>
+                  <p-inputGroup>
+                    <p-inputGroupAddon>
+                      <i class="pi pi-id-card text-gray-500 dark:text-gray-400"></i>
+                    </p-inputGroupAddon>
+                    <input id="tin" pInputText fluid formControlName="tin" class="w-full p-2 input-transition" 
+                      [placeholder]="'AUTH.ORG_TIN_PLACEHOLDER' | translate" />
+                  </p-inputGroup>
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('tin','required')">
+                      {{ 'AUTH.ORG_TIN_REQUIRED' | translate }}
+                    </small>
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('tin','minlength')">
+                      {{ 'AUTH.ORG_TIN_SHORT' | translate }}
+                    </small>
+                  </div>
                 </div>
 
                 <!-- Dirección -->
-                <div class="w-full text-left">
-                  <label for="address">{{ 'AUTH.ORG_ADDRESS' | translate }}</label>
-                  <input id="address" pSize="small" pInputText fluid formControlName="address" class="w-full mb-1" />
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('address','required')">
-                    {{ 'AUTH.ORG_ADDRESS_REQUIRED' | translate }}
-                  </small>
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('address','minlength')">
-                    {{ 'AUTH.ORG_ADDRESS_SHORT' | translate }}
-                  </small>
+                <div class="w-full">
+                  <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-map-marker mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.ORG_ADDRESS' | translate }}
+                  </label>
+                  <p-inputGroup>
+                    <p-inputGroupAddon>
+                      <i class="pi pi-map text-gray-500 dark:text-gray-400"></i>
+                    </p-inputGroupAddon>
+                    <input id="address" pInputText fluid formControlName="address" class="w-full p-2 input-transition" 
+                      [placeholder]="'AUTH.ORG_ADDRESS_PLACEHOLDER' | translate" />
+                  </p-inputGroup>
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('address','required')">
+                      {{ 'AUTH.ORG_ADDRESS_REQUIRED' | translate }}
+                    </small>
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('address','minlength')">
+                      {{ 'AUTH.ORG_ADDRESS_SHORT' | translate }}
+                    </small>
+                  </div>
                 </div>
 
                 <!-- Tipo de organización -->
-                <div class="w-full text-left">
-                  <label for="type">{{ 'AUTH.ORG_TYPE' | translate }}</label>
-                  <p-select id="type" [options]="orgTypeOptions()" formControlName="type" optionLabel="label"
-                    optionValue="value" class="w-full" panelStyleClass="w-full"></p-select>
-                  <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('type','required')">
-                    {{ 'AUTH.ORG_TYPE_REQUIRED' | translate }}
-                  </small>
+                <div class="w-full">
+                  <label for="type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-tag mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.ORG_TYPE' | translate }}
+                  </label>
+                  <p-select appendTo="body" id="type" [options]="orgTypeOptions()" formControlName="type" optionLabel="label"
+                    optionValue="value" styleClass="w-full shadow-sm input-transition" 
+                    [placeholder]="'AUTH.SELECT_ORG_TYPE' | translate"
+                    panelStyleClass="w-full">
+                  </p-select>
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasErrorOrg('type','required')">
+                      {{ 'AUTH.ORG_TYPE_REQUIRED' | translate }}
+                    </small>
+                  </div>
                 </div>
 
                 <!-- Botón crear organización -->
-                <div class="flex justify-center">
-                  <p-button type="submit" [label]="'AUTH.CREATE_ORG' | translate" severity="primary"
-                    [disabled]="newOrgForm.invalid"></p-button>
+                <div class="flex justify-center mt-4">
+                  <p-button type="submit" 
+                    [label]="'AUTH.CREATE_ORG' | translate" 
+                    icon="pi pi-plus-circle"
+                    severity="primary"
+                    styleClass="stepper-btn shadow-md hover:shadow-lg"
+                    [disabled]="newOrgForm.invalid">
+                  </p-button>
                 </div>
               </form>
-
-
             </div>
 
           </ng-template>
         </p-step-panel>
-      </p-step-item>
-
-      <!-- PASO 4 -->
+      </p-step-item>      <!-- PASO 4 -->
       <p-step-item [value]="4">
-        <p-step>{{ 'AUTH.CREAR_CUENTA' | translate }}</p-step>
-        <p-step-panel styleClass="bg-transparent shadow-none"
-          [style]="{ background: 'transparent', boxShadow: 'none' }">
+        <p-step>
+          <span class="flex items-center">
+            <i class="pi pi-user-plus mr-2"></i>
+            {{ 'AUTH.CREAR_CUENTA' | translate }}
+          </span>
+        </p-step>
+        <p-step-panel styleClass="bg-transparent shadow-none rounded-md 
+          border border-gray-200 dark:border-gray-700 mt-4"
+          [style]="{ background: 'transparent', padding: '1rem' }">
           <ng-template #content let-activateCallback="activateCallback" class="">
-            <div class="flex flex-col min-h-21">
-              <form [formGroup]="userForm" class="grid grid-cols-1 font-medium p-2" (ngSubmit)="registrarUsuario()">
-                <div class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">
-                  <label for="name">{{ 'AUTH.NAME' | translate }}</label>
-                  <input pSize="small" pInputText fluid id="name" formControlName="name" class="w-full mb-3">
-                  <div>
-                    <small class="text-red-500" small *ngIf="hasError('name','required')">
+            <div class="flex flex-col min-h-21 animate-fade-in-up">
+              <h3 class="text-center mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">
+                {{ 'AUTH.USER_ACCOUNT_DETAILS' | translate }}
+              </h3>
+              
+              <form [formGroup]="userForm" class="grid grid-cols-1 font-medium p-2 space-y-5" (ngSubmit)="registrarUsuario()">
+                <!-- Nombre completo -->
+                <div class="w-full">
+                  <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-user mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.NAME' | translate }}
+                  </label>
+                  <p-inputGroup>
+                    <p-inputGroupAddon>
+                      <i class="pi pi-id-card text-gray-500 dark:text-gray-400"></i>
+                    </p-inputGroupAddon>
+                    <input pInputText fluid id="name" formControlName="name" class="w-full p-2 input-transition"
+                      [placeholder]="'AUTH.NAME_PLACEHOLDER' | translate" />
+                  </p-inputGroup>
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasError('name','required')">
                       {{ 'AUTH.NAME_REQUIRED' | translate }}
                     </small>
                   </div>
                 </div>
-                <div class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">
-                  <label>{{ 'AUTH.EMAIL' | translate }}</label>
-                  <input autocomplete="email" pSize="small" type="email" pInputText fluid id="email"
-                    formControlName="email" class="w-full mb-3">
-                  <div>
-                    <small class="text-red-500  text-xs mt-1" *ngIf="hasError('email', 'required')">
+                
+                <!-- Email -->
+                <div class="w-full">
+                  <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-envelope mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.EMAIL' | translate }}
+                  </label>
+                  <p-inputGroup>
+                    <p-inputGroupAddon>
+                      <i class="pi pi-at text-gray-500 dark:text-gray-400"></i>
+                    </p-inputGroupAddon>
+                    <input autocomplete="email" type="email" pInputText fluid id="email"
+                      formControlName="email" class="w-full p-2 input-transition"
+                      [placeholder]="'AUTH.EMAIL_PLACEHOLDER' | translate" />
+                  </p-inputGroup>
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasError('email', 'required')">
                       {{ 'AUTH.EMAIL_REQUIRED' | translate }}</small>
-                  </div>
-                  <div>
-                    <small class="text-red-500 text-xs mt-1" *ngIf="hasError('email', 'email')">
+                    <small class="text-red-500 text-xs" *ngIf="hasError('email', 'email')">
                       {{ 'AUTH.INVALID_EMAIL' | translate }}</small>
                   </div>
                 </div>
-                <div class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">
-                  <label>{{ 'AUTH.PASSWORD' | translate }}</label>
-                  <p-password [toggleMask]="true" autocomplete="new-password" fluid size="small"
-                    formControlName="password" [feedback]="false" />
-                  <small class="text-red-500 w-full " *ngIf="hasError('password','required')">
-                    {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
-                  </small>
-                  <small class="text-red-500 w-full " *ngIf="hasError('password','minlength')">
-                    {{ 'AUTH.PASSWORD_CORTA' | translate }}
-                  </small>
+                
+                <!-- Contraseña -->
+                <div class="w-full">
+                  <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-lock mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.PASSWORD' | translate }}
+                  </label>
+                  <p-password id="password" [toggleMask]="true" autocomplete="new-password" 
+                    formControlName="password" [feedback]="true" styleClass="w-full" 
+                    [weakLabel]="'AUTH.PASSWORD_WEAK' | translate"
+                    [mediumLabel]="'AUTH.PASSWORD_MEDIUM' | translate"
+                    [strongLabel]="'AUTH.PASSWORD_STRONG' | translate"
+                    [placeholder]="'AUTH.PASSWORD_PLACEHOLDER' | translate"
+                    inputStyleClass="w-full p-2 input-transition" />
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasError('password','required')">
+                      {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
+                    </small>
+                    <small class="text-red-500 text-xs" *ngIf="hasError('password','minlength')">
+                      {{ 'AUTH.PASSWORD_CORTA' | translate }}
+                    </small>
+                  </div>
                 </div>
-                <div class="w-full text-left mb-1  font-medium text-gray-700 dark:text-gray-300">
-                  <label>{{ 'AUTH.REPEAT_PASSWORD' | translate }}</label>
-                  <p-password [toggleMask]="true" autocomplete="new-password" fluid size="small"
-                    formControlName="repeat_password" [feedback]="false" />
-                  <small fluid class="text-red-500" *ngIf="hasError('repeat_password','required')">
-                    {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
-                  </small>
-                  <small fluid class="text-red-500" *ngIf="hasError('repeat_password','minlength')">
-                    {{ 'AUTH.PASSWORD_CORTA' | translate }}
-                  </small>
-                  <div>
-                    <small fluid class="text-red-500"
+                
+                <!-- Confirmar contraseña -->
+                <div class="w-full">
+                  <label for="repeat_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <i class="pi pi-lock mr-2 text-blue-600 dark:text-blue-400"></i>
+                    {{ 'AUTH.REPEAT_PASSWORD' | translate }}
+                  </label>
+                  <p-password id="repeat_password" [toggleMask]="true" autocomplete="new-password" 
+                    formControlName="repeat_password" [feedback]="false" styleClass="w-full"
+                    [placeholder]="'AUTH.REPEAT_PASSWORD_PLACEHOLDER' | translate"
+                    inputStyleClass="w-full p-2 input-transition" />
+                  <div class="h-5 mt-1">
+                    <small class="text-red-500 text-xs" *ngIf="hasError('repeat_password','required')">
+                      {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
+                    </small>
+                    <small class="text-red-500 text-xs" *ngIf="hasError('repeat_password','minlength')">
+                      {{ 'AUTH.PASSWORD_CORTA' | translate }}
+                    </small>
+                    <small class="text-red-500 text-xs"
                       *ngIf="userForm.hasError('passwordMismatch') && userForm.get('repeat_password')?.touched">
                       {{ 'AUTH.PASSWORDS_NOT_MATCH' | translate }}
                     </small>
                   </div>
                 </div>
 
-
-
-                <div class="flex flex-col items-center justify-center">
-                  <p-button [disabled]="userForm.invalid" type="submit" size="small"
-                    [label]="'AUTH.SIGN_UP' | translate" severity="primary" class="mt-2"></p-button>
+                <!-- Botón de registro -->
+                <div class="flex justify-center mt-6">
+                  <p-button [disabled]="userForm.invalid" type="submit"
+                    [label]="'AUTH.SIGN_UP' | translate" 
+                    icon="pi pi-user-plus"
+                    severity="primary" 
+                    styleClass="stepper-btn shadow-md hover:shadow-lg w-full md:w-auto">
+                  </p-button>
                 </div>
               </form>
-
             </div>
 
           </ng-template>
@@ -242,44 +429,57 @@
 
     </p-stepper>
   </div>
+  <!-- Separador -->
+  <div class="relative flex items-center mt-8 mb-6">
+    <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+    <span class="flex-shrink mx-4 text-sm text-gray-600 dark:text-gray-300 font-medium bg-white/50 dark:bg-gray-800/50 px-3 py-1 rounded-full">
+      {{ 'COMMON.OR' | translate }}
+    </span>
+    <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+  </div>
 
-
-  <p-divider></p-divider>
-  <div class="mt-6 text-center">
+  <!-- Link al login -->
+  <div class="text-center pb-4">
     <span class="text-sm text-gray-600 dark:text-gray-400">
       {{ 'AUTH.ACCOUNT_ALREADY' | translate }}
     </span>
-    <p-button raised="true" variant="text" severity="success" [label]=" 'AUTH.LOGIN' | translate"
-      [routerLink]="'/auth/login'" size="small" class="ml-2">
+    <p-button size="small" severity="secondary" [label]=" 'AUTH.LOGIN' | translate" 
+      [routerLink]="'/auth/login'" class="ml-2" [outlined]="true">
     </p-button>
   </div>
 
 </div>
 
-<p-dialog [visible]="dialogVisible()" modal [closable]="false" [dismissableMask]="false"
-  [style]="{ width: '250px', height: '250px', padding: '0' }" [contentStyle]="{
+<p-dialog [visible]="dialogVisible()" modal [closable]="false" [dismissableMask]="false" styleClass="auth-dialog"
+  [style]="{ width: '300px', borderRadius: '16px', overflow: 'hidden' }" 
+  [contentStyle]="{ 
     display: 'flex',
     'flex-direction': 'column',
     'align-items': 'center',
     'justify-content': 'center',
+    padding: '2rem',
     height: '100%'
   }">
   @if (loading()) {
-  <div class="flex flex-row items-center justify-center gap-2">
-    <p-progressSpinner styleClass="w-3rem h-3rem"></p-progressSpinner>
-    <p>{{ 'AUTH.LOADING' | translate }}</p>
+  <div class="flex flex-col items-center justify-center gap-4 py-4">
+    <p-progressSpinner styleClass="w-4rem h-4rem" [style]="{'stroke': isDark() ? '#60A5FA' : '#3B82F6'}"></p-progressSpinner>
+    <p class="text-lg font-medium text-gray-700 dark:text-gray-300">{{ 'AUTH.LOADING' | translate }}</p>
   </div>
   }
   @else if (registerSuccess()) {
-  <div class="flex flex-col items-center justify-center gap-2">
-    <i class="fa-solid fa-check text-4xl text-green-500"></i>
-    <p>{{ 'AUTH.LOGIN_SUCCESS' | translate }}</p>
+  <div class="flex flex-col items-center justify-center gap-4 py-4">
+    <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+      <i class="pi pi-check text-4xl text-green-600 dark:text-green-300"></i>
+    </div>
+    <p class="text-lg font-medium text-gray-700 dark:text-gray-300">{{ 'AUTH.REGISTER_SUCCESS' | translate }}</p>
   </div>
   }
   @else {
-  <div class="flex flex-col items-center justify-center gap-2">
-    <i class="fa-solid fa-xmark text-4xl text-red-500"></i>
-    <p>{{ feedbackMessage() | translate }}</p>
+  <div class="flex flex-col items-center justify-center gap-4 py-4">
+    <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+      <i class="pi pi-times text-4xl text-red-600 dark:text-red-300"></i>
+    </div>
+    <p class="text-lg font-medium text-gray-700 dark:text-gray-300">{{ feedbackMessage() | translate }}</p>
   </div>
   }
 </p-dialog>

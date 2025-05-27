@@ -71,17 +71,16 @@ export class AuthLayoutComponent {
 
   // Tema
   isDark = computed(() => this.theme.effectiveTheme() === 'dark');
-
   public lightStyle = {
-    'border-radius': '56px',
-    'padding':       '0.35rem',
-    'background':    'linear-gradient(180deg, #3567ad 10%, rgba(33,150,243,0) 40%)'
+    'border-radius': '40px',
+    'padding':       '0.25rem',
+    'background':    'linear-gradient(140deg, rgba(53, 103, 173, 0.6) 0%, rgba(33, 150, 243, 0.3) 50%, rgba(0, 0, 0, 0) 95%)'
   };
 
   public darkStyle = {
-    'border-radius': '56px',
-    'padding':       '0.35rem',
-    'background':    'linear-gradient(180deg, #08a1e2 10%, rgba(33,150,243,0) 40%)'
+    'border-radius': '40px',
+    'padding':       '0.25rem',
+    'background':    'linear-gradient(140deg, rgba(8, 161, 226, 0.6) 0%, rgba(33, 150, 243, 0.3) 50%, rgba(0, 0, 0, 0) 95%)'
   };
 
   toggleTheme(): void {

@@ -1,121 +1,151 @@
 <div class="min-w-75 lg:min-w-100 p-0">
-  <div class="flex flex-col items-center justify-center">
-    <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'" alt="CRCC Logo"
-      class="h-18 w-auto" />
-    <h2 class="text-xl font-semibold mt-2">
+  <!-- Logo y título -->
+  <div class="flex flex-col items-center justify-center mb-6">
+    <div class="relative w-full flex justify-center">
+      <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'" 
+        alt="CRCC Logo" class="h-20 w-auto mb-2 transition-all duration-300 hover:scale-105" />
+      <div class="absolute h-1.5 w-20 bg-blue-500 dark:bg-blue-400 rounded-full bottom-0 
+        transform transition-all duration-500 opacity-70"></div>
+    </div>    <h2 class="text-2xl font-semibold mt-4 bg-gradient-to-r from-blue-900 to-blue-600 
+      dark:from-blue-500 dark:to-blue-300 bg-clip-text text-transparent">
       {{'AUTH.LOGIN_TITULO' | translate}}
     </h2>
-    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 px-5 text-center max-w-xs">
       {{'AUTH.LOGIN_SUBTITULO' | translate}}
     </p>
   </div>
-  <form class="mt-6 space-y-6 w-full px-4" [formGroup]="loginForm" (ngSubmit)="login()">
-    <!-- Email -->
-    <div class="flex flex-col text-left">
-      <label for="email" class="mb-1 font-medium text-gray-700 dark:text-gray-300">
+
+  <!-- Formulario de login -->
+  <form class="mt-8 space-y-6 w-full px-6 md:px-8" [formGroup]="loginForm" (ngSubmit)="login()">
+    <!-- Email con icono -->
+    <div class="flex flex-col text-left">      <label for="email" class="mb-2 font-medium text-gray-700 dark:text-gray-300 flex items-center">
+        <i class="pi pi-envelope mr-2 text-blue-700 dark:text-blue-400"></i>
         {{'AUTH.EMAIL' | translate}}
       </label>
-      <input pInputText fluid id="email" type="email" formControlName="email" [placeholder]="'AUTH.EMAIL' | translate"
-        class="
-        w-full
-        p-3
-        bg-gray-100 dark:bg-gray-800
-        border border-gray-300 dark:border-gray-600
-        rounded-lg
-        text-gray-900 dark:text-gray-100
-        placeholder-gray-400 dark:placeholder-gray-500
-        focus:outline-none focus:ring-2 focus:ring-blue-400
-        transition
-      " />
-      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('email', 'required')">
-        {{ 'AUTH.EMAIL_REQUIRED' | translate }}</small>
-      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('email', 'email')">
-        {{ 'AUTH.INVALID_EMAIL' | translate }}</small>
-      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('email', 'email')">
-        {{ 'AUTH.INVALID_EMAIL' | translate }}</small>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-user text-blue-600 dark:text-blue-500"></i>
+        </p-inputGroupAddon>
+        <input pInputText fluid id="email" type="email" formControlName="email" 
+          [placeholder]="'AUTH.EMAIL' | translate" class="w-full p-3 
+          bg-white dark:bg-surface-800
+          border border-gray-300 dark:border-surface-600
+          rounded-r-lg
+          text-gray-900 dark:text-gray-100
+          placeholder-gray-400 dark:placeholder-gray-500
+          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+          transition-all duration-200" />
+      </p-inputGroup>
+      <div class="h-5 mt-1">
+        <small class="text-red-500 text-xs" *ngIf="hasError('email', 'required')">
+          {{ 'AUTH.EMAIL_REQUIRED' | translate }}</small>
+        <small class="text-red-500 text-xs" *ngIf="hasError('email', 'email')">
+          {{ 'AUTH.INVALID_EMAIL' | translate }}</small>
+      </div>
     </div>
 
-    <!-- Password -->
-    <div class="flex flex-col text-left">
-      <label for="password" class="mb-1  font-medium text-gray-700 dark:text-gray-300">
+    <!-- Password con icono -->
+    <div class="flex flex-col text-left">      <label for="password" class="mb-2 font-medium text-gray-700 dark:text-gray-300 flex items-center">
+        <i class="pi pi-lock mr-2 text-blue-700 dark:text-blue-400"></i>
         {{'AUTH.PASSWORD' | translate}}
       </label>
       <p-password fluid id="password" formControlName="password" [toggleMask]="true" [feedback]="false"
-        [placeholder]="'AUTH.PASSWORD' | translate" inputStyleClass="
-        w-full
-        p-3
-        bg-gray-100 dark:bg-gray-800
-        border border-gray-300 dark:border-gray-600
-        rounded-lg
+        [placeholder]="'AUTH.PASSWORD' | translate" styleClass="w-full" inputStyleClass="
+        w-full p-3
+        bg-white dark:bg-surface-800
+        border border-gray-300 dark:border-surface-600
         text-gray-900 dark:text-gray-100
         placeholder-gray-400 dark:placeholder-gray-500
-        focus:outline-none focus:ring-2 focus:ring-blue-400
-        transition
-      "></p-password>
-      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('password', 'required')">
-        {{ 'AUTH.PASSWORD_REQUIRED' | translate }}</small>
-      <small class="text-red-500 text-xs mt-1" *ngIf="hasError('password', 'minlength')">
-        {{ 'AUTH.PASSWORD_CORTA' | translate }}</small>
+        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+        transition-all duration-200">
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2">
+            <i class="pi pi-key text-blue-700"></i>
+            <span class="font-semibold">{{'AUTH.PASSWORD' | translate}}</span>
+          </div>
+        </ng-template>
+      </p-password>
+      <div class="h-5 mt-1">
+        <small class="text-red-500 text-xs" *ngIf="hasError('password', 'required')">
+          {{ 'AUTH.PASSWORD_REQUIRED' | translate }}</small>
+        <small class="text-red-500 text-xs" *ngIf="hasError('password', 'minlength')">
+          {{ 'AUTH.PASSWORD_CORTA' | translate }}</small>
+      </div>
     </div>
 
     <!-- Remember & Forgot -->
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between mt-2">
       <div class="flex items-center">
-        <p-checkbox id="remember" binary="true" formControlName="rememberMe"></p-checkbox>
-        <label for="remember" class="ml-2 text-sm text-gray-600 dark:text-gray-400">
+        <p-checkbox id="remember" binary="true" formControlName="rememberMe" 
+          styleClass="mr-2"></p-checkbox>
+        <label for="remember" class="text-sm text-gray-600 dark:text-gray-400">
           {{ 'AUTH.REMEMBER_ME' | translate }}
         </label>
-      </div>
-      <a href="#" class="text-sm font-medium text-primary hover:underline">
+      </div>      <a href="#" class="text-sm font-medium text-blue-700 dark:text-blue-400 hover:text-blue-900 
+        dark:hover:text-blue-300 transition-colors duration-200 border-b border-blue-500/30 hover:border-blue-500">
         {{ 'AUTH.FORGOT_PASSWORD' | translate }}
       </a>
     </div>
 
     <!-- Sign In button -->
-    <button pButton type="submit" [label]="'AUTH.LOGIN' | translate" class="
-      w-full
-      py-3
-      bg-blue-400 hover:bg-blue-500
-      text-white font-semibold
-      rounded-lg
-      transition
-    ">
+    <button pButton type="submit" 
+      [label]="'AUTH.LOGIN' | translate" 
+      icon="pi pi-sign-in" 
+      iconPos="right"
+      class="w-full py-3 mt-6 rounded-lg font-medium shadow-md hover:shadow-lg bg-blue-700 hover:bg-blue-800 transition-all duration-300"
+      [disabled]="loginForm.invalid">
     </button>
   </form>
-  <p-divider></p-divider>
-  <div class="mt-6 text-center">
-    <span class="text-sm text-gray-600 dark:text-gray-400">
+  <!-- Separador -->
+  <div class="relative flex items-center mt-8 mb-6">
+    <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+    <span class="flex-shrink mx-4 text-sm text-gray-600 dark:text-gray-300 font-medium bg-white/50 dark:bg-gray-800/50 px-3 py-1 rounded-full">
+      {{ 'COMMON.OR' | translate }}
+    </span>
+    <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+  </div>
+  <!-- Registro link -->
+  <div class="text-center pb-4">
+    <span class="text-sm text-gray-700 dark:text-gray-300">
       {{ 'AUTH.NO_ACCOUNT' | translate }}
     </span>
-    <p-button size="small"  severity="danger" [label]=" 'AUTH.SIGN_UP' | translate" [routerLink]="'/auth/register'"  [raised]="true"  class="ml-2">    </p-button>
+    <p-button size="small" severity="secondary" [label]="'AUTH.SIGN_UP' | translate" 
+      [routerLink]="'/auth/register'" class="ml-2 font-semibold" [outlined]="true">
+    </p-button>
   </div>
 
 </div>
 
-<p-dialog [visible]="dialogVisible()" modal [closable]="false" [dismissableMask]="false"
-  [style]="{ width: '250px', height: '250px', padding: '0' }" [contentStyle]="{
+<p-dialog [visible]="dialogVisible()" modal [closable]="false" [dismissableMask]="false" styleClass="auth-dialog"
+  [style]="{ width: '300px', borderRadius: '16px', overflow: 'hidden' }" 
+  [contentStyle]="{ 
     display: 'flex',
     'flex-direction': 'column',
     'align-items': 'center',
     'justify-content': 'center',
+    padding: '2rem',
     height: '100%'
   }">
   @if (loading()) {
-  <div class="flex flex-row items-center justify-center gap-2">
-    <p-progressSpinner styleClass="w-3rem h-3rem"></p-progressSpinner>
-    <p>{{ 'AUTH.LOADING' | translate }}</p>
+  <div class="flex flex-col items-center justify-center gap-4 py-4">
+    <p-progressSpinner styleClass="w-4rem h-4rem" [style]="{'stroke': isDark() ? '#60A5FA' : '#3B82F6'}"></p-progressSpinner>
+    <p class="text-lg font-medium text-gray-700 dark:text-gray-300">{{ 'AUTH.LOADING' | translate }}</p>
   </div>
   }
   @else if (loginSuccess()) {
-  <div class="flex flex-col items-center justify-center gap-2">
-    <i class="fa-solid fa-check text-4xl text-green-500"></i>
-    <p>{{ 'AUTH.LOGIN_SUCCESS' | translate }}</p>
+  <div class="flex flex-col items-center justify-center gap-4 py-4">
+    <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+      <i class="pi pi-check text-4xl text-green-600 dark:text-green-300"></i>
+    </div>
+    <p class="text-lg font-medium text-gray-700 dark:text-gray-300">{{ 'AUTH.LOGIN_SUCCESS' | translate }}</p>
   </div>
   }
   @else {
-  <div class="flex flex-col items-center justify-center gap-2">
-    <i class="fa-solid fa-xmark text-4xl text-red-500"></i>
-    <p>{{ feedbackMessage() | translate }}</p>
+  <div class="flex flex-col items-center justify-center gap-4 py-4">
+    <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+      <i class="pi pi-times text-4xl text-red-600 dark:text-red-300"></i>
+    </div>
+    <p class="text-lg font-medium text-gray-700 dark:text-gray-300">{{ feedbackMessage() | translate }}</p>
   </div>
   }
 </p-dialog>

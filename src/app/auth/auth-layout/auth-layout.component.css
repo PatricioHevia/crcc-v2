@@ -1,0 +1,48 @@
+/* Estilos para los botones flotantes en modo claro */
+.btn-float-light ::ng-deep .p-button {
+  box-shadow: 0 8px 15px rgba(30, 64, 175, 0.15);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.btn-float-light ::ng-deep .p-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(30, 64, 175, 0.2);
+  filter: brightness(1.05);
+}
+
+/* Estilos para los botones flotantes en modo oscuro */
+.btn-float-dark ::ng-deep .p-button {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.btn-float-dark ::ng-deep .p-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+  filter: brightness(1.1);
+}
+
+/* Animación mejorada para el contenedor */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+:host ::ng-deep router-outlet ~ * {
+  animation: fadeIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Mejora del efecto de hover para el contenedor principal */
+:host ::ng-deep .bg-white\/70, :host ::ng-deep .bg-gray-900\/80 {
+  transition: all 0.3s ease-in-out;
+}
+
+:host ::ng-deep .bg-white\/70:hover {
+  box-shadow: 0 20px 30px rgba(17, 24, 39, 0.12);
+}
+
+:host ::ng-deep .bg-gray-900\/80:hover {
+  box-shadow: 0 20px 30px rgba(29, 78, 216, 0.15);
+}

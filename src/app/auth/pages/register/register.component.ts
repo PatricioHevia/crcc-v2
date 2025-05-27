@@ -7,6 +7,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FluidModule } from 'primeng/fluid';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { PasswordModule } from 'primeng/password';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
@@ -29,8 +31,7 @@ import { orgTypes } from '../../../core/constants/organizationTypes';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  imports: [
+  styleUrls: ['./register.component.css'],  imports: [
     ButtonModule,
     CommonModule,
     InputTextModule,
@@ -38,6 +39,8 @@ import { orgTypes } from '../../../core/constants/organizationTypes';
     FluidModule,
     IconFieldModule,
     InputIconModule,
+    InputGroupModule,
+    InputGroupAddonModule,
     PasswordModule,
     TranslateModule,
     DialogModule,
@@ -74,17 +77,15 @@ export class RegisterComponent {
       value: o.value
     }));
   });
-
   // tipo de usuario options
-  // register.component.ts
   typeOption = [
     {
       label: { es: 'Empresa', en: 'Company', zh: '公司' },
       value: 'empresa',
       tooltip: {
-        es: `Empresa:\n- Dashboards\n- Licitaciones`,
-        en: `Company:\n- Dashboards\n- Tenders`,
-        zh: `公司：\n- 仪表板\n- 招标`
+        es: 'Cuenta para empresas y organizaciones',
+        en: 'Account for companies and organizations',
+        zh: '公司和组织账户'
       },
       icon: 'pi pi-building'
     },
@@ -92,9 +93,9 @@ export class RegisterComponent {
       label: { es: 'Individual', en: 'Individual', zh: '个人' },
       value: 'individual',
       tooltip: {
-        es: `Individual:\n- Dashboards\n- Postulaciones\n- Concursos`,
-        en: `Individual:\n- Dashboards\n- Applications\n- Contests`,
-        zh: `个人：\n- 仪表板\n- 申请\n- 比赛`
+        es: 'Cuenta personal para individuos',
+        en: 'Personal account for individuals',
+        zh: '个人账户'
       },
       icon: 'pi pi-user'
     }

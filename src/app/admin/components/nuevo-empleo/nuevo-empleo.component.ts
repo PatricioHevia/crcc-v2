@@ -14,9 +14,7 @@ import { ThemeService } from '../../../core/services/theme.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { TranslationService } from '../../../core/services/translation.service';
 import { OfertasEmpleoService } from '../../services/ofertas-empleo.service';
-import { OfertasEmpleo, TipoTrabajo, Jornada } from '../../models/ofertas-empleo.interface';
-import { Timestamp } from '@angular/fire/firestore';
-
+import { TipoTrabajo, Jornada } from '../../models/ofertas-empleo.interface';
 @Component({
   selector: 'app-nuevo-empleo',
   standalone: true,
@@ -63,7 +61,17 @@ export class NuevoEmpleoComponent {
   ];
 
   requisitosOptions = [
-    { label: 'Licenciatura', value: 'Licenciatura' },
+    { label: 'Profesional', value: 'Profesional' },
+    { label: 'Ingeniería', value: 'Ingeniería' },
+    { label: 'Constructor Civil', value: 'Constructor Civil' },
+    { label: 'Abogado', value: 'Abogado' },
+    { label: 'Arquitectura', value: 'Arquitectura' },
+    { label: 'Técnico', value: 'Técnico' },
+    { label: 'Certificación profesional', value: 'Certificación profesional' },
+    { label: 'Diplomado', value: 'Diplomado' },
+    { label: 'Curso especializado', value: 'Curso especializado' },
+    { label: 'Secundaria', value: 'Secundaria' },
+    { label: 'Licencia de Conducir', value: 'Licencia de Conducir'},
     { label: 'Maestría', value: 'Maestría' },
     { label: 'Doctorado', value: 'Doctorado' },
     { label: 'Experiencia mínima 1 año', value: 'Experiencia mínima 1 año' },
@@ -71,7 +79,15 @@ export class NuevoEmpleoComponent {
     { label: 'Experiencia mínima 5 años', value: 'Experiencia mínima 5 años' },
     { label: 'Inglés avanzado', value: 'Inglés avanzado' },
     { label: 'Mandarín básico', value: 'Mandarín básico' },
-    { label: 'Disponibilidad para viajar', value: 'Disponibilidad para viajar' }
+    { label: 'Disponibilidad para viajar', value: 'Disponibilidad para viajar' },
+    { label: 'Trabajo en equipo', value: 'Trabajo en equipo' },
+    { label: 'Liderazgo', value: 'Liderazgo' },
+    { label: 'Comunicación efectiva', value: 'Comunicación efectiva' },
+    { label: 'Resolución de problemas', value: 'Resolución de problemas' },
+    { label: 'Adaptabilidad', value: 'Adaptabilidad' },
+    { label: 'Creatividad e innovación', value: 'Creatividad e innovación' },
+    { label: 'Orientación al cliente', value: 'Orientación al cliente' },
+    { label: 'Habilidades interpersonales', value: 'Habilidades interpersonales' }
   ];
 
   constructor() {

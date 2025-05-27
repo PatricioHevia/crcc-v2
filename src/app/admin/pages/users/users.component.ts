@@ -21,6 +21,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { UpdateUserComponent } from '../../components/update-user/update-user.component';
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '../../../core/services/toast.service';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 interface SelectOption {
   label: string;
@@ -30,8 +31,7 @@ interface SelectOption {
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
-  imports: [
+  styleUrls: ['./users.component.css'],  imports: [
     TranslateModule,
     CommonModule,
     TableModule,
@@ -45,17 +45,19 @@ interface SelectOption {
     InputIconModule,
     ToolbarModule,
     TooltipModule,
-    UpdateUserComponent
+    UpdateUserComponent,
+    ConfirmDialogModule
   ],
 })
 export class UsersComponent {
   private userService = inject(UserService);
   private orgSvc = inject(OrganizationService);
   private translationService = inject(TranslationService);
-   // Para mostrar mensajes de éxito o error
-
+  private confirmationService = inject(ConfirmationService);
+  private toastService = inject(ToastService);
   editVisible = signal(false); // Para el diálogo de edición  
   userToEdit: WritableSignal<Account | null> = signal (null); // Para almacenar el usuario a editar
+  isProcessingToggle = signal(false); // Para evitar múltiples llamadas
 
 
   lang = computed(() => this.translationService.currentLang());
@@ -95,6 +97,55 @@ export class UsersComponent {
   onEdit(user: Account): void { //
     this.editVisible.set(true);
     this.userToEdit.set(user);
+  }  toggleUserActiveStatus(user: Account, event?: Event): void {
+    // Prevenir propagación del evento
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    
+    // Evitar múltiples llamadas simultáneas
+    if (this.isProcessingToggle()) {
+      return;
+    }
+    
+    const newStatus = !user.active;
+    
+    this.confirmationService.confirm({
+      message: this.translationService.instant(
+        newStatus ? 'ADMIN.USERS.CONFIRM_ACTIVATE_USER' : 'ADMIN.USERS.CONFIRM_DEACTIVATE_USER'
+      ),
+      header: this.translationService.instant('COMMON.CONFIRMATION_TITLE'),
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: this.translationService.instant('COMMON.YES'),
+      rejectLabel: this.translationService.instant('COMMON.NO'),
+      accept: () => {
+        this.isProcessingToggle.set(true);
+        this.userService.update(user.uid, { active: newStatus })
+          .then(() => {
+            const successMessage = this.translationService.instant(
+              newStatus ? 'ADMIN.USERS.USER_ACTIVATED_SUCCESS' : 'ADMIN.USERS.USER_DEACTIVATED_SUCCESS'
+            );
+            this.toastService.success(
+              this.translationService.instant('TOAST.EXITO'),
+              successMessage
+            );
+          })
+          .catch((error) => {
+            console.error('Error updating user status:', error);
+            this.toastService.error(
+              this.translationService.instant('TOAST.ERROR'),
+              this.translationService.instant('ADMIN.USERS.USER_STATUS_UPDATE_ERROR')
+            );
+          })
+          .finally(() => {
+            this.isProcessingToggle.set(false);
+          });
+      },
+      reject: () => {
+        // No necesitamos resetear el estado aquí ya que no se activó
+      }
+    });
   }
 
   

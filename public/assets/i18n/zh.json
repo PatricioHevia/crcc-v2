@@ -244,8 +244,7 @@
       "SUCCESS_UPDATED_DETAIL": "用户更新成功。",
       "NO_CHANGES_DETECTED": "未检测到更改。",
       "PERMISSIONS": "权限",
-      "OFFICES": "办公室",
-      "TABLE": {
+      "OFFICES": "办公室",      "TABLE": {
         "NAME": "姓名",
         "ORGANIZATION": "组织",
         "EMAIL": "电子邮件",
@@ -257,7 +256,14 @@
         "NO_USERS_MATCHING_FILTER": "无符合筛选条件的用户",
         "NO_USERS_FOUND": "未找到用户",
         "LOADING_USERS": "正在加载用户..."
-      }
+      },
+      "ACTIVATE_USER": "激活用户",
+      "DEACTIVATE_USER": "停用用户",
+      "CONFIRM_ACTIVATE_USER": "您确定要激活此用户吗？",
+      "CONFIRM_DEACTIVATE_USER": "您确定要停用此用户吗？",
+      "USER_ACTIVATED_SUCCESS": "用户激活成功",
+      "USER_DEACTIVATED_SUCCESS": "用户停用成功",
+      "USER_STATUS_UPDATE_ERROR": "更新用户状态时出错"
     },    "OFFICES": {
       "TITLE": "办公室管理",
       "LIST_SUBTITLE": "办公室列表",

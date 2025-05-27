@@ -108,19 +108,38 @@
         @if(isMandante()){
         <td>{{ user.organizationName || (user.organization ? (getOrgName(user.organization)() || 'N/A') : 'N/A') }}</td>
         }
-        <td>{{ user.email }}</td>
-        <td>
-          <div class="flex justify-center">
-
+        <td>{{ user.email }}</td>        <td>
+          <div class="flex justify-center items-center">
             <i *ngIf="user.active"  [pTooltip]="'ADMIN.USERS.TABLE.ACTIVE' | translate" class="pi pi-check-circle text-green-400 text-xl"></i>
             <i *ngIf="!user.active"  [pTooltip]="'ADMIN.USERS.TABLE.NO_ACTIVE' | translate" class="pi pi-times-circle text-red-400 text-xl"></i>
           </div>
         </td>
         <td>{{ 'USER_ROLES.' + user.role | translate }}</td>
-        <td>{{ user.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>
-        <td>
-          <p-button  icon="pi pi-pencil" severity="primary" rounded="true"
-          text="true" class="mr-2"  (click)="onEdit(user)" tooltipPosition="top" [pTooltip]="'ACTIONS.EDIT' | translate "></p-button>
+        <td>{{ user.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>        <td>
+          <div class="flex justify-center items-center gap-2">            <!-- Botón Toggle Estado -->
+            <p-button 
+              [icon]="user.active ? 'pi pi-times' : 'pi pi-check'" 
+              [severity]="user.active ? 'danger' : 'success'"
+              size="small"
+              rounded="true"
+              text="true" 
+              [disabled]="isProcessingToggle()"
+              (click)="toggleUserActiveStatus(user, $event)" 
+              [pTooltip]="(user.active ? 'ADMIN.USERS.DEACTIVATE_USER' : 'ADMIN.USERS.ACTIVATE_USER') | translate"
+              tooltipPosition="top">
+            </p-button>
+            
+            <!-- Botón Editar -->
+            <p-button  
+              icon="pi pi-pencil" 
+              severity="primary" 
+              rounded="true"
+              text="true" 
+              (click)="onEdit(user)" 
+              tooltipPosition="top" 
+              [pTooltip]="'ACTIONS.EDIT' | translate">
+            </p-button>
+          </div>
         </td>
       </tr>
     </ng-template>
@@ -139,3 +158,4 @@
 
 <!-- DRAWER -->
  <app-update-user [(visible)]="editVisible" [userToUpdate]="userToEdit()" ></app-update-user>
+

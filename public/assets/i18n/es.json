@@ -212,8 +212,7 @@
       "SUCCESS_UPDATED_DETAIL": "Usuario actualizado correctamente.",
       "NO_CHANGES_DETECTED": "No se detectaron cambios en el usuario.",
       "PERMISSIONS": "Permisos",
-      "OFFICES": "Oficinas",
-      "TABLE": {
+      "OFFICES": "Oficinas",      "TABLE": {
         "NAME": "Nombre",
         "ORGANIZATION": "Organización",
         "EMAIL": "Correo electrónico",
@@ -225,7 +224,14 @@
         "NO_USERS_MATCHING_FILTER": "No hay usuarios que coincidan con el filtro",
         "NO_USERS_FOUND": "No se encontraron usuarios",
         "LOADING_USERS": "Cargando usuarios..."
-      }
+      },
+      "ACTIVATE_USER": "Activar usuario",
+      "DEACTIVATE_USER": "Desactivar usuario",
+      "CONFIRM_ACTIVATE_USER": "¿Estás seguro de que deseas activar este usuario?",
+      "CONFIRM_DEACTIVATE_USER": "¿Estás seguro de que deseas desactivar este usuario?",
+      "USER_ACTIVATED_SUCCESS": "Usuario activado exitosamente",
+      "USER_DEACTIVATED_SUCCESS": "Usuario desactivado exitosamente",
+      "USER_STATUS_UPDATE_ERROR": "Error al actualizar el estado del usuario"
     },    "OFFICES": {
       "TITLE": "Gestión de Oficinas",
       "LIST_SUBTITLE": "Lista de Oficinas",

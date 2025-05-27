@@ -245,8 +245,7 @@
       "SUCCESS_UPDATED_DETAIL": "User updated successfully.",
       "NO_CHANGES_DETECTED": "No changes detected.",
       "PERMISSIONS": "Permissions",
-      "OFFICES": "Offices",
-      "TABLE": {
+      "OFFICES": "Offices",      "TABLE": {
         "NAME": "Name",
         "ORGANIZATION": "Organization",
         "EMAIL": "Email",
@@ -258,7 +257,14 @@
         "NO_USERS_MATCHING_FILTER": "No users matching the filter",
         "NO_USERS_FOUND": "No users found",
         "LOADING_USERS": "Loading users..."
-      }
+      },
+      "ACTIVATE_USER": "Activate user",
+      "DEACTIVATE_USER": "Deactivate user",
+      "CONFIRM_ACTIVATE_USER": "Are you sure you want to activate this user?",
+      "CONFIRM_DEACTIVATE_USER": "Are you sure you want to deactivate this user?",
+      "USER_ACTIVATED_SUCCESS": "User activated successfully",
+      "USER_DEACTIVATED_SUCCESS": "User deactivated successfully",
+      "USER_STATUS_UPDATE_ERROR": "Error updating user status"
     },    "OFFICES": {
       "TITLE": "Office Management",
       "LIST_SUBTITLE": "List of Offices",

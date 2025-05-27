@@ -213,7 +213,11 @@
         "TOTAL_PROJECTS": "总项目数",
         "TOTAL_ORGANIZATIONS": "总组织数",
         "REGISTERED_ORGANIZATIONS": "拥有用户的组织",
-        "NEW_USERS_THIS_MONTH": "本月新增用户"
+        "NEW_USERS_THIS_MONTH": "本月新增用户",
+        "ACTIVE_USERS": "活跃用户",
+        "INACTIVE_USERS": "非活跃用户",
+        "ORGANIZATIONS": "组织",
+        "REGISTERED_USERS": "注册用户"
       },
       "CHARTS": {
         "MONTHLY_TREND": "月度注册趋势",

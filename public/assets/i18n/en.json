@@ -214,7 +214,11 @@
         "TOTAL_PROJECTS": "Total Projects",
         "TOTAL_ORGANIZATIONS": "Total Organizations",
         "REGISTERED_ORGANIZATIONS": "Organizations with users",
-        "NEW_USERS_THIS_MONTH": "New Users This Month"
+        "NEW_USERS_THIS_MONTH": "New Users This Month",
+        "REGISTERED_USERS": "Registered Users",
+        "ORGANIZATIONS": "Organizations",
+        "ACTIVE_USERS": "Active Users",
+        "INACTIVE_USERS": "Inactive Users"
       },
       "CHARTS": {
         "MONTHLY_TREND": "Monthly Registration Trend",

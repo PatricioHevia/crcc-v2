@@ -256,21 +256,14 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
     this.roleChart = new Chart(ctx, config);
   }
 
-  getRoleSeverity(role: string): "success" | "info" | "warning" | "danger" | "secondary" | "contrast" | undefined {
-    switch (role.toLowerCase()) {
-      case 'admin':
-      case 'administrator':
-        return 'danger';
-      case 'moderator':
-      case 'manager':
-        return 'warning';
-      case 'user':
-      case 'member':
-        return 'info';
-      case 'guest':
-        return 'secondary';
+  getRoleSeverity(role: string): "success" | "info" | "warn" | "danger" | "secondary" | "contrast" | undefined {
+    switch (role) {
+      case 'Admin':
+        return 'warn';
+      case 'Super Admin':
+        return 'success';
       default:
-        return 'secondary';
+        return 'info';
     }
   }
 

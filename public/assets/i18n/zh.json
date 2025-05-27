@@ -205,6 +205,35 @@
     "VER_MENSAJES": "查看消息"
   },
   "ADMIN": {
+    "DASHBOARD": {
+      "TITLE": "管理员仪表板",
+      "OVERVIEW": {
+        "TITLE": "概览",
+        "TOTAL_USERS": "总用户数",
+        "TOTAL_PROJECTS": "总项目数",
+        "TOTAL_ORGANIZATIONS": "总组织数",
+        "REGISTERED_ORGANIZATIONS": "拥有用户的组织",
+        "NEW_USERS_THIS_MONTH": "本月新增用户"
+      },
+      "CHARTS": {
+        "MONTHLY_TREND": "月度注册趋势",
+        "MONTHLY_TREND_SUBTITLE": "过去6个月注册的新用户",
+        "ROLE_DISTRIBUTION": "角色分布",
+        "ROLE_DISTRIBUTION_SUBTITLE": "系统中按角色类型的用户"
+      },
+      "RECENT_USERS": {
+        "TITLE": "最近用户",
+        "SUBTITLE": "平台上最新注册的用户",
+        "NO_NAME": "未分配名称",
+        "NO_RECENT_USERS": "最近没有用户注册"
+      },
+      "LOADING": {
+        "LOADING_DATA": "正在加载仪表板数据...",
+        "ERROR_LOADING": "加载仪表板错误",
+        "ERROR_MESSAGE": "无法加载仪表板统计信息。请再试一次。",
+        "TRY_AGAIN": "再试一次"
+      }
+    },
     "USERS": {
       "TITLE": "用户管理",
       "EDIT_USER_TITLE": "编辑用户",
@@ -381,18 +410,21 @@
     }
   },
   "JOBS": {
-    "TITLE": "工作机会管理",
-    "ACTIONS": {
-      "NEW_JOB": "新建职位"
-    },
-    "FIELDS": {
+    "TITLE": "工作机会管理",    "ACTIONS": {
+      "NEW_JOB": "新建职位",
+      "EDIT_JOB": "编辑职位"
+    },    "FIELDS": {
       "NAME": "名称",
       "STATUS": "状态",
       "PROJECT": "项目",
       "LOCATION": "地点",
       "WORK_TYPE": "工作类型",
       "VACANCIES": "空缺",
-      "CLOSING_DATE": "截止日期"
+      "CLOSING_DATE": "截止日期",
+      "DESCRIPTION": "描述",
+      "PUBLICATION_DATE": "发布日期",
+      "REQUIREMENTS": "要求",
+      "WORK_SCHEDULE": "工作时间"
     },
     "NO_JOBS_FOUND": "未找到工作机会",
     "STATUS": {
@@ -412,8 +444,7 @@
       "DELETE_MULTIPLE_MESSAGE": "您确定要删除选中的{{count}}个职位吗？",
       "DELETE_ACCEPT": "是的，删除",
       "DELETE_REJECT": "取消"
-    },
-    "MESSAGES": {
+    },    "MESSAGES": {
       "DELETE_SUCCESS": "职位已成功删除",
       "DELETE_MULTIPLE_SUCCESS": "{{count}}个职位已成功删除",
       "DELETE_ERROR": "删除职位时出错",
@@ -421,7 +452,12 @@
       "STATUS_CHANGE_SUCCESS": "状态已更改为{{status}}",
       "STATUS_CHANGE_ERROR": "更改状态时出错",
       "SUCCESS_TITLE": "成功",
-      "ERROR_TITLE": "错误"
+      "ERROR_TITLE": "错误",
+      "CREATE_SUCCESS": "职位招聘已成功创建。翻译已自动生成。",
+      "CREATE_ERROR": "创建职位招聘时出错",
+      "UPDATE_SUCCESS": "职位招聘已成功更新",
+      "UPDATE_ERROR": "更新职位招聘时出错",
+      "TRANSLATION_NOTE": "注意：名称和描述字段将自动翻译为所有三种语言。"
     }
   },
   "TABLE": {

@@ -24,6 +24,10 @@ import { OfertasEmpleoService } from '../../services/ofertas-empleo.service';
 import { UserService } from '../../../auth/services/user.service';
 import { OfertasEmpleo, Estado, TipoTrabajo, Jornada } from '../../models/ofertas-empleo.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { NuevoEmpleoComponent } from '../../components/nuevo-empleo/nuevo-empleo.component';
+import { ActualizarEmpleoComponent } from '../../components/actualizar-empleo/actualizar-empleo.component';
+import { ProjectService } from '../../services/project.service';
+import { TranslationService } from '../../../core/services/translation.service';
 
 @Component({
   selector: 'app-ofertas-empleo',
@@ -45,7 +49,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     BadgeModule,
     ConfirmDialogModule,
     ToastModule,
-    CheckboxModule
+    CheckboxModule,
+    NuevoEmpleoComponent,
+    ActualizarEmpleoComponent
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './ofertas-empleo.component.html',
@@ -57,10 +63,16 @@ export class OfertasEmpleoComponent {
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
   private translateService = inject(TranslateService);
+  private projectService = inject(ProjectService);
+  private translationService = inject(TranslationService);
 
   // Señales reactivas
   ofertas = computed(() => this.ofertasService.ofertas());
   loading = computed(() => this.ofertasService.ofertasLoading());
+  
+  // Para obtener el idioma actual y nombres de proyectos
+  lang = computed(() => this.translationService.currentLang());
+  projectNames = computed(() => this.projectService.projectNames());
   
   // Permisos del usuario
   canCreate = computed(() => this.userService.isSuperAdmin() || (this.userService.isAdmin() && this.userService.isMandante()));
@@ -196,9 +208,38 @@ export class OfertasEmpleoComponent {
       });
     }
   }
-
   // --- Métodos de utilidad ---
-    getSeverity(estado: Estado): 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' {
+  
+  // Métodos helper para mostrar contenido traducido
+  getOfertaName(oferta: OfertasEmpleo): string {
+    const lang = this.lang();
+    const key = `nombre_${lang}` as 'nombre_es' | 'nombre_en' | 'nombre_zh';
+    return oferta[key] || oferta.nombre_es || oferta.nombre || '';
+  }
+
+  getOfertaDescription(oferta: OfertasEmpleo): string {
+    const lang = this.lang();
+    const key = `descripcion_${lang}` as 'descripcion_es' | 'descripcion_en' | 'descripcion_zh';
+    return oferta[key] || oferta.descripcion_es || oferta.descripcion || '';
+  }
+
+  getProjectName(projectId: string): string {
+    const projectNamesMap = this.projectNames();
+    const lang = this.lang();
+    
+    if (projectNamesMap[projectId]) {
+      const names = projectNamesMap[projectId];
+      switch (lang) {
+        case 'es': return names.es;
+        case 'en': return names.en;
+        case 'zh': return names.zh;
+        default: return names.es;
+      }
+    }
+    return projectId; // Fallback al ID si no se encuentra el proyecto
+  }
+
+  getSeverity(estado: Estado): 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' {
     switch (estado) {
       case 'Abierto': return 'success';
       case 'Cerrado': return 'secondary';

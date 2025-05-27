@@ -206,6 +206,35 @@
     "VER_MENSAJES": "View Messages"
   },
   "ADMIN": {
+    "DASHBOARD": {
+      "TITLE": "Admin Dashboard",
+      "OVERVIEW": {
+        "TITLE": "Overview",
+        "TOTAL_USERS": "Total Users",
+        "TOTAL_PROJECTS": "Total Projects",
+        "TOTAL_ORGANIZATIONS": "Total Organizations",
+        "REGISTERED_ORGANIZATIONS": "Organizations with users",
+        "NEW_USERS_THIS_MONTH": "New Users This Month"
+      },
+      "CHARTS": {
+        "MONTHLY_TREND": "Monthly Registration Trend",
+        "MONTHLY_TREND_SUBTITLE": "New users registered in the last 6 months",
+        "ROLE_DISTRIBUTION": "Role Distribution",
+        "ROLE_DISTRIBUTION_SUBTITLE": "Users by role type in the system"
+      },
+      "RECENT_USERS": {
+        "TITLE": "Recent Users",
+        "SUBTITLE": "Last users registered on the platform",
+        "NO_NAME": "No name assigned",
+        "NO_RECENT_USERS": "No users registered recently"
+      },
+      "LOADING": {
+        "LOADING_DATA": "Loading dashboard data...",
+        "ERROR_LOADING": "Error Loading Dashboard",
+        "ERROR_MESSAGE": "Could not load dashboard statistics. Please try again.",
+        "TRY_AGAIN": "Try Again"
+      }
+    },
     "USERS": {
       "TITLE": "User Management",
       "EDIT_USER_TITLE": "Edit User",
@@ -383,18 +412,21 @@
     }
   },
   "JOBS": {
-    "TITLE": "Job Offer Management",
-    "ACTIONS": {
-      "NEW_JOB": "New Job Offer"
-    },
-    "FIELDS": {
+    "TITLE": "Job Offer Management",    "ACTIONS": {
+      "NEW_JOB": "New Job Offer",
+      "EDIT_JOB": "Edit Job Offer"
+    },    "FIELDS": {
       "NAME": "Name",
       "STATUS": "Status",
       "PROJECT": "Project",
       "LOCATION": "Location",
       "WORK_TYPE": "Work Type",
       "VACANCIES": "Vacancies",
-      "CLOSING_DATE": "Closing Date"
+      "CLOSING_DATE": "Closing Date",
+      "DESCRIPTION": "Description",
+      "PUBLICATION_DATE": "Publication Date",
+      "REQUIREMENTS": "Requirements",
+      "WORK_SCHEDULE": "Work Schedule"
     },
     "NO_JOBS_FOUND": "No job offers found",
     "STATUS": {
@@ -414,8 +446,7 @@
       "DELETE_MULTIPLE_MESSAGE": "Are you sure you want to delete {{count}} selected offer(s)?",
       "DELETE_ACCEPT": "Yes, delete",
       "DELETE_REJECT": "Cancel"
-    },
-    "MESSAGES": {
+    },    "MESSAGES": {
       "DELETE_SUCCESS": "Offer deleted successfully",
       "DELETE_MULTIPLE_SUCCESS": "{{count}} offer(s) deleted successfully",
       "DELETE_ERROR": "Error deleting the offer",
@@ -423,7 +454,12 @@
       "STATUS_CHANGE_SUCCESS": "Status changed to {{status}}",
       "STATUS_CHANGE_ERROR": "Error changing the status",
       "SUCCESS_TITLE": "Success",
-      "ERROR_TITLE": "Error"
+      "ERROR_TITLE": "Error",
+      "CREATE_SUCCESS": "Job offer created successfully. Translations were generated automatically.",
+      "CREATE_ERROR": "Error creating the job offer",
+      "UPDATE_SUCCESS": "Job offer updated successfully",
+      "UPDATE_ERROR": "Error updating the job offer",
+      "TRANSLATION_NOTE": "Note: Name and description fields will be automatically translated to all three languages."
     }
   },
   "TABLE": {

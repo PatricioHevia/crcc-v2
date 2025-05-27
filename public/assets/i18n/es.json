@@ -279,12 +279,69 @@
       "DELETE_CANCELLED_DETAIL": "La eliminación de la organización ha sido cancelada.",
       "EDIT_TITLE": "Editar Organización",
       "NO_CHANGES_DETECTED": "No se detectaron cambios en la organización.",
-      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",
-      "FORM": {
+      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",      "FORM": {
         "CURRENT_LOGO": "Logo Actual",
         "CHANGE_LOGO": "Cambiar Logo",
         "REMOVE_LOGO": "Quitar Logo"
       }
+    },
+    "DASHBOARD": {
+      "TITLE": "Panel de Control",
+      "OVERVIEW": {
+        "TOTAL_USERS": "Total Usuarios",
+        "ORGANIZATIONS": "Organizaciones",
+        "NEW_USERS_THIS_MONTH": "Nuevos Usuarios Este Mes",
+        "ACTIVITY_RATE": "Tasa de Actividad",
+        "ACTIVE_USERS": "activos",
+        "INACTIVE_USERS": "inactivos",
+        "REGISTERED_ORGANIZATIONS": "Organizaciones con usuarios",
+        "REGISTERED_USERS": "Usuarios registrados"
+      },
+      "ACTIVITY": {
+        "ACTIVE_LAST_WEEK": "Activos Última Semana",
+        "ACTIVE_LAST_MONTH": "Activos Último Mes",
+        "NEVER_LOGGED_IN": "Nunca Ingresaron",
+        "EXCELLENT": "Excelente",
+        "GOOD": "Buena",
+        "NEEDS_IMPROVEMENT": "Necesita Mejora"
+      },
+      "CHARTS": {
+        "MONTHLY_TREND": "Tendencia Mensual de Registros",
+        "MONTHLY_TREND_SUBTITLE": "Nuevos usuarios registrados en los últimos 6 meses",
+        "ROLE_DISTRIBUTION": "Distribución por Roles",
+        "ROLE_DISTRIBUTION_SUBTITLE": "Usuarios por tipo de rol en el sistema",
+        "USERS_BY_ORGANIZATION": "Usuarios por Organización",
+        "USERS_BY_ORGANIZATION_SUBTITLE": "Top 10 organizaciones con más usuarios",
+        "USERS_REGISTERED": "Usuarios Registrados",
+        "ACTIVE_USERS": "Usuarios Activos",
+        "INACTIVE_USERS": "Usuarios Inactivos"
+      },
+      "RECENT_USERS": {
+        "TITLE": "Usuarios Recientes",
+        "SUBTITLE": "Últimos usuarios registrados en la plataforma",
+        "NO_NAME": "Sin nombre asignado",
+        "UNKNOWN_DATE": "Fecha desconocida",
+        "NO_RECENT_USERS": "No hay usuarios registrados recientemente"
+      },
+      "GROWTH_STATS": {
+        "TITLE": "Estadísticas de Crecimiento",
+        "AVG_USERS_MONTH": "Promedio usuarios/mes:",
+        "PEAK_MONTH": "Mes pico:",
+        "USERS": "usuarios"
+      },
+      "ACTIVITY_SUMMARY": {
+        "TITLE": "Resumen de Actividad",
+        "TOTAL_REGISTERED": "Total registrados:",
+        "HAVE_LOGGED_IN": "Han ingresado alguna vez:",
+        "ADOPTION_RATE": "Tasa de adopción:"
+      },
+      "LOADING": {
+        "LOADING_DATA": "Cargando datos del panel...",
+        "ERROR_LOADING": "Error al Cargar el Panel",
+        "ERROR_MESSAGE": "No se pudieron cargar las estadísticas del panel. Intenta de nuevo.",
+        "TRY_AGAIN": "Intentar de Nuevo"
+      },
+      "NO_ORGANIZATION": "Sin Organización"
     }
   },
   "USER_ROLES": {
@@ -383,18 +440,21 @@
     }
   },
   "JOBS": {
-    "TITLE": "Gestión de Ofertas de Empleo",
-    "ACTIONS": {
-      "NEW_JOB": "Nueva Oferta"
-    },
-    "FIELDS": {
+    "TITLE": "Gestión de Ofertas de Empleo",    "ACTIONS": {
+      "NEW_JOB": "Nueva Oferta",
+      "EDIT_JOB": "Editar Oferta"
+    },    "FIELDS": {
       "NAME": "Nombre",
       "STATUS": "Estado",
       "PROJECT": "Proyecto",
       "LOCATION": "Ubicación",
       "WORK_TYPE": "Tipo de Trabajo",
       "VACANCIES": "Vacantes",
-      "CLOSING_DATE": "Fecha de Cierre"
+      "CLOSING_DATE": "Fecha de Cierre",
+      "DESCRIPTION": "Descripción",
+      "PUBLICATION_DATE": "Fecha de Publicación",
+      "REQUIREMENTS": "Requisitos",
+      "WORK_SCHEDULE": "Horario de Trabajo"
     },
     "NO_JOBS_FOUND": "No se encontraron ofertas de empleo",
     "STATUS": {
@@ -424,7 +484,14 @@
       "STATUS_CHANGE_SUCCESS": "Estado cambiado a {{status}}",
       "STATUS_CHANGE_ERROR": "Error al cambiar el estado",
       "SUCCESS_TITLE": "Éxito",
-      "ERROR_TITLE": "Error"
+      "ERROR_TITLE": "Error",
+      "CREATE_SUCCESS": "Oferta de empleo creada exitosamente. Las traducciones se generaron automáticamente.",
+      "CREATE_ERROR": "Error al crear la oferta de empleo",
+      "UPDATE_SUCCESS": "Oferta de empleo actualizada exitosamente",
+      "UPDATE_ERROR": "Error al actualizar la oferta de empleo",
+      "DELETE_SUCCESS": "Oferta de empleo eliminada exitosamente",
+      "DELETE_ERROR": "Error al eliminar la oferta de empleo",
+      "TRANSLATION_NOTE": "Nota: Los campos nombre y descripción se traducirán automáticamente a los tres idiomas."
     }
   },
   "TABLE": {

@@ -1,7 +1,8 @@
 import { Injectable, inject, Signal, OnDestroy, computed } from '@angular/core';
-import { OfertasEmpleo, Postulacion, Estado, EstadoPostulacion } from '../models/ofertas-empleo.interface';
+import { OfertasEmpleo, Postulacion, Estado, EstadoPostulacion, TipoTrabajo, Jornada } from '../models/ofertas-empleo.interface';
 import { FirestoreService } from '../../core/services/firestore.service';
 import { UserService } from '../../auth/services/user.service';
+import { TranslationService } from '../../core/services/translation.service';
 import { Timestamp, QueryConstraint, orderBy, where } from '@angular/fire/firestore';
 
 @Injectable({
@@ -10,6 +11,7 @@ import { Timestamp, QueryConstraint, orderBy, where } from '@angular/fire/firest
 export class OfertasEmpleoService implements OnDestroy {
     private readonly fs = inject(FirestoreService);
     private readonly userService = inject(UserService);
+    private readonly translationService = inject(TranslationService);
 
     // Listener para ofertas de empleo
     private ofertasListener: {
@@ -99,6 +101,78 @@ export class OfertasEmpleoService implements OnDestroy {
 
         console.log(`OfertasEmpleoService: Creando nueva oferta de empleo`);
         return this.fs.create<Omit<OfertasEmpleo, 'id'>>('ofertas-empleo', ofertaCompleta);
+    }    /**
+     * Crea una nueva oferta de empleo con traducción automática.
+     * Similar al patrón usado en ProjectService.createProject
+     * @param nombre Nombre de la oferta
+     * @param descripcion Descripción de la oferta
+     * @param proyecto Proyecto asociado
+     * @param lugar Ubicación de la oferta
+     * @param tipoTrabajo Tipo de trabajo
+     * @param tipoJornada Tipo de jornada
+     * @param vacantes Número de vacantes
+     * @param fechaPublicacion Fecha de publicación
+     * @param fechaCierre Fecha de cierre
+     * @param requisitos Requisitos opcionales
+     */
+    public async createOfertaWithTranslation(
+        nombre: string,
+        descripcion: string,
+        proyecto: string,
+        lugar: string,
+        tipoTrabajo: TipoTrabajo,
+        tipoJornada: Jornada,
+        vacantes: number,
+        fechaPublicacion: Date,
+        fechaCierre: Date,
+        requisitos: string[] = []
+    ): Promise<string> {
+        this.checkPermissions('create');
+        
+        const currentUser = this.userService.usuario();
+        if (!currentUser) {
+            throw new Error('Usuario no autenticado');
+        }
+
+        try {
+            // Crear objeto base sin traducir
+            const ofertaBase: Omit<OfertasEmpleo, 'id'> = {
+                nombre,
+                nombre_es: '',
+                nombre_en: '',
+                nombre_zh: '',
+                descripcion,
+                descripcion_es: '',
+                descripcion_en: '',
+                descripcion_zh: '',
+                proyecto,
+                lugar,
+                tipoTrabajo,
+                tipoJornada,
+                vacantes,
+                fechaPublicacion: Timestamp.fromDate(fechaPublicacion),
+                fechaCierre: Timestamp.fromDate(fechaCierre),
+                requisitos,
+                estado: 'Abierto',
+                fechaCreacion: Timestamp.now(),
+                usuarioCreacion: currentUser.id,
+                eliminado: false
+            };
+
+            // Traducir usando el servicio de traducción
+            const ofertaTraducida = await this.translationService.translateJson(ofertaBase);
+            
+            // Asegurar que las fechas se mantengan como Timestamp
+            ofertaTraducida.fechaPublicacion = Timestamp.fromDate(fechaPublicacion);
+            ofertaTraducida.fechaCierre = Timestamp.fromDate(fechaCierre);
+            ofertaTraducida.fechaCreacion = Timestamp.now();
+
+            console.log('OfertasEmpleoService: Creando nueva oferta con traducción automática');
+            return this.fs.create<Omit<OfertasEmpleo, 'id'>>('ofertas-empleo', ofertaTraducida);
+        } catch (error) {
+            console.error('Error al crear oferta con traducción:', error);
+            throw error;
+        }
     }
 
     /**

@@ -193,4 +193,119 @@ export class UserService {
   public getById(id: string): Observable<Account | null> {
     return this.fs.listenOne<Account>('accounts', id);
   }
+
+  // --- Métodos del Dashboard ---
+  public async getDashboardSummary() {
+    try {      // Obtener todos los usuarios para los cálculos del dashboard
+      const allUsers = this.allUsersForAdmin();
+      
+      // Si no hay datos de usuarios disponibles, retornar datos vacíos
+      if (!allUsers || allUsers.length === 0) {
+        return {
+          overview: {
+            totalUsers: 0,
+            activeUsers: 0,
+            inactiveUsers: 0,
+            totalOrganizations: 0,
+            newUsersThisMonth: 0
+          },
+          recentUsers: [],
+          monthlyData: this.generateEmptyMonthlyData(),
+          roleDistribution: []
+        };
+      }
+      
+      // Calcular estadísticas generales
+      const totalUsers = allUsers.length;
+      const activeUsers = allUsers.filter(user => user.active === true).length;
+      const inactiveUsers = totalUsers - activeUsers;
+      
+      // Obtener conteo de organizaciones (simplificado - puede que necesites obtenerlo de una colección separada)
+      const totalOrganizations = new Set(allUsers.map(user => user.organization).filter(Boolean)).size;
+      
+      // Calcular nuevos usuarios este mes
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth();
+      const currentYear = currentDate.getFullYear();      const newUsersThisMonth = allUsers.filter(user => {
+        if (!user.createdAt) return false;
+        const userDate = user.createdAt.toDate();
+        return userDate.getMonth() === currentMonth && userDate.getFullYear() === currentYear;
+      }).length;      // Obtener usuarios recientes (últimos 10)
+      const recentUsers = allUsers
+        .filter(user => user.createdAt)
+        .sort((a, b) => b.createdAt!.toMillis() - a.createdAt!.toMillis())
+        .slice(0, 10)
+        .map(user => ({
+          id: parseInt(user.id || '0'),
+          name: user.name || '',
+          email: user.email || '',
+          role: user.role || 'USER',
+          createdAt: user.createdAt!.toDate().toISOString()
+        }));
+
+      // Generar datos mensuales para los últimos 6 meses
+      const monthlyData = [];
+      for (let i = 5; i >= 0; i--) {
+        const date = new Date(currentYear, currentMonth - i, 1);
+        const monthName = date.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
+        
+        const usersInMonth = allUsers.filter(user => {
+          if (!user.createdAt) return false;
+          const userDate = user.createdAt.toDate();
+          return userDate.getMonth() === date.getMonth() && userDate.getFullYear() === date.getFullYear();
+        }).length;
+        
+        monthlyData.push({
+          month: monthName,
+          users: usersInMonth
+        });
+      }
+
+      // Calcular distribución por rol
+      const roleCounts = allUsers.reduce((acc, user) => {
+        const role = user.role || 'USER';
+        acc[role] = (acc[role] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+
+      const roleDistribution = Object.entries(roleCounts).map(([role, count]) => ({
+        role,
+        count
+      }));
+
+      return {
+        overview: {
+          totalUsers,
+          activeUsers,
+          inactiveUsers,
+          totalOrganizations,
+          newUsersThisMonth
+        },
+        recentUsers,
+        monthlyData,
+        roleDistribution
+      };
+    } catch (error) {
+      console.error('Error getting dashboard summary:', error);
+      throw error;
+    }
+  }
+
+  private generateEmptyMonthlyData() {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+    const monthlyData = [];
+    
+    for (let i = 5; i >= 0; i--) {
+      const date = new Date(currentYear, currentMonth - i, 1);
+      const monthName = date.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
+      monthlyData.push({
+        month: monthName,
+        users: 0
+      });
+    }
+    
+    return monthlyData;
+  }
 }

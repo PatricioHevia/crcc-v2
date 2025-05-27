@@ -1,4 +1,165 @@
-<div class="grid grid-cols-1 w-full bg-stone-50 dark:bg-gris rounded p-4">
-  
+<div class="w-full bg-gray-50 dark:bg-surface-900 min-h-screen p-8">
+  <!-- Loading State -->
+  <div *ngIf="isLoading()" class="space-y-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div *ngFor="let i of [1,2,3]" class="h-32 shadow-sm hover:shadow-md transition-shadow dark:bg-zinc-950 rounded-lg bg-white p-6">
+        <p-skeleton height="2rem" class="mb-2"></p-skeleton>
+        <p-skeleton height="1.5rem" width="70%"></p-skeleton>
+        <p-skeleton height="1rem" width="50%" class="mt-2"></p-skeleton>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div *ngFor="let i of [1,2]" class="h-80 shadow-sm hover:shadow-md transition-shadow dark:bg-zinc-950 rounded-lg bg-white p-6">
+        <p-skeleton height="15rem"></p-skeleton>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!isLoading() && dashboardStats() as stats" class="space-y-8">
+    
+    <!-- Overview Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Total Users Card -->
+      <div class="shadow-sm hover:shadow-md transition-shadow dark:bg-zinc-950 rounded-lg">
+        <div class="flex items-center justify-between p-6">
+          <div>
+            <p class="text-sm font-medium text-gray-600 dark:text-gray-300">{{ 'ADMIN.DASHBOARD.OVERVIEW.TOTAL_USERS' | translate }}</p>
+            <p class="text-3xl font-bold text-gray-900 dark:text-white mt-2">{{ stats.overview.totalUsers }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+              <span class="text-green-600 dark:text-green-400">{{ stats.overview.activeUsers }} {{ 'ADMIN.DASHBOARD.OVERVIEW.ACTIVE_USERS' | translate }}</span> • 
+              <span class="text-red-600 dark:text-red-400">{{ stats.overview.inactiveUsers }} {{ 'ADMIN.DASHBOARD.OVERVIEW.INACTIVE_USERS' | translate }}</span>
+            </p>
+          </div>
+          <div class="h-16 w-16 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+            <i class="pi pi-users text-blue-600 dark:text-blue-300 text-2xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Organizations Card -->
+      <div class="shadow-sm hover:shadow-md transition-shadow dark:bg-zinc-950 rounded-lg">
+        <div class="flex items-center justify-between p-6">
+          <div>
+            <p class="text-sm font-medium text-gray-600 dark:text-gray-300">{{ 'ADMIN.DASHBOARD.OVERVIEW.ORGANIZATIONS' | translate }}</p>
+            <p class="text-3xl font-bold text-gray-900 dark:text-white mt-2">{{ stats.overview.totalOrganizations }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">{{ 'ADMIN.DASHBOARD.OVERVIEW.REGISTERED_ORGANIZATIONS' | translate }}</p>
+          </div>
+          <div class="h-16 w-16 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+            <i class="pi pi-building text-purple-600 dark:text-purple-300 text-2xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Users This Month -->
+      <div class="shadow-sm hover:shadow-md transition-shadow dark:bg-zinc-950 rounded-lg">
+        <div class="flex items-center justify-between p-6">
+          <div>
+            <p class="text-sm font-medium text-gray-600 dark:text-gray-300">{{ 'ADMIN.DASHBOARD.OVERVIEW.NEW_USERS_THIS_MONTH' | translate }}</p>
+            <p class="text-3xl font-bold text-gray-900 dark:text-white mt-2">{{ stats.overview.newUsersThisMonth }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">{{ 'ADMIN.DASHBOARD.OVERVIEW.REGISTERED_USERS' | translate }}</p>
+          </div>
+          <div class="h-16 w-16 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+            <i class="pi pi-user-plus text-green-600 dark:text-green-300 text-2xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+      
+      <!-- Monthly Trend Chart -->
+      <div class="shadow-sm hover:shadow-md transition-shadow dark:bg-zinc-950 rounded-lg bg-white">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ 'ADMIN.DASHBOARD.CHARTS.MONTHLY_TREND' | translate }}</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{{ 'ADMIN.DASHBOARD.CHARTS.MONTHLY_TREND_SUBTITLE' | translate }}</p>
+        </div>
+        
+        <div class="h-80 p-6">
+          <canvas #monthlyChart></canvas>
+        </div>
+      </div>
+
+      <!-- Role Distribution Chart -->
+      <div class="shadow-sm hover:shadow-md transition-shadow dark:bg-zinc-950 rounded-lg bg-white">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ 'ADMIN.DASHBOARD.CHARTS.ROLE_DISTRIBUTION' | translate }}</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{{ 'ADMIN.DASHBOARD.CHARTS.ROLE_DISTRIBUTION_SUBTITLE' | translate }}</p>
+        </div>
+        
+        <div class="h-80 p-6">
+          <canvas #roleChart></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Users -->
+    <div class="mt-8">
+      <div class="shadow-sm hover:shadow-md transition-shadow dark:bg-zinc-950 rounded-lg bg-white">
+        <div class="p-6 flex justify-between items-center border-b border-gray-200 dark:border-gray-600">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ 'ADMIN.DASHBOARD.RECENT_USERS.TITLE' | translate }}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{{ 'ADMIN.DASHBOARD.RECENT_USERS.SUBTITLE' | translate }}</p>
+          </div>
+          <p-button 
+            icon="pi pi-external-link" 
+            size="small" 
+            [text]="true"
+            routerLink="/admin/users">
+          </p-button>
+        </div>
+        
+        <div class="space-y-3 p-6">
+          <div 
+            *ngFor="let user of stats.recentUsers" 
+            class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+            
+            <div class="flex items-center space-x-4">
+              <div class="h-12 w-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                <span class="text-blue-600 dark:text-blue-300 font-medium text-lg">
+                  {{ (user.name && user.name.charAt(0).toUpperCase()) || '?' }}
+                </span>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900 dark:text-white">{{ user.name || ('ADMIN.DASHBOARD.RECENT_USERS.NO_NAME' | translate) }}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">{{ user.email }}</p>
+              </div>
+            </div>
+            
+            <div class="text-right">
+              <p-tag 
+                [value]="'USER_ROLES.' + user.role | translate" 
+                [severity]="getRoleSeverity(user.role)"
+                class="text-xs mb-2">
+              </p-tag>
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                {{ formatUserDate(user.createdAt) }}
+              </p>
+            </div>
+          </div>
+
+          <div *ngIf="stats.recentUsers.length === 0" class="text-center py-12">
+            <i class="pi pi-users text-gray-400 dark:text-gray-500 text-4xl mb-3"></i>
+            <p class="text-gray-500 dark:text-gray-400">{{ 'ADMIN.DASHBOARD.RECENT_USERS.NO_RECENT_USERS' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading() && !dashboardStats()" class="text-center py-16">
+    <i class="pi pi-exclamation-triangle text-yellow-500 dark:text-yellow-400 text-6xl mb-6"></i>
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ 'ADMIN.DASHBOARD.LOADING.ERROR_LOADING' | translate }}</h3>
+    <p class="text-gray-600 dark:text-gray-300 mb-6">{{ 'ADMIN.DASHBOARD.LOADING.ERROR_MESSAGE' | translate }}</p>
+    <p-button 
+      [label]="'ADMIN.DASHBOARD.LOADING.TRY_AGAIN' | translate" 
+      icon="pi pi-refresh"
+      (click)="reloadPage()">
+    </p-button>
+  </div>
 
 </div>

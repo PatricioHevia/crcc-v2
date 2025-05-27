@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild, ElementRef, computed, signal, AfterViewInit, OnDestroy, effect } from '@angular/core';
+import { Component, inject, OnInit, ViewChild, ElementRef, computed, signal, effect } from '@angular/core';
 import { UserService } from '../../../auth/services/user.service';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
@@ -59,7 +59,7 @@ interface DashboardStats {
     TranslateModule
   ],
 })
-export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AdminDashboardComponent implements OnInit {
   @ViewChild('monthlyChart') monthlyChartRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('roleChart') roleChartRef!: ElementRef<HTMLCanvasElement>;
 
@@ -78,37 +78,36 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit, OnDestroy
   private roleChart: Chart | null = null;
 
   constructor() {
-    // Setup reactive data loading in constructor for injection context
+    // Use effect properly in a constructor (injection context)
     effect(() => {
+      // Check if the user data is ready
       const isUserResolved = this.userService.isUserAccountResolved();
-      const isAdmin = this.userService.isAdmin();
-      const allUsersLoading = this.userService.allUsersLoading();
-
-      // Only proceed when user is resolved
       if (!isUserResolved) {
-        return;
+        return; // Wait until user auth is resolved
       }
-
-      // If not admin, set loading to false and return
-      if (!isAdmin) {
+      
+      // Check if user is admin
+      const isAdminUser = this.userService.isAdmin();
+      if (!isAdminUser) {
         this.loading.set(false);
         this.dashboardData.set(null);
-        return;
+        return; // Not an admin, don't load dashboard
       }
-
-      // If admin but still loading users, keep waiting
+      
+      // Check if users data is still loading
+      const allUsersLoading = this.userService.allUsersLoading();
       if (allUsersLoading) {
-        this.loading.set(true);
-        return;
+        return; // Wait until users data is loaded
       }
-
-      // Now we can load dashboard data
+      
+      // Now we have admin user and users data is ready
       this.loadDashboardStats();
     });
   }
 
   ngOnInit() {
-    // Component initialization if needed
+    // Initialization happens in the constructor effect
+  }
   }
 
   ngAfterViewInit() {

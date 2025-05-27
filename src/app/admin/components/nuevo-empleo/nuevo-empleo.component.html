@@ -1,0 +1,157 @@
+<p-drawer [(visible)]="visible" position="right" [baseZIndex]="10000"
+    styleClass="!w-full md:!w-[70%] lg:!w-[50%] xl:!w-[35%] flex flex-col" [closable]="false">
+
+    <div class="flex items-center p-4 w-full flex-shrink-0">
+        <img
+            [src]="themeService.isDarkTheme() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
+            alt="{{ 'TOPBAR.TITUTLO' | translate }}" class="h-12 w-auto mr-2 flex-shrink-0">
+        <span class="flex-grow text-xl text-center font-semibold dark:text-gray-200">
+            {{ 'JOBS.ACTIONS.NEW_JOB' | translate }}
+        </span>
+        <p-button icon="pi pi-times" (onClick)="onCancel()"
+            styleClass="p-button-rounded p-button-text p-button-plain flex-shrink-0">
+        </p-button>
+    </div>
+    <p-divider class="flex-shrink-0"></p-divider>
+
+    <!-- Nota informativa sobre traducción automática -->
+    <div class="mx-4 mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+      <div class="flex align-items-start gap-2">
+        <i class="pi pi-info-circle text-blue-500 text-sm mt-1"></i>
+        <p class="text-sm text-blue-700 dark:text-blue-300 m-0">
+          {{ 'JOBS.MESSAGES.TRANSLATION_NOTE' | translate }}
+        </p>
+      </div>
+    </div>
+
+  <!-- Content -->
+  <div class="flex-grow overflow-y-auto">
+    @if (visible()) {
+      <form [formGroup]="empleoForm" class="p-4 flex flex-col gap-4">
+
+        <!-- Nombre del empleo -->
+        <div class="flex flex-col">
+            <label htmlFor="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'JOBS.FIELDS.NAME' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <input pInputText id="nombre" formControlName="nombre" class="w-full"/>
+            @if (f['nombre'].invalid && (f['nombre'].dirty || f['nombre'].touched)) {
+              @if (f['nombre'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+              @if (f['nombre'].errors?.['minlength']) { <small class="text-red-500">{{ 'VALIDATION.MINLENGTH' | translate:{ requiredLength: f['nombre'].errors?.['minlength'].requiredLength } }}</small> }
+            }
+        </div>
+
+        <!-- Descripción del empleo -->
+        <div class="flex flex-col">
+            <label htmlFor="descripcion" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'JOBS.FIELDS.DESCRIPTION' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <textarea pInputTextarea id="descripcion" formControlName="descripcion" rows="4" class="w-full"></textarea>
+            @if (f['descripcion'].invalid && (f['descripcion'].dirty || f['descripcion'].touched)) {
+              @if (f['descripcion'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+              @if (f['descripcion'].errors?.['minlength']) { <small class="text-red-500">{{ 'VALIDATION.MINLENGTH' | translate:{ requiredLength: f['descripcion'].errors?.['minlength'].requiredLength } }}</small> }
+            }
+        </div>
+
+        <p-divider></p-divider>
+
+        <!-- Información del empleo -->
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col">
+            <label htmlFor="proyecto" class="font-medium mb-1">{{ 'JOBS.FIELDS.PROJECT' | translate }} <span class="text-red-500">*</span></label>
+            <input pInputText id="proyecto" formControlName="proyecto" class="w-full"/>
+            @if (f['proyecto'].invalid && (f['proyecto'].dirty || f['proyecto'].touched)) {
+              @if (f['proyecto'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+            }
+          </div>
+
+          <div class="flex flex-col">
+            <label htmlFor="lugar" class="font-medium mb-1">{{ 'JOBS.FIELDS.LOCATION' | translate }} <span class="text-red-500">*</span></label>
+            <input pInputText id="lugar" formControlName="lugar" class="w-full"/>
+            @if (f['lugar'].invalid && (f['lugar'].dirty || f['lugar'].touched)) {
+              @if (f['lugar'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+            }
+          </div>
+
+          <div class="flex flex-col">
+            <label htmlFor="tipoTrabajo" class="font-medium mb-1">{{ 'JOBS.FIELDS.WORK_TYPE' | translate }} <span class="text-red-500">*</span></label>
+            <p-select id="tipoTrabajo" formControlName="tipoTrabajo" [options]="tipoTrabajoOptions" 
+              optionLabel="label" optionValue="value" [placeholder]="'ACTIONS.SELECT_OPTION' | translate" 
+              appendTo="body" styleClass="w-full"></p-select>
+            @if (f['tipoTrabajo'].invalid && (f['tipoTrabajo'].dirty || f['tipoTrabajo'].touched)) {
+              @if (f['tipoTrabajo'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+            }
+          </div>
+
+          <div class="flex flex-col">
+            <label htmlFor="tipoJornada" class="font-medium mb-1">{{ 'JOBS.FIELDS.WORK_SCHEDULE' | translate }} <span class="text-red-500">*</span></label>
+            <p-select id="tipoJornada" formControlName="tipoJornada" [options]="jornadaOptions" 
+              optionLabel="label" optionValue="value" [placeholder]="'ACTIONS.SELECT_OPTION' | translate" 
+              appendTo="body" styleClass="w-full"></p-select>
+            @if (f['tipoJornada'].invalid && (f['tipoJornada'].dirty || f['tipoJornada'].touched)) {
+              @if (f['tipoJornada'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+            }
+          </div>
+
+          <div class="flex flex-col">
+            <label htmlFor="vacantes" class="font-medium mb-1">{{ 'JOBS.FIELDS.VACANCIES' | translate }} <span class="text-red-500">*</span></label>
+            <p-inputNumber id="vacantes" formControlName="vacantes" [min]="1" [max]="999" 
+              [showButtons]="true" styleClass="w-full"></p-inputNumber>
+            @if (f['vacantes'].invalid && (f['vacantes'].dirty || f['vacantes'].touched)) {
+              @if (f['vacantes'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+              @if (f['vacantes'].errors?.['min']) { <small class="text-red-500">{{ 'VALIDATION.MIN' | translate:{ min: 1 } }}</small> }
+            }
+          </div>
+
+          <div class="flex flex-col">
+            <label htmlFor="fechaPublicacion" class="font-medium mb-1">{{ 'JOBS.FIELDS.PUBLICATION_DATE' | translate }} <span class="text-red-500">*</span></label>
+            <p-date-picker id="fechaPublicacion" formControlName="fechaPublicacion" [showIcon]="true" 
+              dateFormat="dd/mm/yy" appendTo="body" styleClass="w-full"></p-date-picker>
+            @if (f['fechaPublicacion'].invalid && (f['fechaPublicacion'].dirty || f['fechaPublicacion'].touched)) {
+              @if (f['fechaPublicacion'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+            }
+          </div>
+
+          <div class="flex flex-col">
+            <label htmlFor="fechaCierre" class="font-medium mb-1">{{ 'JOBS.FIELDS.CLOSING_DATE' | translate }} <span class="text-red-500">*</span></label>
+            <p-date-picker id="fechaCierre" formControlName="fechaCierre" [showIcon]="true" 
+              dateFormat="dd/mm/yy" appendTo="body" styleClass="w-full"></p-date-picker>
+            @if (f['fechaCierre'].invalid && (f['fechaCierre'].dirty || f['fechaCierre'].touched)) {
+              @if (f['fechaCierre'].errors?.['required']) { <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small> }
+            }
+          </div>
+
+          <div class="flex flex-col">
+            <label htmlFor="requisitos" class="font-medium mb-1">{{ 'JOBS.FIELDS.REQUIREMENTS' | translate }}</label>
+            <p-multiSelect id="requisitos" formControlName="requisitos" [options]="requisitosOptions" 
+              optionLabel="label" optionValue="value" [placeholder]="'ACTIONS.SELECT_OPTION' | translate" 
+              display="chip" styleClass="w-full" appendTo="body"></p-multiSelect>
+          </div>
+        </div>
+
+      </form>
+    } @else {
+      <div class="p-4 text-center text-gray-500 dark:text-gray-400 flex-grow flex items-center justify-center">
+        {{ 'COMMON.LOADING' | translate }}
+      </div>
+    }
+  </div>
+
+  <p-divider></p-divider>
+
+  <!-- Footer -->
+  <div class="p-4 flex justify-end gap-2">
+    <p-button 
+      [label]="'ACTIONS.CANCEL' | translate" 
+      severity="secondary" 
+      (onClick)="onCancel()">
+    </p-button>
+    <p-button 
+      [label]="buttonLabel() | translate" 
+      [icon]="buttonIcon()" 
+      [loading]="isLoading()" 
+      (onClick)="onCreateEmpleo()">
+    </p-button>
+  </div>
+
+</p-drawer>

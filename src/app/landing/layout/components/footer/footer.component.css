@@ -1,0 +1,59 @@
+/* Animaciones suaves para los enlaces */
+.group:hover {
+  transform: translateY(-1px);
+}
+
+/* Efectos de hover mejorados para los iconos */
+.group:hover i {
+  transform: scale(1.1);
+}
+
+/* Transiciones suaves para todos los elementos */
+.group,
+.group i,
+.group span {
+  transition: all 0.3s ease;
+}
+
+/* Mejora del backdrop blur en navegadores webkit */
+@supports (-webkit-backdrop-filter: blur(8px)) {
+  .backdrop-blur-sm {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Animación sutil para los elementos decorativos */
+@keyframes gentle-pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.bg-primary-500\/5,
+.bg-primary-400\/5 {
+  animation: gentle-pulse 8s ease-in-out infinite;
+}
+
+/* Responsive mejorado para móviles */
+@media (max-width: 640px) {
+  .group {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Efecto de glassmorphism mejorado */
+.backdrop-blur-sm {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Mejora para modo oscuro */
+.dark-mode .backdrop-blur-sm {
+  background: rgba(0, 0, 0, 0.2);
+}

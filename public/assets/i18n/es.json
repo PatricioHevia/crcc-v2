@@ -130,10 +130,11 @@
     "SERVICIO_CONSTRUCCION": "Construcción",
     "SERVICIO_EQP": "Adquisición, Reposición y Mantenimiento de Equipamiento Médico y Mobiliario Clínico",
     "SERVICIO_MANTENIMIENTO": "Mantenimiento de Infraestructura"
-  },
-  "PROJECTS": {
+  },  "PROJECTS": {
     "TITULO": "Nuestros Proyectos en Chile",
     "SUBTITULO": "En esta sección podrás encontrar los proyectos hospitalarios que actualmente tenemos en ejecución y la Planta Naipú en los cuales podrás acceder y participar en nuestras licitaciones.",
+    "SECTION_TITLE": "Nuestros Proyectos en Ejecución",
+    "SECTION_SUBTITLE": "Descubre la excelencia en cada proyecto que estamos elaborando con pasión y dedicación",
     "LOADING": "Cargando Proyectos...",
     "TABLE": {
       "IMAGE": "Imagen",
@@ -187,11 +188,14 @@
       "FOOTER_TEXT": "¿Interesado en conocer más detalles sobre nuestros proyectos?",
       "VIEW_ALL_DETAILS": "Ver Todos los Detalles"
     }
-  },
-  "PROJECTCARD": {
+  },  "PROJECTCARD": {
     "INICIO": "Inicio",
     "VER": "Ver Proyecto",
     "SOLICITAR": "Solicitar Acceso"
+  },
+  "PROYECTOS": {
+    "LOADING": "Cargando proyectos",
+    "LOADING_MESSAGE": "Preparando nuestros proyectos más destacados..."
   },
   "CONCURSOS": {
     "TITULO": "🏆 Concursos de Innovación en Arquitectura e Ingeniería 🌍",
@@ -202,8 +206,7 @@
   "FAQ": {
     "TITULO": "Preguntas Frecuentes",
     "SUBTITULO": "Aquí puedes encontrar respuestas a las preguntas más comunes sobre el uso de la plataforma y los procesos de licitación. Si tienes más dudas, no dudes en contactarnos."
-  },
-  "CONTACTO": {
+  },  "CONTACTO": {
     "TITULO": "Formulario de Contacto",
     "SUBTITULO": "Si tienes alguna pregunta o necesitas más información, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.",
     "NOMBRE": "Nombre*",
@@ -232,7 +235,10 @@
     "ERROR_MENSAJE_MIN": "El mensaje debe tener al menos 20 caracteres.",
     "TOAST_MENSAJE_ENVIADO": "Mensaje enviado correctamente",
     "TOAST_MENSAJE_ERROR": "Error al enviar el mensaje, por favor intenta nuevamente",
-    "VER_MENSAJES": "Ver Mensajes"
+    "VER_MENSAJES": "Ver Mensajes",
+    "FORMULARIO_TITULO": "Datos de contacto",
+    "UBICACION": "Nuestra ubicación",
+    "MENSAJE_FINAL": "Gracias por tu interés en contactarnos. Nos comprometemos a responder a tu consulta lo antes posible."
   },
   "ADMIN": {
     "USERS": {

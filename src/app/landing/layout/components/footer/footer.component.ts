@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [TranslateModule],
 })
 export class FooterComponent implements OnInit {
+  currentYear = new Date().getFullYear();
 
   constructor() { }
 

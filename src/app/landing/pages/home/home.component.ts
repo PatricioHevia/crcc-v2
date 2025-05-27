@@ -61,7 +61,6 @@ export class HomeComponent {
     },
 
   ];
-
   ngAfterViewInit(): void {
     runInInjectionContext(this.injector, () => {
       effect(() => {
@@ -69,36 +68,49 @@ export class HomeComponent {
 
         if (accountResolved) {
           // El entorno está listo. Intentar actualizar el swiper.
-          // El swiper ya está en el DOM (no usamos *ngIf para él, solo para el placeholder)
           if (this.swiperContainerRef?.nativeElement?.swiper) {
-            setTimeout(() => { // Delay para estabilidad del DOM
+            setTimeout(() => {
               try {
                 this.swiperContainerRef.nativeElement.swiper.update();
                 this.swiperContainerRef.nativeElement.swiper.resize.resizeHandler();
-                this.swiperRenderedCorrectly.set(true); // Marcar como listo para opacidad completa
+                this.swiperRenderedCorrectly.set(true);
+                
+                // Agregar clase de animación a elementos
+                this.addAnimationClasses();
               } catch (e) {
-                this.swiperRenderedCorrectly.set(true); // Mostrar de todas formas
+                this.swiperRenderedCorrectly.set(true);
               }
             }, 150);
           } else {
             console.warn('HomeComponent: Account resolved, pero Swiper ref no disponible AÚN en AfterViewInit.');
-            // Podría necesitar un pequeño delay para que ViewChild se resuelva si el template es complejo
              setTimeout(() => {
                 if (this.swiperContainerRef?.nativeElement?.swiper) {
                     this.swiperContainerRef.nativeElement.swiper.update();
                     this.swiperContainerRef.nativeElement.swiper.resize.resizeHandler();
                     this.swiperRenderedCorrectly.set(true);
+                    this.addAnimationClasses();
                 } else {
-                    this.swiperRenderedCorrectly.set(true); // Mostrar de todas formas para no bloquear UI
+                    this.swiperRenderedCorrectly.set(true);
                 }
-             }, 200); // Un delay un poco mayor para este caso
+             }, 200);
           }
         } else {
-          // Si la cuenta no está resuelta, resetear el estado de visibilidad del swiper
           this.swiperRenderedCorrectly.set(false);
         }
       });
     });
+  }
+
+  private addAnimationClasses(): void {
+    // Agregar animaciones con delay escalonado a las tarjetas de servicios
+    setTimeout(() => {
+      const serviceCards = document.querySelectorAll('.group');
+      serviceCards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate-fade-in-up');
+        }, index * 100);
+      });
+    }, 300);
   }
 
 }

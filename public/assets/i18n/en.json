@@ -130,10 +130,11 @@
     "SERVICIO_CONSTRUCCION": "Construction",
     "SERVICIO_EQP": "Procurement, Replacement, and Maintenance of Medical Equipment and Clinical Furniture",
     "SERVICIO_MANTENIMIENTO": "Infrastructure Maintenance"
-  },
-  "PROJECTS": {
+  },  "PROJECTS": {
     "TITULO": "Our Projects in Chile",
     "SUBTITULO": "In this section, you can find the hospital projects we currently have underway and the Naipú Plant, where you can access and participate in our tenders.",
+    "SECTION_TITLE": "Our Projects in Progress",
+    "SECTION_SUBTITLE": "Discover excellence in each project we are building with passion and dedication",
     "LOADING": "Loading Projects...",
     "TABLE": {
       "IMAGE": "Image",
@@ -229,10 +230,12 @@
     "ERROR_ASUNTO": "Subject is required",
     "ERROR_ASUNTO_MIN": "Subject must be at least 3 characters.",
     "ERROR_MENSAJE": "Message is required",
-    "ERROR_MENSAJE_MIN": "Message must be at least 20 characters.",
-    "TOAST_MENSAJE_ENVIADO": "Message sent successfully",
+    "ERROR_MENSAJE_MIN": "Message must be at least 20 characters.",    "TOAST_MENSAJE_ENVIADO": "Message sent successfully",
     "TOAST_MENSAJE_ERROR": "Error sending message, please try again",
-    "VER_MENSAJES": "View Messages"
+    "VER_MENSAJES": "View Messages",
+    "FORMULARIO_TITULO": "Contact Details",
+    "UBICACION": "Our Location",
+    "MENSAJE_FINAL": "Thank you for your interest in contacting us. We are committed to responding to your inquiry as soon as possible."
   },
   "ADMIN": {
     "DASHBOARD": {

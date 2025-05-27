@@ -1,11 +1,124 @@
-/* Cada slide medirá el 70% del ancho en móvil/tablet */
-swiper-container .swiper-slide {
-  width: 70% !important;
+/* Estilos mejorados para el carousel */
+swiper-container {
+  --swiper-navigation-size: 24px;
+  --swiper-theme-color: rgb(var(--primary-500));
 }
 
-/* En pantallas grandes force un ancho fijo de 1024px */
+/* Responsive slides del swiper */
+swiper-container .swiper-slide {
+  width: 85% !important;
+  max-width: 600px !important;
+}
+
+@media (min-width: 640px) {
+  swiper-container .swiper-slide {
+    width: 80% !important;
+    max-width: 700px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  swiper-container .swiper-slide {
+    width: 75% !important;
+    max-width: 800px !important;
+  }
+}
+
 @media (min-width: 1024px) {
   swiper-container .swiper-slide {
-    width: 1024px !important;
+    width: 70% !important;
+    max-width: 900px !important;
   }
+}
+
+@media (min-width: 1280px) {
+  swiper-container .swiper-slide {
+    width: 65% !important;
+    max-width: 1000px !important;
+  }
+}
+
+/* Botones de navegación personalizados */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 18px !important;
+  font-weight: bold;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  margin-top: 0 !important;
+  transition: all 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  transform: scale(1.1);
+}
+
+/* Paginación personalizada */
+.swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.5) !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background: rgb(var(--primary-500)) !important;
+  transform: scale(1.2);
+}
+
+/* Animaciones adicionales */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Efectos de glassmorphism mejorados */
+.backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Mejoras para texto de primer párrafo */
+.prose p:first-of-type::first-letter {
+  line-height: 1;
+  margin-top: 0.1em;
+}
+
+/* Responsive grid mejorado para servicios */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Efectos hover mejorados */
+.group:hover .group-hover\:scale-110 {
+  transform: scale(1.1);
+}
+
+/* Transiciones suaves para tema oscuro */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
 }

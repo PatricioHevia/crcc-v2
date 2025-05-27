@@ -1,4 +1,156 @@
-.p-button.mi-boton-hover-especial:hover {
-  background-color: red !important;
-  border-color: green !important;
+/* Estilos personalizados para el top-bar mejorado */
+
+/* Efecto glassmorphism mejorado para elementos del header */
+.backdrop-blur-md {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Animaciones suaves para el logo */
+.group:hover img {
+  filter: drop-shadow(0 4px 12px rgba(var(--primary-500), 0.3));
+}
+
+/* Estilo para botones de tema e idioma */
+::ng-deep .theme-toggle-btn .p-button,
+::ng-deep .lang-toggle-btn .p-button {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(var(--primary-200), 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+::ng-deep .theme-toggle-btn .p-button:hover,
+::ng-deep .lang-toggle-btn .p-button:hover {
+  background: rgba(var(--primary-50), 0.8) !important;
+  border-color: rgba(var(--primary-300), 0.7) !important;
+  box-shadow: 0 4px 16px rgba(var(--primary-500), 0.2) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Tema oscuro para botones */
+.dark-mode ::ng-deep .theme-toggle-btn .p-button,
+.dark-mode ::ng-deep .lang-toggle-btn .p-button {
+  background: rgba(var(--surface-800), 0.7) !important;
+  border-color: rgba(var(--surface-700), 0.5) !important;
+}
+
+.dark-mode ::ng-deep .theme-toggle-btn .p-button:hover,
+.dark-mode ::ng-deep .lang-toggle-btn .p-button:hover {
+  background: rgba(var(--primary-900), 0.5) !important;
+  border-color: rgba(var(--primary-600), 0.7) !important;
+}
+
+/* Botón móvil mejorado */
+::ng-deep .mobile-menu-btn .p-button {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(var(--primary-200), 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+::ng-deep .mobile-menu-btn .p-button:hover {
+  background: rgba(var(--primary-50), 0.8) !important;
+  border-color: rgba(var(--primary-300), 0.7) !important;
+  box-shadow: 0 4px 16px rgba(var(--primary-500), 0.2) !important;
+  transform: scale(1.05) !important;
+}
+
+.dark-mode ::ng-deep .mobile-menu-btn .p-button {
+  background: rgba(var(--surface-800), 0.7) !important;
+  border-color: rgba(var(--surface-700), 0.5) !important;
+}
+
+.dark-mode ::ng-deep .mobile-menu-btn .p-button:hover {
+  background: rgba(var(--primary-900), 0.5) !important;
+  border-color: rgba(var(--primary-600), 0.7) !important;
+}
+
+/* Animaciones para dropdown */
+@keyframes dropdown-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+.group .absolute {
+  animation: dropdown-enter 0.2s ease-out;
+}
+
+/* Mejoras para el drawer móvil */
+::ng-deep .mobile-drawer .p-drawer-content {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(249, 250, 251, 0.95) 50%, 
+    rgba(255, 255, 255, 0.95) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.dark-mode ::ng-deep .mobile-drawer .p-drawer-content {
+  background: linear-gradient(135deg, 
+    rgba(var(--surface-900), 0.95) 0%, 
+    rgba(var(--surface-800), 0.95) 50%, 
+    rgba(var(--surface-900), 0.95) 100%) !important;
+}
+
+/* Select móvil mejorado */
+::ng-deep .mobile-select .p-select {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(var(--primary-200), 0.5) !important;
+}
+
+.dark-mode ::ng-deep .mobile-select .p-select {
+  background: rgba(var(--surface-700), 0.7) !important;
+  border-color: rgba(var(--surface-600), 0.5) !important;
+}
+
+/* Transiciones suaves para todos los elementos interactivos */
+button, a, .group {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto de hover sutil para elementos de navegación */
+nav a:hover, nav button:hover {
+  transform: translateY(-1px);
+}
+
+/* Mejora para elementos activos */
+.router-link-active {
+  background: rgba(var(--primary-100), 0.7) !important;
+  color: rgb(var(--primary-700)) !important;
+  border-color: rgba(var(--primary-300), 0.8) !important;
+}
+
+.dark-mode .router-link-active {
+  background: rgba(var(--primary-900), 0.5) !important;
+  color: rgb(var(--primary-300)) !important;
+  border-color: rgba(var(--primary-600), 0.8) !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 1023px) {
+  header {
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Animación sutil para elementos decorativos */
+@keyframes gentle-glow {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.absolute.inset-0 {
+  animation: gentle-glow 8s ease-in-out infinite;
 }

@@ -1,167 +1,206 @@
-<header class="bg-stone-50 dark:bg-surface-900">
-  <div
-    class="mx-auto flex items-center justify-between px-4 py-2 shadow-lg z-3 border-b border-gray-200 dark:border-gray-600">
-    <div class="flex items-center">
-      <a routerLink="/" (click)="handleMenuItemClick()" aria-label="Homepage">
-        <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
-          alt="CRCC Logo" class="h-12 w-auto mr-4" />
+<header class="relative bg-gradient-to-r from-white via-blue-50/30 to-white dark:from-surface-900 dark:via-surface-800 dark:to-surface-900 backdrop-blur-md border-b border-primary-100/50 dark:border-surface-700/50 shadow-lg">
+  <!-- Elemento decorativo sutil -->
+  <div class="absolute inset-0 bg-gradient-to-r from-primary-50/30 via-transparent to-primary-50/30 dark:from-primary-900/10 dark:via-transparent dark:to-primary-900/10"></div>
+  
+  <div class="relative mx-auto flex items-center justify-between px-4 lg:px-8 py-3 z-10">
+    <!-- Logo y nombre de la empresa -->
+    <div class="flex items-center group">
+      <a routerLink="/" (click)="handleMenuItemClick()" aria-label="Homepage" class="flex items-center transition-transform duration-300 hover:scale-105">
+        <div class="relative">
+          <img [src]="isDark() ? 'assets/images/logos/Logo-CRCC-DM.png' : 'assets/images/logos/Logo-CRCC.png'"
+            alt="CRCC Logo" class="h-12 w-auto mr-4 transition-all duration-300" />
+          <!-- Glow effect -->
+          <div class="absolute inset-0 bg-primary-400/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+        </div>
+        <div class="flex flex-col text-center">
+          <span class="text-lg font-bold leading-tight bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+            {{ 'TOPBAR.NOMBRE_L1' | translate }}
+          </span>
+          <span class="text-lg font-bold leading-tight bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+            {{ 'TOPBAR.NOMBRE_L2' | translate }}
+          </span>
+        </div>
       </a>
-      <div class="flex flex-col text-center text-[#3567ad] dark:text-[#08a1e2]">
-        <span class="text-lg font-bold leading-tight">{{ 'TOPBAR.NOMBRE_L1' | translate }}</span>
-        <span class="text-lg font-bold leading-tight">{{ 'TOPBAR.NOMBRE_L2' | translate }}</span>
-      </div>
-    </div>
-
-    <nav class="hidden lg:flex space-x-1 items-center">
-      
-
-     
-
+    </div>    <!-- Navegación principal mejorada -->
+    <nav class="hidden lg:flex space-x-2 items-center">
       @for (item of navMenuItems(); track item.id) {
       <div class="relative group">
         @if (item.isParent && item.items && item.showSubmenuSignal) {
-        <!-- Parent dropdown -->
+        <!-- Parent dropdown mejorado -->
         <button pRipple type="button" (click)="toggleSubmenu(item, $event)"
           [attr.aria-expanded]="item.showSubmenuSignal()" [attr.aria-controls]="item.id + '-submenu'"
-          class="flex items-center gap-1 cursor-pointer hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] p-2 transition font-light">
-          <i class="{{ item.icon }}"></i>
+          class="flex items-center gap-2 cursor-pointer bg-white/50 dark:bg-surface-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl border border-primary-100/50 dark:border-surface-700/50 px-4 py-2.5 transition-all duration-300 font-medium text-surface-700 dark:text-surface-200 hover:text-primary-700 dark:hover:text-primary-300 backdrop-blur-sm shadow-sm hover:shadow-md">
+          <i class="{{ item.icon }} text-primary-600 dark:text-primary-400"></i>
           <span class="hidden md:inline-block">{{ item.label | translate }}</span>
-          <i
-            class="pi pi-angle-down ml-1 text-xs transition-transform {{ item.showSubmenuSignal() ? 'rotate-180' : '' }}"></i>
+          <i class="pi pi-angle-down ml-1 text-xs transition-transform duration-300 {{ item.showSubmenuSignal() ? 'rotate-180' : '' }}"></i>
         </button>
         @if (item.showSubmenuSignal()) {
         <div id="{{ item.id + '-submenu' }}"
-          class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white dark:bg-[#18181b] rounded-md shadow-lg z-50 border border-gray-200 dark:border-gray-600 py-1">
+          class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white/95 dark:bg-surface-800/95 backdrop-blur-md rounded-xl shadow-xl border border-primary-100/50 dark:border-surface-700/50 py-2 z-50">
+          <!-- Flecha superior -->
+          <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/95 dark:bg-surface-800/95 border-l border-t border-primary-100/50 dark:border-surface-700/50 rotate-45"></div>
           @for (subItem of item.items; track subItem.id) {
           <a pRipple [routerLink]="subItem.route!" (click)="handleMenuItemClick()"
-            class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:bg-[#3f4046] w-full text-left transition-colors">
-            <i class="{{ subItem.icon }} w-4 text-center"></i>
-            <span>{{ subItem.label | translate }}</span>
+            class="flex items-center gap-3 px-4 py-3 text-sm text-surface-700 dark:text-surface-200 hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300 mx-2 rounded-lg">
+            <div class="flex items-center justify-center w-8 h-8 bg-primary-50 dark:bg-primary-900/30 rounded-lg">
+              <i class="{{ subItem.icon }} text-primary-600 dark:text-primary-400 text-sm"></i>
+            </div>
+            <span class="font-medium">{{ subItem.label | translate }}</span>
           </a>
           }
         </div>
         }
         }
         @else if (item.action) {
-        <!-- Action button (Logout) -->
+        <!-- Action button mejorado -->
         <button pRipple type="button" (click)="item.action()"
-          class="flex items-center gap-1 hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] p-2 transition font-light">
-          <i class="{{ item.icon }}"></i>
+          class="flex items-center gap-2 bg-white/50 dark:bg-surface-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl border border-primary-100/50 dark:border-surface-700/50 px-4 py-2.5 transition-all duration-300 font-medium text-surface-700 dark:text-surface-200 hover:text-primary-700 dark:hover:text-primary-300 backdrop-blur-sm shadow-sm hover:shadow-md">
+          <i class="{{ item.icon }} text-primary-600 dark:text-primary-400"></i>
           <span class="hidden md:inline-block">{{ item.label | translate }}</span>
         </button>
         }
         @else if (item.route) {
-        <!-- Simple link -->
+        <!-- Simple link mejorado -->
         <a pRipple [routerLink]="item.route" (click)="handleMenuItemClick()"
-          class="flex items-center gap-1 hover:bg-gray-200 rounded dark:hover:bg-[#3f4046] p-2 transition font-light">
-          <i class="{{ item.icon }}"></i>
+          class="flex items-center gap-2 bg-white/50 dark:bg-surface-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl border border-primary-100/50 dark:border-surface-700/50 px-4 py-2.5 transition-all duration-300 font-medium text-surface-700 dark:text-surface-200 hover:text-primary-700 dark:hover:text-primary-300 backdrop-blur-sm shadow-sm hover:shadow-md">
+          <i class="{{ item.icon }} text-primary-600 dark:text-primary-400"></i>
           <span class="hidden md:inline-block">{{ item.label | translate }}</span>
         </a>
         }
       </div>
-      }
-      <!-- Theme toggle -->
-       @if(isDark()) {
-      <p-button pRipple type="button" (click)="toggleTheme()" tooltipPosition="bottom" icon="pi pi-sun"
-        [rounded]="true" [text]="true" severity="secondary" [pTooltip]="'TOPBAR.MODO_CLARO' | translate">
+      }      
+      <!-- Separador elegante -->
+      <div class="h-8 w-px bg-gradient-to-b from-transparent via-primary-200 dark:via-surface-600 to-transparent mx-2"></div>
+      
+      <!-- Botones de control mejorados -->
+      <div class="flex items-center space-x-2">
+        <!-- Theme toggle mejorado -->
+        @if(isDark()) {
+        <p-button pRipple type="button" (click)="toggleTheme()" tooltipPosition="bottom" icon="pi pi-sun"
+          [rounded]="true" [text]="false" severity="secondary" [pTooltip]="'TOPBAR.MODO_CLARO' | translate"
+          class="theme-toggle-btn">
+        </p-button>
+        } @else {
+        <p-button pRipple type="button" (click)="toggleTheme()" tooltipPosition="bottom" icon="pi pi-moon"
+          [rounded]="true" [text]="false" severity="secondary" [pTooltip]="'TOPBAR.MODO_OSCURO' | translate"
+          class="theme-toggle-btn">
+        </p-button>
+        }
+        
+        <!-- Language selector mejorado -->
+        <p-button icon="pi pi-globe" severity="secondary" [rounded]="true" [text]="false"
+          [pTooltip]="'TOPBAR.IDIOMA' | translate" (click)="langMenu.toggle($event)" tooltipPosition="bottom"
+          class="lang-toggle-btn"> 
+        </p-button>
+        <p-tieredmenu #langMenu [model]="items()" popup="true" appendTo="body"></p-tieredmenu>
+      </div>
+    </nav>    <!-- Botón de menú móvil mejorado -->
+    <div class="lg:hidden">
+      <p-button icon="pi pi-bars" severity="secondary" [rounded]="true" [text]="false" (click)="toggleSidebar()"
+        aria-label="Abrir menú" [attr.aria-expanded]="sidebarOpen()" aria-controls="mobile-sidebar"
+        class="mobile-menu-btn">
       </p-button>
-      } @else {
-      <p-button pRipple type="button" (click)="toggleTheme()" tooltipPosition="bottom" icon="pi pi-moon"
-        [rounded]="true" [text]="true" severity="secondary" [pTooltip]="'TOPBAR.MODO_OSCURO' | translate">
-      </p-button>
-      }
-       <!-- Language selector -->
-      <!-- ACA DEBERIA IR EL BOTON -->
-      <p-button icon="pi pi-globe" severity="secondary" [rounded]="true" [text]="true"
-        [pTooltip]="'TOPBAR.IDIOMA' | translate" (click)="langMenu.toggle($event)" tooltipPosition="bottom"> </p-button>
-      <p-tieredmenu #langMenu [model]="items()" popup="true" appendTo="body"></p-tieredmenu>
-
-
-    </nav>
-
-    <!-- Mobile menu button -->
-    <p-button icon="pi pi-bars" class="lg:hidden p-2 cursor-pointer" severity="secondary" (click)="toggleSidebar()"
-      aria-label="Abrir menú" [attr.aria-expanded]="sidebarOpen()" aria-controls="mobile-sidebar"></p-button>
+    </div>
   </div>
 </header>
 
+<!-- Menú móvil mejorado -->
 <p-drawer id="mobile-sidebar" [visible]="sidebarOpen()" position="right" [baseZIndex]="10000" modal
-  (onHide)="toggleSidebar()">
-  <nav class="flex flex-col space-y-1 mt-4 px-2">
-    @for (item of navMenuItems(); track item.id) {
-    @if (item.isParent && item.items && item.showSubmenuSignal) {
-    <!-- Mobile parent -->
-    <div class="w-full">
-      <button type="button" (click)="toggleSubmenu(item, $event)" [attr.aria-expanded]="item.showSubmenuSignal()"
-        [attr.aria-controls]="item.id + '-mobile-submenu'"
-        class="flex items-center justify-between cursor-pointer w-full gap-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors">
-        <div class="flex items-center gap-2">
-          <i class="{{ item.icon }}"></i>
-          <span>{{ item.label | translate }}</span>
+  (onHide)="toggleSidebar()" styleClass="mobile-drawer">
+  <div class="bg-gradient-to-b from-white via-blue-50/30 to-white dark:from-surface-900 dark:via-surface-800 dark:to-surface-900 min-h-full">
+    <nav class="flex flex-col space-y-2 mt-6 px-4">
+      @for (item of navMenuItems(); track item.id) {
+      @if (item.isParent && item.items && item.showSubmenuSignal) {
+      <!-- Mobile parent mejorado -->
+      <div class="w-full">
+        <button type="button" (click)="toggleSubmenu(item, $event)" [attr.aria-expanded]="item.showSubmenuSignal()"
+          [attr.aria-controls]="item.id + '-mobile-submenu'"
+          class="flex items-center justify-between cursor-pointer w-full gap-3 text-base bg-white/50 dark:bg-surface-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl border border-primary-100/50 dark:border-surface-700/50 p-4 transition-all duration-300 font-medium text-surface-700 dark:text-surface-200 hover:text-primary-700 dark:hover:text-primary-300 backdrop-blur-sm shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="flex items-center justify-center w-8 h-8 bg-primary-50 dark:bg-primary-900/30 rounded-lg">
+              <i class="{{ item.icon }} text-primary-600 dark:text-primary-400"></i>
+            </div>
+            <span>{{ item.label | translate }}</span>
+          </div>
+          <i class="pi {{ item.showSubmenuSignal() ? 'pi-angle-down' : 'pi-angle-right' }} transition-transform duration-300 text-primary-600 dark:text-primary-400"></i>
+        </button>
+        @if (item.showSubmenuSignal()) {
+        <div id="{{ item.id + '-mobile-submenu' }}"
+          class="flex flex-col space-y-2 mt-3 ml-4 pl-4 border-l-2 border-primary-200 dark:border-primary-700">
+          @for (subItem of item.items; track subItem.id) {
+          <a (click)="handleMenuItemClick()" [routerLink]="subItem.route!"
+            routerLinkActive="bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 font-semibold border-primary-300 dark:border-primary-600"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center gap-3 text-sm bg-white/30 dark:bg-surface-800/30 hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all duration-300 py-3 px-4 rounded-lg border border-primary-100/30 dark:border-surface-700/30 text-surface-600 dark:text-surface-300 hover:text-primary-700 dark:hover:text-primary-300">
+            <i class="{{ subItem.icon }} text-primary-500 dark:text-primary-400 text-sm w-4 text-center"></i>
+            <span>{{ subItem.label | translate }}</span>
+          </a>
+          }
         </div>
-        <i class="pi {{ item.showSubmenuSignal() ? 'pi-angle-down' : 'pi-angle-right' }} transition-transform"></i>
-      </button>
-      @if (item.showSubmenuSignal()) {
-      <div id="{{ item.id + '-mobile-submenu' }}"
-        class="flex flex-col space-y-1 pl-7 mt-1 pt-1 border-l border-gray-200 dark:border-gray-600 ml-3">
-        @for (subItem of item.items; track subItem.id) {
-        <a (click)="handleMenuItemClick()" [routerLink]="subItem.route!"
-          routerLinkActive="text-primary dark:text-primary-dark font-semibold"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="flex items-center gap-2 text-base hover:text-primary dark:hover:text-primary-dark transition py-1 pr-1">
-          <i class="{{ subItem.icon }} text-sm w-4 text-center"></i>
-          <span>{{ subItem.label | translate }}</span>
-        </a>
         }
       </div>
       }
-    </div>
-    }
-    @else if (item.action) {
-    <!-- Mobile action button (Logout) -->
-    <button pRipple type="button" (click)="item.action(); toggleSidebar()"
-      class="flex items-center gap-2 text-lg w-full hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors cursor-pointer">
-      <i class="{{ item.icon }}"></i>
-      <span>{{ item.label | translate }}</span>
-    </button>
-    }
-    @else if (item.route) {
-    <!-- Mobile link -->
-    <a (click)="handleMenuItemClick()" [routerLink]="item.route"
-      routerLinkActive="bg-gray-100 dark:bg-gray-700 text-primary dark:text-primary-dark font-semibold"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded p-2 transition-colors">
-      <i class="{{ item.icon }}"></i>
-      <span>{{ item.label | translate }}</span>
-    </a>
-    }
-    }
+      @else if (item.action) {
+      <!-- Mobile action button mejorado -->
+      <button pRipple type="button" (click)="item.action(); toggleSidebar()"
+        class="flex items-center gap-3 text-base w-full bg-white/50 dark:bg-surface-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl border border-primary-100/50 dark:border-surface-700/50 p-4 transition-all duration-300 font-medium text-surface-700 dark:text-surface-200 hover:text-primary-700 dark:hover:text-primary-300 backdrop-blur-sm shadow-sm cursor-pointer">
+        <div class="flex items-center justify-center w-8 h-8 bg-primary-50 dark:bg-primary-900/30 rounded-lg">
+          <i class="{{ item.icon }} text-primary-600 dark:text-primary-400"></i>
+        </div>
+        <span>{{ item.label | translate }}</span>
+      </button>
+      }
+      @else if (item.route) {
+      <!-- Mobile link mejorado -->
+      <a (click)="handleMenuItemClick()" [routerLink]="item.route"
+        routerLinkActive="bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 font-semibold border-primary-300 dark:border-primary-600"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex items-center gap-3 text-base bg-white/50 dark:bg-surface-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl border border-primary-100/50 dark:border-surface-700/50 p-4 transition-all duration-300 font-medium text-surface-700 dark:text-surface-200 hover:text-primary-700 dark:hover:text-primary-300 backdrop-blur-sm shadow-sm">
+        <div class="flex items-center justify-center w-8 h-8 bg-primary-50 dark:bg-primary-900/30 rounded-lg">
+          <i class="{{ item.icon }} text-primary-600 dark:text-primary-400"></i>
+        </div>
+        <span>{{ item.label | translate }}</span>
+      </a>
+      }
+      }      
+      <!-- Separador elegante para móvil -->
+      <div class="my-6 flex items-center justify-center">
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-primary-200 dark:via-surface-600 to-transparent"></div>
+        <div class="mx-4 w-2 h-2 bg-primary-500 rounded-full"></div>
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-primary-200 dark:via-surface-600 to-transparent"></div>
+      </div>
 
-    <hr class="my-3 border-gray-200 dark:border-gray-600" />
+      <!-- Controles móviles mejorados -->
+      <div class="space-y-3">
+        <!-- Mobile theme toggle mejorado -->
+        @if (isDark()) {
+        <button type="button" (click)="toggleTheme();" 
+          class="flex items-center gap-3 w-full bg-white/50 dark:bg-surface-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl border border-primary-100/50 dark:border-surface-700/50 p-4 transition-all duration-300 font-medium text-surface-700 dark:text-surface-200 hover:text-primary-700 dark:hover:text-primary-300 backdrop-blur-sm shadow-sm">
+          <div class="flex items-center justify-center w-8 h-8 bg-primary-50 dark:bg-primary-900/30 rounded-lg">
+            <i class="pi pi-sun text-primary-600 dark:text-primary-400"></i>
+          </div>
+          <span>{{ 'TOPBAR.MODO_CLARO' | translate }}</span>
+        </button>
+        } @else {
+        <button type="button" (click)="toggleTheme();" 
+          class="flex items-center gap-3 w-full bg-white/50 dark:bg-surface-800/50 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl border border-primary-100/50 dark:border-surface-700/50 p-4 transition-all duration-300 font-medium text-surface-700 dark:text-surface-200 hover:text-primary-700 dark:hover:text-primary-300 backdrop-blur-sm shadow-sm">
+          <div class="flex items-center justify-center w-8 h-8 bg-primary-50 dark:bg-primary-900/30 rounded-lg">
+            <i class="pi pi-moon text-primary-600 dark:text-primary-400"></i>
+          </div>
+          <span>{{ 'TOPBAR.MODO_OSCURO' | translate }}</span>
+        </button>
+        }
 
-    <!-- Mobile theme toggle -->
-    @if (isDark()) {
-    <p-button type="button" (click)="toggleTheme();" icon="pi pi-sun" severity="secondary"
-      [label]="'TOPBAR.MODO_CLARO' | translate">
-    </p-button>
-    } @else {
-    <p-button type="button" (click)="toggleTheme();" icon="pi pi-moon" severity="secondary"
-       [label]="'TOPBAR.MODO_OSCURO' | translate">
-    </p-button>
-    }
-
-
-
-
-
-
-    <!-- Mobile language selector -->
-    <div class="mt-4" (click)="$event.stopPropagation();">
-      <p-iftalabel class="w-full text-sm">
-        <p-select [options]="languageOptions()" [ngModel]="translation.currentLang()"
-          (ngModelChange)="onLangChange($event)" optionLabel="label" optionValue="value" styleClass="w-full"></p-select>
-        <label>{{ 'TOPBAR.IDIOMA' | translate }}</label>
-      </p-iftalabel>
-    </div>
-  </nav>
+        <!-- Mobile language selector mejorado -->
+        <div class="bg-white/50 dark:bg-surface-800/50 rounded-xl border border-primary-100/50 dark:border-surface-700/50 p-4 backdrop-blur-sm shadow-sm" (click)="$event.stopPropagation();">
+          <p-iftalabel class="w-full">
+            <p-select [options]="languageOptions()" [ngModel]="translation.currentLang()"
+              (ngModelChange)="onLangChange($event)" optionLabel="label" optionValue="value" 
+              styleClass="w-full mobile-select"></p-select>
+            <label class="text-surface-600 dark:text-surface-300 font-medium">{{ 'TOPBAR.IDIOMA' | translate }}</label>
+          </p-iftalabel>
+        </div>
+      </div>
+    </nav>
+  </div>
 </p-drawer>

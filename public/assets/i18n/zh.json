@@ -130,10 +130,11 @@
     "SERVICIO_CONSTRUCCION": "施工",
     "SERVICIO_EQP": "医疗设备和临床家具的采购、更换与维护",
     "SERVICIO_MANTENIMIENTO": "基础设施维护"
-  },
-  "PROJECTS": {
+  },  "PROJECTS": {
     "TITULO": "我们在智利的项目",
     "SUBTITULO": "在此部分，您可以查看我们目前正在进行的医院项目和Naipú工厂，并可申请并参与我们的招标。",
+    "SECTION_TITLE": "我们正在进行的项目",
+    "SECTION_SUBTITLE": "探索我们正在用热情和奉献精神打造的每一个卓越项目",
     "LOADING": "正在加载项目...",
     "TABLE": {
       "IMAGE": "图片",
@@ -228,10 +229,12 @@
     "ERROR_ASUNTO": "主题为必填项",
     "ERROR_ASUNTO_MIN": "主题必须至少包含 3 个字符",
     "ERROR_MENSAJE": "消息为必填项",
-    "ERROR_MENSAJE_MIN": "消息必须至少包含 20 个字符",
-    "TOAST_MENSAJE_ENVIADO": "消息发送成功",
+    "ERROR_MENSAJE_MIN": "消息必须至少包含 20 个字符",    "TOAST_MENSAJE_ENVIADO": "消息发送成功",
     "TOAST_MENSAJE_ERROR": "发送消息时出错，请重试",
-    "VER_MENSAJES": "查看消息"
+    "VER_MENSAJES": "查看消息",
+    "FORMULARIO_TITULO": "联系详情",
+    "UBICACION": "我们的位置",
+    "MENSAJE_FINAL": "感谢您有兴趣与我们联系。我们将尽快回复您的咨询。"
   },
   "ADMIN": {
     "DASHBOARD": {

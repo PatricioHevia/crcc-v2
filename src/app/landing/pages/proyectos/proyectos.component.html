@@ -1,23 +1,75 @@
-<section class="container mx-auto px-4 py-8">
-  <!-- 1. Intro -->
-  <div class="bg-white dark:bg-surface-800 rounded-lg shadow-md p-6 text-center">
-    <h2 class="text-3xl font-bold text-primary-600 dark:text-primary-300">{{ 'PROJECTS.TITULO' | translate }}</h2>
-    <p class="mt-4 text-gray-600 dark:text-gray-300">{{ 'PROJECTS.SUBTITULO' | translate}}</p>
+<!-- Hero Section Corporativo -->
+<section class="projects-hero relative min-h-[50vh] py-20 overflow-hidden">
+  <!-- Backdrop glassmorphism -->
+  <div class="hero-backdrop absolute inset-0"></div>
+  
+  <!-- Elementos decorativos flotantes -->
+  <div class="hero-decorative">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
   </div>
+  
+  <div class="relative container mx-auto px-4 lg:px-8 z-10">
+    <div class="text-center max-w-5xl mx-auto">
+      <!-- Título principal con gradiente corporativo -->
+      <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-8 fade-in">
+        {{ 'PROJECTS.TITULO' | translate }}
+      </h1>
+      
+      <!-- Separador elegante corporativo -->
+      <div class="w-32 h-1 bg-gradient-to-r from-white via-blue-200 to-white mx-auto rounded-full mb-10 opacity-80"></div>
+      
+      <!-- Subtítulo mejorado -->
+      <p class="hero-subtitle text-xl md:text-2xl leading-relaxed max-w-4xl mx-auto font-medium fade-in">
+        {{ 'PROJECTS.SUBTITULO' | translate }}
+      </p>
+      
+      <!-- Elementos decorativos adicionales -->
+      <div class="flex items-center justify-center mt-16 space-x-3">
+        <div class="w-3 h-3 bg-white/60 rounded-full animate-pulse"></div>
+        <div class="w-4 h-4 bg-white/80 rounded-full animate-pulse" style="animation-delay: 0.5s"></div>
+        <div class="w-3 h-3 bg-white/60 rounded-full animate-pulse" style="animation-delay: 1s"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contenido principal -->
+<section class="container mx-auto px-4 lg:px-8 py-16 bg-surface-ground">
   @if( projectService.projects().length === 0) {
-
-  <div class="w-full h-100 flex items-center justify-center">
-    <p-progress-spinner styleClass="w-16 h-16" strokeWidth="8" animationDuration=".5s">
-    </p-progress-spinner>
-    <span class="text-4xl ml-2 font-semibold">{{ 'PROYECTOS.LOADING' | translate }}</span>
+  <!-- Estado de carga corporativo -->
+  <div class="flex flex-col items-center justify-center py-20">
+    <div class="loading-glow">
+      <div class="corporate-spinner"></div>
+    </div>
+    <div class="mt-8 text-center fade-in">
+      <h3 class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent mb-4">
+        {{ 'PROYECTOS.LOADING' | translate }}
+      </h3>      <p class="text-lg text-surface-500 dark:text-surface-400 max-w-md mx-auto leading-relaxed">
+        {{ 'PROYECTOS.LOADING_MESSAGE' | translate }}
+      </p>
+    </div>
   </div>
-
   } @else {
-  <!-- 2. Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-    @for (project of projectService.projects(); track project.name_es) {
-    <app-card-project [project]="project"></app-card-project>
-    }
+  <!-- Sección de proyectos -->
+  <div class="space-y-12">    <!-- Encabezado de la sección -->
+    <div class="section-header">
+      <h2 class="section-title">
+        {{ 'PROJECTS.SECTION_TITLE' | translate }}
+      </h2>
+      <p class="section-subtitle">
+        {{ 'PROJECTS.SECTION_SUBTITLE' | translate }}
+      </p>
+    </div>
+    
+    <!-- Grid de proyectos mejorado -->
+    <div class="projects-grid fade-in">
+      @for (project of projectService.projects(); track project.name_es) {
+      <div class="project-card">
+        <app-card-project [project]="project"></app-card-project>
+      </div>
+      }
+    </div>
   </div>
-}
+  }
 </section>

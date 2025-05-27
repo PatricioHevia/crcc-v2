@@ -1,25 +1,72 @@
 <!-- src/app/layout/app-footer.component.html -->
-<footer class="bg-gray-800 text-gray-200">
-  <div class="container mx-auto px-4 py-6 flex flex-col items-center space-y-2">
-    <!-- Dirección -->
-    <p class="text-center text-sm">
-      {{ 'FOOTER.CRCC' | translate }}
-    </p>
-    <p class="flex items-center text-sm">
-      <i class="pi pi-map-marker mr-2 text-lg"></i>
-      {{ 'FOOTER.DIRECCION' | translate }}
-    </p>
+<footer class="relative bg-surface-900 dark:bg-surface-950 text-surface-100 overflow-hidden">
+  <!-- Background decorativo con colores corporativos -->
+  <div class="absolute inset-0 bg-gradient-to-br from-surface-900 via-surface-800 to-surface-900"></div>
+  <div class="absolute top-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute bottom-0 right-0 w-72 h-72 bg-primary-400/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+  
+  <div class="relative container mx-auto px-4 lg:px-8 py-8">
+    <!-- Contenido principal del footer -->
+    <div class="backdrop-blur-sm bg-surface-800/50 dark:bg-surface-900/50 rounded-2xl border border-surface-700/30 p-6 lg:p-8 shadow-xl">
+      <div class="flex flex-col items-center space-y-6">
+        
+        <!-- Logo/Nombre de la empresa -->
+        <div class="text-center">
+          <h3 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent mb-2">
+            {{ 'FOOTER.CRCC' | translate }}
+          </h3>
+          <div class="w-16 h-0.5 bg-gradient-to-r from-primary-500 to-primary-700 mx-auto rounded-full"></div>
+        </div>
 
-    <!-- Links de LinkedIn -->
-    <div class="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-6 text-sm">
-      <a href="https://www.linkedin.com/company/crcc-americachile/?originalSubdomain=cl" target="_blank" class="flex items-center hover:text-white transition">
-        <i class="pi pi-linkedin text-xl mr-2"></i>
-        {{ 'FOOTER.LINKEDIN_CRCC' | translate }}
-      </a>
-      <a href="https://www.linkedin.com/company/sociedad-concesionaria-hospital-coquimbo-s-a/?originalSubdomain=cl" target="_blank" class="flex items-center hover:text-white transition">
-        <i class="pi pi-linkedin text-xl mr-2"></i>
-        {{ 'FOOTER.LINKEDIN_SCHCQ' | translate }}
-      </a>
+        <!-- Información de contacto -->
+        <div class="text-center space-y-3">
+          <div class="flex items-center justify-center text-surface-300 hover:text-primary-400 transition-colors duration-300">
+            <div class="flex items-center justify-center w-8 h-8 bg-primary-500/10 rounded-full mr-3">
+              <i class="pi pi-map-marker text-primary-400"></i>
+            </div>
+            <span class="text-sm md:text-base">{{ 'FOOTER.DIRECCION' | translate }}</span>
+          </div>
+        </div>
+
+        <!-- Separador elegante -->
+        <div class="flex items-center justify-center w-full max-w-md">
+          <div class="flex-1 h-px bg-gradient-to-r from-transparent via-primary-400/30 to-transparent"></div>
+          <div class="mx-4 w-2 h-2 bg-primary-500 rounded-full"></div>
+          <div class="flex-1 h-px bg-gradient-to-r from-transparent via-primary-400/30 to-transparent"></div>
+        </div>
+
+        <!-- Links de LinkedIn mejorados -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+          <a href="https://www.linkedin.com/company/crcc-americachile/?originalSubdomain=cl" 
+             target="_blank" 
+             class="group flex items-center bg-surface-700/50 hover:bg-primary-600/20 px-4 py-3 rounded-xl border border-surface-600/30 hover:border-primary-500/50 transition-all duration-300">
+            <div class="flex items-center justify-center w-8 h-8 bg-primary-500/10 group-hover:bg-primary-500/20 rounded-lg mr-3 transition-colors duration-300">
+              <i class="pi pi-linkedin text-primary-400 group-hover:text-primary-300"></i>
+            </div>
+            <span class="text-sm text-surface-300 group-hover:text-primary-300 font-medium transition-colors duration-300">
+              {{ 'FOOTER.LINKEDIN_CRCC' | translate }}
+            </span>
+          </a>
+          
+          <a href="https://www.linkedin.com/company/sociedad-concesionaria-hospital-coquimbo-s-a/?originalSubdomain=cl" 
+             target="_blank" 
+             class="group flex items-center bg-surface-700/50 hover:bg-primary-600/20 px-4 py-3 rounded-xl border border-surface-600/30 hover:border-primary-500/50 transition-all duration-300">
+            <div class="flex items-center justify-center w-8 h-8 bg-primary-500/10 group-hover:bg-primary-500/20 rounded-lg mr-3 transition-colors duration-300">
+              <i class="pi pi-linkedin text-primary-400 group-hover:text-primary-300"></i>
+            </div>
+            <span class="text-sm text-surface-300 group-hover:text-primary-300 font-medium transition-colors duration-300">
+              {{ 'FOOTER.LINKEDIN_SCHCQ' | translate }}
+            </span>
+          </a>
+        </div>
+
+        <!-- Copyright y año -->
+        <div class="border-t border-surface-700/50 pt-4 w-full text-center">
+          <p class="text-xs text-surface-400">
+            © {{ currentYear }} {{ 'FOOTER.CRCC' | translate }}. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </footer>

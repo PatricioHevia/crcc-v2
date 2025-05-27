@@ -150,12 +150,41 @@
       "BUILD": "施工",
       "BUILD_OPERATE": "建设与运营",
       "OPERATE": "运营"
-    },
-    "ACTIONS": {
+    },    "ACTIONS": {
       "NEW_PROJECT": "新建项目",
       "EDIT_PROJECT": "编辑项目",
       "DELETE_PROJECT": "删除项目",
       "VIEW_PROJECT": "查看项目"
+    },
+    "LIST": {
+      "TITLE": "项目列表",
+      "SUBTITLE": "探索我们在智利的活跃项目",
+      "HERO_TITLE": "中铁建智利项目",
+      "HERO_SUBTITLE": "发现我们正在开发的医院和基础设施项目",
+      "SEARCH_PLACEHOLDER": "搜索项目...",
+      "FILTER_ALL": "所有阶段",
+      "SORT_NAME_ASC": "名称 A-Z",
+      "SORT_NAME_DESC": "名称 Z-A",
+      "SORT_DATE_ASC": "最早的",
+      "SORT_DATE_DESC": "最新的",
+      "STATISTICS": {
+        "TITLE": "项目统计",
+        "TOTAL_PROJECTS": "总项目数",
+        "ACTIVE_PROJECTS": "活跃项目",
+        "PHASE_DIVERSITY": "阶段多样性"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "未找到项目",
+        "SUBTITLE": "没有符合您搜索条件的项目。",
+        "CLEAR_FILTERS": "清除筛选器"
+      },      "ERROR_STATE": {
+        "TITLE": "加载项目时出错",
+        "SUBTITLE": "尝试加载项目时发生错误。请重试。",
+        "RETRY": "重试"
+      },
+      "VIEW_PROJECTS": "查看项目",
+      "FOOTER_TEXT": "有兴趣了解我们项目的更多详情吗？",
+      "VIEW_ALL_DETAILS": "查看所有详情"
     }
   },
   "PROJECTCARD": {

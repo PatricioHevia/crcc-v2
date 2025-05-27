@@ -151,12 +151,41 @@
       "BUILD": "Construction",
       "BUILD_OPERATE": "Construction and Operation",
       "OPERATE": "Operation"
-    },
-    "ACTIONS": {
+    },    "ACTIONS": {
       "NEW_PROJECT": "New Project",
       "EDIT_PROJECT": "Edit Project",
       "DELETE_PROJECT": "Delete Project",
       "VIEW_PROJECT": "View Project"
+    },
+    "LIST": {
+      "TITLE": "Projects List",
+      "SUBTITLE": "Explore our active projects in Chile",
+      "HERO_TITLE": "CRCC Chile Projects",
+      "HERO_SUBTITLE": "Discover our hospital and infrastructure projects in development",
+      "SEARCH_PLACEHOLDER": "Search projects...",
+      "FILTER_ALL": "All phases",
+      "SORT_NAME_ASC": "Name A-Z",
+      "SORT_NAME_DESC": "Name Z-A",
+      "SORT_DATE_ASC": "Oldest first",
+      "SORT_DATE_DESC": "Newest first",
+      "STATISTICS": {
+        "TITLE": "Project Statistics",
+        "TOTAL_PROJECTS": "Total Projects",
+        "ACTIVE_PROJECTS": "Active Projects",
+        "PHASE_DIVERSITY": "Phase Diversity"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "No projects found",
+        "SUBTITLE": "There are no projects matching your search criteria.",
+        "CLEAR_FILTERS": "Clear filters"
+      },      "ERROR_STATE": {
+        "TITLE": "Error loading projects",
+        "SUBTITLE": "An error occurred while trying to load the projects. Please try again.",
+        "RETRY": "Retry"
+      },
+      "VIEW_PROJECTS": "View Projects",
+      "FOOTER_TEXT": "Interested in learning more details about our projects?",
+      "VIEW_ALL_DETAILS": "View All Details"
     }
   },
   "PROJECTCARD": {

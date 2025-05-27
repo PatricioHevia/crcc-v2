@@ -26,6 +26,17 @@ export const routes: Routes = [
             }
         ]
     },
+    {   
+        path: 'app',
+        component: AppLayoutComponent,
+        canActivate: [authGuard], // Asegúrate de que el guard esté importado
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./project/project.routes').then(m => m.PROJECT_ROUTES)
+            }
+        ]
+    },
     {
         path: '',
         component: LayoutAppComponent,

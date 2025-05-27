@@ -1,0 +1,164 @@
+/* Hero section enhanced styling */
+.hero-background {
+  background: linear-gradient(135deg, 
+    #7dd3fc 0%, 
+    #38bdf8 50%, 
+    #0ea5e9 100%) !important;
+}
+
+.hero-custom-bg {
+  background: linear-gradient(135deg, 
+    #7dd3fc 0%, 
+    #38bdf8 50%, 
+    #0ea5e9 100%) !important;
+}
+
+/* Dark mode hero background */
+:host-context(.dark) .hero-background,
+:host-context(.dark) .hero-custom-bg,
+[data-theme="dark"] .hero-background,
+[data-theme="dark"] .hero-custom-bg,
+.dark .hero-background,
+.dark .hero-custom-bg {
+  background: linear-gradient(135deg, 
+    #1e293b 0%, 
+    #0f172a 50%, 
+    #020617 100%) !important;
+}
+
+/* Text styling for hero - always white */
+.hero-title {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.stats-text {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.stats-label {
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Section content text improvements */
+.section-title {
+  color: rgb(var(--surface-900)) !important;
+}
+
+.section-subtitle {
+  color: rgb(var(--surface-700)) !important;
+}
+
+.loading-text {
+  color: rgb(var(--surface-700)) !important;
+}
+
+.footer-text {
+  color: rgb(var(--surface-700)) !important;
+}
+
+/* Dark mode overrides */
+:host-context(.dark) .section-title,
+[data-theme="dark"] .section-title {
+  color: rgb(var(--surface-0)) !important;
+}
+
+:host-context(.dark) .section-subtitle,
+[data-theme="dark"] .section-subtitle {
+  color: rgb(var(--surface-300)) !important;
+}
+
+:host-context(.dark) .loading-text,
+[data-theme="dark"] .loading-text {
+  color: rgb(var(--surface-300)) !important;
+}
+
+:host-context(.dark) .footer-text,
+[data-theme="dark"] .footer-text {
+  color: rgb(var(--surface-300)) !important;
+}
+
+/* Enhanced card hover effects */
+.project-card-container {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card-container:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Stats cards styling */
+.stats-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Button enhancements */
+.cta-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading animation enhancement */
+.loading-container {
+  min-height: 400px;
+}
+
+/* Wave animation */
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50px); }
+}
+
+.wave-bottom {
+  animation: wave 3s ease-in-out infinite alternate;
+}
+
+/* Dark mode specific adjustments */
+@media (prefers-color-scheme: dark) {
+  .hero-background {
+    background: linear-gradient(135deg, 
+      rgb(var(--primary-800)) 0%, 
+      rgb(var(--primary-900)) 50%, 
+      rgb(var(--surface-900)) 100%);
+  }
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .project-card-container:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+/* Section separator */
+.section-divider {
+  background: linear-gradient(90deg, transparent, rgb(var(--primary-600)), transparent);
+  height: 2px;
+  margin: 3rem 0;
+}
+
+/* Performance optimizations */
+.project-card-container {
+  will-change: transform;
+}

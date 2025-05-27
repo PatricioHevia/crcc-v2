@@ -1,0 +1,96 @@
+<!-- Header Hero Section -->
+<section class="hero-background hero-custom-bg relative overflow-hidden" 
+         style="background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 50%, #0ea5e9 100%) !important;">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSI+CiAgICA8cGF0aCBkPSJNMjAgMjBMMCA0MGg0MHoiLz4KICA8L2c+Cjwvc3ZnPg==')] bg-repeat"></div>
+  </div>
+  
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="text-center">
+      <!-- Main Title -->
+      <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+        <span class="block">{{ 'PROJECTS.LIST.HERO_TITLE' | translate }}</span>
+      </h1>
+      
+      <!-- Subtitle -->
+      <p class="hero-subtitle text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+        {{ 'PROJECTS.LIST.HERO_SUBTITLE' | translate }}
+      </p>
+      
+      <!-- Stats Row -->
+      <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
+        <div class="stats-card rounded-lg px-6 py-3">
+          <div class="stats-text text-3xl font-bold">{{ projectCount() }}</div>
+          <div class="stats-label text-sm uppercase tracking-wide">{{ 'PROJECTS.LIST.STATISTICS.TOTAL_PROJECTS' | translate }}</div>
+        </div>
+        <div class="stats-card rounded-lg px-6 py-3">
+          <div class="stats-text text-3xl font-bold">{{ projectCount() }}</div>
+          <div class="stats-label text-sm uppercase tracking-wide">{{ 'PROJECTS.LIST.STATISTICS.ACTIVE_PROJECTS' | translate }}</div>
+        </div>
+      </div>
+      
+      <!-- CTA Button -->
+      <div class="flex justify-center">
+        <p-button 
+          icon="pi pi-arrow-down" 
+          [label]="'PROJECTS.LIST.VIEW_PROJECTS' | translate" 
+          styleClass="cta-button p-button-lg !bg-white !text-sky-600 hover:!bg-sky-50 !border-white !shadow-lg"
+          (click)="scrollToProjects()">
+        </p-button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bottom wave -->
+  <div class="absolute bottom-0 left-0 w-full">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="wave-bottom relative block w-full h-[60px] fill-surface-50 dark:fill-surface-900">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects-section" class="py-16 bg-surface-50 dark:bg-surface-900">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+        <!-- Loading State -->
+    @if (projectService.projects().length === 0) {
+      <div class="loading-container flex flex-col items-center justify-center">
+        <p-progress-spinner 
+          styleClass="w-16 h-16" 
+          strokeWidth="4" 
+          animationDuration=".8s">
+        </p-progress-spinner>
+        <p class="loading-text text-2xl font-semibold mt-6">
+          {{ 'PROJECTS.LOADING' | translate }}
+        </p>
+      </div>
+    } @else {
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (project of projectService.projects(); track project.name_es) {
+          <div class="project-card-container">
+            <app-card-project [project]="project"></app-card-project>
+          </div>
+        }
+      </div>
+      
+      <!-- Bottom Action -->
+      <!-- <div class="text-center mt-16">
+        <p-divider></p-divider>
+        <div class="mt-8">
+          <p class="footer-text mb-4">
+            {{ 'PROJECTS.LIST.FOOTER_TEXT' | translate }}
+          </p>
+          <p-button 
+            icon="pi pi-external-link" 
+            [label]="'PROJECTS.LIST.VIEW_ALL_DETAILS' | translate" 
+            severity="secondary" 
+            styleClass="!border-primary-600 !text-primary-600 hover:!bg-primary-600 hover:!text-white transition-colors duration-300">
+          </p-button>
+        </div>
+      </div> -->
+    }
+  </div>
+</section>

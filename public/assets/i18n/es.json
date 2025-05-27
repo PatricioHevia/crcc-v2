@@ -151,12 +151,41 @@
       "BUILD": "Construcción",
       "BUILD_OPERATE": "Construcción y Explotación",
       "OPERATE": "Explotación"
-    },
-    "ACTIONS": {
+    },    "ACTIONS": {
       "NEW_PROJECT": "Nuevo Proyecto",
       "EDIT_PROJECT": "Editar Proyecto",
       "DELETE_PROJECT": "Eliminar Proyecto",
       "VIEW_PROJECT": "Ver Proyecto"
+    },
+    "LIST": {
+      "TITLE": "Lista de Proyectos",
+      "SUBTITLE": "Explore nuestros proyectos activos en Chile",
+      "HERO_TITLE": "Proyectos CRCC Chile",
+      "HERO_SUBTITLE": "Descubra nuestros proyectos hospitalarios y de infraestructura en desarrollo",
+      "SEARCH_PLACEHOLDER": "Buscar proyectos...",
+      "FILTER_ALL": "Todas las fases",
+      "SORT_NAME_ASC": "Nombre A-Z",
+      "SORT_NAME_DESC": "Nombre Z-A",
+      "SORT_DATE_ASC": "Más antiguos",
+      "SORT_DATE_DESC": "Más recientes",
+      "STATISTICS": {
+        "TITLE": "Estadísticas de Proyectos",
+        "TOTAL_PROJECTS": "Total de Proyectos",
+        "ACTIVE_PROJECTS": "Proyectos Activos",
+        "PHASE_DIVERSITY": "Diversidad de Fases"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "No se encontraron proyectos",
+        "SUBTITLE": "No hay proyectos que coincidan con sus criterios de búsqueda.",
+        "CLEAR_FILTERS": "Limpiar filtros"
+      },      "ERROR_STATE": {
+        "TITLE": "Error al cargar proyectos",
+        "SUBTITLE": "Ocurrió un error al intentar cargar los proyectos. Por favor, inténtelo de nuevo.",
+        "RETRY": "Reintentar"
+      },
+      "VIEW_PROJECTS": "Ver Proyectos",
+      "FOOTER_TEXT": "¿Interesado en conocer más detalles sobre nuestros proyectos?",
+      "VIEW_ALL_DETAILS": "Ver Todos los Detalles"
     }
   },
   "PROJECTCARD": {

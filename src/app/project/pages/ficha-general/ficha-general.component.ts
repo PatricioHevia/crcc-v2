@@ -80,10 +80,7 @@ export class FichaGeneralComponent {
   // Estados de carga y error para la galería
   imageLoadStates: boolean[] = [];
   imageErrorStates: boolean[] = [];
-  // Variables para el modal de preview de imágenes
-  showImageModal = signal<boolean>(false);
-  selectedImage = signal<GalleryImageFirestore | null>(null);
-  selectedImageIndex = signal<number>(0);
+
 
   // Sincroniza los arrays de estado con la cantidad de imágenes
   ngDoCheck(): void {
@@ -327,10 +324,7 @@ export class FichaGeneralComponent {
     }
   }
 
-  openDialog() {
-    this.showImageModal.set(true);
-
-  }
+ 
 
 
 

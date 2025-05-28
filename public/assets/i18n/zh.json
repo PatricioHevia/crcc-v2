@@ -162,8 +162,8 @@
     "REDIRECTING_TO_PROJECTS": "正在重定向到项目列表...",
     "PROJECT_INFORMATION": "项目信息",
     "DESCRIPTION": "描述",
-    "START_DATE": "开始日期",
-    "PROJECT_URL": "项目链接",
+    "START_DATE": "开始日期",    "PROJECT_URL": "项目链接",
+    "VIEW_TENDERS": "查看招标",
     "IMAGE_GALLERY": "图片画廊",
     "GALLERY_COMING_SOON": "画廊即将推出",
     "GALLERY_DESCRIPTION": "图片画廊功能将很快上线。",
@@ -591,11 +591,44 @@
       "UPDATE_ERROR": "更新职位招聘时出错",
       "TRANSLATION_NOTE": "注意：名称和描述字段将自动翻译为所有三种语言。"
     }
-  },
-  "TABLE": {
+  },  "TABLE": {
     "SHOWING": "显示",
     "TO": "到",
     "OF": "共",
     "ENTRIES": "条记录"
+  },  "TENDER_TYPES": {
+    "MEDICAL_EQUIPMENT": "医疗设备和临床及非临床家具",
+    "CONSTRUCTION_WORK": "建筑工程",
+    "ENGINEERING": "工程设计",
+    "SERVICE_PROVISION": "服务提供"
+  },
+  "TENDER_MODALITY": {
+    "LUMP_SUM": "总价合同",
+    "UNIT_PRICE": "单价合同",
+    "NOT_APPLICABLE": "不适用"
+  },
+  "TENDERS": {
+    "TITLE": "项目招标",
+    "SUBTITLE": "招标和承包流程管理",
+    "CLEAR_FILTERS": "清除筛选",
+    "FILTER_BY_STATUS": "按状态筛选",
+    "FILTER_BY_MODALITY": "按方式筛选",
+    "FILTER_BY_TYPE": "按类型筛选",    "SELECT_STATES": "选择状态",
+    "STATUS_PLACEHOLDER": "选择状态",
+    "SELECT_MODALITIES": "选择方式",
+    "MODALITY_PLACEHOLDER": "选择方式",
+    "SELECT_TYPES": "选择类型",
+    "TYPE_PLACEHOLDER": "选择类型",
+    "SHOWING_COUNT": "显示 {{count}} / {{total}} 项招标",
+    "LOADING": "正在加载招标...",
+    "NO_TENDERS": "暂无招标",
+    "NO_TENDERS_MESSAGE": "此项目尚未注册任何招标。",
+    "NO_RESULTS": "未找到招标",
+    "NO_RESULTS_MESSAGE": "尝试调整筛选条件以查看更多结果。",    "START_DATE": "开始日期：",
+    "AWARD_DATE": "授标日期：",
+    "SUBMISSION_DEADLINE": "截止时间：",
+    "VIEW_DETAILS": "查看详情",
+    "TENDER_IMAGE": "招标图片",
+    "TENDER_IMAGE_ALT": "招标图片"
   }
 }

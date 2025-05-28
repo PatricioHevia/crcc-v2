@@ -1,0 +1,115 @@
+<div class="tender-detail-container p-6 max-w-4xl mx-auto">
+  @if (loading()) {
+    <!-- Estado de carga -->
+    <div class="flex flex-col items-center justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <p class="text-gray-600 dark:text-gray-300 mt-4">Cargando detalles de la licitación...</p>
+    </div>
+  } @else if (!tender()) {
+    <!-- No encontrado -->
+    <div class="text-center py-12">
+      <div class="text-red-400 mb-4">
+        <svg class="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-medium text-gray-900 dark:text-white">Licitación no encontrada</h3>
+      <p class="text-gray-500 dark:text-gray-400 mt-1">
+        La licitación solicitada no existe o no está disponible.
+      </p>
+      <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+              (click)="goBack()">
+        Volver a la lista
+      </button>
+    </div>
+  } @else {
+    <!-- Detalles de la licitación -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+      <!-- Header -->
+      <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex justify-between items-start">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+              {{ tender()!.name }}
+            </h1>
+           
+          </div>
+          <span class="px-3 py-1 text-sm font-medium rounded-full"
+                >
+            {{ tender()!.tenderStatus }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="px-6 py-6">
+        <div class="grid gap-6 md:grid-cols-2">
+          <!-- Información básica -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Información General</h3>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Descripción</label>
+              <p class="mt-1 text-gray-900 dark:text-white">{{ tender()!.description }}</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Modalidad</label>
+                <p class="mt-1 text-gray-900 dark:text-white">{{ tender()!.tenderModality || 'No especificada' }}</p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Moneda</label>
+                <p class="mt-1 text-gray-900 dark:text-white">{{ tender()!.tenderCurrency }}</p>
+              </div>
+            </div>
+
+            
+          </div>
+
+          <!-- Fechas importantes -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Fechas Importantes</h3>
+            
+            
+
+            @if (tender()!.submissionDeadline) {
+              <div>
+                <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Fecha Límite de Presentación</label>
+                <p class="mt-1 text-gray-900 dark:text-white">
+                  {{ tender()!.submissionDeadline!.toDate() | date:'dd/MM/yyyy HH:mm' }}
+                </p>
+              </div>
+            }
+
+            
+
+            @if (tender()!.awardDate) {
+              <div>
+                <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Fecha de Adjudicación</label>
+                <p class="mt-1 text-gray-900 dark:text-white">
+                  {{ tender()!.awardDate!.toDate() | date:'dd/MM/yyyy HH:mm' }}
+                </p>
+              </div>
+            }
+          </div>
+        </div>
+
+        
+      </div>
+
+      <!-- Footer con acciones -->
+      <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50">
+        <div class="flex justify-between">
+          <button class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+                  (click)="goBack()">
+            ← Volver a la lista
+          </button>
+          
+          
+        </div>
+      </div>
+    </div>
+
+  }

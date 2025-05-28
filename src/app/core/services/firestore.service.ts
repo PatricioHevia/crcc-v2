@@ -3,6 +3,7 @@ import {
   Firestore,
   collection,
   CollectionReference,
+  collectionGroup,
   doc,
   DocumentReference,
   setDoc,
@@ -305,9 +306,103 @@ export class FirestoreService {
       data: dataSignal.asReadonly(),
       loading: loadingSignal.asReadonly(),
       unsubscribe: unsubscribeFunction // 2. Retorna la función de desuscripción
-    };
+    };  }
+
+  public listenCollectionGroupWithMetadata<T extends { id: string }>(
+    collectionId: string,
+    constraints: QueryConstraint[] = []
+  ): Observable<FirestoreCollectionEvent<T>> {
+    const collectionGroupRef = collectionGroup(this.firestore, collectionId);
+    const q = firestoreQuery(collectionGroupRef, ...constraints);
+
+    return new Observable(subscriber => {
+      const unsubscribe: Unsubscribe = onSnapshot(
+        q,
+        (querySnapshot: QuerySnapshot) => {
+          this.zone.run(() => {
+            const items = querySnapshot.docs.map(d =>
+              ({ id: d.id, ...d.data() } as T)
+            );
+            const metadata = querySnapshot.metadata;
+            subscriber.next({
+              items,
+              fromCache: metadata.fromCache,
+              hasPendingWrites: metadata.hasPendingWrites
+            });
+          });
+        },
+        error => {
+          this.zone.run(() => {
+            console.error(
+              `[FirestoreService][listenCollectionGroupWithMetadata][collectionGroup:${collectionId}]`,
+              error
+            );
+            subscriber.error(error);
+          });
+        }
+      );
+      return () => unsubscribe();
+    });
   }
 
+  /**
+   * Escucha cambios en un collection group, devuelve Signals para data y loading,
+   * e incluye la función de desuscripción.
+   */
+  public listenCollectionGroupWithLoading<T extends { id: string }>(
+    collectionId: string,
+    constraints: QueryConstraint[] = []
+  ): { data: Signal<T[]>; loading: Signal<boolean>; unsubscribe: () => void } {
+    const dataSignal = signal<T[]>([]);
+    const loadingSignal = signal<boolean>(true);
+    let hasLoggedInitial = false;    // Nos suscribimos al Observable que ya maneja onSnapshot y NgZone
+    const subscription: Subscription = this.listenCollectionGroupWithMetadata<T>(collectionId, constraints).subscribe({
+      next: (event: FirestoreCollectionEvent<T>) => {
+        dataSignal.set(event.items);
+        if (loadingSignal()) {
+          loadingSignal.set(false);
+        }
+        // Logging de carga inicial y actualizaciones
+        if (!hasLoggedInitial) {
+          if (event.fromCache) {
+            console.log(
+              `[FirestoreService][collectionGroup:${collectionId}] Datos iniciales desde la CACHÉ.`
+            );
+          } else {
+            console.log(
+              `[FirestoreService][collectionGroup:${collectionId}] Datos iniciales desde el SERVIDOR.`
+            );
+          }
+          hasLoggedInitial = true;
+        } else if (!event.fromCache) {
+          console.log(
+            `[FirestoreService][collectionGroup:${collectionId}] Datos actualizados desde el SERVIDOR.`
+          );
+        }
+      },
+      error: (err: any) => {
+        console.error(
+          `[FirestoreService][listenCollectionGroupWithLoading][collectionGroup:${collectionId}]`,
+          err
+        );
+        loadingSignal.set(false);
+      }
+    });
+
+    // La función de desuscripción simplemente se desuscribe de la suscripción de RxJS
+    const unsubscribeFunction = () => {
+      if (subscription && !subscription.closed) {
+        subscription.unsubscribe();
+        // console.log(`FirestoreService: Unsubscribed from collection group ${collectionId}`);
+      }
+    };
+
+    return {
+      data: dataSignal.asReadonly(),
+      loading: loadingSignal.asReadonly(),
+      unsubscribe: unsubscribeFunction
+    };
+  }
 
   // --- Métodos que usan collectionData/docData de @angular/fire ---
   // Estos ya devuelven Observables, y la desuscripción se maneja típicamente

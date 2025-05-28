@@ -159,9 +159,10 @@
     "PROJECT_NOT_FOUND": "Proyecto no encontrado",
     "REDIRECTING_TO_PROJECTS": "Redirigiendo a la lista de proyectos...",
     "PROJECT_INFORMATION": "Información del Proyecto",
-    "DESCRIPTION": "Descripción",
-    "START_DATE": "Fecha de Inicio",
-    "PROJECT_URL": "URL del Proyecto",    "IMAGE_GALLERY": "Galería de Imágenes",
+    "DESCRIPTION": "Descripción",    "START_DATE": "Fecha de Inicio",
+    "PROJECT_URL": "URL del Proyecto",
+    "VIEW_TENDERS": "Ver Licitaciones",
+    "IMAGE_GALLERY": "Galería de Imágenes",
     "GALLERY_COMING_SOON": "Galería Próximamente",
     "GALLERY_DESCRIPTION": "La funcionalidad de galería de imágenes estará disponible próximamente.",
     "GALLERY_MANAGEMENT": {
@@ -616,11 +617,44 @@
       "UPDATE_ERROR": "Error al actualizar la oferta de empleo",
       "TRANSLATION_NOTE": "Nota: Los campos nombre y descripción se traducirán automáticamente a los tres idiomas."
     }
-  },
-  "TABLE": {
+  },  "TABLE": {
     "SHOWING": "Mostrando",
     "TO": "a",
     "OF": "de",
     "ENTRIES": "entradas"
+  },  "TENDER_TYPES": {
+    "MEDICAL_EQUIPMENT": "Equipamiento Médico y Mobiliario Clínico y No Clínico",
+    "CONSTRUCTION_WORK": "Obra",
+    "ENGINEERING": "Ingeniería",
+    "SERVICE_PROVISION": "Prestación de Servicios"
+  },
+  "TENDER_MODALITY": {
+    "LUMP_SUM": "Suma Alzada",
+    "UNIT_PRICE": "Precio Unitario",
+    "NOT_APPLICABLE": "No Aplica"
+  },
+  "TENDERS": {
+    "TITLE": "Licitaciones del Proyecto",
+    "SUBTITLE": "Gestión de licitaciones y procesos de contratación",
+    "CLEAR_FILTERS": "Limpiar Filtros",
+    "FILTER_BY_STATUS": "Filtrar por Estado",
+    "FILTER_BY_MODALITY": "Filtrar por Modalidad",
+    "FILTER_BY_TYPE": "Filtrar por Tipo",    "SELECT_STATES": "Seleccionar estados",
+    "STATUS_PLACEHOLDER": "Seleccionar estados",
+    "SELECT_MODALITIES": "Seleccionar modalidades",
+    "MODALITY_PLACEHOLDER": "Seleccionar modalidades",
+    "SELECT_TYPES": "Seleccionar tipos",
+    "TYPE_PLACEHOLDER": "Seleccionar tipos",
+    "SHOWING_COUNT": "Mostrando {{count}} de {{total}} licitaciones",
+    "LOADING": "Cargando licitaciones...",
+    "NO_TENDERS": "No hay licitaciones",
+    "NO_TENDERS_MESSAGE": "Aún no se han registrado licitaciones para este proyecto.",
+    "NO_RESULTS": "No se encontraron licitaciones",
+    "NO_RESULTS_MESSAGE": "Intenta ajustar los filtros para ver más resultados.",    "START_DATE": "Fecha de Inicio:",
+    "AWARD_DATE": "Fecha de Adjudicación:",
+    "SUBMISSION_DEADLINE": "Fecha límite:",
+    "VIEW_DETAILS": "Ver Detalles",
+    "TENDER_IMAGE": "Imagen licitación",
+    "TENDER_IMAGE_ALT": "Imagen de la licitación"
   }
 }

@@ -1,117 +1,125 @@
-<div class="project-detail-container">
+<div class="max-w-6xl mx-auto p-4">
   <!-- Estado de carga -->
-  <div *ngIf="loading()" class="loading-state">
-    <div class="banner-skeleton">
+  <div *ngIf="loading()" class="animate-fadeIn">
+    <div class="mb-8">
       <p-skeleton height="500px" class="mb-2"></p-skeleton>
     </div>
-    <div class="content-skeleton">
+    <div class="p-4">
       <p-skeleton height="2rem" class="mb-3"></p-skeleton>
       <p-skeleton height="1rem" class="mb-2"></p-skeleton>
       <p-skeleton height="1rem" class="mb-2"></p-skeleton>
       <p-skeleton height="8rem" class="mb-3"></p-skeleton>
     </div>
   </div>
-
   <!-- Proyecto no encontrado -->
-  <div *ngIf="notFound()" class="not-found-state">
+  <div *ngIf="notFound()" class="text-center py-12 px-4 animate-fadeIn">
     <p-message severity="warn" [text]="'PROJECTS.PROJECT_NOT_FOUND' | translate" styleClass="w-full">
     </p-message>
-    <p class="redirect-message">
+    <p class="my-4 text-surface-600 dark:text-surface-400 italic">
       {{ 'PROJECTS.REDIRECTING_TO_PROJECTS' | translate }}
     </p>
     <p-button [label]="'COMMON.GO_BACK' | translate" icon="pi pi-arrow-left" (click)="goBack()">
     </p-button>
   </div>
-
   <!-- Contenido del proyecto -->
-  <div *ngIf="!loading() && !notFound() && project()" class="project-content">
+  <div *ngIf="!loading() && !notFound() && project()" class="animate-fadeIn">
     <!-- Banner del proyecto -->
-    <div class="project-banner">
-      <div class="banner-image-container">
+    <div
+      class="mb-8 rounded-xl overflow-hidden shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)]">
+      <div class="relative w-full max-h-[500px] overflow-hidden">
         <p-image [src]="project()!.image" [alt]="getProjectName()" width="100%" height="500" [preview]="true">
         </p-image>
-        <div class="banner-overlay">
-          <div class="banner-content">
-            <h1 class="project-title">{{ getProjectName() }}</h1>
-            <p-tag *ngIf="project()!.phase" [value]="getPhaseTranslationKey() | translate"
-              [ngClass]="getPhaseTagClasses()" class="phase-tag">
-            </p-tag>
+        <div
+          class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-8 text-white">
+          <div class="flex items-end justify-between flex-wrap gap-4">
+            <h1 class="m-0 text-4xl font-bold text-shadow-[2px_2px_4px_rgba(0,0,0,0.5)] flex-1 min-w-[200px]">{{
+              getProjectName() }}</h1>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Panel de información del proyecto -->
-    <div class="project-info-section">
+    </div> <!-- Panel de información del proyecto -->
+    <div class="mb-8">
       <p-panel [header]="'PROJECTS.PROJECT_INFORMATION' | translate" [toggleable]="false">
-        <div class="info-grid">
+        <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 mb-4">
           <!-- Descripción -->
-          <div class="info-item description-item">
-            <h3>{{ 'PROJECTS.DESCRIPTION' | translate }}</h3>
-            <p class="description-text">{{ getProjectDescription() }}</p>
+          <div>
+            <h3 class="mb-4 text-primary-600 dark:text-primary-400 font-semibold text-xl">{{ 'PROJECTS.DESCRIPTION' |
+              translate }}</h3>
+            <p class="leading-relaxed text-surface-700 dark:text-surface-300 text-base m-0 text-justify">{{
+              getProjectDescription() }}</p>
           </div>
 
           <!-- Detalles del proyecto -->
-          <div class="info-item details-item">
-            <div class="detail-row" *ngIf="project()!.awardDate">
-              <strong class="text-end">{{ 'PROJECTS.START_DATE' | translate }}:</strong>
-              <span>{{ project()!.awardDate?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang()}}</span>
+          <div class="flex flex-col gap-4">
+            <div
+              class="flex flex-col sm:flex-row sm:items-center gap-2 py-2 border-b border-surface-200 dark:border-surface-700"
+              *ngIf="project()!.awardDate">
+              <strong class="text-surface-600 dark:text-surface-400 font-semibold min-w-[120px] flex-shrink-0">{{
+                'PROJECTS.START_DATE' | translate }}:</strong>
+              <span class="text-surface-700 dark:text-surface-300">{{ project()!.awardDate?.toDate() | date:'dd/MM/yyyy
+                HH:mm':undefined:lang()}}</span>
             </div>
 
-
-
-            <div class="detail-row" *ngIf="project()!.phase">
-              <strong class="text-end">{{ 'PROJECTS.TABLE.PHASE' | translate }}:</strong>
+            <div
+              class="flex flex-col sm:flex-row sm:items-center gap-2 py-2 border-b border-surface-200 dark:border-surface-700"
+              *ngIf="project()!.phase">
+              <strong class="text-surface-600 dark:text-surface-400 font-semibold min-w-[120px] flex-shrink-0">{{
+                'PROJECTS.TABLE.PHASE' | translate }}:</strong>
               <p-tag [value]="getPhaseTranslationKey() | translate" [ngClass]="getPhaseTagClasses()"
-                class="inline-phase-tag">
+                class="text-sm px-3 py-1">
               </p-tag>
             </div>
 
-            <div class="detail-row" *ngIf="project()!.url">
-              <strong class="text-end">{{ 'PROJECTS.PROJECT_URL' | translate }}:</strong>
-              <span class="project-url">{{ project()!.url }}</span>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2 py-2 border-b-0" *ngIf="project()!.url">
+              <strong class="text-surface-600 dark:text-surface-400 font-semibold min-w-[120px] flex-shrink-0">{{
+                'PROJECTS.PROJECT_URL' | translate }}:</strong>
+              <span
+                class="font-mono bg-surface-100 dark:bg-surface-800 px-2 py-1 rounded text-sm text-surface-700 dark:text-surface-300">{{
+                project()!.url }}</span>
             </div>
           </div>
         </div>
 
-        <p-divider></p-divider>
-
-        <!-- Botones de acción -->
-        <div class="action-buttons">
+        <p-divider></p-divider>        <!-- Botones de acción -->
+        <div class="mt-4 flex gap-4">
           <p-button [label]="'COMMON.GO_BACK' | translate" icon="pi pi-arrow-left" severity="secondary"
             (click)="goBack()">
+          </p-button>
+          <p-button [label]="'PROJECTS.VIEW_TENDERS' | translate" icon="pi pi-file-text" severity="info"
+            (click)="goToTenders()">
           </p-button>
         </div>
       </p-panel>
     </div> <!-- Galería de imágenes -->
-
     @if( isSuperAdmin()) {
-    <div class="gallery-section">
+    <div class="mb-8 mt-8">
       <p-panel [header]="'PROJECTS.IMAGE_GALLERY' | translate" [toggleable]="true" [collapsed]="false">
-        <div class="gallery-container">
+        <div class="min-h-[200px]">
 
           <!-- Progreso de subida -->
-          <div class="upload-progress" *ngIf="uploadLoading()">
+          <div class="flex items-center justify-center gap-2 p-4 bg-surface-50 dark:bg-surface-800 rounded-lg mb-4"
+            *ngIf="uploadLoading()">
             <p-progressSpinner styleClass="custom-spinner" strokeWidth="4">
             </p-progressSpinner>
-            <span>{{ 'PROJECTS.GALLERY_MANAGEMENT.UPLOADING' | translate }}</span>
+            <span class="text-surface-600 dark:text-surface-400 text-sm">{{ 'PROJECTS.GALLERY_MANAGEMENT.UPLOADING' |
+              translate }}</span>
           </div>
-
-
-
 
           <!-- Botón para seleccionar imagen -->
           <p-button icon="pi pi-upload" [label]="'PROJECTS.GALLERY_MANAGEMENT.ADD_IMAGES' | translate" severity="info"
-            size="small" (click)="openFileSelector()" [disabled]="uploadLoading()" class="add-image-btn">
+            size="small" (click)="openFileSelector()" [disabled]="uploadLoading()" class="mb-4">
           </p-button>
-
 
           <!-- Input file oculto -->
           <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
+
           <!-- Cropper simple con aspect ratio 16:9 -->
-          <div *ngIf="imageChangedEvent" class="cropper-section">
-            <h4 class="cropper-title">{{ 'PROJECTS.GALLERY_MANAGEMENT.CROP_IMAGE_TITLE' | translate }}</h4>
-            <div class="cropper-container">
+          <div *ngIf="imageChangedEvent"
+            class="mb-8 p-6 bg-surface-100 dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700">
+            <h4 class="mb-4 text-surface-700 dark:text-surface-300 text-lg font-semibold text-center">{{
+              'PROJECTS.GALLERY_MANAGEMENT.CROP_IMAGE_TITLE' | translate }}</h4>
+            <div
+              class="flex justify-center items-center bg-white dark:bg-surface-900 rounded-lg border border-surface-200 dark:border-surface-700 min-h-[450px] mb-6 overflow-hidden relative">
               <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="16 / 9"
                 [resizeToWidth]="800" [cropperMinWidth]="320" [cropperMinHeight]="180" format="png"
                 (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
@@ -120,54 +128,58 @@
             </div>
 
             <!-- Solo botones de aplicar y cancelar -->
-            <div class="crop-actions" *ngIf="showCropper">
+            <div class="flex justify-center gap-4 flex-wrap" *ngIf="showCropper">
               <p-button [disabled]="uploadLoading()" icon="pi pi-times"
                 [label]="'PROJECTS.GALLERY_MANAGEMENT.CANCEL_CROP' | translate" severity="secondary"
-                (click)="cancelCrop()">
+                (click)="cancelCrop()" class="min-w-[140px]">
               </p-button>
               <p-button [disabled]="uploadLoading()" icon="pi pi-check"
-                [label]="'PROJECTS.GALLERY_MANAGEMENT.APPLY_CROP' | translate" severity="success" (click)="applyCrop()">
+                [label]="'PROJECTS.GALLERY_MANAGEMENT.APPLY_CROP' | translate" severity="success" (click)="applyCrop()"
+                class="min-w-[140px]">
               </p-button>
             </div>
-          </div>
-
-          <!-- Galería de imágenes existentes -->
-          <div *ngIf="project()?.galleryImages && project()!.galleryImages!.length > 0" class="gallery-grid">
-            <div *ngFor="let image of project()!.galleryImages; let i = index" class="gallery-item">
-              <div class="gallery-image-wrapper">
-                <img [src]="image.url" [alt]="image.name" class="gallery-img-real" (load)="imageLoadStates[i]=true"
-                  (error)="imageErrorStates[i]=true" [class.opacity-0]="!imageLoadStates[i] && !imageErrorStates[i]"
+          </div> <!-- Galería de imágenes existentes -->
+          <div *ngIf="project()?.galleryImages && project()!.galleryImages!.length > 0"
+            class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 mt-4">
+            <div *ngFor="let image of project()!.galleryImages; let i = index"
+              class="relative rounded-lg overflow-hidden bg-surface-100 dark:bg-surface-800 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+              <div
+                class="relative w-full h-[150px] flex items-center justify-center bg-surface-50 dark:bg-surface-900 rounded-t-lg overflow-hidden">
+                <img [src]="image.url" [alt]="image.name"
+                  class="w-full h-full object-contain transition-all duration-300 cursor-pointer hover:scale-105 block"
+                  (load)="imageLoadStates[i]=true" (error)="imageErrorStates[i]=true"
+                  [class.opacity-0]="!imageLoadStates[i] && !imageErrorStates[i]"
                   [class.opacity-100]="imageLoadStates[i] && !imageErrorStates[i]"
-                  [class.opacity-50]="imageErrorStates[i]" style="cursor: pointer" />
+                  [class.opacity-50]="imageErrorStates[i]" />
                 <ng-container *ngIf="!imageLoadStates[i] && !imageErrorStates[i]">
-                  <div class="gallery-img-placeholder">
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-surface-100 dark:bg-surface-800 z-10">
                     <p-skeleton width="100%" height="100%"></p-skeleton>
                   </div>
                 </ng-container>
                 <ng-container *ngIf="imageErrorStates[i]">
-                  <div class="gallery-img-placeholder">
-                    <i class="pi pi-exclamation-triangle text-orange-500"></i>
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-surface-100 dark:bg-surface-800 z-10">
+                    <i class="pi pi-exclamation-triangle text-orange-500 text-2xl"></i>
                   </div>
                 </ng-container>
               </div>
 
-              <div class="w-full flex justify-center mt-2">
-
+              <div class="w-full flex justify-center mt-2 pb-2">
                 <p-button icon="pi pi-trash" (click)="deleteImage(image)"
                   [pTooltip]="'PROJECTS.GALLERY_MANAGEMENT.DELETE_IMAGE' | translate" severity="danger" text="true">
-
                 </p-button>
               </div>
-
             </div>
           </div>
-
           <!-- Placeholder cuando no hay imágenes -->
-          <div *ngIf="!project()?.galleryImages || project()!.galleryImages!.length === 0" class="gallery-placeholder">
-            <div class="placeholder-content">
-              <i class="pi pi-images placeholder-icon"></i>
-              <h3>{{ 'PROJECTS.GALLERY_MANAGEMENT.NO_IMAGES' | translate }}</h3>
-              <p>{{ 'PROJECTS.GALLERY_MANAGEMENT.NO_IMAGES_DESCRIPTION' | translate }}</p>
+          <div *ngIf="!project()?.galleryImages || project()!.galleryImages!.length === 0"
+            class="text-center py-12 px-4 text-surface-600 dark:text-surface-400">
+            <div class="flex flex-col items-center gap-4">
+              <i class="pi pi-images text-6xl text-surface-500 dark:text-surface-400"></i>
+              <h3 class="text-lg font-semibold">{{ 'PROJECTS.GALLERY_MANAGEMENT.NO_IMAGES' | translate }}</h3>
+              <p class="text-base leading-relaxed">{{ 'PROJECTS.GALLERY_MANAGEMENT.NO_IMAGES_DESCRIPTION' | translate }}
+              </p>
             </div>
           </div>
         </div>

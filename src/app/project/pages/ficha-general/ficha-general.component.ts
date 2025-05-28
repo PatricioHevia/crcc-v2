@@ -189,6 +189,14 @@ export class FichaGeneralComponent {
     this.router.navigate(['/app/projects']);
   }
 
+  // Método para navegar a las licitaciones del proyecto
+  goToTenders(): void {
+    const currentProject = this.project();
+    if (currentProject) {
+      this.router.navigate(['/app/project', currentProject.id, 'tenders']);
+    }
+  }
+
   // Métodos para gestión de galería
   openFileSelector(): void {
     this.fileInput.nativeElement.click();

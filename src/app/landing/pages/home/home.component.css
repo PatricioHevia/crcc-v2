@@ -122,3 +122,21 @@ swiper-container .swiper-slide {
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
 }
+
+/* Efectos especiales para el logo corporativo - solo escalado */
+.logo-container {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+/* Solo mantener el efecto de escala en hover */
+.group:hover .logo-container {
+  transform: scale(1.02);
+}
+
+/* Asegurar que las imágenes estén por encima del efecto */
+.logo-container img {
+  position: relative;
+  z-index: 2;
+}

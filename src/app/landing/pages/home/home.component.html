@@ -9,10 +9,43 @@
   
   <div class="relative container mx-auto px-4 lg:px-8">
     <div class="backdrop-blur-sm bg-white/70 dark:bg-surface-800/70 p-6 md:p-8 lg:p-12 rounded-2xl shadow-xl border border-white/20 dark:border-surface-700/30 space-y-8 text-surface-700 dark:text-surface-300">    <!-- Título principal con animación y colores corporativos -->
-    <div class="text-center space-y-4 mb-12">
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent leading-tight">
+    <div class="text-center space-y-4 mb-12">      <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent leading-tight">
         {{ 'HOME.TITULO' | translate }}
       </h2>
+      
+      <!-- Logo corporativo elegante -->
+      <div class="flex justify-center items-center my-8">
+        <div class="relative group">          <!-- Contenedor del logo con fondo transparente y bordes suaves -->
+          <div class="logo-container bg-gradient-to-br from-stone-50 via-stone-200 to-s-400/60 dark:bg-gradient-to-br dark:from-surface-900 dark:via-surface-800 dark:to-surface-700 backdrop-blur-sm rounded-2xl p-3 md:p-4 lg:p-6 
+                      border border-stone-50/30 dark:border-surface-700/30 
+                      shadow-lg hover:shadow-xl 
+                      transition-all duration-300
+                      group-hover:scale-[1.02]">
+              <!-- Logo para modo claro -->
+            <img src="assets/images/logos/Logo-CRCC.png"
+                 alt="CRCC Logo" 
+                 class="h-24 md:h-28 lg:h-32 w-auto object-contain 
+                        transition-all duration-300 
+                        dark:hidden" />
+            
+            <!-- Logo para modo oscuro -->
+            <img src="assets/images/logos/Logo-CRCC-DM.png"
+                 alt="CRCC Logo" 
+                 class="h-20 md:h-24 lg:h-28 w-auto object-contain
+                        transition-all duration-300 
+                        filter drop-shadow-sm 
+                        hidden dark:block" />
+            
+            <!-- Sutil efecto de brillo en hover -->
+            <div class="absolute inset-0 
+                        bg-gradient-to-br from-transparent via-white/5 to-transparent 
+                        opacity-0 group-hover:opacity-100 
+                        transition-opacity duration-500 
+                        rounded-2xl pointer-events-none"></div>
+          </div>
+        </div>
+      </div>
+      
       <h3 class="text-xl md:text-2xl lg:text-3xl text-primary-700 dark:text-primary-300 font-bold tracking-wide">
         {{ 'HOME.CRCC' | translate }}
       </h3>

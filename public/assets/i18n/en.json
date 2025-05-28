@@ -119,10 +119,12 @@
     "EMAIL_PLACEHOLDER": "Enter your email",
     "PASSWORD_PLACEHOLDER": "Enter your password",
     "REPEAT_PASSWORD_PLACEHOLDER": "Repeat your password",
-    "ORG_EMAIL_PLACEHOLDER": "Enter contact email",
-    "ORG_TIN_PLACEHOLDER": "Enter tax ID or contract number",
-    "ORG_ADDRESS_PLACEHOLDER": "Enter address",
-    "ORG_TYPE_PLACEHOLDER": "Select organization type"
+    "ORG_EMAIL_PLACEHOLDER": "Enter contact email",    "ORG_TIN_PLACEHOLDER": "Enter tax ID or contract number",
+    "ORG_ADDRESS_PLACEHOLDER": "Enter address",    "ORG_TYPE_PLACEHOLDER": "Select organization type",
+    "PERMISSIONS": "Permissions",
+    "OFFICES": "Offices",
+    "ORG_USERS": "Users",
+    "ORG_USERS_COUNT": "Number of Users"
   },
   "HOME": {
     "TITULO": "OUR COMPANY",
@@ -532,6 +534,5 @@
     "SHOWING": "Showing",
     "TO": "to",
     "OF": "of",
-    "ENTRIES": "entries"
-  }
+    "ENTRIES": "entries"  }
 }

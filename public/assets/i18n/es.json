@@ -122,10 +122,12 @@
     "EMAIL_PLACEHOLDER": "Ingresa tu correo electrónico",
     "PASSWORD_PLACEHOLDER": "Ingresa tu contraseña",
     "REPEAT_PASSWORD_PLACEHOLDER": "Repite tu contraseña",
-    "ORG_EMAIL_PLACEHOLDER": "Ingresa el correo de contacto",
-    "ORG_TIN_PLACEHOLDER": "Ingresa el RUT o número de contrato",
-    "ORG_ADDRESS_PLACEHOLDER": "Ingresa la dirección",
-    "ORG_TYPE_PLACEHOLDER": "Selecciona el tipo de organización"
+    "ORG_EMAIL_PLACEHOLDER": "Ingresa el correo de contacto",    "ORG_TIN_PLACEHOLDER": "Ingresa el RUT o número de contrato",
+    "ORG_ADDRESS_PLACEHOLDER": "Ingresa la dirección",    "ORG_TYPE_PLACEHOLDER": "Selecciona el tipo de organización",
+    "PERMISSIONS": "Permisos",
+    "OFFICES": "Oficinas",
+    "ORG_USERS": "Usuarios",
+    "ORG_USERS_COUNT": "Cantidad de Usuarios"
   },
   "HOME": {
     "TITULO": "NUESTRA EMPRESA",
@@ -356,8 +358,7 @@
       "DELETE_CANCELLED_DETAIL": "La eliminación de la organización ha sido cancelada.",
       "EDIT_TITLE": "Editar Organización",
       "NO_CHANGES_DETECTED": "No se detectaron cambios en la organización.",
-      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",
-      "FORM": {
+      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",      "FORM": {
         "CURRENT_LOGO": "Logo Actual",
         "CHANGE_LOGO": "Cambiar Logo",
         "REMOVE_LOGO": "Quitar Logo"

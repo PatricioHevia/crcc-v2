@@ -77,10 +77,9 @@ export class UserService {
         this.clearUser();
         this.authStateDetermined.set(true);
       }
-    });
-
-    effect((onCleanup) => {
+    });    effect((onCleanup) => {
       const isAdminUser = this.isAdmin();
+      const isSuperAdminUser = this.isSuperAdmin();
       const currentUserOrg = this.orgUsuario(); // Para obtener el ID para el filtro
       const isCurrentUserMandante = this.isMandante();
 
@@ -98,12 +97,15 @@ export class UserService {
       // --- Lógica para Admin ---
       this.allUsersLoading.set(true); // Indicar que estamos cargando la lista de usuarios.
 
-      const filtros: QueryConstraint[] = isCurrentUserMandante
+      // Super Admin siempre ve todos los usuarios, independiente de si es Mandante o no
+      // Mandante (que no sea Super Admin) también ve todos los usuarios
+      // Admin regular solo ve usuarios de su organización
+      const filtros: QueryConstraint[] = (isSuperAdminUser || isCurrentUserMandante)
         ? [orderBy('name')]
         : [
           where('organization', '==', currentUserOrg?.id ?? '__NO_ORG_ID_PLACEHOLDER__'),
           orderBy('name')
-        ];     
+        ];
       this.allUsersListenerSubscription = this.fs.listenCollectionWithMetadata<Account>('accounts', filtros).subscribe({  
         next: (event: FirestoreCollectionEvent<Account>) => {
           this.allUsersForAdmin.set(event.items);

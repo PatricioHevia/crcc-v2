@@ -160,6 +160,15 @@ export class OrganizationService {
         );
     }
 
+    public decrementUsersCount(organizationId: string): Promise<void> {
+        return this.fs.incrementField<'usersCount', Organization>( // Se especifican AMBOS tipos: K y T
+            'organizations',         // path
+            organizationId,          // id
+            'usersCount',            // field (coincide con K)
+            -1                       // amount (decrementar)
+        );
+    }
+
     getAllOrganizationsPromise(): Promise<Organization[]> {
         this.startListening(); // Asegura que el listener esté activo y la carga haya comenzado
 

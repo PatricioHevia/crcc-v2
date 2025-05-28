@@ -75,6 +75,7 @@ export class UsersComponent {
   organizationsNames = this.orgSvc.getOrganizationsOptions();  
 
   isMandante = computed(() => this.userService.isMandante()); 
+  isSuperAdmin = computed(() => this.userService.isSuperAdmin());
 
   // Variable para el filtro global de PrimeNG si decides usarlo
   globalFilterValue: string = '';

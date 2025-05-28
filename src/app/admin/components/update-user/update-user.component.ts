@@ -198,7 +198,24 @@ export class UpdateUserComponent {
       return;
     }
     this.userService.update(user.uid, changes)
-      .then(() => {
+      .then(async () => {
+        // Si cambió la organización, actualizar conteos
+        if (this.isSuperAdmin() && changes.organization !== undefined) {
+          try {
+            // Decrementar en la organización anterior (si existe)
+            if (initialValues.organization) {
+              await this.organizationService.decrementUsersCount(initialValues.organization);
+            }
+            // Incrementar en la nueva organización (si existe)
+            if (changes.organization) {
+              await this.organizationService.incrementUsersCount(changes.organization);
+            }
+          } catch (error) {
+            console.error('Error updating organization user counts:', error);
+            // No mostramos error al usuario, pero lo logueamos
+          }
+        }
+        
         this.toastService.success('TOAST.EXITO', 'ADMIN.USERS.SUCCESS_UPDATED_DETAIL');
         this.resetFormAndClose();
       })

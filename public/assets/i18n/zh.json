@@ -118,10 +118,12 @@
     "EMAIL_PLACEHOLDER": "输入您的电子邮件",
     "PASSWORD_PLACEHOLDER": "输入您的密码",
     "REPEAT_PASSWORD_PLACEHOLDER": "重复您的密码",
-    "ORG_EMAIL_PLACEHOLDER": "输入联系电子邮件",
-    "ORG_TIN_PLACEHOLDER": "输入税号或合同编号",
-    "ORG_ADDRESS_PLACEHOLDER": "输入地址",
-    "ORG_TYPE_PLACEHOLDER": "选择组织类型"
+    "ORG_EMAIL_PLACEHOLDER": "输入联系电子邮件",    "ORG_TIN_PLACEHOLDER": "输入税号或合同编号",
+    "ORG_ADDRESS_PLACEHOLDER": "输入地址",    "ORG_TYPE_PLACEHOLDER": "选择组织类型",
+    "PERMISSIONS": "权限",
+    "OFFICES": "办公室",
+    "ORG_USERS": "用户",
+    "ORG_USERS_COUNT": "用户数量"
   },
   "HOME": {
     "TITULO": "我们的公司",
@@ -526,8 +528,7 @@
     }
   },
   "TABLE": {
-    "SHOWING": "显示",
-    "TO": "到",
+    "SHOWING": "显示",    "TO": "到",
     "OF": "共",
     "ENTRIES": "条记录"
   }

@@ -163,7 +163,8 @@
     "START_DATE": "Fecha de Inicio",
     "PROJECT_URL": "URL del Proyecto",    "IMAGE_GALLERY": "Galería de Imágenes",
     "GALLERY_COMING_SOON": "Galería Próximamente",
-    "GALLERY_DESCRIPTION": "La funcionalidad de galería de imágenes estará disponible próximamente.",    "GALLERY_MANAGEMENT": {
+    "GALLERY_DESCRIPTION": "La funcionalidad de galería de imágenes estará disponible próximamente.",
+    "GALLERY_MANAGEMENT": {
       "ADD_IMAGES": "Agregar Imágenes",
       "UPLOAD_IMAGES": "Subir Imágenes",
       "EDIT_IMAGE": "Editar Imagen",
@@ -184,7 +185,8 @@
       "DELETE_ERROR": "Error al eliminar la imagen",
       "UPDATE_SUCCESS": "Imagen actualizada exitosamente",
       "UPDATE_ERROR": "Error al actualizar la imagen",
-      "MAX_SIZE_ERROR": "El archivo excede el tamaño máximo permitido (5MB)",      "INVALID_FORMAT": "Formato de archivo no válido. Solo se permiten imágenes (JPG, PNG, WEBP)",
+      "MAX_SIZE_ERROR": "El archivo excede el tamaño máximo permitido (5MB)",      
+      "INVALID_FORMAT": "Formato de archivo no válido. Solo se permiten imágenes (JPG, PNG, WEBP)",
       "LOADING": "Cargando...",
       "PROCESSING": "Procesando imagen...",
       "CROP_ERROR": "No se pudo obtener el archivo recortado",
@@ -524,11 +526,11 @@
     "NO": "No",
     "OR": "O",
     "CONFIRM_DELETE_TITLE": "Confirmar Eliminación",
-    "CONFIRM_DELETE_MESSAGE_ITEM": "¿Estás seguro de que deseas eliminar el ítem '{{item}}'?",
+    "CONFIRM_DELETE_MESSAGE_ITEM": "¿Estás seguro de que deseas eliminar el elemento '{{item}}'?",
     "PAGINATOR_ENTRIES": "Mostrando {{first}} a {{last}} de {{totalRecords}} entradas",
     "NO_RECORDS_FOUND": "No se encontraron registros.",
     "FORM_INVALID_TITLE": "Formulario Inválido",
-    "FORM_INVALID_DETAIL": "Por favor, revisa los campos del formulario.",
+    "FORM_INVALID_DETAIL": "Por favor revisa los campos del formulario.",
     "ERROR_SAVING_TITLE": "Error al Guardar",
     "ERROR_CREATING_TITLE": "Error al Crear",
     "ERROR_UPDATING_TITLE": "Error al Actualizar",
@@ -536,7 +538,8 @@
     "UNEXPECTED_ERROR_DETAIL": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
     "LOADING_USER_DATA": "Cargando datos del usuario...",
     "NO_ORGANIZATION": "Sin organización",
-    "LOADING": "Cargando...",    "CONFIRMATION_TITLE": "Confirmación",
+    "LOADING": "Cargando...",
+    "CONFIRMATION_TITLE": "Confirmación",
     "CANCEL_DELETE": "Cancelado",
     "GO_BACK": "Volver",
     "CLOSE": "Cerrar",
@@ -545,7 +548,12 @@
     "FLIP": "Voltear",
     "HORIZONTAL": "Horizontal",
     "VERTICAL": "Vertical",
-    "RESET": "Restablecer"
+    "RESET": "Restablecer",
+    "ERROR": "Error",
+    "SUCCESS": "Éxito",
+    "INFO": "Información",
+    "WARNING": "Advertencia",
+    "CONFIRM": "Confirmar"
   },
   "PRIMENG": {
     "PAGINATOR": {

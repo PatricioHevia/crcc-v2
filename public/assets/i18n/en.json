@@ -478,7 +478,8 @@
     "TOOLTIP_EDIT": "Edit",
     "TOOLTIP_DELETE": "Delete",
     "SAVE": "Save",
-    "CANCEL": "Cancel",    "BUTTON_SAVE": "Save",
+    "CANCEL": "Cancel",
+    "BUTTON_SAVE": "Save",
     "BUTTON_CANCEL": "Cancel",
     "YES": "Yes",
     "NO": "No",
@@ -495,17 +496,13 @@
     "ERROR_DELETING_TITLE": "Error Deleting",
     "UNEXPECTED_ERROR_DETAIL": "An unexpected error occurred. Please try again.",
     "LOADING_USER_DATA": "Loading user data...",
-    "NO_ORGANIZATION": "No organization",    "LOADING": "Loading...",
+    "NO_ORGANIZATION": "No organization",
+    "LOADING": "Loading...",
     "CONFIRMATION_TITLE": "Confirmation",
     "CANCEL_DELETE": "Cancelled",
     "GO_BACK": "Go Back",
-    "CLOSE": "Close",
-    "ZOOM": "Zoom",
-    "ROTATE": "Rotate",
-    "FLIP": "Flip",
-    "HORIZONTAL": "Horizontal",
-    "VERTICAL": "Vertical",
-    "RESET": "Reset"
+    "ERROR": "Error",
+    "SUCCESS": "Success"
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -567,5 +564,6 @@
     "SHOWING": "Showing",
     "TO": "to",
     "OF": "of",
-    "ENTRIES": "entries"  }
+    "ENTRIES": "entries"
+  }
 }

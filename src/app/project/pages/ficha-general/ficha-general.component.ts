@@ -23,6 +23,7 @@ import { TranslationService } from '../../../core/services/translation.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { PROJECT_PHASE_COLORS, PROJECT_PHASE_TRANSLATION_KEYS } from '../../../core/constants/phase-projects-keys';
 import { ConfirmationService } from 'primeng/api';
+import { UserService } from '../../../auth/services/user.service';
 
 @Component({
   selector: 'app-ficha-general',
@@ -54,6 +55,7 @@ export class FichaGeneralComponent {
   private translateService = inject(TranslateService);
   private toastService = inject(ToastService);
   private confirmationService = inject(ConfirmationService);
+  private userService = inject(UserService);
 
   lang = computed(() => this.translationService.currentLang());
 
@@ -63,6 +65,8 @@ export class FichaGeneralComponent {
   loading = signal<boolean>(true);
   notFound = signal<boolean>(false);
 
+  isSuperAdmin = computed(() => this.userService.isSuperAdmin());  
+
   // Señales para gestión de galería
   uploadLoading = signal<boolean>(false);
     // Variables para el cropper - simplificado solo para aspect ratio 16:9
@@ -71,6 +75,19 @@ export class FichaGeneralComponent {
   showCropper = false;
   currentImageFile: File | null = null;
   croppedFile: File | null = null;
+
+  // Estados de carga y error para la galería
+  imageLoadStates: boolean[] = [];
+  imageErrorStates: boolean[] = [];
+
+  // Sincroniza los arrays de estado con la cantidad de imágenes
+  ngDoCheck(): void {
+    const images = this.project()?.galleryImages || [];
+    if (this.imageLoadStates.length !== images.length) {
+      this.imageLoadStates = Array(images.length).fill(false);
+      this.imageErrorStates = Array(images.length).fill(false);
+    }
+  }
 
   // Señales computadas
   currentLang = computed(() => this.translationService.currentLang());
@@ -83,8 +100,32 @@ export class FichaGeneralComponent {
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.projectId.set(id);
-      this.loadProject(id);
+      // Forzar carga de proyectos si no están cargados
+      this.projectService.projects();
+      this.waitForProjectsAndLoad(id);
     });
+  }
+
+  /**
+   * Espera a que los proyectos estén cargados antes de buscar el proyecto.
+   * Si no se cargan en 5 segundos, fuerza la recarga.
+   */
+  private waitForProjectsAndLoad(id: string, maxWaitMs = 5000): void {
+    const start = Date.now();
+    const check = () => {
+      const projects = this.projectService.projects();
+      const loading = this.projectService.loading();
+      if (!loading && projects.length > 0) {
+        this.loadProject(id);
+      } else if (Date.now() - start > maxWaitMs) {
+        // Si después de 5 segundos no se cargó, forzar recarga
+        this.projectService.projects();
+        setTimeout(() => this.loadProject(id), 500); // Intentar cargar después de forzar
+      } else {
+        setTimeout(check, 100);
+      }
+    };
+    check();
   }
 
   private loadProject(id: string): void {
@@ -164,7 +205,7 @@ export class FichaGeneralComponent {
     if (!allowedTypes.includes(file.type)) {
       this.toastService.error(
         'COMMON.ERROR',
-        'PROJECT.GALLERY_MANAGEMENT.INVALID_FORMAT'
+        'PROJECTS.GALLERY_MANAGEMENT.INVALID_FORMAT'
       );
       return false;
     }
@@ -178,7 +219,7 @@ export class FichaGeneralComponent {
     } else {
       this.toastService.error(
         'COMMON.ERROR',
-        'PROJECT.GALLERY_MANAGEMENT.CROP_ERROR'
+        'PROJECTS.GALLERY_MANAGEMENT.CROP_ERROR'
       );
     }
   }
@@ -190,15 +231,13 @@ export class FichaGeneralComponent {
   cropperReady(): void {
     // Cropper is ready
   }  loadImageFailed(): void {
-    this.toastService.error(
-      'COMMON.ERROR',
-      'PROJECT.GALLERY_MANAGEMENT.LOAD_ERROR'
+    this.toastService.error('COMMON.ERROR','PROJECTS.GALLERY_MANAGEMENT.LOAD_ERROR'
     );
   }  async applyCrop(): Promise<void> {
     if (!this.croppedFile || !this.currentImageFile) {
       this.toastService.error(
         'COMMON.ERROR',
-        'PROJECT.GALLERY_MANAGEMENT.NO_CROPPED_IMAGE'
+        'PROJECTS.GALLERY_MANAGEMENT.NO_CROPPED_IMAGE'
       );
       return;
     }
@@ -221,7 +260,7 @@ export class FichaGeneralComponent {
 
       this.toastService.success(
         'COMMON.SUCCESS',
-        'PROJECT.GALLERY_MANAGEMENT.UPLOAD_SUCCESS'
+        'PROJECTS.GALLERY_MANAGEMENT.UPLOAD_SUCCESS'
       );
       
       this.resetCropper();
@@ -229,7 +268,7 @@ export class FichaGeneralComponent {
       console.error('Error uploading image:', error);
       this.toastService.error(
         'COMMON.ERROR',
-        'PROJECT.GALLERY_MANAGEMENT.UPLOAD_ERROR'
+        'PROJECTS.GALLERY_MANAGEMENT.UPLOAD_ERROR'
       );
     } finally {
       this.uploadLoading.set(false);
@@ -251,8 +290,8 @@ export class FichaGeneralComponent {
     }
   }  deleteImage(image: GalleryImageFirestore): void {
     this.confirmationService.confirm({
-      message: this.translateService.instant('PROJECT.GALLERY_MANAGEMENT.DELETE_CONFIRM_MESSAGE'),
-      header: this.translateService.instant('PROJECT.GALLERY_MANAGEMENT.DELETE_CONFIRM_TITLE'),
+      message: this.translateService.instant('PROJECTS.GALLERY_MANAGEMENT.DELETE_CONFIRM_MESSAGE'),
+      header: this.translateService.instant('PROJECTS.GALLERY_MANAGEMENT.DELETE_CONFIRM_TITLE'),
       icon: 'pi pi-exclamation-triangle',
       acceptButtonStyleClass: 'p-button-danger',
       accept: () => {
@@ -273,13 +312,13 @@ export class FichaGeneralComponent {
 
       this.toastService.success(
         'COMMON.SUCCESS',
-        'PROJECT.GALLERY_MANAGEMENT.DELETE_SUCCESS'
+        'PROJECTS.GALLERY_MANAGEMENT.DELETE_SUCCESS'
       );
     } catch (error) {
       console.error('Error deleting image:', error);
       this.toastService.error(
         'COMMON.ERROR',
-        'PROJECT.GALLERY_MANAGEMENT.DELETE_ERROR'
+        'PROJECTS.GALLERY_MANAGEMENT.DELETE_ERROR'
       );
     }
   }

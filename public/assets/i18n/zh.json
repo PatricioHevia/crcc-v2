@@ -31,7 +31,7 @@
   },
   "FOOTER": {
     "CRCC": "中国铁路建设集团（国际）有限公司 智利代表处 （医院）",
-    "DIRECCION": "智利，拉斯孔德斯区，塞罗埃尔普洛莫5630号1602室",
+    "DIRECCION": "智利，拉斯",
     "LINKEDIN_CRCC": "LinkedIn 中国铁路建设集团智利代表处",
     "LINKEDIN_SCHCQ": "LinkedIn 科金博医院特许经营有限公司"
   },
@@ -81,10 +81,12 @@
     "NO_ACCOUNT": "还没有账号？",
     "REGISTRO_TITULO": "在CRCC智利医院注册！",
     "REGISTRO_SUBTITULO": "完成所有步骤以创建您的帐户",
-    "ACCOUNT_ALREADY": "已经有账户？",    "CREAR_CUENTA": "创建您的帐户",
+    "ACCOUNT_ALREADY": "已经有账户？",
+    "CREAR_CUENTA": "创建您的帐户",
     "USER_ACCOUNT_DETAILS": "用户账户详细信息",
     "ORG_NO_ENCONTRADA": "找不到您的组织？",
-    "ORGANIZACION": "组织",    "SELECT_ORGANIZACION": "请选择您的组织",
+    "ORGANIZACION": "组织",
+    "SELECT_ORGANIZACION": "请选择您的组织",
     "SELECT_YOUR_ORGANIZATION": "请选择您的组织",
     "SELECT_ACCOUNT_TYPE": "选择账户类型",
     "SEARCH_ORGANIZATION": "搜索组织",
@@ -93,7 +95,8 @@
     "CREAR_ORGANIZACION": "创建组织",
     "REGISTRALA": "注册它",
     "REGISTER_SUCCESS": "注册成功",
-    "ACCOUNT_TYPE": "帐户类型",    "ORG_NAME": "组织名称",
+    "ACCOUNT_TYPE": "帐户类型",
+    "ORG_NAME": "组织名称",
     "ORG_NAME_PLACEHOLDER": "请输入组织名称",
     "ORG_NAME_REQUIRED": "组织名称为必填项",
     "ORG_NAME_SHORT": "长度至少为3个字符",
@@ -105,7 +108,8 @@
     "ORG_TIN_SHORT": "长度至少为3个字符",
     "ORG_ADDRESS": "地址",
     "ORG_ADDRESS_REQUIRED": "地址为必填项",
-    "ORG_ADDRESS_SHORT": "长度至少为3个字符",    "ORG_TYPE": "组织类型",
+    "ORG_ADDRESS_SHORT": "长度至少为3个字符",
+    "ORG_TYPE": "组织类型",
     "SELECT_ORG_TYPE": "请选择组织类型",
     "ORG_TYPE_REQUIRED": "组织类型为必填项",
     "CREATE_ORG": "创建组织",
@@ -118,8 +122,10 @@
     "EMAIL_PLACEHOLDER": "输入您的电子邮件",
     "PASSWORD_PLACEHOLDER": "输入您的密码",
     "REPEAT_PASSWORD_PLACEHOLDER": "重复您的密码",
-    "ORG_EMAIL_PLACEHOLDER": "输入联系电子邮件",    "ORG_TIN_PLACEHOLDER": "输入税号或合同编号",
-    "ORG_ADDRESS_PLACEHOLDER": "输入地址",    "ORG_TYPE_PLACEHOLDER": "选择组织类型",
+    "ORG_EMAIL_PLACEHOLDER": "输入联系电子邮件",
+    "ORG_TIN_PLACEHOLDER": "输入税号或合同编号",
+    "ORG_ADDRESS_PLACEHOLDER": "输入地址",
+    "ORG_TYPE_PLACEHOLDER": "选择组织类型",
     "PERMISSIONS": "权限",
     "OFFICES": "办公室",
     "ORG_USERS": "用户",
@@ -145,9 +151,11 @@
     "SERVICIO_CONSTRUCCION": "施工",
     "SERVICIO_EQP": "医疗设备和临床家具的采购、更换与维护",
     "SERVICIO_MANTENIMIENTO": "基础设施维护"
-  },  "PROJECTS": {
+  },
+  "PROJECTS": {
     "TITULO": "我们在智利的项目",
-    "SUBTITULO": "在此部分，您可以查看我们目前正在进行的医院项目和Naipú工厂，并可申请并参与我们的招标。",    "SECTION_TITLE": "我们正在进行的项目",
+    "SUBTITULO": "在此部分，您可以查看我们目前正在进行的医院项目和Naipú工厂，并可申请并参与我们的招标。",
+    "SECTION_TITLE": "我们正在进行的项目",
     "SECTION_SUBTITLE": "探索我们正在用热情和奉献精神打造的每一个卓越项目",
     "LOADING": "正在加载项目...",
     "PROJECT_NOT_FOUND": "项目未找到",
@@ -155,9 +163,11 @@
     "PROJECT_INFORMATION": "项目信息",
     "DESCRIPTION": "描述",
     "START_DATE": "开始日期",
-    "PROJECT_URL": "项目链接",    "IMAGE_GALLERY": "图片画廊",
+    "PROJECT_URL": "项目链接",
+    "IMAGE_GALLERY": "图片画廊",
     "GALLERY_COMING_SOON": "画廊即将推出",
-    "GALLERY_DESCRIPTION": "图片画廊功能将很快上线。",    "GALLERY_MANAGEMENT": {
+    "GALLERY_DESCRIPTION": "图片画廊功能将很快上线。",
+    "GALLERY_MANAGEMENT": {
       "ADD_IMAGES": "添加图片",
       "UPLOAD_IMAGES": "上传图片",
       "EDIT_IMAGE": "编辑图片",
@@ -178,7 +188,8 @@
       "DELETE_ERROR": "图片删除失败",
       "UPDATE_SUCCESS": "图片更新成功",
       "UPDATE_ERROR": "图片更新失败",
-      "MAX_SIZE_ERROR": "文件超过最大允许大小（5MB）",      "INVALID_FORMAT": "无效的文件格式。仅允许图片文件（JPG、PNG、WEBP）",
+      "MAX_SIZE_ERROR": "文件超过最大允许大小（5MB）",
+      "INVALID_FORMAT": "无效的文件格式。仅允许图片文件（JPG、PNG、WEBP）",
       "LOADING": "加载中...",
       "PROCESSING": "正在处理图片...",
       "CROP_ERROR": "无法获取裁剪后的文件",
@@ -200,7 +211,8 @@
       "BUILD": "施工",
       "BUILD_OPERATE": "建设与运营",
       "OPERATE": "运营"
-    },    "ACTIONS": {
+    },
+    "ACTIONS": {
       "NEW_PROJECT": "新建项目",
       "EDIT_PROJECT": "编辑项目",
       "DELETE_PROJECT": "删除项目",
@@ -227,11 +239,13 @@
         "TITLE": "未找到项目",
         "SUBTITLE": "没有符合您搜索条件的项目。",
         "CLEAR_FILTERS": "清除筛选器"
-      },      "ERROR_STATE": {
+      },
+      "ERROR_STATE": {
         "TITLE": "加载项目时出错",
         "SUBTITLE": "尝试加载项目时发生错误。请重试。",
         "RETRY": "重试"
-      },      "VIEW_PROJECTS": "查看项目",
+      },
+      "VIEW_PROJECTS": "查看项目",
       "FOOTER_TEXT": "有兴趣了解我们项目的更多详情吗？",
       "VIEW_ALL_DETAILS": "查看所有详情"
     },
@@ -280,7 +294,8 @@
     "ERROR_ASUNTO": "主题为必填项",
     "ERROR_ASUNTO_MIN": "主题必须至少包含 3 个字符",
     "ERROR_MENSAJE": "消息为必填项",
-    "ERROR_MENSAJE_MIN": "消息必须至少包含 20 个字符",    "TOAST_MENSAJE_ENVIADO": "消息发送成功",
+    "ERROR_MENSAJE_MIN": "消息必须至少包含 20 个字符",
+    "TOAST_MENSAJE_ENVIADO": "消息发送成功",
     "TOAST_MENSAJE_ERROR": "发送消息时出错，请重试",
     "VER_MENSAJES": "查看消息",
     "FORMULARIO_TITULO": "联系详情",
@@ -301,7 +316,8 @@
         "INACTIVE_USERS": "非活跃用户",
         "ORGANIZATIONS": "组织",
         "REGISTERED_USERS": "注册用户"
-      },      "CHARTS": {
+      },
+      "CHARTS": {
         "MONTHLY_TREND": "月度注册趋势",
         "MONTHLY_TREND_SUBTITLE": "过去6个月注册的新用户",
         "ROLE_DISTRIBUTION": "角色分布",
@@ -327,7 +343,8 @@
       "SUCCESS_UPDATED_DETAIL": "用户更新成功。",
       "NO_CHANGES_DETECTED": "未检测到更改。",
       "PERMISSIONS": "权限",
-      "OFFICES": "办公室",      "TABLE": {
+      "OFFICES": "办公室",
+      "TABLE": {
         "NAME": "姓名",
         "ORGANIZATION": "组织",
         "EMAIL": "电子邮件",
@@ -347,7 +364,8 @@
       "USER_ACTIVATED_SUCCESS": "用户激活成功",
       "USER_DEACTIVATED_SUCCESS": "用户停用成功",
       "USER_STATUS_UPDATE_ERROR": "更新用户状态时出错"
-    },    "OFFICES": {
+    },
+    "OFFICES": {
       "TITLE": "办公室管理",
       "LIST_SUBTITLE": "办公室列表",
       "NEW_BUTTON": "新增办公室",
@@ -469,13 +487,15 @@
     "ACTIONS": "操作",
     "EDIT": "编辑",
     "DELETE": "删除"
-  },  "COMMON": {
+  },
+  "COMMON": {
     "NO_IMAGE": "无图片",
     "TABLE_HEADER_ACTIONS": "操作",
     "TOOLTIP_EDIT": "编辑",
     "TOOLTIP_DELETE": "删除",
     "SAVE": "保存",
-    "CANCEL": "取消",    "BUTTON_SAVE": "保存",
+    "CANCEL": "取消",
+    "BUTTON_SAVE": "保存",
     "BUTTON_CANCEL": "取消",
     "YES": "是",
     "NO": "否",
@@ -492,7 +512,8 @@
     "ERROR_DELETING_TITLE": "删除错误",
     "UNEXPECTED_ERROR_DETAIL": "发生意外错误。请再试一次。",
     "LOADING_USER_DATA": "正在加载用户数据...",
-    "NO_ORGANIZATION": "无组织",    "LOADING": "加载中...",
+    "NO_ORGANIZATION": "无组织",
+    "LOADING": "加载中...",
     "CONFIRMATION_TITLE": "确认",
     "CANCEL_DELETE": "已取消",
     "GO_BACK": "返回",
@@ -502,7 +523,12 @@
     "FLIP": "翻转",
     "HORIZONTAL": "水平",
     "VERTICAL": "垂直",
-    "RESET": "重置"
+    "RESET": "重置",
+    "ERROR": "错误",
+    "SUCCESS": "成功",
+    "INFO": "信息",
+    "WARNING": "警告",
+    "CONFIRM": "确认"
   },
   "PRIMENG": {
     "PAGINATOR": {
@@ -510,10 +536,12 @@
     }
   },
   "JOBS": {
-    "TITLE": "工作机会管理",    "ACTIONS": {
+    "TITLE": "工作机会管理",
+    "ACTIONS": {
       "NEW_JOB": "新建职位",
       "EDIT_JOB": "编辑职位"
-    },    "FIELDS": {
+    },
+    "FIELDS": {
       "NAME": "名称",
       "STATUS": "状态",
       "PROJECT": "项目",
@@ -533,7 +561,8 @@
       "OPEN": "开放",
       "CLOSED": "已关闭",
       "UNDER_REVIEW": "审核中"
-    },    "ACTIONS_TOOLTIPS": {
+    },
+    "ACTIONS_TOOLTIPS": {
       "CLOSE_OFFER": "关闭职位",
       "REOPEN_OFFER": "重新开放职位"
     },
@@ -544,7 +573,8 @@
       "DELETE_MULTIPLE_MESSAGE": "您确定要删除选中的{{count}}个职位吗？",
       "DELETE_ACCEPT": "是的，删除",
       "DELETE_REJECT": "取消"
-    },    "MESSAGES": {
+    },
+    "MESSAGES": {
       "DELETE_SUCCESS": "职位已成功删除",
       "DELETE_MULTIPLE_SUCCESS": "{{count}}个职位已成功删除",
       "DELETE_ERROR": "删除职位时出错",
@@ -561,7 +591,8 @@
     }
   },
   "TABLE": {
-    "SHOWING": "显示",    "TO": "到",
+    "SHOWING": "显示",
+    "TO": "到",
     "OF": "共",
     "ENTRIES": "条记录"
   }

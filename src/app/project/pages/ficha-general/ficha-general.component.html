@@ -14,18 +14,12 @@
 
   <!-- Proyecto no encontrado -->
   <div *ngIf="notFound()" class="not-found-state">
-    <p-message 
-      severity="warn" 
-      [text]="'PROJECTS.PROJECT_NOT_FOUND' | translate"
-      styleClass="w-full">
+    <p-message severity="warn" [text]="'PROJECTS.PROJECT_NOT_FOUND' | translate" styleClass="w-full">
     </p-message>
     <p class="redirect-message">
       {{ 'PROJECTS.REDIRECTING_TO_PROJECTS' | translate }}
     </p>
-    <p-button 
-      [label]="'COMMON.GO_BACK' | translate"
-      icon="pi pi-arrow-left"
-      (click)="goBack()">
+    <p-button [label]="'COMMON.GO_BACK' | translate" icon="pi pi-arrow-left" (click)="goBack()">
     </p-button>
   </div>
 
@@ -34,22 +28,13 @@
     <!-- Banner del proyecto -->
     <div class="project-banner">
       <div class="banner-image-container">
-        <p-image 
-          [src]="project()!.image"
-          [alt]="getProjectName()"
-          width="100%"
-          height="500"
-          [preview]="true"
-          >
+        <p-image [src]="project()!.image" [alt]="getProjectName()" width="100%" height="500" [preview]="true">
         </p-image>
         <div class="banner-overlay">
           <div class="banner-content">
             <h1 class="project-title">{{ getProjectName() }}</h1>
-            <p-tag 
-              *ngIf="project()!.phase"
-              [value]="getPhaseTranslationKey() | translate"
-              [ngClass]="getPhaseTagClasses()"
-              class="phase-tag">
+            <p-tag *ngIf="project()!.phase" [value]="getPhaseTranslationKey() | translate"
+              [ngClass]="getPhaseTagClasses()" class="phase-tag">
             </p-tag>
           </div>
         </div>
@@ -72,18 +57,16 @@
               <strong class="text-end">{{ 'PROJECTS.START_DATE' | translate }}:</strong>
               <span>{{ project()!.awardDate?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang()}}</span>
             </div>
-            
-            
-            
+
+
+
             <div class="detail-row" *ngIf="project()!.phase">
               <strong class="text-end">{{ 'PROJECTS.TABLE.PHASE' | translate }}:</strong>
-              <p-tag 
-                [value]="getPhaseTranslationKey() | translate"
-                [ngClass]="getPhaseTagClasses()"
+              <p-tag [value]="getPhaseTranslationKey() | translate" [ngClass]="getPhaseTagClasses()"
                 class="inline-phase-tag">
               </p-tag>
             </div>
-            
+
             <div class="detail-row" *ngIf="project()!.url">
               <strong class="text-end">{{ 'PROJECTS.PROJECT_URL' | translate }}:</strong>
               <span class="project-url">{{ project()!.url }}</span>
@@ -95,117 +78,83 @@
 
         <!-- Botones de acción -->
         <div class="action-buttons">
-          <p-button 
-            [label]="'COMMON.GO_BACK' | translate"
-            icon="pi pi-arrow-left"
-            severity="secondary"
+          <p-button [label]="'COMMON.GO_BACK' | translate" icon="pi pi-arrow-left" severity="secondary"
             (click)="goBack()">
           </p-button>
         </div>
       </p-panel>
-    </div>    <!-- Galería de imágenes -->
+    </div> <!-- Galería de imágenes -->
     <div class="gallery-section">
       <p-panel [header]="'PROJECTS.IMAGE_GALLERY' | translate" [toggleable]="true" [collapsed]="false">
         <div class="gallery-container">
-          
+
           <!-- Progreso de subida -->
           <div class="upload-progress" *ngIf="uploadLoading()">
-            <p-progressSpinner
-              styleClass="custom-spinner"
-              strokeWidth="4">
+            <p-progressSpinner styleClass="custom-spinner" strokeWidth="4">
             </p-progressSpinner>
             <span>{{ 'PROJECTS.GALLERY_MANAGEMENT.UPLOADING' | translate }}</span>
           </div>
 
-          <!-- Controles de recorte -->
-          <div class="crop-controls-inline" *ngIf="croppedImage && showCropper">
-            <p-button
-              [disabled]="uploadLoading()"
-              icon="pi pi-check"
-              [label]="'PROJECTS.GALLERY_MANAGEMENT.APPLY_CROP' | translate"
-              severity="success"
-              size="small"
-              (click)="applyCrop()">
-            </p-button>
-            <p-button
-              [disabled]="uploadLoading()"
-              icon="pi pi-times"
-              [label]="'PROJECTS.GALLERY_MANAGEMENT.CANCEL_CROP' | translate"
-              severity="secondary"
-              size="small"
-              (click)="cancelCrop()">
-            </p-button>
-          </div>
+
+          @if( isSuperAdmin()) {
 
           <!-- Botón para seleccionar imagen -->
-          <p-button
-            icon="pi pi-upload"
-            [label]="'PROJECTS.GALLERY_MANAGEMENT.ADD_IMAGES' | translate"
-            severity="info"
-            size="small"
-            (click)="openFileSelector()"
-            [disabled]="uploadLoading()"
-            class="add-image-btn">
+          <p-button icon="pi pi-upload" [label]="'PROJECTS.GALLERY_MANAGEMENT.ADD_IMAGES' | translate" severity="info"
+            size="small" (click)="openFileSelector()" [disabled]="uploadLoading()" class="add-image-btn">
           </p-button>
-          
+          }
+
           <!-- Input file oculto -->
-          <input
-            #fileInput
-            type="file"
-            accept="image/*"
-            hidden
-            (change)="onFileSelected($event)">          <!-- Cropper simple con aspect ratio 16:9 -->
+          <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
+          <!-- Cropper simple con aspect ratio 16:9 -->
           <div *ngIf="imageChangedEvent" class="cropper-section">
             <h4 class="cropper-title">{{ 'PROJECTS.GALLERY_MANAGEMENT.CROP_IMAGE_TITLE' | translate }}</h4>
             <div class="cropper-container">
-              <image-cropper
-                [imageChangedEvent]="imageChangedEvent"
-                [maintainAspectRatio]="true"
-                [aspectRatio]="16 / 9"
-                [resizeToWidth]="800"
-                [cropperMinWidth]="320"
-                [cropperMinHeight]="180"
-                format="png"
-                (imageCropped)="imageCropped($event)"
-                (imageLoaded)="imageLoaded()"
-                (cropperReady)="cropperReady()"
+              <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="16 / 9"
+                [resizeToWidth]="800" [cropperMinWidth]="320" [cropperMinHeight]="180" format="png"
+                (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
                 (loadImageFailed)="loadImageFailed()">
               </image-cropper>
             </div>
-            
+
             <!-- Solo botones de aplicar y cancelar -->
             <div class="crop-actions" *ngIf="showCropper">
-              <p-button
-                [disabled]="uploadLoading()"
-                icon="pi pi-times"
-                [label]="'PROJECTS.GALLERY_MANAGEMENT.CANCEL_CROP' | translate"
-                severity="secondary"
+              <p-button [disabled]="uploadLoading()" icon="pi pi-times"
+                [label]="'PROJECTS.GALLERY_MANAGEMENT.CANCEL_CROP' | translate" severity="secondary"
                 (click)="cancelCrop()">
               </p-button>
-              <p-button
-                [disabled]="uploadLoading()"
-                icon="pi pi-check"
-                [label]="'PROJECTS.GALLERY_MANAGEMENT.APPLY_CROP' | translate"
-                severity="success"
-                (click)="applyCrop()">
+              <p-button [disabled]="uploadLoading()" icon="pi pi-check"
+                [label]="'PROJECTS.GALLERY_MANAGEMENT.APPLY_CROP' | translate" severity="success" (click)="applyCrop()">
               </p-button>
             </div>
           </div>
 
           <!-- Galería de imágenes existentes -->
           <div *ngIf="project()?.galleryImages && project()!.galleryImages!.length > 0" class="gallery-grid">
-            <div *ngFor="let image of project()!.galleryImages" class="gallery-item">
-              <img 
-                [src]="image.url"
-                [alt]="image.name"
-                class="gallery-thumbnail">
-              <button
-                class="delete-btn"
-                (click)="deleteImage(image)"
+            <div *ngFor="let image of project()!.galleryImages; let i = index" class="gallery-item">
+              <div class="gallery-image-wrapper">
+                <img [src]="image.url" [alt]="image.name" class="gallery-img-real"
+                  (load)="imageLoadStates[i]=true" (error)="imageErrorStates[i]=true" loading="lazy"
+                  [class.opacity-0]="!imageLoadStates[i] && !imageErrorStates[i]"
+                  [class.opacity-100]="imageLoadStates[i] && !imageErrorStates[i]"
+                  [class.opacity-50]="imageErrorStates[i]" />
+                <ng-container *ngIf="!imageLoadStates[i] && !imageErrorStates[i]">
+                  <div class="gallery-img-placeholder">
+                    <p-skeleton width="100%" height="100%"></p-skeleton>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="imageErrorStates[i]">
+                  <div class="gallery-img-placeholder">
+                    <i class="pi pi-exclamation-triangle text-orange-500"></i>
+                  </div>
+                </ng-container>
+              </div>
+              @if( isSuperAdmin()) {
+              <button class="delete-btn" (click)="deleteImage(image)"
                 [pTooltip]="'PROJECTS.GALLERY_MANAGEMENT.DELETE_IMAGE' | translate">
                 <i class="pi pi-trash"></i>
               </button>
-              <div class="image-name">{{ image.name }}</div>
+              }
             </div>
           </div>
 
@@ -216,8 +165,9 @@
               <h3>{{ 'PROJECTS.GALLERY_MANAGEMENT.NO_IMAGES' | translate }}</h3>
               <p>{{ 'PROJECTS.GALLERY_MANAGEMENT.NO_IMAGES_DESCRIPTION' | translate }}</p>
             </div>
-          </div>        </div>
+          </div>
+        </div>
       </p-panel>
-    </div>  </div>
+    </div>
+  </div>
 </div>
-

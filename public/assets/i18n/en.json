@@ -181,10 +181,12 @@
       "UPDATE_ERROR": "Error updating image",
       "MAX_SIZE_ERROR": "File exceeds maximum allowed size (5MB)",      "INVALID_FORMAT": "Invalid file format. Only images are allowed (JPG, PNG, WEBP)",
       "LOADING": "Loading...",
-      "PROCESSING": "Processing image...",
-      "CROP_ERROR": "Could not get the cropped file",
+      "PROCESSING": "Processing image...",      "CROP_ERROR": "Could not get the cropped file",
       "LOAD_ERROR": "Failed to load image",
-      "NO_CROPPED_IMAGE": "No cropped image to upload"
+      "NO_CROPPED_IMAGE": "No cropped image to upload",
+      "IMAGE_PREVIEW": "Image preview",
+      "PREVIOUS_IMAGE": "Previous image",
+      "NEXT_IMAGE": "Next image"
     },
     "TABLE": {
       "IMAGE": "Image",

@@ -191,10 +191,12 @@
       "MAX_SIZE_ERROR": "文件超过最大允许大小（5MB）",
       "INVALID_FORMAT": "无效的文件格式。仅允许图片文件（JPG、PNG、WEBP）",
       "LOADING": "加载中...",
-      "PROCESSING": "正在处理图片...",
-      "CROP_ERROR": "无法获取裁剪后的文件",
+      "PROCESSING": "正在处理图片...",      "CROP_ERROR": "无法获取裁剪后的文件",
       "LOAD_ERROR": "图片加载失败",
-      "NO_CROPPED_IMAGE": "没有裁剪图片可上传"
+      "NO_CROPPED_IMAGE": "没有裁剪图片可上传",
+      "IMAGE_PREVIEW": "图片预览",
+      "PREVIOUS_IMAGE": "上一张图片",
+      "NEXT_IMAGE": "下一张图片"
     },
     "TABLE": {
       "IMAGE": "图片",

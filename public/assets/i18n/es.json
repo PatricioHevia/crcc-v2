@@ -188,10 +188,12 @@
       "MAX_SIZE_ERROR": "El archivo excede el tamaño máximo permitido (5MB)",      
       "INVALID_FORMAT": "Formato de archivo no válido. Solo se permiten imágenes (JPG, PNG, WEBP)",
       "LOADING": "Cargando...",
-      "PROCESSING": "Procesando imagen...",
-      "CROP_ERROR": "No se pudo obtener el archivo recortado",
+      "PROCESSING": "Procesando imagen...",      "CROP_ERROR": "No se pudo obtener el archivo recortado",
       "LOAD_ERROR": "Error al cargar la imagen",
-      "NO_CROPPED_IMAGE": "No hay imagen recortada para subir"
+      "NO_CROPPED_IMAGE": "No hay imagen recortada para subir",
+      "IMAGE_PREVIEW": "Vista previa de imagen",
+      "PREVIOUS_IMAGE": "Imagen anterior",
+      "NEXT_IMAGE": "Imagen siguiente"
     },
     "TABLE": {
       "IMAGE": "Imagen",

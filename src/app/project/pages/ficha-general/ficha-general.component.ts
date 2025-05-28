@@ -13,6 +13,7 @@ import { MessageModule } from 'primeng/message';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
 
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
@@ -29,7 +30,7 @@ import { UserService } from '../../../auth/services/user.service';
   selector: 'app-ficha-general',
   templateUrl: './ficha-general.component.html',
   styleUrls: ['./ficha-general.component.css'],
-  standalone: true,  imports: [
+  standalone: true, imports: [
     CommonModule,
     TranslateModule,
     ButtonModule,
@@ -43,6 +44,7 @@ import { UserService } from '../../../auth/services/user.service';
     ProgressSpinnerModule,
     TooltipModule,
     ConfirmDialogModule,
+    DialogModule,
     ImageCropperComponent
   ]
 })
@@ -65,20 +67,23 @@ export class FichaGeneralComponent {
   loading = signal<boolean>(true);
   notFound = signal<boolean>(false);
 
-  isSuperAdmin = computed(() => this.userService.isSuperAdmin());  
+  isSuperAdmin = computed(() => this.userService.isSuperAdmin());
 
   // Señales para gestión de galería
   uploadLoading = signal<boolean>(false);
-    // Variables para el cropper - simplificado solo para aspect ratio 16:9
+  // Variables para el cropper - simplificado solo para aspect ratio 16:9
   imageChangedEvent: Event | null = null;
   croppedImage: string = '';
   showCropper = false;
   currentImageFile: File | null = null;
   croppedFile: File | null = null;
-
   // Estados de carga y error para la galería
   imageLoadStates: boolean[] = [];
   imageErrorStates: boolean[] = [];
+  // Variables para el modal de preview de imágenes
+  showImageModal = signal<boolean>(false);
+  selectedImage = signal<GalleryImageFirestore | null>(null);
+  selectedImageIndex = signal<number>(0);
 
   // Sincroniza los arrays de estado con la cantidad de imágenes
   ngDoCheck(): void {
@@ -91,7 +96,7 @@ export class FichaGeneralComponent {
 
   // Señales computadas
   currentLang = computed(() => this.translationService.currentLang());
-  
+
   // Colores de fase
   public readonly phaseColors = PROJECT_PHASE_COLORS;
 
@@ -143,7 +148,7 @@ export class FichaGeneralComponent {
       // Si no se encuentra el proyecto, mostrar mensaje de advertencia
       this.notFound.set(true);
       this.loading.set(false);
-      
+
       // Redirigir después de 3 segundos
       setTimeout(() => {
         this.router.navigate(['/app/projects']);
@@ -155,7 +160,7 @@ export class FichaGeneralComponent {
   getProjectName(): string {
     const currentProject = this.project();
     if (!currentProject) return '';
-    
+
     const lang = this.currentLang();
     const key = `name_${lang}` as 'name_es' | 'name_en' | 'name_zh';
     return currentProject[key] || currentProject.name_es || currentProject.name || '';
@@ -164,7 +169,7 @@ export class FichaGeneralComponent {
   getProjectDescription(): string {
     const currentProject = this.project();
     if (!currentProject) return '';
-    
+
     const lang = this.currentLang();
     const key = `description_${lang}` as 'description_es' | 'description_en' | 'description_zh';
     return currentProject[key] || currentProject.description_es || currentProject.description || '';
@@ -199,7 +204,7 @@ export class FichaGeneralComponent {
       this.imageChangedEvent = event;
       this.showCropper = false; // Reset cropper state
     }
-  }  validateFile(file: File): boolean {
+  } validateFile(file: File): boolean {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
     if (!allowedTypes.includes(file.type)) {
@@ -211,7 +216,7 @@ export class FichaGeneralComponent {
     }
 
     return true;
-  }  imageCropped(event: ImageCroppedEvent): void {
+  } imageCropped(event: ImageCroppedEvent): void {
     if (event.blob) {
       const file = new File([event.blob], `recorte_${Date.now()}.png`, { type: 'image/png' });
       this.croppedFile = file;
@@ -230,10 +235,10 @@ export class FichaGeneralComponent {
 
   cropperReady(): void {
     // Cropper is ready
-  }  loadImageFailed(): void {
-    this.toastService.error('COMMON.ERROR','PROJECTS.GALLERY_MANAGEMENT.LOAD_ERROR'
+  } loadImageFailed(): void {
+    this.toastService.error('COMMON.ERROR', 'PROJECTS.GALLERY_MANAGEMENT.LOAD_ERROR'
     );
-  }  async applyCrop(): Promise<void> {
+  } async applyCrop(): Promise<void> {
     if (!this.croppedFile || !this.currentImageFile) {
       this.toastService.error(
         'COMMON.ERROR',
@@ -247,10 +252,10 @@ export class FichaGeneralComponent {
       // Upload the cropped image
       const projectId = this.projectId();
       const { uploadTasks, complete } = this.projectService.updateGalleryImages(projectId, [this.croppedFile], false);
-      
+
       // Wait for upload to complete
       await complete;
-      
+
       // Get updated project data from the projects signal
       const projects = this.projectService.projects();
       const updatedProject = projects.find(p => p.id === projectId);
@@ -262,7 +267,7 @@ export class FichaGeneralComponent {
         'COMMON.SUCCESS',
         'PROJECTS.GALLERY_MANAGEMENT.UPLOAD_SUCCESS'
       );
-      
+
       this.resetCropper();
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -283,12 +288,12 @@ export class FichaGeneralComponent {
     this.showCropper = false;
     this.currentImageFile = null;
     this.croppedFile = null;
-    
+
     // Clean up object URL to prevent memory leaks
     if (this.croppedImage) {
       URL.revokeObjectURL(this.croppedImage);
     }
-  }  deleteImage(image: GalleryImageFirestore): void {
+  } deleteImage(image: GalleryImageFirestore): void {
     this.confirmationService.confirm({
       message: this.translateService.instant('PROJECTS.GALLERY_MANAGEMENT.DELETE_CONFIRM_MESSAGE'),
       header: this.translateService.instant('PROJECTS.GALLERY_MANAGEMENT.DELETE_CONFIRM_TITLE'),
@@ -298,11 +303,11 @@ export class FichaGeneralComponent {
         this.performDeleteImage(image);
       }
     });
-  }async performDeleteImage(image: GalleryImageFirestore): Promise<void> {
+  } async performDeleteImage(image: GalleryImageFirestore): Promise<void> {
     try {
       const projectId = this.projectId();
       await this.projectService.removeGalleryImage(projectId, image.url);
-      
+
       // Get updated project data from the projects signal
       const projects = this.projectService.projects();
       const updatedProject = projects.find(p => p.id === projectId);
@@ -318,8 +323,15 @@ export class FichaGeneralComponent {
       console.error('Error deleting image:', error);
       this.toastService.error(
         'COMMON.ERROR',
-        'PROJECTS.GALLERY_MANAGEMENT.DELETE_ERROR'
-      );
+        'PROJECTS.GALLERY_MANAGEMENT.DELETE_ERROR');
     }
   }
+
+  openDialog() {
+    this.showImageModal.set(true);
+
+  }
+
+
+
 }

@@ -115,7 +115,7 @@
           </div>
         </td>
         <td>{{ 'USER_ROLES.' + user.role | translate }}</td>
-        <td>{{ user.updatedAt?.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}</td>        <td>
+        <td>{{ user.updatedAt?.toDate()  | date:'mediumDate':undefined:lang()  }} </td>        <td>
           <div class="flex justify-center items-center gap-2">            <!-- Botón Toggle Estado -->
             <p-button 
               [icon]="user.active ? 'pi pi-times' : 'pi pi-check'" 

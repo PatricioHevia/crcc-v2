@@ -1,4 +1,4 @@
-<div class="tender-list-container p-6 bg-surface-50 dark:bg-surface-900 min-h-screen">
+<div class="tender-list-container p-6 bg-surface-50 dark:bg-surface-900 min-h-screen shadow-lg rounded-lg">
   <div class="header mb-6">
     <div class="flex justify-between items-start mb-4">
       <div>
@@ -9,15 +9,14 @@
         <p class="text-surface-600 dark:text-surface-300 mt-2">
           {{ 'TENDERS.SUBTITLE' | translate }}
         </p>
-      </div>
-      <div class="flex gap-2">
+      </div>      <div class="flex gap-2">        
         <p-button 
           icon="pi pi-filter-slash" 
           [label]="'TENDERS.CLEAR_FILTERS' | translate"
           severity="secondary"
           size="small"
           (onClick)="clearFilters()"
-          [disabled]="selectedStatuses().length === 0 && selectedModalities().length === 0 && selectedTypes().length === 0">
+          [disabled]="!hasActiveFilters()">
         </p-button>
       </div>
     </div>
@@ -28,10 +27,10 @@
         <label class="text-sm font-medium text-surface-700 dark:text-surface-200 flex items-center gap-2">
           <i class="pi pi-filter text-primary"></i>
           {{ 'TENDERS.FILTER_BY_STATUS' | translate }}
-        </label>
-        <p-multiSelect 
+        </label>        <p-multiSelect 
           [options]="statusOptions()" 
-          [(ngModel)]="selectedStatuses"
+          [ngModel]="selectedStatuses()"
+          (ngModelChange)="selectedStatuses.set($event)"
           optionLabel="label" 
           optionValue="value"
           [placeholder]="'TENDERS.STATUS_PLACEHOLDER' | translate"
@@ -47,7 +46,8 @@
         </label>
         <p-multiSelect 
           [options]="modalityOptions()" 
-          [(ngModel)]="selectedModalities"
+          [ngModel]="selectedModalities()"
+          (ngModelChange)="selectedModalities.set($event)"
           optionLabel="label" 
           optionValue="value"
           [placeholder]="'TENDERS.MODALITY_PLACEHOLDER' | translate"
@@ -63,7 +63,8 @@
         </label>
         <p-multiSelect 
           [options]="typeOptions()" 
-          [(ngModel)]="selectedTypes"
+          [ngModel]="selectedTypes()"
+          (ngModelChange)="selectedTypes.set($event)"
           optionLabel="label" 
           optionValue="value"
           [placeholder]="'TENDERS.TYPE_PLACEHOLDER' | translate"
@@ -180,7 +181,7 @@
                 {{ 'TENDERS.START_DATE' | translate }}
               </span>
               <span class="text-surface-900 dark:text-white font-medium">
-                {{ tender.tenderStartDate.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}
+                {{ tender.tenderStartDate.toDate() | date:'medium':undefined:lang() }}
               </span>
             </div>
             }
@@ -192,7 +193,7 @@
                 {{ 'TENDERS.AWARD_DATE' | translate }}
               </span>
               <span class="text-surface-900 dark:text-white font-medium">
-                {{ tender.awardDate.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}
+                {{ tender.awardDate.toDate() | date:'medium':undefined:lang()  }}
               </span>
             </div>
             }
@@ -204,7 +205,7 @@
                 {{ 'TENDERS.SUBMISSION_DEADLINE' | translate }}
               </span>
               <span class="text-surface-900 dark:text-white font-medium">
-                {{ tender.submissionDeadline.toDate() | date:'dd/MM/yyyy HH:mm':undefined:lang() }}
+                {{ tender.submissionDeadline.toDate() | date:'medium':undefined:lang()  }}
               </span>
             </div>
             }

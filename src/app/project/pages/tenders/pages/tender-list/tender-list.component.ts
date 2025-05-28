@@ -41,28 +41,57 @@ export class TenderListComponent implements OnInit, OnDestroy {
   
   // Signals para estado del componente
   private projectId = signal<string>('');
-  
-  selectedStatuses = signal<TenderStatus[]>([]);
+    selectedStatuses = signal<TenderStatus[]>([]);
   selectedModalities = signal<TenderModality[]>([]);
-  selectedTypes = signal<string[]>([]);
-  
-  // Computed property simplificado que usa el servicio directamente
+  selectedTypes = signal<string[]>([]);  // Computed property simplificado que usa el servicio directamente
   tenders = computed(() => {
-    const statusFilters = this.selectedStatuses();
-    const typeFilters = this.selectedTypes();
-    const modalityFilters = this.selectedModalities();
+    const statusFilters = this.selectedStatuses() || [];
+    const typeFilters = this.selectedTypes() || [];
+    const modalityFilters = this.selectedModalities() || [];
+    
+    // Obtener todos los tenders primero
+    const allTenders = this.tenderService.getAllTenders();
     
     // Si no hay filtros, devolver todos
     if (statusFilters.length === 0 && typeFilters.length === 0 && modalityFilters.length === 0) {
-      return this.tenderService.getAllTenders();
+      return allTenders;
     }
     
-    // Usar el método de filtros múltiples del servicio
-    return this.tenderService.getTendersWithMultipleFilters(
-      statusFilters.length > 0 ? statusFilters : undefined,
-      typeFilters.length > 0 ? typeFilters : undefined,
-      modalityFilters.length > 0 ? modalityFilters : undefined
-    );
+    // Aplicar filtros manualmente para mayor control
+    let filteredTenders = allTenders;
+    
+    // Filtrar por estados
+    if (statusFilters.length > 0) {
+      filteredTenders = filteredTenders.filter(tender => statusFilters.includes(tender.tenderStatus));
+    }
+    
+    // Filtrar por tipos
+    if (typeFilters.length > 0) {
+      filteredTenders = filteredTenders.filter(tender => typeFilters.includes(tender.tenderType));
+    }
+    
+    // Filtrar por modalidades con comparación robusta
+    if (modalityFilters.length > 0) {
+      filteredTenders = filteredTenders.filter(tender => {
+        if (!tender.tenderModality) return false;
+        
+        // Usar normalización para comparación robusta
+        const normalizeString = (str: string): string => {
+          return str.normalize('NFD')
+                   .replace(/[\u0300-\u036f]/g, '')
+                   .trim()
+                   .toLowerCase()
+                   .replace(/\s+/g, '');
+        };
+        
+        const normalizedTenderModality = normalizeString(tender.tenderModality);
+        return modalityFilters.some(modality => 
+          normalizeString(modality) === normalizedTenderModality
+        );
+      });
+    }
+    
+    return filteredTenders;
   });
 
   // Options for filters
@@ -73,9 +102,7 @@ export class TenderListComponent implements OnInit, OnDestroy {
   ].map(status => ({
     label: this.getStatusLabel(status as TenderStatus),
     value: status as TenderStatus
-  })));
-
-  // Options for tender modalities - using helper function with translation service  
+  })));  // Options for tender modalities - using helper function with translation service  
   modalityOptions = computed(() => {
     return getTenderModalityOptions(this.translationService);
   });
@@ -137,14 +164,13 @@ export class TenderListComponent implements OnInit, OnDestroy {
     const found = tenderTypes.find(t => this.normalizeString(t.value) === normalized);
     return found ? this.translationService.instant(found.translationKey) : this.translationService.instant('TENDER_TYPES.SERVICE_PROVISION');
   }
-
   /**
    * Método directo para el HTML - sin computed property
    */
   getDisplayTenders(): Tender[] {
-    const statusFilters = this.selectedStatuses();
-    const typeFilters = this.selectedTypes();
-    const modalityFilters = this.selectedModalities();
+    const statusFilters = this.selectedStatuses() || [];
+    const typeFilters = this.selectedTypes() || [];
+    const modalityFilters = this.selectedModalities() || [];
     
     // Si no hay filtros, devolver todos
     if (statusFilters.length === 0 && typeFilters.length === 0 && modalityFilters.length === 0) {
@@ -369,5 +395,33 @@ export class TenderListComponent implements OnInit, OnDestroy {
     const normalized = this.normalizeString(type);
     const found = tenderTypes.find(t => this.normalizeString(t.value) === normalized);
     return found ? found.translationKey : 'TENDER_TYPES.SERVICE_PROVISION';
+  }
+
+  /**
+   * Obtiene la longitud segura de selectedStatuses
+   */
+  getSelectedStatusesLength(): number {
+    return this.selectedStatuses()?.length || 0;
+  }
+
+  /**
+   * Obtiene la longitud segura de selectedModalities
+   */
+  getSelectedModalitiesLength(): number {
+    return this.selectedModalities()?.length || 0;
+  }
+
+  /**
+   * Obtiene la longitud segura de selectedTypes
+   */
+  getSelectedTypesLength(): number {
+    return this.selectedTypes()?.length || 0;
+  }  /**
+   * Verifica si hay filtros activos
+   */
+  hasActiveFilters(): boolean {
+    return this.getSelectedStatusesLength() > 0 || 
+           this.getSelectedModalitiesLength() > 0 || 
+           this.getSelectedTypesLength() > 0;
   }
 }

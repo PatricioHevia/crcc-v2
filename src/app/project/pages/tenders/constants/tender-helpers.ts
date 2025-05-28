@@ -66,3 +66,29 @@ export function getTenderModalityOptions(translationService: TranslationService)
     label: translationService.instant(type.translationKey)
   }));
 }
+
+/**
+ * Normaliza un string de modalidad para comparaciones robustas
+ */
+export function normalizeModalityString(str: string): string {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '');
+}
+
+/**
+ * Compara dos modalidades de forma normalizada
+ */
+export function compareModalities(modality1: TenderModality, modality2: TenderModality): boolean {
+  return normalizeModalityString(modality1) === normalizeModalityString(modality2);
+}
+
+/**
+ * Busca una modalidad en un array usando comparación normalizada
+ */
+export function findModalityInArray(modality: TenderModality, modalityArray: TenderModality[]): boolean {
+  return modalityArray.some(m => compareModalities(m, modality));
+}

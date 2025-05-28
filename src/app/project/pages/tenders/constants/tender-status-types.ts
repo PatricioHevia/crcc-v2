@@ -53,6 +53,14 @@ export const tenderStatusTypes: {
     }
   },
   {
+    value: 'Espera de Apertura',
+    label: {
+      es: 'Espera de Apertura',
+      en: 'Awaiting Opening',
+      zh: '等待开标'
+    }
+  },
+  {
     value: 'Fase Respuestas a Aclaraciones',
     label: {
       es: 'Fase Respuestas a Aclaraciones',

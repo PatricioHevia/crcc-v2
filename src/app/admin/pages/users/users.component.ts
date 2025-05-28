@@ -3,8 +3,8 @@ import { Component, computed, inject, Signal, WritableSignal, signal } from '@an
 import { OrganizationService } from '../../../auth/services/organization.service'; //
 import { TranslationService } from '../../../core/services/translation.service'; //
 import { UserService } from '../../../auth/services/user.service'; //
-import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TableModule } from 'primeng/table'; // No necesitas TableLazyLoadEvent aquí
 import { Account } from '../../../auth/models/account-interface'; //
 import { ButtonModule } from 'primeng/button';
@@ -23,17 +23,14 @@ import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '../../../core/services/toast.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
-interface SelectOption {
-  label: string;
-  value: any;
-}
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],  imports: [
-    TranslateModule,
+  styleUrls: ['./users.component.css'],
+    imports: [
     CommonModule,
+    TranslateModule,
     TableModule,
     ButtonModule,
     ProgressSpinnerModule,
@@ -46,7 +43,7 @@ interface SelectOption {
     ToolbarModule,
     TooltipModule,
     UpdateUserComponent,
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
 })
 export class UsersComponent {
@@ -58,9 +55,9 @@ export class UsersComponent {
   editVisible = signal(false); // Para el diálogo de edición  
   userToEdit: WritableSignal<Account | null> = signal (null); // Para almacenar el usuario a editar
   isProcessingToggle = signal(false); // Para evitar múltiples llamadas
+  translateService = inject(TranslateService);
 
-
-  lang = computed(() => this.translationService.currentLang());
+  public lang = computed(() => this.translationService.currentLang());
 
   // Usamos las señales del servicio que contienen todos los usuarios y el estado de carga
   usuarios: Signal<Account[]> = this.userService.allUsersForAdmin;
@@ -76,6 +73,8 @@ export class UsersComponent {
 
   isMandante = computed(() => this.userService.isMandante()); 
   isSuperAdmin = computed(() => this.userService.isSuperAdmin());
+
+  
 
   // Variable para el filtro global de PrimeNG si decides usarlo
   globalFilterValue: string = '';

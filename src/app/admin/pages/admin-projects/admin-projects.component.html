@@ -58,7 +58,7 @@
             {{ getProjectDescription(project) | slice:0:100 }}{{ getProjectDescription(project).length > 100 ? '...' :
             '' }}
           </td>
-          <td>{{ project.awardDate?.toDate() | date:'dd/MM/yyyy':undefined:lang() }}</td>
+          <td>{{ project.awardDate?.toDate() | date:'mediumDate':undefined:lang() }}</td>
           <td>
             <span class="px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap"
               [ngClass]="getPhaseClasses(project.phase)">

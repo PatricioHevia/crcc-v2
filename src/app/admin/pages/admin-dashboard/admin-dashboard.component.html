@@ -135,7 +135,7 @@
                 class="text-xs mb-2">
               </p-tag>
               <p class="text-xs text-gray-500 dark:text-gray-400">
-                {{ formatUserDate(user.createdAt) }}
+                {{ user.createdAt | date:'mediumDate':undefined:currentLang() }}
               </p>
             </div>
           </div>

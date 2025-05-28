@@ -127,7 +127,7 @@
               </td>
               <td>
                 <span [class]="isDateExpired(oferta.fechaCierre) ? 'text-red-600 font-medium' : ''">
-                  {{ formatDate(oferta.fechaCierre) }}
+                  {{ oferta.fechaCierre.toDate() | date:'medium':undefined:lang()  }}
                 </span>
               </td>
               <td>

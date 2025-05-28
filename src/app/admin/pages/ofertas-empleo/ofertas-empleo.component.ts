@@ -264,11 +264,7 @@ export class OfertasEmpleoComponent {
            oferta.estado === 'Abierto' && 
            oferta.fechaCierre.toDate() > new Date();
   }
-  formatDate(timestamp: any): string {
-    if (!timestamp) return '';
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    return date.toLocaleDateString('es-ES');
-  }
+  
 
   isDateExpired(timestamp: any): boolean {
     if (!timestamp) return false;

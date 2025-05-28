@@ -206,53 +206,231 @@
 /* Sección de galería */
 .gallery-section {
   margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
-:host ::ng-deep .gallery-section .p-panel .p-panel-header {
-  background: var(--surface-ground);
+.gallery-container {
+  min-height: 200px;
+}
+
+.gallery-header {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Galería simplificada con botones de eliminación directa */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-100);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  group: gallery-item;
+}
+
+.gallery-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item:hover .delete-overlay {
+  opacity: 1;
+}
+
+:host ::ng-deep .gallery-thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  transition: filter 0.2s ease;
+}
+
+.gallery-item:hover :host ::ng-deep .gallery-thumbnail {
+  filter: brightness(0.8);
+}
+
+.delete-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.delete-button {
+  background: rgba(220, 38, 38, 0.9) !important;
+  border: none !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.delete-button:hover {
+  background: rgba(220, 38, 38, 1) !important;
+  transform: scale(1.1);
+}
+
+.image-info {
+  padding: 0.75rem;
+  background: var(--surface-0);
+}
+
+.image-name {
+  font-size: 0.875rem;
   color: var(--text-color);
-  border: 1px solid var(--surface-border);
-  border-radius: 8px 8px 0 0;
-  font-weight: 600;
-}
-
-:host ::ng-deep .gallery-section .p-panel .p-panel-content {
-  border-radius: 0 0 8px 8px;
-  border: 1px solid var(--surface-border);
-  border-top: none;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
 }
 
 .gallery-placeholder {
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 3rem 1rem;
   color: var(--text-color-secondary);
-  background: var(--surface-ground);
-  border-radius: 8px;
-  border: 2px dashed var(--surface-border);
 }
 
 .placeholder-content {
-  max-width: 400px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .placeholder-icon {
   font-size: 4rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  opacity: 0.6;
+  color: var(--text-color-secondary);
 }
 
-.gallery-placeholder h3 {
-  margin: 0 0 1rem 0;
+/* Estilos para la gestión inline de galería */
+.gallery-upload-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 2px dashed var(--primary-color);
+  border-radius: 8px;
+  text-align: center;
+  background: var(--surface-50);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gallery-upload-section:hover {
+  background: var(--primary-color-text);
+  border-color: var(--primary-600);
+}
+
+.gallery-upload-section h4 {
+  margin-bottom: 0.5rem;
   color: var(--text-color);
   font-weight: 600;
 }
 
-.gallery-placeholder p {
+.upload-instruction {
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
   margin: 0;
-  line-height: 1.5;
 }
+
+.hidden-file-input {
+  display: none;
+}
+
+/* Estilos para el cropper simplificado con aspect ratio 16:9 */
+.cropper-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--surface-100);
+  border-radius: 12px;
+  border: 1px solid var(--surface-border);
+}
+
+.cropper-title {
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.cropper-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--surface-0);
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+  min-height: 450px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+:host ::ng-deep .cropper-container image-cropper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Estilos específicos para el cropper con aspect ratio 16:9 */
+:host ::ng-deep .cropper-container .cropper-wrapper {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+:host ::ng-deep .cropper-container .cropper {
+  max-width: 100%;
+  max-height: 400px;
+}
+
+.crop-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.crop-actions p-button {
+  min-width: 140px;
+}
+
+/* Loading spinner para upload */
+.upload-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--surface-50);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.upload-loading-text {
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+}
+
+.empty-gallery {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-color-secondary);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Estilos para el cropper inline - eliminados estilos de dialog obsoletos */
 
 /* Animaciones */
 @keyframes fadeIn {
@@ -270,7 +448,7 @@
   animation: fadeIn 0.5s ease-out;
 }
 
-/* Responsive */
+/* Responsive para nuevo diseño inline */
 @media (max-width: 768px) {
   .project-detail-container {
     padding: 0.5rem;
@@ -312,6 +490,30 @@
   .gallery-placeholder {
     padding: 2rem 1rem;
   }
+
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+    /* Estilos responsive para cropper simplificado */
+  .cropper-section {
+    padding: 1rem;
+  }
+  
+  .cropper-container {
+    min-height: 300px;
+  }
+  
+  .crop-actions {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  
+  .crop-actions p-button {
+    min-width: 120px;
+    flex: 1;
+    max-width: 160px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -325,6 +527,27 @@
 
   .placeholder-icon {
     font-size: 3rem;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+    .cropper-container {
+    min-height: 250px;
+  }
+  
+  .crop-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .crop-actions p-button {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .cropper-title {
+    font-size: 1rem;
   }
 }
 

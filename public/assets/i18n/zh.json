@@ -633,7 +633,38 @@
     "SUBMISSION_DEADLINE": "截止时间：",
     "VIEW_DETAILS": "查看详情",
     "TENDER_IMAGE": "招标图片",
-    "TENDER_IMAGE_ALT": "招标图片"
+    "TENDER_IMAGE_ALT": "招标图片",
+    "FORM": {
+      "NEW_TENDER_TITLE": "新招标",
+      "NAME": "名称",
+      "NAME_REQUIRED": "此字段为必填项",
+      "DESCRIPTION": "描述",
+      "TENDER_TYPE": "招标类型",
+      "SELECT_TYPE": "选择类型",
+      "TENDER_MODALITY": "方式",
+      "SELECT_MODALITY": "选择方式",
+      "TENDER_STATUS": "状态",
+      "SELECT_STATUS": "选择状态",
+      "DATES_TITLE": "流程日期",
+      "TENDER_START_DATE": "开始日期",
+      "INQUIRY_DEADLINE": "询问截止时间",
+      "ANSWER_DEADLINE": "回复截止时间",
+      "SUBMISSION_DEADLINE_LABEL": "提交截止时间",      "ACLARATIONS_DEADLINE": "澄清请求截止时间",
+      "ANSWER_ACLARATIONS_DEADLINE": "澄清回复截止时间",
+      "OPEN_OFFER_DEADLINE": "开标截止时间",
+      "AWARD_DATE_LABEL": "授标日期","CANCEL": "取消",
+      "CREATE": "创建招标",
+      "REQUIRED_FIELD": "必填字段",
+      "MIN_LENGTH": "最少{{length}}个字符"
+    },
+    "MESSAGES": {
+      "CREATE_SUCCESS": "招标创建成功",
+      "CREATE_ERROR": "创建招标时出错。请重试。",
+      "UPDATE_SUCCESS": "招标更新成功",
+      "UPDATE_ERROR": "更新招标时出错",
+      "DELETE_SUCCESS": "招标删除成功",
+      "DELETE_ERROR": "删除招标时出错"
+    }
   },
   "LICITACIONES": {
     "TITLE": "活跃招标",

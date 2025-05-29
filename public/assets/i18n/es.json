@@ -658,7 +658,38 @@
     "SUBMISSION_DEADLINE": "Fecha límite:",
     "VIEW_DETAILS": "Ver Detalles",
     "TENDER_IMAGE": "Imagen licitación",
-    "TENDER_IMAGE_ALT": "Imagen de la licitación"
+    "TENDER_IMAGE_ALT": "Imagen de la licitación",
+    "FORM": {
+      "NEW_TENDER_TITLE": "Nueva Licitación",
+      "NAME": "Nombre",
+      "NAME_REQUIRED": "Este campo es requerido",
+      "DESCRIPTION": "Descripción",
+      "TENDER_TYPE": "Tipo de Licitación",
+      "SELECT_TYPE": "Seleccione un tipo",
+      "TENDER_MODALITY": "Modalidad",
+      "SELECT_MODALITY": "Seleccione una modalidad",
+      "TENDER_STATUS": "Estado",
+      "SELECT_STATUS": "Seleccione un estado",
+      "DATES_TITLE": "Fechas del Proceso",
+      "TENDER_START_DATE": "Fecha de Inicio",
+      "INQUIRY_DEADLINE": "Límite de Consultas",
+      "ANSWER_DEADLINE": "Límite de Respuestas",      "SUBMISSION_DEADLINE_LABEL": "Límite de Ofertas",
+      "ACLARATIONS_DEADLINE": "Límite Solicitud Aclaraciones",
+      "ANSWER_ACLARATIONS_DEADLINE": "Límite Respuesta Aclaraciones",
+      "OPEN_OFFER_DEADLINE": "Límite Apertura de Ofertas",
+      "AWARD_DATE_LABEL": "Fecha de Adjudicación","CANCEL": "Cancelar",
+      "CREATE": "Crear Licitación",
+      "REQUIRED_FIELD": "Campo requerido",
+      "MIN_LENGTH": "Mínimo {{length}} caracteres"
+    },
+    "MESSAGES": {
+      "CREATE_SUCCESS": "Licitación creada exitosamente",
+      "CREATE_ERROR": "Error al crear la licitación. Por favor, intenta nuevamente.",
+      "UPDATE_SUCCESS": "Licitación actualizada exitosamente",
+      "UPDATE_ERROR": "Error al actualizar la licitación",
+      "DELETE_SUCCESS": "Licitación eliminada exitosamente",
+      "DELETE_ERROR": "Error al eliminar la licitación"
+    }
   },
   "LICITACIONES": {
     "TITLE": "Licitaciones Activas",

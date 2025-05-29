@@ -41,6 +41,42 @@ export class TenderCardComponent {
   lang = computed(() => this.translationService.currentLang());
 
   /**
+   * Obtiene el nombre del tender según el idioma activo
+   */
+  getTenderName(): string {
+    const currentLang = this.lang();
+    
+    switch (currentLang) {
+      case 'es':
+        return this.tender.name_es || this.tender.name;
+      case 'en':
+        return this.tender.name_en || this.tender.name;
+      case 'zh':
+        return this.tender.name_zh || this.tender.name;
+      default:
+        return this.tender.name;
+    }
+  }
+
+  /**
+   * Obtiene la descripción del tender según el idioma activo
+   */
+  getTenderDescription(): string {
+    const currentLang = this.lang();
+    
+    switch (currentLang) {
+      case 'es':
+        return this.tender.description_es || this.tender.description;
+      case 'en':
+        return this.tender.description_en || this.tender.description;
+      case 'zh':
+        return this.tender.description_zh || this.tender.description;
+      default:
+        return this.tender.description;
+    }
+  }
+
+  /**
    * Obtiene la etiqueta traducida para un estado de tender
    */
   getStatusLabel(status: TenderStatus): string {

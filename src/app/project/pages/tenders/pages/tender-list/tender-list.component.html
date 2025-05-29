@@ -11,16 +11,15 @@
           {{ 'TENDERS.SUBTITLE' | translate }}
         </p>
       </div>
-      @if(isSuperAdmin()){
-
-        <!-- Botón de nueva licitación - destacado -->
+      @if(isSuperAdmin()){        <!-- Botón de nueva licitación - destacado -->
         <div class="flex flex-col sm:flex-row gap-2 sm:items-start">
           <p-button 
           icon="fas fa-plus" 
           [label]="'TENDERS.NEW_TENDER' | translate"
           severity="primary"
           [raised]="true"
-          class="new-tender-btn">
+          class="new-tender-btn"
+          (onClick)="openNewTenderDrawer()">
         </p-button>
       </div>
       
@@ -135,8 +134,7 @@
     <p class="text-surface-500 dark:text-surface-400 mt-1">
       {{ 'TENDERS.NO_RESULTS_MESSAGE' | translate }}
     </p>
-  </div>} @else {
-  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  </div>} @else {  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
     @for (tender of tenders(); track tender.id) {
       <app-tender-card 
         [tender]="tender" 
@@ -146,3 +144,11 @@
     }
   </div>
   }
+
+<!-- New Tender Drawer Component -->
+<app-new-tender 
+  [visible]="isNewTenderDrawerVisible()"
+  [projectId]="getCurrentProjectId()"
+  (visibleChange)="closeNewTenderDrawer()"
+  (tenderCreated)="onTenderCreated()">
+</app-new-tender>

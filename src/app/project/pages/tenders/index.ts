@@ -20,3 +20,4 @@ export {
 
 // Exportar componentes
 export { TenderCardComponent } from './components/tender-card/tender-card.component';
+export { NewTenderComponent } from './components/new-tender/new-tender.component';

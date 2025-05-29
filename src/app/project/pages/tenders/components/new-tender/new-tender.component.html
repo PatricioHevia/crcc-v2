@@ -1,0 +1,184 @@
+<p-drawer [visible]="visible" (onHide)="closeDrawer()" position="right" [baseZIndex]="10000"
+    styleClass="!w-full md:!w-[60%] lg:!w-[50%] xl:!w-[40%]" [closable]="false">
+
+    <div class="flex items-center p-4 w-full">
+        <img src="assets/images/logos/Logo-CRCC.png"
+            alt="Company Logo" 
+            class="h-15 w-auto mr-2 flex-shrink-0 dark:hidden">
+        <img src="assets/images/logos/Logo-CRCC-DM.png"
+            alt="Company Logo Dark Mode" 
+            class="h-15 w-auto mr-2 flex-shrink-0 hidden dark:block">
+
+        <span class="flex-grow text-xl text-center font-semibold dark:text-gray-200">
+            {{ 'TENDERS.FORM.NEW_TENDER_TITLE' | translate }}
+        </span>
+
+        <p-button icon="pi pi-times" (onClick)="closeDrawer()"
+            styleClass="p-button-rounded p-button-text p-button-plain flex-shrink-0">
+        </p-button>
+    </div>
+
+    <p-divider></p-divider>
+    
+    @if (visible) {
+    <form [formGroup]="tenderForm" class="p-4 flex flex-col gap-6 flex-grow overflow-y-auto">
+        
+        <!-- Información Básica -->
+        <div class="flex flex-col">
+            <label htmlFor="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'TENDERS.FORM.NAME' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <input fluid pInputText id="name" formControlName="name" type="text" class="w-full" />
+            @if (isFieldInvalid('name')) {
+                <small class="text-red-500 dark:text-red-400 mt-1">{{ getFieldError('name') }}</small>
+            }
+        </div>
+
+        <div class="flex flex-col">
+            <label htmlFor="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'TENDERS.FORM.DESCRIPTION' | translate }}
+            </label>
+            <textarea rows="3" autoResize="true" fluid pTextarea id="description" 
+                      formControlName="description" class="w-full"></textarea>
+        </div>
+
+        <!-- Tipo y Modalidad -->
+        <div class="flex flex-col">
+            <label htmlFor="tenderType" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'TENDERS.FORM.TENDER_TYPE' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <p-select appendTo="body" id="tenderType" formControlName="tenderType" 
+                     [options]="tenderTypes" optionValue="value"
+                     [placeholder]="'TENDERS.FORM.SELECT_TYPE' | translate" class="w-full">
+                <ng-template pTemplate="item" let-option>
+                    <div>{{ option.label.es }}</div>
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div>{{ selectedOption?.label?.es }}</div>
+                </ng-template>
+            </p-select>
+            @if (isFieldInvalid('tenderType')) {
+                <small class="text-red-500 dark:text-red-400 mt-1">{{ getFieldError('tenderType') }}</small>
+            }
+        </div>
+
+        <div class="flex flex-col">
+            <label htmlFor="tenderModality" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'TENDERS.FORM.TENDER_MODALITY' | translate }}
+            </label>
+            <p-select appendTo="body" id="tenderModality" formControlName="tenderModality" 
+                     [options]="tenderModalityTypes" optionValue="value"
+                     [placeholder]="'TENDERS.FORM.SELECT_MODALITY' | translate" class="w-full">
+                <ng-template pTemplate="item" let-option>
+                    <div>{{ option.label.es }}</div>
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div>{{ selectedOption?.label?.es }}</div>
+                </ng-template>
+            </p-select>
+        </div>
+
+        <!-- Estado -->
+        <div class="flex flex-col">
+            <label htmlFor="tenderStatus" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'TENDERS.FORM.TENDER_STATUS' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <p-select appendTo="body" id="tenderStatus" formControlName="tenderStatus" 
+                     [options]="tenderStatusTypes" optionValue="value"
+                     [placeholder]="'TENDERS.FORM.SELECT_STATUS' | translate" class="w-full">
+                <ng-template pTemplate="item" let-option>
+                    <div>{{ option.label.es }}</div>
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div>{{ selectedOption?.label?.es }}</div>
+                </ng-template>
+            </p-select>
+            @if (isFieldInvalid('tenderStatus')) {
+                <small class="text-red-500 dark:text-red-400 mt-1">{{ getFieldError('tenderStatus') }}</small>
+            }
+        </div>
+
+        <!-- Fechas Importantes -->
+        <p-divider></p-divider>
+        <h4 class="text-lg font-semibold dark:text-gray-200 mb-2">{{ 'TENDERS.FORM.DATES_TITLE' | translate }}</h4>
+        
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label htmlFor="tenderStartDate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'TENDERS.FORM.TENDER_START_DATE' | translate }}
+                </label>
+                <p-date-picker fluid id="tenderStartDate" formControlName="tenderStartDate" 
+                              appendTo="body" dateFormat="dd/mm/yy" class="w-full"></p-date-picker>
+            </div>
+            <div class="flex flex-col">
+                <label htmlFor="inquiryDeadline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'TENDERS.FORM.INQUIRY_DEADLINE' | translate }}
+                </label>
+                <p-date-picker fluid id="inquiryDeadline" formControlName="inquiryDeadline" 
+                              appendTo="body" dateFormat="dd/mm/yy" class="w-full"></p-date-picker>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label htmlFor="answerDeadline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'TENDERS.FORM.ANSWER_DEADLINE' | translate }}
+                </label>
+                <p-date-picker fluid id="answerDeadline" formControlName="answerDeadline" 
+                              appendTo="body" dateFormat="dd/mm/yy" class="w-full"></p-date-picker>
+            </div>
+            <div class="flex flex-col">
+                <label htmlFor="submissionDeadline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'TENDERS.FORM.SUBMISSION_DEADLINE_LABEL' | translate }}
+                </label>
+                <p-date-picker fluid id="submissionDeadline" formControlName="submissionDeadline" 
+                              appendTo="body" dateFormat="dd/mm/yy" class="w-full"></p-date-picker>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label htmlFor="aclarationsDeadline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'TENDERS.FORM.ACLARATIONS_DEADLINE' | translate }}
+                </label>
+                <p-date-picker fluid id="aclarationsDeadline" formControlName="aclarationsDeadline" 
+                              appendTo="body" dateFormat="dd/mm/yy" class="w-full"></p-date-picker>
+            </div>
+            <div class="flex flex-col">
+                <label htmlFor="answerAclarationsDeadline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'TENDERS.FORM.ANSWER_ACLARATIONS_DEADLINE' | translate }}
+                </label>
+                <p-date-picker fluid id="answerAclarationsDeadline" formControlName="answerAclarationsDeadline" 
+                              appendTo="body" dateFormat="dd/mm/yy" class="w-full"></p-date-picker>
+            </div>
+            <div class="flex flex-col">
+                <label htmlFor="openOfferDeadline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ 'TENDERS.FORM.OPEN_OFFER_DEADLINE' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+                </label>
+                <p-date-picker fluid id="openOfferDeadline" formControlName="openOfferDeadline" 
+                              appendTo="body" dateFormat="dd/mm/yy" class="w-full"></p-date-picker>
+                @if (isFieldInvalid('openOfferDeadline')) {
+                    <small class="text-red-500 dark:text-red-400 mt-1">{{ getFieldError('openOfferDeadline') }}</small>
+                }
+            </div>
+        </div>
+
+        <div class="flex flex-col">
+            <label htmlFor="awardDate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'TENDERS.FORM.AWARD_DATE_LABEL' | translate }}
+            </label>
+            <p-date-picker fluid id="awardDate" formControlName="awardDate"                              appendTo="body" dateFormat="dd/mm/yy" class="w-full"></p-date-picker>
+        </div>
+    </form>
+    }
+
+    <p-divider></p-divider>
+    <div class="p-4 flex justify-end gap-2">
+        <p-button [label]="'TENDERS.FORM.CANCEL' | translate" severity="danger" (onClick)="closeDrawer()" [disabled]="loading()"></p-button>
+        <p-button [icon]="loading() ? 'pi pi-spin pi-spinner' : 'pi pi-check'" 
+                  [disabled]="tenderForm.invalid || loading()" 
+                  [label]="'TENDERS.FORM.CREATE' | translate" 
+                  (onClick)="onSubmit()"></p-button>
+    </div>
+
+</p-drawer>

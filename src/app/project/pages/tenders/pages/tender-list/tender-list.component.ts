@@ -9,7 +9,8 @@ import {
   TenderModality,
   getTenderStatusLabel,
   getTenderCurrencyLabel,
-  TenderCardComponent
+  TenderCardComponent,
+  NewTenderComponent
 } from '../../index';
 import { TenderService } from '../../services/tender.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -30,14 +31,13 @@ import { UserService } from '../../../../../auth/services/user.service';
   templateUrl: './tender-list.component.html',
   styleUrls: ['./tender-list.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, TagModule, RouterModule, TranslateModule, ButtonModule, DividerModule, DropdownModule, MultiSelectModule, CardModule, ChipModule, TenderCardComponent]
+  imports: [CommonModule, FormsModule, TagModule, RouterModule, TranslateModule, ButtonModule, DividerModule, DropdownModule, MultiSelectModule, CardModule, ChipModule, TenderCardComponent, NewTenderComponent]
 })
 export class TenderListComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   public tenderService = inject(TenderService);
   private translationService = inject(TranslationService);
   private userService = inject(UserService);
-
 
   isSuperAdmin = computed(() => this.userService.isSuperAdmin());
   lang = computed(() => this.translationService.currentLang());
@@ -46,6 +46,9 @@ export class TenderListComponent implements OnInit, OnDestroy {
   selectedStatuses = signal<TenderStatus[]>([]);
   selectedModalities = signal<TenderModality[]>([]);
   selectedTypes = signal<string[]>([]);
+  
+  // Drawer visibility
+  isNewTenderDrawerVisible = signal<boolean>(false);
 
   // Computed property simplificado que usa el servicio directamente
   tenders = computed(() => {
@@ -388,12 +391,33 @@ export class TenderListComponent implements OnInit, OnDestroy {
            this.getSelectedModalitiesLength() > 0 || 
            this.getSelectedTypesLength() > 0;
   }
-
   /**
    * Método para debug - actualizar modalidades seleccionadas
    */
   updateSelectedModalities(modalities: TenderModality[]): void {
     console.log('🔥 updateSelectedModalities called with:', modalities);
     this.selectedModalities.set(modalities);
+  }
+
+  /**
+   * Abre el drawer para crear una nueva licitación
+   */
+  openNewTenderDrawer(): void {
+    this.isNewTenderDrawerVisible.set(true);
+  }
+
+  /**
+   * Cierra el drawer de nueva licitación
+   */
+  closeNewTenderDrawer(): void {
+    this.isNewTenderDrawerVisible.set(false);
+  }  /**
+   * Maneja la creación exitosa de una nueva licitación
+   */
+  onTenderCreated(): void {
+    // El drawer se cerrará automáticamente desde el componente new-tender
+    // Los datos se actualizarán automáticamente debido a la reactividad del servicio
+    console.log('🎉 Nueva licitación creada exitosamente - Lista de licitaciones se actualizará automáticamente');
+    console.log('📊 Total de licitaciones actuales:', this.tenderService.tenders().length);
   }
 }

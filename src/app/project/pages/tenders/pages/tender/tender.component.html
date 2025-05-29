@@ -26,11 +26,10 @@
     <!-- Detalles de la licitación -->
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
       <!-- Header -->
-      <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-        <div class="flex justify-between items-start">
+      <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">        <div class="flex justify-between items-start">
           <div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-              {{ tender()!.name }}
+              {{ getTenderName() }}
             </h1>
            
           </div>
@@ -47,10 +46,9 @@
           <!-- Información básica -->
           <div class="space-y-4">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Información General</h3>
-            
-            <div>
+              <div>
               <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Descripción</label>
-              <p class="mt-1 text-gray-900 dark:text-white">{{ tender()!.description }}</p>
+              <p class="mt-1 text-gray-900 dark:text-white">{{ getTenderDescription() }}</p>
             </div>
 
             <div class="grid grid-cols-2 gap-4">

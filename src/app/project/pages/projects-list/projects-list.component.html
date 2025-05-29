@@ -1,5 +1,5 @@
 <!-- Header Hero Section -->
-<section class="hero-background hero-custom-bg relative overflow-hidden">
+<section class="bg-gradient-to-br from-sky-300 via-sky-400 to-sky-600 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-10">
     <div
@@ -8,35 +8,35 @@
   </div>
 
   <!-- Geometric decorative elements -->
-  <div class="geometric-accent"></div>
-  <div class="secondary-triangle"></div>
-  <div class="circle-accent"></div>
-  <div class="hexagon"></div>
-  <div class="diamond"></div>
-  <div class="grid-overlay"></div>
+  <div class="geometric-accent absolute top-[20%] left-[10%] z-10"></div>
+  <div class="secondary-triangle absolute top-[60%] right-[15%] z-10"></div>
+  <div class="circle-accent absolute top-[30%] right-[25%] w-15 h-15 bg-white/[0.08] rounded-full z-10 animate-[float_8s_ease-in-out_infinite_reverse]"></div>
+  <div class="hexagon absolute top-[15%] right-[5%] z-10"></div>
+  <div class="diamond absolute bottom-[25%] right-[8%] w-6 h-6 bg-white/[0.08] rotate-45 z-10 animate-[pulse-custom_5s_ease-in-out_infinite] [animation-delay:2s]"></div>
+  <div class="grid-overlay absolute inset-0"></div>
 
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
     <div class="text-center">
       <!-- Main Title -->
-      <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+      <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:0_2px_4px_rgba(0,0,0,0.3)]">
         <span class="block">{{ 'PROJECTS.LIST.HERO_TITLE' | translate }}</span>
       </h1>
 
       <!-- Subtitle -->
-      <p class="hero-subtitle text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+      <p class="text-white/90 text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed [text-shadow:0_1px_3px_rgba(0,0,0,0.2)]">
         {{ 'PROJECTS.LIST.HERO_SUBTITLE' | translate }}
       </p>
 
       <!-- Stats Row -->
       <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
-        <div class="stats-card rounded-lg px-6 py-3">
-          <div class="stats-text text-3xl font-bold">{{ projectCount() }}</div>
-          <div class="stats-label text-sm uppercase tracking-wide">{{ 'PROJECTS.LIST.STATISTICS.TOTAL_PROJECTS' |
+        <div class="backdrop-blur-xl bg-white/10 border border-white/20 rounded-lg px-6 py-3 transition-all duration-300 hover:bg-white/15 hover:-translate-y-0.5">
+          <div class="text-white text-3xl font-bold [text-shadow:0_1px_2px_rgba(0,0,0,0.2)]">{{ projectCount() }}</div>
+          <div class="text-white/85 text-sm uppercase tracking-wide [text-shadow:0_1px_2px_rgba(0,0,0,0.1)]">{{ 'PROJECTS.LIST.STATISTICS.TOTAL_PROJECTS' |
             translate }}</div>
         </div>
-        <div class="stats-card rounded-lg px-6 py-3">
-          <div class="stats-text text-3xl font-bold">{{ projectCount() }}</div>
-          <div class="stats-label text-sm uppercase tracking-wide">{{ 'PROJECTS.LIST.STATISTICS.ACTIVE_PROJECTS' |
+        <div class="backdrop-blur-xl bg-white/10 border border-white/20 rounded-lg px-6 py-3 transition-all duration-300 hover:bg-white/15 hover:-translate-y-0.5">
+          <div class="text-white text-3xl font-bold [text-shadow:0_1px_2px_rgba(0,0,0,0.2)]">{{ projectCount() }}</div>
+          <div class="text-white/85 text-sm uppercase tracking-wide [text-shadow:0_1px_2px_rgba(0,0,0,0.1)]">{{ 'PROJECTS.LIST.STATISTICS.ACTIVE_PROJECTS' |
             translate }}</div>
         </div>
       </div>
@@ -44,7 +44,7 @@
       <!-- CTA Button -->
       <div class="flex justify-center">
         <p-button icon="pi pi-arrow-down" [label]="'PROJECTS.LIST.VIEW_PROJECTS' | translate"
-          styleClass="cta-button p-button-lg !bg-white !text-sky-600 hover:!bg-sky-50 !border-white !shadow-lg"
+          styleClass="p-button-lg !bg-white !text-sky-600 hover:!bg-sky-50 !border-white !shadow-lg transition-all duration-300 [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)]"
           (click)="scrollToProjects()">
         </p-button>
       </div>
@@ -54,7 +54,7 @@
   <!-- Bottom wave -->
   <div class="absolute bottom-0 left-0 w-full">
     <svg viewBox="0 0 1200 120" preserveAspectRatio="none"
-      class="wave-bottom relative block w-full h-[60px] fill-surface-50 dark:fill-surface-900">
+      class="relative block w-full h-[60px] fill-surface-50 dark:fill-surface-900 animate-[wave_3s_ease-in-out_infinite_alternate]">
       <path
         d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z">
       </path>
@@ -68,10 +68,10 @@
 
     <!-- Loading State -->
     @if (projectService.projects().length === 0) {
-    <div class="loading-container flex flex-col items-center justify-center">
+    <div class="min-h-[400px] flex flex-col items-center justify-center">
       <p-progress-spinner styleClass="w-16 h-16" strokeWidth="4" animationDuration=".8s">
       </p-progress-spinner>
-      <p class="loading-text text-2xl font-semibold mt-6">
+      <p class="text-surface-700 dark:text-surface-300 text-2xl font-semibold mt-6">
         {{ 'PROJECTS.LOADING' | translate }}
       </p>
     </div>
@@ -79,7 +79,7 @@
     <!-- Projects Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       @for (project of projectService.projects(); track project.name_es) {
-      <div class="project-card-container">
+      <div class="transition-all duration-300 [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] [will-change:transform] md:hover:-translate-y-1 md:hover:scale-[1.01]">
         <app-card-project [project]="project"></app-card-project>
       </div>
       }

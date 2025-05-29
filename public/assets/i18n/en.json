@@ -606,7 +606,38 @@
     "SUBMISSION_DEADLINE": "Deadline:",
     "VIEW_DETAILS": "View Details",
     "TENDER_IMAGE": "Tender image",
-    "TENDER_IMAGE_ALT": "Tender image"
+    "TENDER_IMAGE_ALT": "Tender image",
+    "FORM": {
+      "NEW_TENDER_TITLE": "New Tender",
+      "NAME": "Name",
+      "NAME_REQUIRED": "This field is required",
+      "DESCRIPTION": "Description",
+      "TENDER_TYPE": "Tender Type",
+      "SELECT_TYPE": "Select a type",
+      "TENDER_MODALITY": "Modality",
+      "SELECT_MODALITY": "Select a modality",
+      "TENDER_STATUS": "Status",
+      "SELECT_STATUS": "Select a status",
+      "DATES_TITLE": "Process Dates",
+      "TENDER_START_DATE": "Start Date",
+      "INQUIRY_DEADLINE": "Inquiry Deadline",
+      "ANSWER_DEADLINE": "Answer Deadline",
+      "SUBMISSION_DEADLINE_LABEL": "Submission Deadline",      "ACLARATIONS_DEADLINE": "Clarifications Request Deadline",
+      "ANSWER_ACLARATIONS_DEADLINE": "Clarifications Response Deadline",
+      "OPEN_OFFER_DEADLINE": "Offer Opening Deadline",
+      "AWARD_DATE_LABEL": "Award Date","CANCEL": "Cancel",
+      "CREATE": "Create Tender",
+      "REQUIRED_FIELD": "Required field",
+      "MIN_LENGTH": "Minimum {{length}} characters"
+    },
+    "MESSAGES": {
+      "CREATE_SUCCESS": "Tender created successfully",
+      "CREATE_ERROR": "Error creating tender. Please try again.",
+      "UPDATE_SUCCESS": "Tender updated successfully",
+      "UPDATE_ERROR": "Error updating tender",
+      "DELETE_SUCCESS": "Tender deleted successfully",
+      "DELETE_ERROR": "Error deleting tender"
+    }
   },
   "LICITACIONES": {
     "TITLE": "Active Tenders",

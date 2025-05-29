@@ -2,6 +2,7 @@ import { effect, inject, Injectable, signal, Signal, OnDestroy } from '@angular/
 import { FirestoreService } from '../../../../core/services/firestore.service';
 import { Tender, TenderStatus, TenderModality } from '../models/tender-interface';
 import { orderBy, QueryConstraint, where } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -192,5 +193,89 @@ export class TenderService implements OnDestroy {  private readonly fs = inject(
    */
   getLandingTendersLoading(): boolean {
     return this.landingTenderListener?.loading() ?? true;
+  }
+  /**
+   * Crea una nueva licitación
+   */
+  createTender(tenderData: Partial<Tender>): Observable<any> {
+    console.log('🚀 TenderService.createTender - Iniciando creación de licitación');
+    console.log('📄 Datos de entrada:', tenderData);
+    
+    const projectId = this.currentProjectId();
+    console.log('🏗️ Project ID actual:', projectId);
+    
+    if (!projectId) {
+      const error = new Error('No se ha establecido el contexto del proyecto');
+      console.error('❌ Error - No hay contexto de proyecto:', error);
+      throw error;
+    }
+    
+    const path = `projects/${projectId}/tenders`;
+    console.log('📍 Ruta de Firestore:', path);
+    
+    return new Observable(observer => {
+      try {
+        console.log('🔄 Llamando a firestore.create...');
+        this.fs.create(path, tenderData)
+          .then(result => {
+            console.log('✅ Licitación creada exitosamente:', result);
+            observer.next(result);
+            observer.complete();
+          })
+          .catch(error => {
+            console.error('❌ Error en fs.create:', error);
+            console.error('❌ Tipo de error:', typeof error);
+            console.error('❌ Mensaje de error:', error.message);
+            console.error('❌ Stack trace:', error.stack);
+            observer.error(error);
+          });      } catch (syncError) {
+        console.error('❌ Error síncrono en createTender:', syncError);
+        console.error('❌ Tipo de error síncrono:', typeof syncError);
+        if (syncError instanceof Error) {
+          console.error('❌ Mensaje de error síncrono:', syncError.message);
+        }
+        observer.error(syncError);
+      }
+    });
+  }
+
+  /**
+   * Actualiza una licitación existente
+   */
+  updateTender(tenderId: string, tenderData: Partial<Tender>): Observable<any> {
+    const projectId = this.currentProjectId();
+    if (!projectId) {
+      throw new Error('No se ha establecido el contexto del proyecto');
+    }
+    
+    const path = `projects/${projectId}/tenders`;
+    return new Observable(observer => {
+      this.fs.update(path, tenderId, tenderData).then(result => {
+        observer.next(result);
+        observer.complete();
+      }).catch(error => {
+        observer.error(error);
+      });
+    });
+  }
+
+  /**
+   * Elimina una licitación
+   */
+  deleteTender(tenderId: string): Observable<any> {
+    const projectId = this.currentProjectId();
+    if (!projectId) {
+      throw new Error('No se ha establecido el contexto del proyecto');
+    }
+    
+    const path = `projects/${projectId}/tenders`;
+    return new Observable(observer => {
+      this.fs.delete(path, tenderId).then(result => {
+        observer.next(result);
+        observer.complete();
+      }).catch(error => {
+        observer.error(error);
+      });
+    });
   }
 }

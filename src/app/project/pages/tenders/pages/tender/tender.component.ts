@@ -63,4 +63,46 @@ export class TenderComponent implements OnInit, OnDestroy {
     const projectId = this.projectId();
     this.router.navigate(['/app/project', projectId, 'tenders']);
   }
+
+  /**
+   * Obtiene el nombre del tender según el idioma activo
+   */
+  getTenderName(): string {
+    const currentTender = this.tender();
+    if (!currentTender) return '';
+    
+    const currentLang = this.lang();
+    
+    switch (currentLang) {
+      case 'es':
+        return currentTender.name_es || currentTender.name;
+      case 'en':
+        return currentTender.name_en || currentTender.name;
+      case 'zh':
+        return currentTender.name_zh || currentTender.name;
+      default:
+        return currentTender.name;
+    }
+  }
+
+  /**
+   * Obtiene la descripción del tender según el idioma activo
+   */
+  getTenderDescription(): string {
+    const currentTender = this.tender();
+    if (!currentTender) return '';
+    
+    const currentLang = this.lang();
+    
+    switch (currentLang) {
+      case 'es':
+        return currentTender.description_es || currentTender.description;
+      case 'en':
+        return currentTender.description_en || currentTender.description;
+      case 'zh':
+        return currentTender.description_zh || currentTender.description;
+      default:
+        return currentTender.description;
+    }
+  }
 }

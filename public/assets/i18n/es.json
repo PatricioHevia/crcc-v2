@@ -16,8 +16,7 @@
     "FAQ": "Preguntas frecuentes",
     "CONTACTO": "Contacto",
     "ADMIN": "Administración"
-  },
-  "SIDEBAR": {
+  },  "SIDEBAR": {
     "ADMINISTRATION": "Administración",
     "DASHBOARD": "Panel Principal",
     "USERS": "Usuarios",
@@ -27,7 +26,8 @@
     "GENERAL": "General",
     "HOME": "Inicio",
     "PROFILE": "Mi Perfil",
-    "JOBS": "Ofertas de Trabajo"
+    "JOBS": "Ofertas de Trabajo",
+    "TENDERS": "Licitaciones"
   },
   "FOOTER": {
     "CRCC": "China Railway Construction Corporation (International) Limited, Agencia en Chile (Hospitales)",
@@ -635,20 +635,20 @@
     "LUMP_SUM": "Suma Alzada",
     "UNIT_PRICE": "Precio Unitario",
     "NOT_APPLICABLE": "No Aplica"
-  },
-  "TENDERS": {
+  },  "TENDERS": {
     "TITLE": "Licitaciones del Proyecto",
     "SUBTITLE": "Gestión de licitaciones y procesos de contratación",
+    "NEW_TENDER": "Nueva Licitación",
+    "FILTERS": "Filtros",
     "CLEAR_FILTERS": "Limpiar Filtros",
     "FILTER_BY_STATUS": "Filtrar por Estado",
     "FILTER_BY_MODALITY": "Filtrar por Modalidad",
-    "FILTER_BY_TYPE": "Filtrar por Tipo",    "SELECT_STATES": "Seleccionar estados",
+    "FILTER_BY_TYPE": "Filtrar por Tipo","SELECT_STATES": "Seleccionar estados",
     "STATUS_PLACEHOLDER": "Seleccionar estados",
     "SELECT_MODALITIES": "Seleccionar modalidades",
     "MODALITY_PLACEHOLDER": "Seleccionar modalidades",
     "SELECT_TYPES": "Seleccionar tipos",
-    "TYPE_PLACEHOLDER": "Seleccionar tipos",
-    "SHOWING_COUNT": "Mostrando {{count}} de {{total}} licitaciones",
+    "TYPE_PLACEHOLDER": "Seleccionar tipos",    "SHOWING_COUNT": "Mostrando {{count}} de {{total}} licitaciones",
     "LOADING": "Cargando licitaciones...",
     "NO_TENDERS": "No hay licitaciones",
     "NO_TENDERS_MESSAGE": "Aún no se han registrado licitaciones para este proyecto.",
@@ -659,5 +659,11 @@
     "VIEW_DETAILS": "Ver Detalles",
     "TENDER_IMAGE": "Imagen licitación",
     "TENDER_IMAGE_ALT": "Imagen de la licitación"
+  },
+  "LICITACIONES": {
+    "TITLE": "Licitaciones Activas",
+    "DESCRIPTION": "Consulta todas las licitaciones en proceso de nuestros proyectos hospitalarios y Planta Naipú.",
+    "NO_ACTIVE_TENDERS": "No hay licitaciones activas",
+    "NO_ACTIVE_TENDERS_DESCRIPTION": "Actualmente no hay licitaciones en fase de consultas, respuestas o ofertas. Vuelve pronto para revisar nuevas oportunidades."
   }
 }

@@ -1,5 +1,5 @@
 <div class="tender-detail-container p-6 max-w-4xl mx-auto">
-  @if (loading()) {
+  @if (tenderService.loading()) {
     <!-- Estado de carga -->
     <div class="flex flex-col items-center justify-center py-12">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -21,8 +21,7 @@
       <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
               (click)="goBack()">
         Volver a la lista
-      </button>
-    </div>
+      </button>    </div>
   } @else {
     <!-- Detalles de la licitación -->
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
@@ -78,7 +77,7 @@
               <div>
                 <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Fecha Límite de Presentación</label>
                 <p class="mt-1 text-gray-900 dark:text-white">
-                  {{ tender()!.submissionDeadline!.toDate() | date:'dd/MM/yyyy HH:mm' }}
+                  {{ tender()!.submissionDeadline!.toDate() | date:'medium':undefined:lang() }}
                 </p>
               </div>
             }
@@ -89,7 +88,7 @@
               <div>
                 <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Fecha de Adjudicación</label>
                 <p class="mt-1 text-gray-900 dark:text-white">
-                  {{ tender()!.awardDate!.toDate() | date:'dd/MM/yyyy HH:mm' }}
+                  {{ tender()!.awardDate!.toDate() | date:'medium':undefined:lang() }}
                 </p>
               </div>
             }

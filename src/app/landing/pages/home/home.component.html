@@ -12,37 +12,33 @@
     <div class="text-center space-y-4 mb-12">      <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent leading-tight">
         {{ 'HOME.TITULO' | translate }}
       </h2>
-      
-      <!-- Logo corporativo elegante -->
-      <div class="flex justify-center items-center my-8">
-        <div class="relative group">          <!-- Contenedor del logo con fondo transparente y bordes suaves -->
-          <div class="logo-container bg-gradient-to-br from-gray-50 via-gray-200 to-gray-50/60 dark:bg-gradient-to-br dark:from-surface-900 dark:via-surface-800 dark:to-surface-900 backdrop-blur-sm rounded-2xl p-3 md:p-4 lg:p-6 
-                      border border-stone-50/30 dark:border-surface-700/30 
-                      shadow-lg hover:shadow-xl 
-                      transition-all duration-300
-                      group-hover:scale-[1.02]">
-              <!-- Logo para modo claro -->
-            <img src="assets/images/logos/Logo-CRCC.png"
-                 alt="CRCC Logo" 
-                 class="h-24 md:h-28 lg:h-32 w-auto object-contain 
-                        transition-all duration-300 
-                        dark:hidden" />
-            
-            <!-- Logo para modo oscuro -->
-            <img src="assets/images/logos/Logo-CRCC-DM.png"
-                 alt="CRCC Logo" 
-                 class="h-20 md:h-24 lg:h-28 w-auto object-contain
-                        transition-all duration-300 
-                        filter drop-shadow-sm 
-                        hidden dark:block" />
-            
-            <!-- Sutil efecto de brillo en hover -->
-            <div class="absolute inset-0 
-                        bg-gradient-to-br from-transparent via-white/5 to-transparent 
-                        opacity-0 group-hover:opacity-100 
-                        transition-opacity duration-500 
-                        rounded-2xl pointer-events-none"></div>
-          </div>
+        <!-- Logo corporativo elegante sin fondo -->
+      <div class="flex justify-center items-center my-12 md:my-16">
+        <div class="relative group">
+          <!-- Logo para modo claro -->
+          <img src="assets/images/logos/Logo-CRCC.png"
+               alt="CRCC Logo" 
+               class="h-28 md:h-32 lg:h-36 xl:h-42 w-auto object-contain 
+                      transition-all duration-500 ease-out
+                      filter drop-shadow-lg hover:drop-shadow-2xl
+                      group-hover:scale-105
+                      dark:hidden" />
+          
+          <!-- Logo para modo oscuro -->
+          <img src="assets/images/logos/Logo-CRCC-DM.png"
+               alt="CRCC Logo" 
+               class="h-28 md:h-32 lg:h-36 xl:h-42 w-auto object-contain
+                      transition-all duration-500 ease-out
+                      filter drop-shadow-lg hover:drop-shadow-2xl
+                      group-hover:scale-105
+                      hidden dark:block" />
+          
+          <!-- Sutil resplandor corporativo en hover -->
+          <div class="absolute inset-0 
+                      bg-gradient-radial from-primary-500/20 via-primary-400/10 to-transparent 
+                      opacity-0 group-hover:opacity-100 
+                      transition-opacity duration-700 
+                      blur-2xl scale-110 pointer-events-none"></div>
         </div>
       </div>
       

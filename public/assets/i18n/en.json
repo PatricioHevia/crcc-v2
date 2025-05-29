@@ -16,8 +16,7 @@
     "FAQ": "FAQ",
     "CONTACTO": "Contact",
     "ADMIN": "Admin"
-  },
-  "SIDEBAR": {
+  },  "SIDEBAR": {
     "ADMINISTRATION": "Administration",
     "DASHBOARD": "Dashboard",
     "USERS": "Users",
@@ -27,7 +26,8 @@
     "GENERAL": "General",
     "HOME": "Home",
     "PROFILE": "My Profile",
-    "JOBS": "Job Offers"
+    "JOBS": "Job Offers",
+    "TENDERS": "Tenders"
   },
   "FOOTER": {
     "CRCC": "China Railway Construction Corporation (International) Limited, Chile Branch (Hospitals)",
@@ -582,14 +582,15 @@
     "LUMP_SUM": "Lump Sum",
     "UNIT_PRICE": "Unit Price",
     "NOT_APPLICABLE": "Not Applicable"
-  },
-  "TENDERS": {
+  },  "TENDERS": {
     "TITLE": "Project Tenders",
     "SUBTITLE": "Management of tenders and contracting processes",
+    "NEW_TENDER": "New Tender",
+    "FILTERS": "Filters",
     "CLEAR_FILTERS": "Clear Filters",
     "FILTER_BY_STATUS": "Filter by Status",
     "FILTER_BY_MODALITY": "Filter by Modality",
-    "FILTER_BY_TYPE": "Filter by Type",    "SELECT_STATES": "Select statuses",
+    "FILTER_BY_TYPE": "Filter by Type","SELECT_STATES": "Select statuses",
     "STATUS_PLACEHOLDER": "Select statuses",
     "SELECT_MODALITIES": "Select modalities",
     "MODALITY_PLACEHOLDER": "Select modalities",
@@ -606,5 +607,11 @@
     "VIEW_DETAILS": "View Details",
     "TENDER_IMAGE": "Tender image",
     "TENDER_IMAGE_ALT": "Tender image"
+  },
+  "LICITACIONES": {
+    "TITLE": "Active Tenders",
+    "DESCRIPTION": "Browse all ongoing tenders from our hospital projects and Naipú Plant.",
+    "NO_ACTIVE_TENDERS": "No active tenders",
+    "NO_ACTIVE_TENDERS_DESCRIPTION": "There are currently no tenders in consultation, response, or bidding phases. Check back soon for new opportunities."
   }
 }

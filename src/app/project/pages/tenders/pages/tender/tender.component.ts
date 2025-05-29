@@ -3,26 +3,37 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Tender } from '../../models/tender-interface';
 import { TenderService } from '../../services/tender.service';
+import { TranslationService } from '../../../../../core/services/translation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-tender',
   templateUrl: './tender.component.html',
   styleUrls: ['./tender.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, TranslateModule]
 })
 export class TenderComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private tenderService = inject(TenderService);
+  public tenderService = inject(TenderService);
+  private translation = inject(TranslationService);
   
-  // Signals para estado del componente
+  // Signals para estado del componente - patrón simple como en tender-list
   private projectId = signal<string>('');
-  private tenderId = signal<string>('');
-  tender = signal<Tender | undefined>(undefined);
+  public tenderId = signal<string>('');
   
-  // Computed properties basadas en el servicio
-  loading = computed(() => this.tenderService.loading());
+  // Computed properties simples basadas en el servicio
+  lang = computed(() => this.translation.currentLang());
+  
+  // Computed simplificado que usa el servicio directamente como en tender-list
+  tender = computed(() => {
+    const tenderId = this.tenderId();
+    if (tenderId) {
+      return this.tenderService.getTenderById(tenderId);
+    }
+    return undefined;
+  });
 
   constructor() { }
 
@@ -32,27 +43,17 @@ export class TenderComponent implements OnInit, OnDestroy {
       const projectId = params['id'];
       const tenderId = params['tenderId'];
       
-      this.projectId.set(projectId);
-      this.tenderId.set(tenderId);
-      
-      // Configurar el contexto del proyecto en el servicio
+      // Configurar el contexto del proyecto en el servicio PRIMERO
       this.tenderService.setProjectContext(projectId);
       
-      // Buscar el tender específico
-      this.loadTender(tenderId);
+      // Luego establecer los signals
+      this.projectId.set(projectId);
+      this.tenderId.set(tenderId);
     });
   }
 
   ngOnDestroy() {
     // El TenderService maneja su propia limpieza
-  }
-
-  /**
-   * Carga un tender específico por ID
-   */
-  private loadTender(tenderId: string): void {
-    const foundTender = this.tenderService.getTenderById(tenderId);
-    this.tender.set(foundTender);
   }
 
   /**

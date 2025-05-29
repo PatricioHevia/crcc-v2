@@ -5,6 +5,7 @@ import { ConcursosComponent } from "./pages/concursos/concursos.component";
 import { FaqComponent } from "./pages/faq/faq.component";
 import { ContactoComponent } from "./pages/contacto/contacto.component";
 import { VerMensajesComponent } from "./pages/contacto/ver-mensajes/ver-mensajes.component";
+import { LicitacionesComponent } from "./pages/licitaciones/licitaciones.component";
 
 
 export const LANDING_ROUTES: Routes = [ 
@@ -15,6 +16,10 @@ export const LANDING_ROUTES: Routes = [
     {
         path: 'proyectos',
         component: ProyectosComponent
+    },
+    {
+        path: 'licitaciones',
+        component: LicitacionesComponent
     },
     {
         path: 'concursos',

@@ -17,3 +17,6 @@ export {
   getTenderCurrencyOptions,
   getTenderModalityOptions
 } from './constants/tender-helpers';
+
+// Exportar componentes
+export { TenderCardComponent } from './components/tender-card/tender-card.component';

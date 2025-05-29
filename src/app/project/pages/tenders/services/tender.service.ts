@@ -1,17 +1,19 @@
 import { effect, inject, Injectable, signal, Signal, OnDestroy } from '@angular/core';
 import { FirestoreService } from '../../../../core/services/firestore.service';
 import { Tender, TenderStatus, TenderModality } from '../models/tender-interface';
-import { orderBy, QueryConstraint } from '@angular/fire/firestore';
+import { orderBy, QueryConstraint, where } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TenderService implements OnDestroy {
-  private readonly fs = inject(FirestoreService);
+export class TenderService implements OnDestroy {  private readonly fs = inject(FirestoreService);
 
   private currentProjectId = signal<string | undefined>(undefined);
 
   public tenderListener: { data: Signal<Tender[]>; loading: Signal<boolean>; unsubscribe: () => void } | null = null;
+  
+  // Listener separado para el landing que siempre usa collection group
+  public landingTenderListener: { data: Signal<Tender[]>; loading: Signal<boolean>; unsubscribe: () => void } | null = null;
 
   
 
@@ -35,17 +37,12 @@ export class TenderService implements OnDestroy {
 
     const constraints: QueryConstraint[] = [
       orderBy('name') // Ordena las licitaciones por nombre, ajusta según necesites
-    ];
-
-    if (projectId) {
+    ];    if (projectId) {
       const path = `projects/${projectId}/tenders`;
       this.tenderListener = this.fs.listenCollectionWithLoading<Tender>(path, constraints);
     } else {
-      if (typeof this.fs.listenCollectionGroupWithLoading === 'function') {
-        this.tenderListener = this.fs.listenCollectionGroupWithLoading<Tender>('tenders', constraints);
-      } else {
-        throw new Error('FirestoreService.listenCollectionGroupWithLoading no está implementado');
-      }
+      // Para obtener tenders de todos los proyectos usando collection group
+      this.tenderListener = this.fs.listenCollectionGroupWithLoading<Tender>('tenders', constraints);
     }
   }
 
@@ -147,11 +144,53 @@ export class TenderService implements OnDestroy {
   loading(): boolean {
     return this.tenderListener?.loading() ?? true;
   }
-
   ngOnDestroy(): void {
     if (this.tenderListener) {
       this.tenderListener.unsubscribe();
       this.tenderListener = null;
     }
+    if (this.landingTenderListener) {
+      this.landingTenderListener.unsubscribe();
+      this.landingTenderListener = null;
+    }
+  }
+
+  /**
+   * Inicializa el listener específico para el landing con filtro de fases activas
+   * Este método usa collection group y filtra directamente en Firestore las fases activas
+   */
+  public initializeLandingTendersListener(): void {
+    // Limpiar listener anterior si existe
+    if (this.landingTenderListener) {
+      this.landingTenderListener.unsubscribe();
+      this.landingTenderListener = null;
+    }
+
+    // Filtrar solo las fases activas directamente en Firestore
+    const constraints: QueryConstraint[] = [
+      where('tenderStatus', 'in', ['Fase de Consultas', 'Fase de Respuestas', 'Fase de Ofertas']),
+      orderBy('name')
+    ];
+
+    // Usar collection group para obtener tenders de todos los proyectos
+    this.landingTenderListener = this.fs.listenCollectionGroupWithLoading<Tender>('tenders', constraints);
+  }
+
+  /**
+   * Obtiene las licitaciones activas para el landing (ya filtradas)
+   */
+  getActiveTendersForLanding(): Tender[] {
+    if (!this.landingTenderListener) {
+      this.initializeLandingTendersListener();
+      console.warn('TenderService: Landing tenders listener no estaba inicializado, inicializando ahora...');
+    }
+    return this.landingTenderListener ? this.landingTenderListener.data() : [];
+  }
+
+  /**
+   * Obtiene el estado de carga para el landing
+   */
+  getLandingTendersLoading(): boolean {
+    return this.landingTenderListener?.loading() ?? true;
   }
 }

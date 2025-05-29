@@ -1,0 +1,62 @@
+<section class="relative min-h-screen py-16 overflow-hidden">
+  <!-- Background gradient with corporate colors -->
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-surface-900 dark:via-surface-800 dark:to-surface-700"></div>
+  
+  <!-- Decorative shapes with corporate colors -->
+  <div class="absolute top-0 left-0 w-72 h-72 bg-primary-200/20 dark:bg-primary-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary-300/20 dark:bg-primary-400/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+  
+  <div class="relative container mx-auto px-4 lg:px-8">
+    <div class="backdrop-blur-sm bg-white/70 dark:bg-surface-800/70 p-6 md:p-8 lg:p-12 rounded-2xl shadow-xl border border-white/20 dark:border-surface-700/30 space-y-8 text-surface-700 dark:text-surface-300">
+      
+      <!-- Page header -->
+      <div class="text-center space-y-4 mb-12">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent leading-tight">
+          {{ 'LICITACIONES.TITLE' | translate }}
+        </h1>
+        <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-primary-700 mx-auto rounded-full"></div>
+        <p class="max-w-3xl mx-auto text-lg md:text-xl text-surface-600 dark:text-surface-300 leading-relaxed">
+          {{ 'LICITACIONES.DESCRIPTION' | translate }}
+        </p>
+      </div>
+
+      <!-- Loading indicator -->
+      <div *ngIf="loading()" class="flex justify-center items-center py-16">
+        <p-progressSpinner strokeWidth="2" animationDuration="1s" class="w-12 h-12"></p-progressSpinner>
+      </div>
+
+      <!-- Tenders grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 mt-8 animate-fade-in-up" 
+           *ngIf="!loading() && filteredActiveTenders.length > 0; else noTenders">
+        <app-tender-card 
+          *ngFor="let tender of filteredActiveTenders; trackBy: trackByTenderId; let i = index"
+          [tender]="tender"
+          [showProject]="true"
+          class="transition-all duration-300 ease-out hover:-translate-y-1 opacity-0 translate-y-5 animate-slide-in-card"
+          [style.animation-delay]="(i * 100) + 'ms'">
+        </app-tender-card>
+      </div>
+
+      <!-- No tenders state -->
+      <ng-template #noTenders>
+        <div *ngIf="!loading()" class="mt-12 py-12 px-4 animate-fade-in">
+          <div class="text-center max-w-2xl mx-auto">
+            <div class="relative group">
+              <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 rounded-full flex items-center justify-center backdrop-blur-sm border border-primary-200/50 dark:border-primary-700/50 shadow-lg">
+                <i class="pi pi-info-circle text-3xl text-primary-600 dark:text-primary-400"></i>
+              </div>
+            </div>
+            
+            <h3 class="text-xl md:text-2xl font-bold text-surface-900 dark:text-white mb-4">
+              {{ 'LICITACIONES.NO_ACTIVE_TENDERS' | translate }}
+            </h3>
+            <p class="text-surface-600 dark:text-surface-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+              {{ 'LICITACIONES.NO_ACTIVE_TENDERS_DESCRIPTION' | translate }}
+            </p>
+          </div>
+        </div>
+      </ng-template>
+      
+    </div>
+  </div>
+</section>

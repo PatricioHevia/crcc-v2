@@ -16,8 +16,7 @@
     "FAQ": "常见问题",
     "CONTACTO": "联系我们",
     "ADMIN": "管理"
-  },
-  "SIDEBAR": {
+  },  "SIDEBAR": {
     "ADMINISTRATION": "管理",
     "DASHBOARD": "仪表板",
     "USERS": "用户",
@@ -27,7 +26,8 @@
     "GENERAL": "通用",
     "HOME": "主页",
     "PROFILE": "我的资料",
-    "JOBS": "工作机会"
+    "JOBS": "工作机会",
+    "TENDERS": "招标"
   },
   "FOOTER": {
     "CRCC": "中国铁路建设集团（国际）有限公司 智利代表处 （医院）",
@@ -609,14 +609,15 @@
     "LUMP_SUM": "总价合同",
     "UNIT_PRICE": "单价合同",
     "NOT_APPLICABLE": "不适用"
-  },
-  "TENDERS": {
+  },  "TENDERS": {
     "TITLE": "项目招标",
     "SUBTITLE": "招标和承包流程管理",
+    "NEW_TENDER": "新建招标",
+    "FILTERS": "筛选器",
     "CLEAR_FILTERS": "清除筛选",
     "FILTER_BY_STATUS": "按状态筛选",
     "FILTER_BY_MODALITY": "按方式筛选",
-    "FILTER_BY_TYPE": "按类型筛选",    "SELECT_STATES": "选择状态",
+    "FILTER_BY_TYPE": "按类型筛选","SELECT_STATES": "选择状态",
     "STATUS_PLACEHOLDER": "选择状态",
     "SELECT_MODALITIES": "选择方式",
     "MODALITY_PLACEHOLDER": "选择方式",
@@ -633,5 +634,11 @@
     "VIEW_DETAILS": "查看详情",
     "TENDER_IMAGE": "招标图片",
     "TENDER_IMAGE_ALT": "招标图片"
+  },
+  "LICITACIONES": {
+    "TITLE": "活跃招标",
+    "DESCRIPTION": "浏览我们医院项目和Naipú工厂的所有进行中招标。",
+    "NO_ACTIVE_TENDERS": "暂无活跃招标",
+    "NO_ACTIVE_TENDERS_DESCRIPTION": "目前没有处于咨询、回应或投标阶段的招标。请稍后查看新的机会。"
   }
 }

@@ -142,18 +142,16 @@ export class MenuComponent  {
             break;
           default:
             projectName = project.name_es; // Fallback al español
-        }
-
-        projectMenuItems.push({
+        }        projectMenuItems.push({
           label: projectName,
           icon: 'pi pi-folder',
           routerLink: ['/app/project', project.id], // Navegación a la información general del proyecto
           styleClass: 'text-sm',
           tooltip: projectName,
           tooltipPosition: 'right',
-          items: [ // Estructura para futuros submenús
-            // Placeholder para licitaciones
-            // { label: 'SIDEBAR.TENDERS', icon: 'pi pi-file-edit', routerLink: ['/project', project.id, 'tenders'] },
+          expanded: true, // Hacer que el submenú esté siempre expandido
+          items: [ // Estructura para futuros submenús            // Botón de licitaciones
+            { label: 'SIDEBAR.TENDERS', icon: 'fas fa-gavel', routerLink: ['/app/project', project.id, 'tenders'], styleClass: 'text-xs', tooltip: 'SIDEBAR.TENDERS', tooltipPosition: 'right' },
             // Placeholder para documentos
             // { label: 'SIDEBAR.DOCUMENTS', icon: 'pi pi-file', routerLink: ['/project', project.id, 'documents'] },
           ]

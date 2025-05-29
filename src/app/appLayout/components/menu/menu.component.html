@@ -23,8 +23,7 @@
           </h2>
           }
         </p-divider>
-        }
-        @if (section.items && section.items.length > 0) {
+        }        @if (section.items && section.items.length > 0) {
         <ul class="space-y-1">
           @for (item of section.items; track item.label) {
           <li>
@@ -42,6 +41,30 @@
               }
               <span>{{ item.label! | translate }}</span>
             </a>
+            
+            <!-- Submenú anidado -->
+            @if (item.items && item.items.length > 0) {
+            <ul class="ml-6 mt-1 space-y-1">
+              @for (subItem of item.items; track subItem.label) {
+              <li>
+                <a [routerLink]="subItem.routerLink"
+                  routerLinkActive="bg-primary-50 dark:bg-primary-700/20 text-primary-600 dark:text-primary-300 font-semibold"
+                  [routerLinkActiveOptions]="{ exact: subItem.routerLinkActiveOptions?.exact ?? true }"
+                  class="flex items-center px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-md transition-colors duration-150 group {{ subItem.styleClass }}"
+                  [pTooltip]="subItem.tooltip! | translate" tooltipPosition="right"
+                  [attr.aria-label]="subItem.label! | translate">
+
+                  @if (subItem['faIcon']) { <i
+                    class="{{ subItem['faIcon'] }} mr-3 text-sm {{ subItem['routerLinkActive'] ? 'text-primary-600 dark:text-primary-300' : 'text-gray-400 dark:text-gray-500' }} group-hover:text-gray-600 dark:group-hover:text-gray-300"></i>
+                  } @else if (subItem.icon) { <i
+                    class="{{ subItem.icon }} mr-3 text-sm {{ subItem['routerLinkActive'] ? 'text-primary-600 dark:text-primary-300' : 'text-gray-400 dark:text-gray-500' }} group-hover:text-gray-600 dark:group-hover:text-gray-300"></i>
+                  }
+                  <span>{{ subItem.label! | translate }}</span>
+                </a>
+              </li>
+              }
+            </ul>
+            }
           </li>
           }
         </ul>

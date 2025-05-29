@@ -8,7 +8,8 @@ import {
   TenderCurrency, 
   TenderModality,
   getTenderStatusLabel,
-  getTenderCurrencyLabel
+  getTenderCurrencyLabel,
+  TenderCardComponent
 } from '../../index';
 import { TenderService } from '../../services/tender.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,19 +23,23 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
+import { UserService } from '../../../../../auth/services/user.service';
 
 @Component({
   selector: 'app-tender-list',
   templateUrl: './tender-list.component.html',
   styleUrls: ['./tender-list.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, TagModule, RouterModule, TranslateModule, ButtonModule, DividerModule, DropdownModule, MultiSelectModule, CardModule, ChipModule]
+  imports: [CommonModule, FormsModule, TagModule, RouterModule, TranslateModule, ButtonModule, DividerModule, DropdownModule, MultiSelectModule, CardModule, ChipModule, TenderCardComponent]
 })
 export class TenderListComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   public tenderService = inject(TenderService);
   private translationService = inject(TranslationService);
+  private userService = inject(UserService);
 
+
+  isSuperAdmin = computed(() => this.userService.isSuperAdmin());
   lang = computed(() => this.translationService.currentLang());
     // Signals para estado del componente
   private projectId = signal<string>('');
@@ -48,10 +53,7 @@ export class TenderListComponent implements OnInit, OnDestroy {
     const typeFilters = this.selectedTypes() || [];
     const modalityFilters = this.selectedModalities() || [];
     
-    console.log('🔄 Tenders computed recalculated!');
-    console.log('Status filters:', statusFilters);
-    console.log('Type filters:', typeFilters);
-    console.log('Modality filters:', modalityFilters);
+    
     
     // Obtener todos los tenders primero
     const allTenders = this.tenderService.getAllTenders();
@@ -305,92 +307,6 @@ export class TenderListComponent implements OnInit, OnDestroy {
     return this.projectId();
   }
 
-  /**
-   * Obtiene el severity del tag basado en el estado
-   */
-  getTagSeverity(status: TenderStatus): 'success' | 'info' | 'warn' | 'danger' | 'secondary' {
-    switch (status) {
-      case 'En Preparación':
-        return 'secondary';
-      case 'Fase de Consultas':
-      case 'Fase de Respuestas':
-        return 'info';
-      case 'Fase de Ofertas':
-      case 'Espera de Apertura':
-        return 'warn';
-      case 'Fase Solicitud de Aclaraciones':
-      case 'Fase Respuestas a Aclaraciones':
-        return 'info';
-      case 'Fase de Adjudicación':
-        return 'success';
-      case 'Cerrada':
-        return 'danger';
-      default:
-        return 'secondary';
-    }
-  }
-
-  /**
-   * Obtiene el icono basado en el estado
-   */
-  getStatusIcon(status: TenderStatus): string {
-    switch (status) {
-      case 'En Preparación':
-        return 'pi pi-cog';
-      case 'Fase de Consultas':
-        return 'pi pi-comments';
-      case 'Fase de Respuestas':
-        return 'pi pi-reply';
-      case 'Fase de Ofertas':
-        return 'pi pi-send';
-      case 'Espera de Apertura':
-        return 'pi pi-clock';
-      case 'Fase Solicitud de Aclaraciones':
-        return 'pi pi-question-circle';
-      case 'Fase Respuestas a Aclaraciones':
-        return 'pi pi-info-circle';
-      case 'Fase de Adjudicación':
-        return 'pi pi-check-circle';
-      case 'Cerrada':
-        return 'pi pi-times-circle';
-      default:
-        return 'pi pi-circle';
-    }
-  }
-  /**
-   * Obtiene el icono para la modalidad
-   */
-  getModalityIcon(modality: TenderModality | undefined): string {
-    switch (modality) {
-      case 'Suma Alzada':
-        return 'pi pi-calculator';
-      case 'Precio Unitario':
-        return 'pi pi-list';
-      case 'No aplica':
-        return 'pi pi-minus';
-      default:
-        return 'pi pi-question';
-    }
-  }
-
-  /**
-   * Obtiene el icono para la moneda
-   */
-  getCurrencyIcon(currency: TenderCurrency): string {
-    switch (currency) {
-      case 'CLP':
-      case 'USD':
-      case 'EUR':
-        return 'pi pi-dollar';
-      case 'UF':
-      case 'UTM':
-        return 'pi pi-chart-line';
-      case 'CNY':
-        return 'pi pi-money-bill';
-      default:
-        return 'pi pi-dollar';
-    }
-  }
 
   /**
    * Limpia todos los filtros
@@ -401,25 +317,6 @@ export class TenderListComponent implements OnInit, OnDestroy {
     this.selectedTypes.set([]);
   }
 
-  /**
-   * Obtiene el icono para el tipo de licitación
-   */
-  getTypeIcon(type: string): string {
-    const typeLC = type.toLowerCase();
-    if (typeLC.includes('obra') || typeLC.includes('construcción') || typeLC.includes('infraestructura')) {
-      return 'pi pi-home';
-    } else if (typeLC.includes('médico') || typeLC.includes('salud') || typeLC.includes('hospital')) {
-      return 'pi pi-heart';
-    } else if (typeLC.includes('equipo') || typeLC.includes('maquinaria') || typeLC.includes('tecnología')) {
-      return 'pi pi-cog';
-    } else if (typeLC.includes('servicio') || typeLC.includes('consultoría')) {
-      return 'pi pi-briefcase';
-    } else if (typeLC.includes('suministro') || typeLC.includes('material')) {
-      return 'pi pi-box';
-    } else {
-      return 'pi pi-file';
-    }
-  }
 
   /**
    * Normaliza un string: minúsculas, sin tildes, sin espacios

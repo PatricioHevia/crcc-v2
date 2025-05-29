@@ -39,9 +39,8 @@
         <div class="flex flex-col">
             <label htmlFor="phase" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 {{ 'PROJECTS.TABLE.PHASE' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
-            </label>
-            <p-select appendTo="body" id="phase" formControlName="phase" [options]="phases" optionValue="value"
-                [placeholder]="'selectPhase' | translate" class="w-full"
+            </label>            <p-select appendTo="body" id="phase" formControlName="phase" [options]="phases" optionValue="value"
+                [placeholder]="'PROJECTS.PLACEHOLDERS.SELECT_PHASE' | translate" class="w-full"
                >
 
                 <ng-template pTemplate="item" let-option>

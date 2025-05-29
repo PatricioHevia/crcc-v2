@@ -169,6 +169,7 @@
       "CROP_IMAGE_TITLE": "Crop Image (16:9)",
       "APPLY_CROP": "Apply Crop",
       "CANCEL_CROP": "Cancel Crop",
+      "REPLACE_MAIN_IMAGE": "Replace main image",
       "NO_IMAGES": "No images in gallery",
       "NO_IMAGES_DESCRIPTION": "Click 'Add Images' to upload the first images to the gallery",
       "UPLOAD_HINT": "Click to upload images or drag files here",
@@ -181,6 +182,7 @@
       "DELETE_ERROR": "Error deleting image",
       "UPDATE_SUCCESS": "Image updated successfully",
       "UPDATE_ERROR": "Error updating image",
+      "MAIN_IMAGE_UPDATE_SUCCESS": "Main image updated successfully",
       "MAX_SIZE_ERROR": "File exceeds maximum allowed size (5MB)",      "INVALID_FORMAT": "Invalid file format. Only images are allowed (JPG, PNG, WEBP)",
       "LOADING": "Loading...",
       "PROCESSING": "Processing image...",      "CROP_ERROR": "Could not get the cropped file",
@@ -211,6 +213,9 @@
       "EDIT_PROJECT": "Edit Project",
       "DELETE_PROJECT": "Delete Project",
       "VIEW_PROJECT": "View Project"
+    },
+    "PLACEHOLDERS": {
+      "SELECT_PHASE": "Select phase"
     },
     "LIST": {
       "TITLE": "Projects List",

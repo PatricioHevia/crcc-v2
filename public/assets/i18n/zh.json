@@ -166,8 +166,7 @@
     "VIEW_TENDERS": "查看招标",
     "IMAGE_GALLERY": "图片画廊",
     "GALLERY_COMING_SOON": "画廊即将推出",
-    "GALLERY_DESCRIPTION": "图片画廊功能将很快上线。",
-    "GALLERY_MANAGEMENT": {
+    "GALLERY_DESCRIPTION": "图片画廊功能将很快上线。",    "GALLERY_MANAGEMENT": {
       "ADD_IMAGES": "添加图片",
       "UPLOAD_IMAGES": "上传图片",
       "EDIT_IMAGE": "编辑图片",
@@ -176,6 +175,7 @@
       "CROP_IMAGE_TITLE": "裁剪图片 (16:9)",
       "APPLY_CROP": "应用裁剪",
       "CANCEL_CROP": "取消裁剪",
+      "REPLACE_MAIN_IMAGE": "替换主图片",
       "NO_IMAGES": "画廊中没有图片",
       "NO_IMAGES_DESCRIPTION": "点击'添加图片'将第一批图片上传到画廊",
       "UPLOAD_HINT": "点击上传图片或将文件拖拽到此处",
@@ -188,6 +188,7 @@
       "DELETE_ERROR": "图片删除失败",
       "UPDATE_SUCCESS": "图片更新成功",
       "UPDATE_ERROR": "图片更新失败",
+      "MAIN_IMAGE_UPDATE_SUCCESS": "主图片更新成功",
       "MAX_SIZE_ERROR": "文件超过最大允许大小（5MB）",
       "INVALID_FORMAT": "无效的文件格式。仅允许图片文件（JPG、PNG、WEBP）",
       "LOADING": "加载中...",
@@ -213,12 +214,14 @@
       "BUILD": "施工",
       "BUILD_OPERATE": "建设与运营",
       "OPERATE": "运营"
-    },
-    "ACTIONS": {
+    },    "ACTIONS": {
       "NEW_PROJECT": "新建项目",
       "EDIT_PROJECT": "编辑项目",
       "DELETE_PROJECT": "删除项目",
       "VIEW_PROJECT": "查看项目"
+    },
+    "PLACEHOLDERS": {
+      "SELECT_PHASE": "选择阶段"
     },
     "LIST": {
       "TITLE": "项目列表",

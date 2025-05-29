@@ -50,6 +50,7 @@ import { UserService } from '../../../auth/services/user.service';
 })
 export class FichaGeneralComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
+  @ViewChild('mainImageFileInput') mainImageFileInput!: ElementRef;
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private projectService = inject(ProjectService);
@@ -60,12 +61,14 @@ export class FichaGeneralComponent {
   private userService = inject(UserService);
 
   lang = computed(() => this.translationService.currentLang());
-
   // Señales reactivas
   projectId = signal<string>('');
   project = signal<Project | null>(null);
   loading = signal<boolean>(true);
   notFound = signal<boolean>(false);
+  
+  // Señal específica para el loading de la imagen principal
+  mainImageLoading = signal<boolean>(true);
 
   isSuperAdmin = computed(() => this.userService.isSuperAdmin());
 
@@ -77,6 +80,8 @@ export class FichaGeneralComponent {
   showCropper = false;
   currentImageFile: File | null = null;
   croppedFile: File | null = null;
+  // Variable para controlar si estamos editando la imagen principal
+  isMainImageEdit = false;
   // Estados de carga y error para la galería
   imageLoadStates: boolean[] = [];
   imageErrorStates: boolean[] = [];
@@ -96,12 +101,13 @@ export class FichaGeneralComponent {
 
   // Colores de fase
   public readonly phaseColors = PROJECT_PHASE_COLORS;
-
   constructor() {
     // Obtener el ID del proyecto desde la ruta
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.projectId.set(id);
+      // Activar el loading de la imagen principal al cambiar de proyecto
+      this.mainImageLoading.set(true);
       // Forzar carga de proyectos si no están cargados
       this.projectService.projects();
       this.waitForProjectsAndLoad(id);
@@ -136,11 +142,11 @@ export class FichaGeneralComponent {
 
     // Buscar el proyecto en la señal projects() del servicio
     const projects = this.projectService.projects();
-    const foundProject = projects.find(p => p.id === id || p.url === id);
-
-    if (foundProject) {
+    const foundProject = projects.find(p => p.id === id || p.url === id);    if (foundProject) {
       this.project.set(foundProject);
       this.loading.set(false);
+      // Mantener el loading de la imagen hasta que se cargue
+      this.mainImageLoading.set(true);
     } else {
       // Si no se encuentra el proyecto, mostrar mensaje de advertencia
       this.notFound.set(true);
@@ -196,10 +202,16 @@ export class FichaGeneralComponent {
       this.router.navigate(['/app/project', currentProject.id, 'tenders']);
     }
   }
-
   // Métodos para gestión de galería
   openFileSelector(): void {
+    this.isMainImageEdit = false;
     this.fileInput.nativeElement.click();
+  }
+
+  // Método para abrir selector de imagen principal
+  openMainImageSelector(): void {
+    this.isMainImageEdit = true;
+    this.mainImageFileInput.nativeElement.click();
   }
 
   onFileSelected(event: any): void {
@@ -209,7 +221,17 @@ export class FichaGeneralComponent {
       this.imageChangedEvent = event;
       this.showCropper = false; // Reset cropper state
     }
-  } validateFile(file: File): boolean {
+  }
+
+  // Método para manejar la selección de imagen principal
+  onMainImageFileSelected(event: any): void {
+    const file = event.target.files?.[0];
+    if (file && this.validateFile(file)) {
+      this.currentImageFile = file;
+      this.imageChangedEvent = event;
+      this.showCropper = false; // Reset cropper state
+    }
+  }validateFile(file: File): boolean {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
     if (!allowedTypes.includes(file.type)) {
@@ -243,7 +265,7 @@ export class FichaGeneralComponent {
   } loadImageFailed(): void {
     this.toastService.error('COMMON.ERROR', 'PROJECTS.GALLERY_MANAGEMENT.LOAD_ERROR'
     );
-  } async applyCrop(): Promise<void> {
+  }  async applyCrop(): Promise<void> {
     if (!this.croppedFile || !this.currentImageFile) {
       this.toastService.error(
         'COMMON.ERROR',
@@ -254,12 +276,29 @@ export class FichaGeneralComponent {
 
     this.uploadLoading.set(true);
     try {
-      // Upload the cropped image
       const projectId = this.projectId();
-      const { uploadTasks, complete } = this.projectService.updateGalleryImages(projectId, [this.croppedFile], false);
+      
+      if (this.isMainImageEdit) {
+        // Actualizar imagen principal
+        const { uploadTask, complete } = this.projectService.updateMainImage(projectId, this.croppedFile);
+        await complete;
+        
+        this.toastService.success(
+          'COMMON.SUCCESS',
+          'PROJECTS.GALLERY_MANAGEMENT.MAIN_IMAGE_UPDATE_SUCCESS'
+        );
+      } else {
+        // Upload the cropped image to gallery
+        const { uploadTasks, complete } = this.projectService.updateGalleryImages(projectId, [this.croppedFile], false);
 
-      // Wait for upload to complete
-      await complete;
+        // Wait for upload to complete
+        await complete;
+
+        this.toastService.success(
+          'COMMON.SUCCESS',
+          'PROJECTS.GALLERY_MANAGEMENT.UPLOAD_SUCCESS'
+        );
+      }
 
       // Get updated project data from the projects signal
       const projects = this.projectService.projects();
@@ -267,11 +306,6 @@ export class FichaGeneralComponent {
       if (updatedProject) {
         this.project.set(updatedProject);
       }
-
-      this.toastService.success(
-        'COMMON.SUCCESS',
-        'PROJECTS.GALLERY_MANAGEMENT.UPLOAD_SUCCESS'
-      );
 
       this.resetCropper();
     } catch (error) {
@@ -286,19 +320,19 @@ export class FichaGeneralComponent {
   }
   cancelCrop(): void {
     this.resetCropper();
-  }
-  resetCropper(): void {
+  }  resetCropper(): void {
     this.imageChangedEvent = null;
     this.croppedImage = '';
     this.showCropper = false;
     this.currentImageFile = null;
     this.croppedFile = null;
+    this.isMainImageEdit = false; // Reset main image edit flag
 
     // Clean up object URL to prevent memory leaks
     if (this.croppedImage) {
       URL.revokeObjectURL(this.croppedImage);
     }
-  } deleteImage(image: GalleryImageFirestore): void {
+  }deleteImage(image: GalleryImageFirestore): void {
     this.confirmationService.confirm({
       message: this.translateService.instant('PROJECTS.GALLERY_MANAGEMENT.DELETE_CONFIRM_MESSAGE'),
       header: this.translateService.instant('PROJECTS.GALLERY_MANAGEMENT.DELETE_CONFIRM_TITLE'),
@@ -324,7 +358,7 @@ export class FichaGeneralComponent {
         'COMMON.SUCCESS',
         'PROJECTS.GALLERY_MANAGEMENT.DELETE_SUCCESS'
       );
-    } catch (error) {
+  } catch (error) {
       console.error('Error deleting image:', error);
       this.toastService.error(
         'COMMON.ERROR',
@@ -332,8 +366,27 @@ export class FichaGeneralComponent {
     }
   }
 
- 
+  /**
+   * Maneja cuando la imagen principal comienza a cargar
+   */
+  onMainImageLoadStart(): void {
+    this.mainImageLoading.set(true);
+  }
 
+  /**
+   * Maneja cuando la imagen principal termina de cargar exitosamente
+   */
+  onMainImageLoadSuccess(): void {
+    // Añadir un pequeño delay para suavizar la transición
+    setTimeout(() => {
+      this.mainImageLoading.set(false);
+    }, 200);
+  }
 
-
+  /**
+   * Maneja cuando hay un error al cargar la imagen principal
+   */
+  onMainImageLoadError(): void {
+    this.mainImageLoading.set(false);
+  }
 }

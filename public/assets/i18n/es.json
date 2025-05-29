@@ -164,8 +164,7 @@
     "VIEW_TENDERS": "Ver Licitaciones",
     "IMAGE_GALLERY": "Galería de Imágenes",
     "GALLERY_COMING_SOON": "Galería Próximamente",
-    "GALLERY_DESCRIPTION": "La funcionalidad de galería de imágenes estará disponible próximamente.",
-    "GALLERY_MANAGEMENT": {
+    "GALLERY_DESCRIPTION": "La funcionalidad de galería de imágenes estará disponible próximamente.",    "GALLERY_MANAGEMENT": {
       "ADD_IMAGES": "Agregar Imágenes",
       "UPLOAD_IMAGES": "Subir Imágenes",
       "EDIT_IMAGE": "Editar Imagen",
@@ -174,6 +173,7 @@
       "CROP_IMAGE_TITLE": "Recortar Imagen (16:9)",
       "APPLY_CROP": "Aplicar Recorte",
       "CANCEL_CROP": "Cancelar Recorte",
+      "REPLACE_MAIN_IMAGE": "Reemplazar imagen principal",
       "NO_IMAGES": "No hay imágenes en la galería",
       "NO_IMAGES_DESCRIPTION": "Haz clic en 'Agregar Imágenes' para subir las primeras imágenes a la galería",
       "UPLOAD_HINT": "Haz clic para subir imágenes o arrastra archivos aquí",
@@ -186,6 +186,7 @@
       "DELETE_ERROR": "Error al eliminar la imagen",
       "UPDATE_SUCCESS": "Imagen actualizada exitosamente",
       "UPDATE_ERROR": "Error al actualizar la imagen",
+      "MAIN_IMAGE_UPDATE_SUCCESS": "Imagen principal actualizada exitosamente",
       "MAX_SIZE_ERROR": "El archivo excede el tamaño máximo permitido (5MB)",      
       "INVALID_FORMAT": "Formato de archivo no válido. Solo se permiten imágenes (JPG, PNG, WEBP)",
       "LOADING": "Cargando...",
@@ -212,12 +213,14 @@
       "BUILD": "Construcción",
       "BUILD_OPERATE": "Construcción y Explotación",
       "OPERATE": "Explotación"
-    },
-    "ACTIONS": {
+    },    "ACTIONS": {
       "NEW_PROJECT": "Nuevo Proyecto",
       "EDIT_PROJECT": "Editar Proyecto",
       "DELETE_PROJECT": "Eliminar Proyecto",
       "VIEW_PROJECT": "Ver Proyecto"
+    },
+    "PLACEHOLDERS": {
+      "SELECT_PHASE": "Seleccionar fase"
     },
     "LIST": {
       "TITLE": "Lista de Proyectos",

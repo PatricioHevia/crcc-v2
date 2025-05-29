@@ -8,9 +8,7 @@ import {
   TenderCurrency, 
   TenderModality,
   getTenderStatusLabel,
-  getTenderCurrencyLabel,
-  getTenderModalityLabel,
-  getTenderModalityOptions
+  getTenderCurrencyLabel
 } from '../../index';
 import { TenderService } from '../../services/tender.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -38,16 +36,22 @@ export class TenderListComponent implements OnInit, OnDestroy {
   private translationService = inject(TranslationService);
 
   lang = computed(() => this.translationService.currentLang());
-  
-  // Signals para estado del componente
+    // Signals para estado del componente
   private projectId = signal<string>('');
-    selectedStatuses = signal<TenderStatus[]>([]);
+  selectedStatuses = signal<TenderStatus[]>([]);
   selectedModalities = signal<TenderModality[]>([]);
-  selectedTypes = signal<string[]>([]);  // Computed property simplificado que usa el servicio directamente
+  selectedTypes = signal<string[]>([]);
+
+  // Computed property simplificado que usa el servicio directamente
   tenders = computed(() => {
     const statusFilters = this.selectedStatuses() || [];
     const typeFilters = this.selectedTypes() || [];
     const modalityFilters = this.selectedModalities() || [];
+    
+    console.log('🔄 Tenders computed recalculated!');
+    console.log('Status filters:', statusFilters);
+    console.log('Type filters:', typeFilters);
+    console.log('Modality filters:', modalityFilters);
     
     // Obtener todos los tenders primero
     const allTenders = this.tenderService.getAllTenders();
@@ -68,12 +72,22 @@ export class TenderListComponent implements OnInit, OnDestroy {
     // Filtrar por tipos
     if (typeFilters.length > 0) {
       filteredTenders = filteredTenders.filter(tender => typeFilters.includes(tender.tenderType));
-    }
-    
-    // Filtrar por modalidades con comparación robusta
+    }      // Filtrar por modalidades con comparación robusta
     if (modalityFilters.length > 0) {
+      console.log('🔍 DEBUG Modality Filter:');
+      console.log('Selected modalityFilters:', modalityFilters);
+      console.log('Available tenders:', allTenders.map(t => ({ 
+        id: t.id, 
+        name: t.name, 
+        tenderModality: t.tenderModality,
+        modalityType: typeof t.tenderModality
+      })));
+      
       filteredTenders = filteredTenders.filter(tender => {
-        if (!tender.tenderModality) return false;
+        if (!tender.tenderModality) {
+          console.log(`❌ Tender "${tender.name}" has no tenderModality`);
+          return false;
+        }
         
         // Usar normalización para comparación robusta
         const normalizeString = (str: string): string => {
@@ -85,10 +99,23 @@ export class TenderListComponent implements OnInit, OnDestroy {
         };
         
         const normalizedTenderModality = normalizeString(tender.tenderModality);
-        return modalityFilters.some(modality => 
-          normalizeString(modality) === normalizedTenderModality
-        );
+        const matchFound = modalityFilters.some(modality => {
+          const normalizedFilterModality = normalizeString(modality);
+          const matches = normalizedFilterModality === normalizedTenderModality;
+          console.log(`🔄 Comparing "${tender.tenderModality}" (normalized: "${normalizedTenderModality}") vs filter "${modality}" (normalized: "${normalizedFilterModality}") = ${matches}`);
+          return matches;
+        });
+        
+        if (matchFound) {
+          console.log(`✅ Tender "${tender.name}" matches modality filter`);
+        } else {
+          console.log(`❌ Tender "${tender.name}" does NOT match modality filter`);
+        }
+        
+        return matchFound;
       });
+      
+      console.log('🎯 Final filtered tenders by modality:', filteredTenders.length);
     }
     
     return filteredTenders;
@@ -102,17 +129,23 @@ export class TenderListComponent implements OnInit, OnDestroy {
   ].map(status => ({
     label: this.getStatusLabel(status as TenderStatus),
     value: status as TenderStatus
-  })));  // Options for tender modalities - using helper function with translation service  
+  })));  // Options for tender modalities - using dynamic translation with lang signal
   modalityOptions = computed(() => {
-    return getTenderModalityOptions(this.translationService);
+    const lang = this.lang();
+    const options = tenderModalityTypes.map(modality => ({
+      value: modality.value,
+      label: modality.label[lang as keyof typeof modality.label]
+    }));
+    console.log('🎯 Modality options generated:', options);
+    return options;
   });
 
-  // Options for tender types - using imported constants with translation service
+  // Options for tender types - using dynamic translation with lang signal  
   typeOptions = computed(() => {
-    // Devuelve las opciones usando los valores y claves de traducción
+    const lang = this.lang();
     return tenderTypes.map(type => ({
       value: type.value,
-      label: this.translationService.instant(type.translationKey)
+      label: type.label[lang as keyof typeof type.label]
     }));
   });
 
@@ -146,23 +179,47 @@ export class TenderListComponent implements OnInit, OnDestroy {
   getCurrencyLabel(currency: TenderCurrency): string {
     return getTenderCurrencyLabel(currency, this.lang());
   }
-
   /**
    * Obtiene la etiqueta traducida para una modalidad de tender
    */
   getModalityLabel(modality: TenderModality | undefined): string {
-    if (!modality) return this.translationService.instant('TENDER_MODALITY.NOT_APPLICABLE');
-    return getTenderModalityLabel(modality, this.lang());
+    if (!modality) {
+      const lang = this.lang();
+      const defaultModality = tenderModalityTypes.find(m => m.value === 'No aplica');
+      return defaultModality ? defaultModality.label[lang as keyof typeof defaultModality.label] : 'No aplica';
+    }
+    
+    const lang = this.lang();
+    const normalized = this.normalizeString(String(modality));
+    const found = tenderModalityTypes.find(m => this.normalizeString(String(m.value)) === normalized);
+    
+    if (found) {
+      return found.label[lang as keyof typeof found.label];
+    }
+    
+    // Fallback a la modalidad original si no se encuentra
+    return String(modality);
   }
-
   /**
    * Obtiene la etiqueta traducida para un tipo de licitación
    */
   getTypeLabel(type: string | undefined): string {
-    if (!type) return this.translationService.instant('TENDER_TYPES.SERVICE_PROVISION');
+    if (!type) {
+      const lang = this.lang();
+      const defaultType = tenderTypes.find(t => t.value === 'Prestación de Servicios');
+      return defaultType ? defaultType.label[lang as keyof typeof defaultType.label] : type || '';
+    }
+    
+    const lang = this.lang();
     const normalized = this.normalizeString(type);
     const found = tenderTypes.find(t => this.normalizeString(t.value) === normalized);
-    return found ? this.translationService.instant(found.translationKey) : this.translationService.instant('TENDER_TYPES.SERVICE_PROVISION');
+    
+    if (found) {
+      return found.label[lang as keyof typeof found.label];
+    }
+    
+    // Fallback al tipo original si no se encuentra
+    return type;
   }
   /**
    * Método directo para el HTML - sin computed property
@@ -300,15 +357,14 @@ export class TenderListComponent implements OnInit, OnDestroy {
         return 'pi pi-circle';
     }
   }
-
   /**
    * Obtiene el icono para la modalidad
    */
   getModalityIcon(modality: TenderModality | undefined): string {
     switch (modality) {
-      case 'Suma alzada':
+      case 'Suma Alzada':
         return 'pi pi-calculator';
-      case 'Precio unitario':
+      case 'Precio Unitario':
         return 'pi pi-list';
       case 'No aplica':
         return 'pi pi-minus';
@@ -376,25 +432,36 @@ export class TenderListComponent implements OnInit, OnDestroy {
       .toLowerCase()
       .replace(/\s+/g, '');
   }
-
   /**
-   * Obtiene la clave de traducción para la modalidad, a partir del valor recibido de la BD
+   * Obtiene la etiqueta traducida para la modalidad, a partir del valor recibido de la BD
    */
   public getModalityTranslationKey(modality: string | undefined): string {
-    if (!modality) return 'TENDER_MODALITY.NOT_APPLICABLE';
+    if (!modality) {
+      const lang = this.lang();
+      const defaultModality = tenderModalityTypes.find(m => m.value === 'No aplica');
+      return defaultModality ? defaultModality.label[lang as keyof typeof defaultModality.label] : 'No aplica';
+    }
+    
+    const lang = this.lang();
     const normalized = this.normalizeString(String(modality));
     const found = tenderModalityTypes.find(m => this.normalizeString(String(m.value)) === normalized);
-    return found ? found.translationKey : 'TENDER_MODALITY.NOT_APPLICABLE';
+    return found ? found.label[lang as keyof typeof found.label] : String(modality);
   }
 
   /**
-   * Obtiene la clave de traducción para el tipo de licitación, a partir del valor recibido de la BD
+   * Obtiene la etiqueta traducida para el tipo de licitación, a partir del valor recibido de la BD
    */
   public getTypeTranslationKey(type: string | undefined): string {
-    if (!type) return 'TENDER_TYPES.SERVICE_PROVISION'; // fallback
+    if (!type) {
+      const lang = this.lang();
+      const defaultType = tenderTypes.find(t => t.value === 'Prestación de Servicios');
+      return defaultType ? defaultType.label[lang as keyof typeof defaultType.label] : 'Prestación de Servicios';
+    }
+    
+    const lang = this.lang();
     const normalized = this.normalizeString(type);
     const found = tenderTypes.find(t => this.normalizeString(t.value) === normalized);
-    return found ? found.translationKey : 'TENDER_TYPES.SERVICE_PROVISION';
+    return found ? found.label[lang as keyof typeof found.label] : type;
   }
 
   /**
@@ -423,5 +490,13 @@ export class TenderListComponent implements OnInit, OnDestroy {
     return this.getSelectedStatusesLength() > 0 || 
            this.getSelectedModalitiesLength() > 0 || 
            this.getSelectedTypesLength() > 0;
+  }
+
+  /**
+   * Método para debug - actualizar modalidades seleccionadas
+   */
+  updateSelectedModalities(modalities: TenderModality[]): void {
+    console.log('🔥 updateSelectedModalities called with:', modalities);
+    this.selectedModalities.set(modalities);
   }
 }

@@ -7,9 +7,8 @@ export const tenderModalityTypes: {
     label: { es: string; en: string; zh: string };
     value: TenderModality;
     translationKey: string;
-  }[] = [
-  {
-    value: 'Suma alzada',
+  }[] = [  {
+    value: 'Suma Alzada',
     translationKey: 'TENDER_MODALITY.LUMP_SUM',
     label: {
       es: 'Suma Alzada',
@@ -18,7 +17,7 @@ export const tenderModalityTypes: {
     }
   },
   {
-    value: 'Precio unitario',
+    value: 'Precio Unitario',
     translationKey: 'TENDER_MODALITY.UNIT_PRICE',
     label: {
       es: 'Precio Unitario',

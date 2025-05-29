@@ -43,11 +43,10 @@
         <label class="text-sm font-medium text-surface-700 dark:text-surface-200 flex items-center gap-2">
           <i class="pi pi-cog text-primary"></i>
           {{ 'TENDERS.FILTER_BY_MODALITY' | translate }}
-        </label>
-        <p-multiSelect 
+        </label>        <p-multiSelect 
           [options]="modalityOptions()" 
           [ngModel]="selectedModalities()"
-          (ngModelChange)="selectedModalities.set($event)"
+          (ngModelChange)="updateSelectedModalities($event)"
           optionLabel="label" 
           optionValue="value"
           [placeholder]="'TENDERS.MODALITY_PLACEHOLDER' | translate"

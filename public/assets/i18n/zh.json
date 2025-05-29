@@ -656,14 +656,48 @@
       "CREATE": "创建招标",
       "REQUIRED_FIELD": "必填字段",
       "MIN_LENGTH": "最少{{length}}个字符"
-    },
-    "MESSAGES": {
+    },    "MESSAGES": {
       "CREATE_SUCCESS": "招标创建成功",
       "CREATE_ERROR": "创建招标时出错。请重试。",
       "UPDATE_SUCCESS": "招标更新成功",
       "UPDATE_ERROR": "更新招标时出错",
       "DELETE_SUCCESS": "招标删除成功",
       "DELETE_ERROR": "删除招标时出错"
+    },
+    "DETAIL": {
+      "LOADING": "正在加载招标详情...",
+      "NOT_FOUND_TITLE": "未找到招标",
+      "NOT_FOUND_MESSAGE": "请求的招标不存在或不可用。",
+      "BACK_TO_LIST": "返回列表",
+      "CHANGE_IMAGE": "更换图片",
+      "BACK": "返回",
+      "GENERAL_INFO": "基本信息",
+      "DESCRIPTION": "描述",
+      "NO_DESCRIPTION": "暂无描述",
+      "CURRENT_STATUS": "当前状态",
+      "NEXT_PHASE": "下一阶段",
+      "TIMER": {
+        "DAYS": "天",
+        "HOURS": "小时",
+        "MINUTES": "分钟",
+        "SECONDS": "秒"
+      },      "TIMELINE_TITLE": "招标时间表",
+      "CURRENT_PHASE": "当前阶段：",
+      "PHASE_COMPLETED": "已完成",
+      "PHASES": {
+        "TENDER_START": "招标开始",
+        "INQUIRY_DEADLINE": "咨询截止时间",
+        "ANSWER_DEADLINE": "回复截止时间",
+        "SUBMISSION_DEADLINE": "提交截止时间",
+        "OPEN_OFFER_DEADLINE": "开标时间",
+        "CLARIFICATIONS_DEADLINE": "澄清截止时间",
+        "ANSWER_CLARIFICATIONS_DEADLINE": "澄清回复截止时间",
+        "AWARD_DATE": "授标日期"
+      },
+      "CHANGE_BANNER_IMAGE": "更换横幅图片",
+      "CANCEL": "取消",
+      "APPLY": "应用",
+      "UPLOADING_IMAGE": "正在上传图片..."
     }
   },
   "LICITACIONES": {

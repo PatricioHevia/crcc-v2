@@ -49,14 +49,13 @@
             class="w-full h-full object-cover"
             (load)="onMainImageLoadSuccess()"
             (error)="onMainImageLoadError()">
-          
-          <!-- Botón para reemplazar imagen principal (solo superAdmin) -->
+            <!-- Botón para reemplazar imagen principal (solo superAdmin) -->
           @if(isSuperAdmin()) {
           <div class="absolute bottom-4 right-4 z-20">
             <p-button 
               icon="pi pi-camera" 
               [pTooltip]="'PROJECTS.GALLERY_MANAGEMENT.REPLACE_MAIN_IMAGE' | translate"
-              severity="info" 
+              severity="primary" 
               size="small"
               [rounded]="true"
               (click)="openMainImageSelector()" 
@@ -124,7 +123,7 @@
           <p-button [label]="'COMMON.GO_BACK' | translate" icon="pi pi-arrow-left" severity="secondary"
             (click)="goBack()">
           </p-button>
-          <p-button [label]="'PROJECTS.VIEW_TENDERS' | translate" icon="pi pi-file-text" severity="info"
+          <p-button [label]="'PROJECTS.VIEW_TENDERS' | translate" icon="pi pi-file-text" severity="primary"
             (click)="goToTenders()">
           </p-button>
         </div>
@@ -142,12 +141,10 @@
             </p-progressSpinner>
             <span class="text-surface-600 dark:text-surface-400 text-sm">{{ 'PROJECTS.GALLERY_MANAGEMENT.UPLOADING' |
               translate }}</span>
-          </div>
-
-          <!-- Botón para seleccionar imagen -->
-          <p-button icon="pi pi-upload" [label]="'PROJECTS.GALLERY_MANAGEMENT.ADD_IMAGES' | translate" severity="info"
+          </div>          <!-- Botón para seleccionar imagen -->
+          <p-button icon="pi pi-upload" [label]="'PROJECTS.GALLERY_MANAGEMENT.ADD_IMAGES' | translate" severity="primary"
             size="small" (click)="openFileSelector()" [disabled]="uploadLoading()" class="mb-4">
-          </p-button>          <!-- Input file oculto -->
+          </p-button><!-- Input file oculto -->
           <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
           
           <!-- Input file oculto para imagen principal -->

@@ -51,7 +51,6 @@
     </div>    <p-tag *ngIf="project().phase" [value]="getPhaseTranslationKey() | translate" [ngClass]="getPhaseTagClasses()"
       class="mt-2 md:mt-0"></p-tag>
   </div>
-
-  <p-button icon="pi pi-eye" [label]="'PROJECTCARD.VER' | translate" severity="success"
+  <p-button icon="pi pi-eye" [label]="'PROJECTCARD.VER' | translate" severity="primary"
     [routerLink]="['/app', 'project', project().id]" class="mt-auto w-full" styleClass="font-medium"></p-button>
 </div>

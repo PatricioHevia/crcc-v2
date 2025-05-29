@@ -687,8 +687,42 @@
       "CREATE_ERROR": "Error al crear la licitación. Por favor, intenta nuevamente.",
       "UPDATE_SUCCESS": "Licitación actualizada exitosamente",
       "UPDATE_ERROR": "Error al actualizar la licitación",
-      "DELETE_SUCCESS": "Licitación eliminada exitosamente",
-      "DELETE_ERROR": "Error al eliminar la licitación"
+      "DELETE_SUCCESS": "Licitación eliminada exitosamente",      "DELETE_ERROR": "Error al eliminar la licitación"
+    },
+    "DETAIL": {
+      "LOADING": "Cargando detalles de la licitación...",
+      "NOT_FOUND_TITLE": "Licitación no encontrada",
+      "NOT_FOUND_MESSAGE": "La licitación solicitada no existe o no está disponible.",
+      "BACK_TO_LIST": "Volver a la lista",
+      "CHANGE_IMAGE": "Cambiar imagen",
+      "BACK": "Volver",
+      "GENERAL_INFO": "Información General",
+      "DESCRIPTION": "Descripción",
+      "NO_DESCRIPTION": "Sin descripción disponible",
+      "CURRENT_STATUS": "Estado actual",
+      "NEXT_PHASE": "Próxima fase",
+      "TIMER": {
+        "DAYS": "días",
+        "HOURS": "horas",
+        "MINUTES": "minutos",
+        "SECONDS": "segundos"
+      },      "TIMELINE_TITLE": "Cronograma de Licitación",
+      "CURRENT_PHASE": "Fase actual:",
+      "PHASE_COMPLETED": "Completada",
+      "PHASES": {
+        "TENDER_START": "Inicio de licitación",
+        "INQUIRY_DEADLINE": "Límite de consultas",
+        "ANSWER_DEADLINE": "Límite de respuestas",
+        "SUBMISSION_DEADLINE": "Límite de presentación",
+        "OPEN_OFFER_DEADLINE": "Apertura de ofertas",
+        "CLARIFICATIONS_DEADLINE": "Límite de aclaraciones",
+        "ANSWER_CLARIFICATIONS_DEADLINE": "Límite de respuestas a aclaraciones",
+        "AWARD_DATE": "Adjudicación"
+      },
+      "CHANGE_BANNER_IMAGE": "Cambiar imagen del banner",
+      "CANCEL": "Cancelar",
+      "APPLY": "Aplicar",
+      "UPLOADING_IMAGE": "Subiendo imagen..."
     }
   },
   "LICITACIONES": {

@@ -3,11 +3,14 @@ import { FirestoreService } from '../../../../core/services/firestore.service';
 import { Tender, TenderStatus, TenderModality } from '../models/tender-interface';
 import { orderBy, QueryConstraint, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { StorageService } from '../../../../core/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TenderService implements OnDestroy {  private readonly fs = inject(FirestoreService);
+export class TenderService implements OnDestroy {
+  private readonly fs = inject(FirestoreService);
+  private readonly storageService = inject(StorageService);
 
   private currentProjectId = signal<string | undefined>(undefined);
 
@@ -277,5 +280,19 @@ export class TenderService implements OnDestroy {  private readonly fs = inject(
         observer.error(error);
       });
     });
+  }
+
+  /**
+   * Sube y actualiza la imagen del banner de una licitación
+   */
+  async updateTenderBannerImage(tenderId: string, file: File): Promise<string> {
+    const projectId = this.currentProjectId();
+    if (!projectId) throw new Error('No se ha establecido el contexto del proyecto');
+    const path = `projects/${projectId}/tenders/${tenderId}/banner/${Date.now()}_${file.name}`;
+    const uploadTask = this.storageService.uploadFile(file, path);
+    const imageUrl = await uploadTask.downloadURL$.toPromise();
+    if (!imageUrl) throw new Error('No se pudo obtener la URL de la imagen subida');
+    await this.fs.update(`projects/${projectId}/tenders`, tenderId, { imageUrl });
+    return imageUrl;
   }
 }

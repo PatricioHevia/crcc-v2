@@ -26,9 +26,9 @@ export const PROJECT_PHASE_TRANSLATION_KEYS: Record<string, string> = {
 };
 
 export const PROJECT_PHASE_COLORS: Record<ProjectPhaseCode, string> = {
-  DESIGN: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-700 dark:text-yellow-100',
-  DESIGN_BUILD: 'bg-blue-100 text-blue-700 dark:bg-blue-700 dark:text-blue-100', // O un color intermedio, ej. teal o cyan
-  BUILD: 'bg-sky-100 text-sky-700 dark:bg-sky-700 dark:text-sky-100', // Usando sky para diferenciar de DESIGN_BUILD
-  BUILD_OPERATE: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-700 dark:text-indigo-100', // Otro color
-  OPERATE: 'bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100'
+  DESIGN: 'bg-amber-100 text-amber-800 dark:bg-amber-800 dark:text-amber-100',
+  DESIGN_BUILD: 'bg-primary-100 text-primary-800 dark:bg-primary-800 dark:text-primary-100', // Usa el primary de la aplicación
+  BUILD: 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100', 
+  BUILD_OPERATE: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100',
+  OPERATE: 'bg-success-100 text-success-800 dark:bg-success-800 dark:text-success-100' // Usa el success más sobrio
 };

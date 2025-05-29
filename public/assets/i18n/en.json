@@ -635,8 +635,42 @@
       "CREATE_ERROR": "Error creating tender. Please try again.",
       "UPDATE_SUCCESS": "Tender updated successfully",
       "UPDATE_ERROR": "Error updating tender",
-      "DELETE_SUCCESS": "Tender deleted successfully",
-      "DELETE_ERROR": "Error deleting tender"
+      "DELETE_SUCCESS": "Tender deleted successfully",      "DELETE_ERROR": "Error deleting tender"
+    },
+    "DETAIL": {
+      "LOADING": "Loading tender details...",
+      "NOT_FOUND_TITLE": "Tender not found",
+      "NOT_FOUND_MESSAGE": "The requested tender does not exist or is not available.",
+      "BACK_TO_LIST": "Back to list",
+      "CHANGE_IMAGE": "Change image",
+      "BACK": "Back",
+      "GENERAL_INFO": "General Information",
+      "DESCRIPTION": "Description",
+      "NO_DESCRIPTION": "No description available",
+      "CURRENT_STATUS": "Current status",
+      "NEXT_PHASE": "Next phase",
+      "TIMER": {
+        "DAYS": "days",
+        "HOURS": "hours",
+        "MINUTES": "minutes",
+        "SECONDS": "seconds"
+      },      "TIMELINE_TITLE": "Tender Timeline",
+      "CURRENT_PHASE": "Current phase:",
+      "PHASE_COMPLETED": "Completed",
+      "PHASES": {
+        "TENDER_START": "Tender start",
+        "INQUIRY_DEADLINE": "Inquiry deadline",
+        "ANSWER_DEADLINE": "Answer deadline",
+        "SUBMISSION_DEADLINE": "Submission deadline",
+        "OPEN_OFFER_DEADLINE": "Offer opening",
+        "CLARIFICATIONS_DEADLINE": "Clarifications deadline",
+        "ANSWER_CLARIFICATIONS_DEADLINE": "Clarification answer deadline",
+        "AWARD_DATE": "Award date"
+      },
+      "CHANGE_BANNER_IMAGE": "Change banner image",
+      "CANCEL": "Cancel",
+      "APPLY": "Apply",
+      "UPLOADING_IMAGE": "Uploading image..."
     }
   },
   "LICITACIONES": {

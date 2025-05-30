@@ -1,12 +1,15 @@
-import { Tender } from '../models/tender-interface';
+import { TenderCurrency } from '../models/tender-interface';
 
-// Extraer el tipo de moneda de la interfaz Tender
-export type TenderCurrency = Tender['tenderCurrency'];
+export interface TenderCurrencyType {
+  value: TenderCurrency;
+  label: {
+    es: string;
+    en: string;
+    zh: string;
+  };
+}
 
-export const tenderCurrencyTypes: {
-    label: { es: string; en: string; zh: string };
-    value: TenderCurrency;
-  }[] = [
+export const tenderCurrencyTypes: TenderCurrencyType[] = [
   {
     value: 'CLP',
     label: {
@@ -35,7 +38,7 @@ export const tenderCurrencyTypes: {
     value: 'UF',
     label: {
       es: 'Unidad de Fomento (UF)',
-      en: 'Unit of Development (UF)',
+      en: 'Development Unit (UF)',
       zh: '发展单位 (UF)'
     }
   },
@@ -44,7 +47,7 @@ export const tenderCurrencyTypes: {
     label: {
       es: 'Unidad Tributaria Mensual (UTM)',
       en: 'Monthly Tax Unit (UTM)',
-      zh: '月度税收单位 (UTM)'
+      zh: '月税单位 (UTM)'
     }
   },
   {

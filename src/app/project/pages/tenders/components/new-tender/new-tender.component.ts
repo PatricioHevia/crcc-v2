@@ -50,7 +50,7 @@ export class NewTenderComponent implements OnInit {
   @Output() visibleChange = new EventEmitter<boolean>();
   @Output() tenderCreated = new EventEmitter<void>();  private fb = inject(FormBuilder);
   private tenderService = inject(TenderService);
-  private translationService = inject(TranslationService);
+  translationService = inject(TranslationService);
   private toastService = inject(ToastService);
   private userService = inject(UserService);
 

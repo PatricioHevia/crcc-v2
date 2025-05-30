@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslationService } from '../../../../../core/services/translation.service';
 import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
+import { MultidownloadService } from '../../../../../core/services/multidownload.service';
 
 @Component({
   selector: 'app-specifications',
@@ -47,11 +48,13 @@ export class SpecificationsComponent implements OnInit, OnDestroy, AfterViewInit
   private specificationsService = inject(SpecificationsService);
   private messageService = inject(MessageService);
   private translation = inject(TranslationService);
+  private multidownloadService = inject(MultidownloadService);
   // Signals para el estado del componente
   showUploadModal = signal(false);
   isUploading = signal(false);
   uploadProgress = signal(0);
   isDownloadingAll = signal(false);
+  downloadProgress = signal(0); // Agregar esta línea
 
   lang = computed(() => this.translation.currentLang());
   // Datos del formulario
@@ -270,7 +273,7 @@ export class SpecificationsComponent implements OnInit, OnDestroy, AfterViewInit
     window.open(specification.fileUrl, '_blank');
   }
   /**
-   * Descarga todas las especificaciones disponibles
+   * Descarga todas las especificaciones disponibles en un archivo ZIP
    */
   async downloadAllSpecifications() {
     const specs = this.specifications();
@@ -278,23 +281,52 @@ export class SpecificationsComponent implements OnInit, OnDestroy, AfterViewInit
       this.messageService.add({
         severity: 'warn',
         summary: this.translation.instant('TENDERS.SPECIFICATIONS.ERROR'),
-        detail: 'No hay documentos para descargar'
+        detail: this.translation.instant('TENDERS.SPECIFICATIONS.NO_DOCUMENTS')
       });
       return;
     }
 
     this.isDownloadingAll.set(true);
+    this.downloadProgress.set(0);
     
     try {
       // Mostrar mensaje de inicio
       this.messageService.add({
         severity: 'info',
-        summary: this.translation.instant('TENDERS.SPECIFICATIONS.DOWNLOADING_ALL'),
-        detail: `Iniciando descarga de ${specs.length} documento(s)...`
+        summary: this.translation.instant('TENDERS.SPECIFICATIONS.PREPARING_DOWNLOAD'),
+        detail: `${this.translation.instant('TENDERS.SPECIFICATIONS.PREPARING_DOWNLOAD')} ${specs.length} ${specs.length === 1 ? 'documento' : 'documentos'}...`
       });
 
-      // Usar el servicio para manejar las descargas
-      await this.specificationsService.downloadAllSpecifications(specs);
+      // Preparar los items para descarga
+      const downloadItems = specs.map((spec: TenderSpecification) => ({
+        url: spec.fileUrl,
+        filename: `${this.getSpecificationName(spec)}.${spec.fileType.split('/').pop() || 'pdf'}`
+      }));
+
+      // Generar nombre del ZIP con información del proyecto
+      const projectId = this.idProject();
+      const tenderId = this.idTender();
+      const timestamp = new Date().toISOString().split('T')[0];
+      const zipFilename = `especificaciones_${projectId}_${tenderId}_${timestamp}.zip`;
+
+      // Usar el servicio de descarga múltiple con progreso
+      await this.multidownloadService.downloadAndZipWithProgress(
+        downloadItems,
+        zipFilename,
+        (progress) => {
+          this.downloadProgress.set(Math.round(progress));
+          
+          // Actualizar mensaje de progreso
+          if (progress < 100) {
+            this.messageService.add({
+              severity: 'info',
+              summary: this.translation.instant('TENDERS.SPECIFICATIONS.DOWNLOAD_PROGRESS'),
+              detail: `${this.translation.instant('TENDERS.SPECIFICATIONS.PROGRESS')}: ${Math.round(progress)}%`,
+              life: 1000
+            });
+          }
+        }
+      ).toPromise();
 
       // Mensaje de éxito
       this.messageService.add({
@@ -312,6 +344,7 @@ export class SpecificationsComponent implements OnInit, OnDestroy, AfterViewInit
       });
     } finally {
       this.isDownloadingAll.set(false);
+      this.downloadProgress.set(0);
     }
   }
   // Métodos helper para mostrar contenido traducido

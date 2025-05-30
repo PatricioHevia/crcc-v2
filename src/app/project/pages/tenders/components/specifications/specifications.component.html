@@ -3,7 +3,7 @@
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
     <div>
       <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-        <i class="pi pi-file text-blue-600"></i>
+        <i class="pi pi-book text-primary text-2xl"></i>
         {{ 'TENDERS.SPECIFICATIONS.TITLE' | translate }}
       </h3>
       <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -15,11 +15,14 @@
       <!-- Download All Button - only show when there are documents -->      @if (specifications().length > 0) {
         <p-button 
           [icon]="isDownloadingAll() ? 'pi pi-spin pi-spinner' : 'pi pi-download'" 
-          [label]="isDownloadingAll() ? ('TENDERS.SPECIFICATIONS.DOWNLOADING_ALL' | translate) : ('TENDERS.SPECIFICATIONS.DOWNLOAD_ALL' | translate)"
+          [label]="isDownloadingAll() ? 
+            (downloadProgress() > 0 ? downloadProgress() + '%' : ('TENDERS.SPECIFICATIONS.DOWNLOADING_ALL' | translate)) : 
+            ('TENDERS.SPECIFICATIONS.DOWNLOAD_ALL' | translate)"
           severity="secondary"
           [disabled]="isDownloadingAll()"
           (click)="downloadAllSpecifications()"
           [pTooltip]="'TENDERS.SPECIFICATIONS.DOWNLOAD_ALL_TOOLTIP' | translate"
+          tooltipPosition="top"
           class="w-full sm:w-auto">
         </p-button>
       }

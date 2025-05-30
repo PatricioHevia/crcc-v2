@@ -98,6 +98,52 @@
             }
         </div>
 
+        <!-- Divisa -->
+        <div class="flex flex-col">
+            <label htmlFor="tenderCurrency" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {{ 'TENDERS.FORM.TENDER_CURRENCY' | translate }} <span class="text-red-500 dark:text-red-400">*</span>
+            </label>
+            <p-select appendTo="body" id="tenderCurrency" formControlName="tenderCurrency" 
+                     [options]="tenderCurrencyTypes" optionValue="value"
+                     [placeholder]="'TENDERS.FORM.SELECT_CURRENCY' | translate" class="w-full">
+                <ng-template pTemplate="item" let-option>
+                    @switch (translationService.currentLang()) {
+                        @case ('es') {
+                            <div>{{ option.label.es }}</div>
+                        }
+                        @case ('en') {
+                            <div>{{ option.label.en }}</div>
+                        }
+                        @case ('zh') {
+                            <div>{{ option.label.zh }}</div>
+                        }
+                        @default {
+                            <div>{{ option.label.es }}</div>
+                        }
+                    }
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    @switch (translationService.currentLang()) {
+                        @case ('es') {
+                            <div>{{ selectedOption?.label?.es }}</div>
+                        }
+                        @case ('en') {
+                            <div>{{ selectedOption?.label?.en }}</div>
+                        }
+                        @case ('zh') {
+                            <div>{{ selectedOption?.label?.zh }}</div>
+                        }
+                        @default {
+                            <div>{{ selectedOption?.label?.es }}</div>
+                        }
+                    }
+                </ng-template>
+            </p-select>
+            @if (isFieldInvalid('tenderCurrency')) {
+                <small class="text-red-500 dark:text-red-400 mt-1">{{ getFieldError('tenderCurrency') }}</small>
+            }
+        </div>
+
         <!-- Fechas Importantes -->
         <p-divider></p-divider>
         <h4 class="text-lg font-semibold dark:text-gray-200 mb-2">{{ 'TENDERS.FORM.DATES_TITLE' | translate }}</h4>

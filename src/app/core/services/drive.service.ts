@@ -30,17 +30,34 @@ export interface UploadProgress {
 export class DriveService {
 
   private uploadFunctionUrl = 'https://us-central1-pp-pruebas.cloudfunctions.net/uploadFileToDrive';
+  private uploadFunctionOAuthUrl = 'https://us-central1-pp-pruebas.cloudfunctions.net/uploadFileToDriveOAuth';
 
   constructor(private http: HttpClient) { }
 
   /**
-   * Sube uno o más archivos a Google Drive y reporta el progreso.
+   * Sube uno o más archivos a Google Drive usando cuenta de servicio y reporta el progreso.
    * @param files Array de objetos File a subir.
    * @param targetFolderId Opcional. El ID de la carpeta de Google Drive.
    * @returns Un Observable que emite eventos de progreso (UploadProgress) o la respuesta final (DriveUploadResponse).
    */
-
   uploadFiles(files: File[], targetFolderId?: string): Observable<UploadProgress | DriveUploadResponse> {
+    return this.uploadFilesInternal(files, targetFolderId, this.uploadFunctionUrl);
+  }
+
+  /**
+   * Sube uno o más archivos a Google Drive usando OAuth (tu cuenta personal) y reporta el progreso.
+   * @param files Array de objetos File a subir.
+   * @param targetFolderId Opcional. El ID de la carpeta de Google Drive.
+   * @returns Un Observable que emite eventos de progreso (UploadProgress) o la respuesta final (DriveUploadResponse).
+   */
+  uploadFilesOAuth(files: File[], targetFolderId?: string): Observable<UploadProgress | DriveUploadResponse> {
+    return this.uploadFilesInternal(files, targetFolderId, this.uploadFunctionOAuthUrl);
+  }
+
+  /**
+   * Método interno para manejar la subida de archivos.
+   */
+  private uploadFilesInternal(files: File[], targetFolderId: string | undefined, url: string): Observable<UploadProgress | DriveUploadResponse> {
     if (!files || files.length === 0) {
       throw new Error('No se proporcionaron archivos para subir.');
     }
@@ -55,7 +72,7 @@ export class DriveService {
     }
 
     // Creamos una HttpRequest para poder reportar el progreso
-    const req = new HttpRequest('POST', this.uploadFunctionUrl, formData, {
+    const req = new HttpRequest('POST', url, formData, {
       reportProgress: true // ¡Esto es clave para obtener eventos de progreso!
     });
 

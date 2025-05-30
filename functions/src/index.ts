@@ -1,6 +1,6 @@
 import { setGlobalOptions } from 'firebase-functions/v2';
 import * as admin from 'firebase-admin';
-import { testDriveAuth as driveTestAuth, uploadFileToDrive as driveUploadFile } from './drive'; // <--- MODIFICA ESTA LÍNEA
+import { testDriveAuth as driveTestAuth, uploadFileToDrive as driveUploadFile, uploadFileToDriveOAuth as driveUploadFileOAuth } from './drive';
 
 
 import { translateJson as openAITranslateJson } from './openai';
@@ -18,4 +18,6 @@ export const translateJson = openAITranslateJson;
 
 export const testDriveAuth = driveTestAuth;
 
-export const uploadFileToDrive = driveUploadFile; 
+export const uploadFileToDrive = driveUploadFile;
+
+export const uploadFileToDriveOAuth = driveUploadFileOAuth; 

@@ -27,11 +27,10 @@ export class SpecificationsService {
   private fs = inject(FirestoreService);
   private driveService = inject(DriveService);  // ID de la carpeta en Google Drive donde se almacenarán las especificaciones
   // TEMPORAL: undefined para usar la carpeta raíz mientras configuramos la carpeta correcta
-  private readonly DRIVE_FOLDER_ID: string | undefined = undefined; // Cambiar por el ID real de la carpeta
-
+  private readonly DRIVE_FOLDER_ID: string | undefined = '1FTmaad5jUEOqJ-vGylYf3eZVzf8hvd3V'; // Cambiar por el ID real de la carpeta
   /**
    * Crea una nueva especificación de licitación.
-   * Sube el archivo a Google Drive y guarda los datos en Firestore.
+   * Sube el archivo a Google Drive usando OAuth (tu cuenta personal) y guarda los datos en Firestore.
    * @param data Datos de la especificación a crear
    * @returns Observable que emite el progreso de subida y finalmente la especificación creada
    */
@@ -40,8 +39,8 @@ export class SpecificationsService {
       return throwError(() => new Error('No se proporcionó archivo para la especificación.'));
     }
 
-    // Subir archivo a Google Drive
-    return this.driveService.uploadFiles([data.file], this.DRIVE_FOLDER_ID).pipe(
+    // Subir archivo a Google Drive usando OAuth (tu cuenta personal)
+    return this.driveService.uploadFilesOAuth([data.file], this.DRIVE_FOLDER_ID).pipe(
       switchMap((response) => {
         // Si es progreso, lo emitimos
         if ('percentage' in response) {

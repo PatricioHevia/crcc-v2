@@ -7,6 +7,7 @@ import * as fs from 'fs';    // File system, para guardar temporalmente el archi
 import * as os from 'os';    // Operating system, para obtener el directorio temporal
 import * as path from 'path';  // Para trabajar con rutas de archivos
 
+// Cliente de Drive usando cuenta de servicio (método original)
 const getDriveClient = () => {
     const projectId = process.env.GOOGLE_PROJECT_ID;
     const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
@@ -32,6 +33,33 @@ const getDriveClient = () => {
     });
 
     return google.drive({ version: "v3", auth });
+};
+
+// Cliente de Drive usando OAuth (método nuevo para usar tu cuenta personal)
+const getDriveClientOAuth = () => {
+    const clientId = process.env.OAUTH_CLIENT_ID;
+    const clientSecret = process.env.OAUTH_CLIENT_SECRET;
+    const refreshToken = process.env.OAUTH_REFRESH_TOKEN;
+
+    if (!clientId || !clientSecret || !refreshToken) {
+        console.error('CRITICAL: Faltan credenciales OAuth en las variables de entorno.');
+        console.error(`OAUTH_CLIENT_ID: ${clientId ? 'OK' : 'FALTA'}`);
+        console.error(`OAUTH_CLIENT_SECRET: ${clientSecret ? 'OK' : 'FALTA'}`);
+        console.error(`OAUTH_REFRESH_TOKEN: ${refreshToken ? 'OK' : 'FALTA'}`);
+        throw new Error('Configuración OAuth incompleta: Faltan credenciales OAuth.');
+    }
+
+    const oauth2Client = new google.auth.OAuth2(
+        clientId,
+        clientSecret,
+        'urn:ietf:wg:oauth:2.0:oob'
+    );
+
+    oauth2Client.setCredentials({
+        refresh_token: refreshToken,
+    });
+
+    return google.drive({ version: "v3", auth: oauth2Client });
 };
 
 
@@ -188,6 +216,140 @@ export const uploadFileToDrive = onRequest(
                          res.status(500).json({ error: error.message });
                     } else {
                          res.status(500).json({ error: 'Error interno del servidor al subir archivos.', details: error.message || String(error) });
+                    }
+                }
+            });
+
+            if (req.rawBody) {
+                busboy.end(req.rawBody);
+            } else {
+                req.pipe(busboy);
+            }
+        });
+    }
+);
+
+// Nueva función que usa OAuth para subir archivos a tu Drive personal
+export const uploadFileToDriveOAuth = onRequest(
+    {
+        secrets: ['OAUTH_CLIENT_ID', 'OAUTH_CLIENT_SECRET', 'OAUTH_REFRESH_TOKEN'],
+        memory: '512MiB',
+        timeoutSeconds: 120,
+    },
+    (req, res) => {
+        driveCorsHandler(req, res, async () => {
+            if (req.method !== 'POST') {
+                res.status(405).send('Method Not Allowed. Please use POST.');
+                return;
+            }
+
+            const busboy = Busboy({ headers: req.headers });
+            const tmpdir = os.tmpdir();
+            const uploads: { [key: string]: { filepath: string; mimetype: string; filename: string } } = {};
+            const fileWrites: Promise<unknown>[] = [];
+            const fields: { [key: string]: string } = {};
+
+            // Listener para campos que no son archivos (como targetFolderId)
+            busboy.on('field', (fieldname, val) => {
+                console.log(`[Drive OAuth] Field [${fieldname}]: value: ${val}`);
+                fields[fieldname] = val;
+            });
+
+            busboy.on('file', (fieldname, file, fileDetails) => {
+                const { filename, encoding, mimeType } = fileDetails;
+                console.log(`[Drive OAuth] File [${fieldname}]: filename: ${filename}, encoding: ${encoding}, mimeType: ${mimeType}`);
+
+                const filepath = path.join(tmpdir, filename);
+                uploads[filename] = { filepath, mimetype: mimeType, filename };
+
+                const writeStream = fs.createWriteStream(filepath);
+                file.pipe(writeStream);                const promise = new Promise((resolve, reject) => {
+                    file.on('end', () => {
+                        writeStream.end();
+                    });
+                    writeStream.on('close', () => resolve(undefined));
+                    writeStream.on('error', reject);
+                });
+                fileWrites.push(promise);
+            });
+
+            busboy.on('finish', async () => {
+                await Promise.all(fileWrites);
+                console.log('[Drive OAuth] All files written to temp directory.');
+
+                try {
+                    const drive = getDriveClientOAuth(); // Usar cliente OAuth
+                    const targetFolderId = fields['targetFolderId'];
+                    const uploadedFileUrls: any[] = [];
+
+                    for (const filenameKey of Object.keys(uploads)) {
+                        const fileData = uploads[filenameKey];
+                        console.log(`[Drive OAuth] Uploading ${fileData.filename} to Google Drive...`);
+                        console.log(`[Drive OAuth] Target folder ID: ${targetFolderId || 'Root'}`);
+
+                        const requestBody: any = {
+                            name: fileData.filename,
+                        };
+
+                        // Solo añadir parents si se proporciona targetFolderId
+                        if (targetFolderId) {
+                            requestBody.parents = [targetFolderId];
+                        }
+
+                        const driveResponse = await drive.files.create({
+                            requestBody,
+                            media: {
+                                mimeType: fileData.mimetype,
+                                body: fs.createReadStream(fileData.filepath),
+                            },
+                            fields: 'id, name, webViewLink, webContentLink',
+                        });
+
+                        const fileId = driveResponse.data.id;
+                        if (!fileId) {
+                            throw new Error('No se pudo obtener el ID del archivo subido.');
+                        }
+
+                        console.log(`[Drive OAuth] File uploaded with ID: ${fileId}`);
+
+                        // Hacer el archivo público para que sea accesible
+                        await drive.permissions.create({
+                            fileId: fileId,
+                            requestBody: {
+                                role: 'reader',
+                                type: 'anyone',
+                            },
+                        });
+                        console.log(`[Drive OAuth] Permissions set for file ID: ${fileId}`);
+
+                        const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+                        uploadedFileUrls.push({
+                            filename: driveResponse.data.name || fileData.filename,
+                            url: driveResponse.data.webViewLink || downloadUrl,
+                            id: fileId,
+                        });
+
+                        fs.unlinkSync(fileData.filepath);
+                    }
+
+                    console.log('[Drive OAuth] All files processed.');
+                    res.status(200).json({
+                        message: 'Archivos subidos exitosamente a Google Drive (OAuth)!',
+                        files: uploadedFileUrls,
+                        targetFolderId: targetFolderId || 'Raíz de Drive Personal',
+                    });
+
+                } catch (error: any) {
+                    console.error('[Drive OAuth] Error during file upload process:', error);
+                    for (const filenameKey of Object.keys(uploads)) {
+                        if (uploads[filenameKey] && fs.existsSync(uploads[filenameKey].filepath)) {
+                            fs.unlinkSync(uploads[filenameKey].filepath);
+                        }
+                    }
+                    if (error.message && error.message.includes('Configuración OAuth incompleta')) {
+                         res.status(500).json({ error: error.message });
+                    } else {
+                         res.status(500).json({ error: 'Error interno del servidor al subir archivos (OAuth).', details: error.message || String(error) });
                     }
                 }
             });

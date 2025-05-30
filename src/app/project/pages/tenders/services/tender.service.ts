@@ -13,6 +13,7 @@ export class TenderService implements OnDestroy {
   private readonly storageService = inject(StorageService);
 
   private currentProjectId = signal<string | undefined>(undefined);
+  private isListenerReady = signal<boolean>(false);
 
   public tenderListener: { data: Signal<Tender[]>; loading: Signal<boolean>; unsubscribe: () => void } | null = null;
   
@@ -29,27 +30,6 @@ export class TenderService implements OnDestroy {
     });
   }
 
-  /**
-   * Inicializa o actualiza el listener de licitaciones basado en el projectId.
-   */
-  private _initializeTenderListener(projectId?: string): void {
-    // Limpiar listener anterior si existe
-    if (this.tenderListener) {
-      this.tenderListener.unsubscribe();
-      this.tenderListener = null;
-    }
-
-    const constraints: QueryConstraint[] = [
-      orderBy('name') // Ordena las licitaciones por nombre, ajusta según necesites
-    ];    if (projectId) {
-      const path = `projects/${projectId}/tenders`;
-      this.tenderListener = this.fs.listenCollectionWithLoading<Tender>(path, constraints);
-    } else {
-      // Para obtener tenders de todos los proyectos usando collection group
-      this.tenderListener = this.fs.listenCollectionGroupWithLoading<Tender>('tenders', constraints);
-    }
-  }
-
   public setProjectContext(projectId: string): void {
     if (this.currentProjectId() !== projectId) {
       this.currentProjectId.set(projectId);
@@ -62,15 +42,47 @@ export class TenderService implements OnDestroy {
     }
   }
 
-  tenders(): Tender[] {
-    if (!this.tenderListener) {
-      // Esta lógica de inicialización aquí es una salvaguarda, pero el `effect` es el principal responsable.
-      // Considera si esta inicialización ad-hoc es realmente necesaria o si puede causar problemas de timing.
-      this._initializeTenderListener(this.currentProjectId());
-      console.warn('TenderService: Licitaciones accedidas antes de que el listener estuviera completamente listo por el effect, inicializando ad-hoc...');
+  /**
+   * Inicializa o actualiza el listener de licitaciones basado en el projectId.
+   */
+  private _initializeTenderListener(projectId?: string): void {
+    // Marcar como no listo mientras se inicializa
+    this.isListenerReady.set(false);
+    
+    // Limpiar listener anterior si existe
+    if (this.tenderListener) {
+      this.tenderListener.unsubscribe();
+      this.tenderListener = null;
     }
-    // `this.tenderListener` es reactualizado por el `effect`, así que siempre debería
-    // tener el listener correcto para el `currentProjectId` actual.
+
+    const constraints: QueryConstraint[] = [
+      orderBy('name')
+    ];
+    
+    if (projectId) {
+      const path = `projects/${projectId}/tenders`;
+      this.tenderListener = this.fs.listenCollectionWithLoading<Tender>(path, constraints);
+    } else {
+      this.tenderListener = this.fs.listenCollectionGroupWithLoading<Tender>('tenders', constraints);
+    }
+    
+    // Marcar como listo después de un pequeño delay para asegurar que el listener esté completamente inicializado
+    setTimeout(() => {
+      this.isListenerReady.set(true);
+    }, 100);
+  }
+
+  tenders(): Tender[] {
+    // Si el listener no está listo, devolver array vacío para evitar errores de cambio de expresión
+    if (!this.isListenerReady()) {
+      return [];
+    }
+    
+    if (!this.tenderListener) {
+      this._initializeTenderListener(this.currentProjectId());
+      return [];
+    }
+    
     return this.tenderListener ? this.tenderListener.data() : [];
   }
 
@@ -186,7 +198,6 @@ export class TenderService implements OnDestroy {
   getActiveTendersForLanding(): Tender[] {
     if (!this.landingTenderListener) {
       this.initializeLandingTendersListener();
-      console.warn('TenderService: Landing tenders listener no estaba inicializado, inicializando ahora...');
     }
     return this.landingTenderListener ? this.landingTenderListener.data() : [];
   }
@@ -201,42 +212,26 @@ export class TenderService implements OnDestroy {
    * Crea una nueva licitación
    */
   createTender(tenderData: Partial<Tender>): Observable<any> {
-    console.log('🚀 TenderService.createTender - Iniciando creación de licitación');
-    console.log('📄 Datos de entrada:', tenderData);
-    
     const projectId = this.currentProjectId();
-    console.log('🏗️ Project ID actual:', projectId);
     
     if (!projectId) {
       const error = new Error('No se ha establecido el contexto del proyecto');
-      console.error('❌ Error - No hay contexto de proyecto:', error);
       throw error;
     }
     
     const path = `projects/${projectId}/tenders`;
-    console.log('📍 Ruta de Firestore:', path);
     
     return new Observable(observer => {
       try {
-        console.log('🔄 Llamando a firestore.create...');
         this.fs.create(path, tenderData)
           .then(result => {
-            console.log('✅ Licitación creada exitosamente:', result);
             observer.next(result);
             observer.complete();
           })
           .catch(error => {
-            console.error('❌ Error en fs.create:', error);
-            console.error('❌ Tipo de error:', typeof error);
-            console.error('❌ Mensaje de error:', error.message);
-            console.error('❌ Stack trace:', error.stack);
             observer.error(error);
-          });      } catch (syncError) {
-        console.error('❌ Error síncrono en createTender:', syncError);
-        console.error('❌ Tipo de error síncrono:', typeof syncError);
-        if (syncError instanceof Error) {
-          console.error('❌ Mensaje de error síncrono:', syncError.message);
-        }
+          });
+      } catch (syncError) {
         observer.error(syncError);
       }
     });
@@ -294,5 +289,10 @@ export class TenderService implements OnDestroy {
     if (!imageUrl) throw new Error('No se pudo obtener la URL de la imagen subida');
     await this.fs.update(`projects/${projectId}/tenders`, tenderId, { imageUrl });
     return imageUrl;
+  }
+
+  // Método para verificar si el listener está listo
+  isReady(): boolean {
+    return this.isListenerReady();
   }
 }

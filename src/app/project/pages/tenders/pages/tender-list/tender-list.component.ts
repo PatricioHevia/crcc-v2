@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, computed, signal, Signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, computed, signal, Signal, effect } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -50,13 +50,19 @@ export class TenderListComponent implements OnInit, OnDestroy {
   // Drawer visibility
   isNewTenderDrawerVisible = signal<boolean>(false);
 
+  // Agregar computed signal para verificar si los datos están listos
+  isDataReady = computed(() => this.tenderService.isReady());
+
   // Computed property simplificado que usa el servicio directamente
   tenders = computed(() => {
+    // Si el servicio no está listo, devolver array vacío
+    if (!this.isDataReady()) {
+      return [];
+    }
+
     const statusFilters = this.selectedStatuses() || [];
     const typeFilters = this.selectedTypes() || [];
     const modalityFilters = this.selectedModalities() || [];
-    
-    
     
     // Obtener todos los tenders primero
     const allTenders = this.tenderService.getAllTenders();
@@ -77,20 +83,12 @@ export class TenderListComponent implements OnInit, OnDestroy {
     // Filtrar por tipos
     if (typeFilters.length > 0) {
       filteredTenders = filteredTenders.filter(tender => typeFilters.includes(tender.tenderType));
-    }      // Filtrar por modalidades con comparación robusta
+    }
+    
+    // Filtrar por modalidades con comparación robusta
     if (modalityFilters.length > 0) {
-      console.log('🔍 DEBUG Modality Filter:');
-      console.log('Selected modalityFilters:', modalityFilters);
-      console.log('Available tenders:', allTenders.map(t => ({ 
-        id: t.id, 
-        name: t.name, 
-        tenderModality: t.tenderModality,
-        modalityType: typeof t.tenderModality
-      })));
-      
       filteredTenders = filteredTenders.filter(tender => {
         if (!tender.tenderModality) {
-          console.log(`❌ Tender "${tender.name}" has no tenderModality`);
           return false;
         }
         
@@ -106,21 +104,11 @@ export class TenderListComponent implements OnInit, OnDestroy {
         const normalizedTenderModality = normalizeString(tender.tenderModality);
         const matchFound = modalityFilters.some(modality => {
           const normalizedFilterModality = normalizeString(modality);
-          const matches = normalizedFilterModality === normalizedTenderModality;
-          console.log(`🔄 Comparing "${tender.tenderModality}" (normalized: "${normalizedTenderModality}") vs filter "${modality}" (normalized: "${normalizedFilterModality}") = ${matches}`);
-          return matches;
+          return normalizedFilterModality === normalizedTenderModality;
         });
-        
-        if (matchFound) {
-          console.log(`✅ Tender "${tender.name}" matches modality filter`);
-        } else {
-          console.log(`❌ Tender "${tender.name}" does NOT match modality filter`);
-        }
         
         return matchFound;
       });
-      
-      console.log('🎯 Final filtered tenders by modality:', filteredTenders.length);
     }
     
     return filteredTenders;
@@ -141,7 +129,6 @@ export class TenderListComponent implements OnInit, OnDestroy {
       value: modality.value,
       label: modality.label[lang as keyof typeof modality.label]
     }));
-    console.log('🎯 Modality options generated:', options);
     return options;
   });
 
@@ -154,15 +141,28 @@ export class TenderListComponent implements OnInit, OnDestroy {
     }));
   });
 
-  constructor() { }
+  constructor() {
+    // Agregar un effect para monitorear cambios en el projectId
+    effect(() => {
+      const currentProjectId = this.projectId();
+      if (currentProjectId) {
+        // Limpiar los filtros cuando cambia el proyecto
+        this.clearFilters();
+        // Forzar actualización del contexto cuando cambia el projectId
+        this.tenderService.setProjectContext(currentProjectId);
+      }
+    });
+  }
 
   ngOnInit() {
-    // Obtener el projectId de la ruta
+    // Cambiar a suscripción continua de los parámetros de ruta
     this.route.params.subscribe(params => {
       const id = params['id'];
+      
+      // Actualizar el signal del projectId
       this.projectId.set(id);
-      // Configurar el contexto del proyecto en el servicio
-      this.tenderService.setProjectContext(id);
+      
+      // El effect se encargará de actualizar el contexto del servicio
     });
   }
 
@@ -304,7 +304,7 @@ export class TenderListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Obtiene el ID del proyecto actual
+   * Obtiene el ID del proyecto currente
    */
   getCurrentProjectId(): string {
     return this.projectId();
@@ -395,7 +395,6 @@ export class TenderListComponent implements OnInit, OnDestroy {
    * Método para debug - actualizar modalidades seleccionadas
    */
   updateSelectedModalities(modalities: TenderModality[]): void {
-    console.log('🔥 updateSelectedModalities called with:', modalities);
     this.selectedModalities.set(modalities);
   }
 
@@ -417,7 +416,12 @@ export class TenderListComponent implements OnInit, OnDestroy {
   onTenderCreated(): void {
     // El drawer se cerrará automáticamente desde el componente new-tender
     // Los datos se actualizarán automáticamente debido a la reactividad del servicio
-    console.log('🎉 Nueva licitación creada exitosamente - Lista de licitaciones se actualizará automáticamente');
-    console.log('📊 Total de licitaciones actuales:', this.tenderService.tenders().length);
+  }
+
+  /**
+   * Modificar loading para incluir el estado de preparación
+   */
+  loading(): boolean {
+    return !this.isDataReady() || this.tenderService.loading();
   }
 }

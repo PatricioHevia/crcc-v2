@@ -175,4 +175,34 @@ export class SpecificationsService {
     const firestorePath = `projects/${idProject}/tenders/${idTender}/specifications`;
     return this.fs.delete(firestorePath, specificationId);
   }
+
+  /**
+   * Descarga todas las especificaciones de forma masiva
+   * @param specifications Array de especificaciones a descargar
+   * @returns Promise que se resuelve cuando todas las descargas se han iniciado
+   */
+  async downloadAllSpecifications(specifications: TenderSpecification[]): Promise<void> {
+    if (!specifications || specifications.length === 0) {
+      throw new Error('No hay especificaciones para descargar');
+    }
+
+    // Crear un delay entre descargas para evitar problemas del navegador
+    const downloadWithDelay = async (spec: TenderSpecification, index: number) => {
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          // Abrir cada archivo en una nueva pestaña
+          window.open(spec.fileUrl, '_blank');
+          resolve();
+        }, index * 500); // 500ms de delay entre cada descarga
+      });
+    };
+
+    // Iniciar todas las descargas con delays
+    const downloadPromises = specifications.map((spec, index) => 
+      downloadWithDelay(spec, index)
+    );
+
+    // Esperar a que todas las descargas se hayan iniciado
+    await Promise.all(downloadPromises);
+  }
 }

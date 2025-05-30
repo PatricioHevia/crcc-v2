@@ -1,5 +1,5 @@
 <div class="p-3 sm:p-4 md:p-6 lg:p-8 max-w-7xl mx-auto animate-in fade-in-0 slide-in-from-bottom-4 duration-300">
-  @if (tenderService.loading()) {  <!-- Estado de carga -->
+  @if (tenderService.loading()) { <!-- Estado de carga -->
   <div class="flex flex-col items-center justify-center py-12">
     <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
     <p class="text-gray-600 dark:text-gray-300 mt-4">{{ 'TENDERS.DETAIL.LOADING' | translate }}</p>
@@ -12,7 +12,9 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z" />
       </svg>
-    </div>    <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ 'TENDERS.DETAIL.NOT_FOUND_TITLE' | translate }}</h3>
+    </div>
+    <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ 'TENDERS.DETAIL.NOT_FOUND_TITLE' | translate }}
+    </h3>
     <p class="text-gray-500 dark:text-gray-400 mt-1">
       {{ 'TENDERS.DETAIL.NOT_FOUND_MESSAGE' | translate }}
     </p>
@@ -22,7 +24,7 @@
       {{ 'TENDERS.DETAIL.BACK_TO_LIST' | translate }}
     </button>
   </div>
-  } @else {  <!-- Detalles de la licitación -->
+  } @else { <!-- Detalles de la licitación -->
   <div
     class="bg-white dark:bg-surface-800 rounded-lg shadow-lg border border-gray-200 dark:border-surface-700 overflow-hidden">
 
@@ -48,7 +50,7 @@
         (loadstart)="onBannerImageLoadStart()" (load)="onBannerImageLoadSuccess()" (error)="onBannerImageLoadError()">
       <!-- Overlay para mejorar legibilidad del texto -->
       <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
-      }      <!-- Contenido del banner -->
+      } <!-- Contenido del banner -->
       <div class="relative h-full p-4 xs:p-5 sm:p-6 md:p-8 lg:p-10 w-full z-10">
         <!-- Grid para posicionar elementos en la parte inferior -->
         <div class="h-full flex flex-col justify-end">
@@ -72,10 +74,12 @@
 
       <!-- Botones de acción - Ultra responsivos con mejores tamaños -->
       <div class="absolute top-1 right-1 xs:top-2 xs:right-2 sm:top-4 sm:right-4 
-                    flex flex-col gap-1 xs:gap-1.5 sm:gap-2 z-30">        <!-- Botón para cambiar imagen - Adaptativo según pantalla -->
+                    flex flex-col gap-1 xs:gap-1.5 sm:gap-2 z-30">
+        <!-- Botón para cambiar imagen - Adaptativo según pantalla -->
         <!-- Desktop: Con texto -->
-        <p-button class="hidden lg:block" type="button" icon="pi pi-camera" [label]="'TENDERS.DETAIL.CHANGE_IMAGE' | translate" severity="primary"
-          (click)="openBannerImageSelector()" [disabled]="uploadLoading()">
+        <p-button class="hidden lg:block" type="button" icon="pi pi-camera"
+          [label]="'TENDERS.DETAIL.CHANGE_IMAGE' | translate" severity="primary" (click)="openBannerImageSelector()"
+          [disabled]="uploadLoading()">
         </p-button>
 
         <!-- Tablet: Solo ícono normal -->
@@ -87,10 +91,10 @@
         <p-button class="sm:hidden
                          !px-2 !py-1.5 !min-w-0" type="button" icon="pi pi-camera" size="small" severity="primary"
           (click)="openBannerImageSelector()" [disabled]="uploadLoading()">
-        </p-button>        <!-- Botón volver - Adaptativo según pantalla -->
+        </p-button> <!-- Botón volver - Adaptativo según pantalla -->
         <!-- Desktop: Con texto -->
-        <p-button class="hidden lg:block" icon="pi pi-arrow-left" [label]="'TENDERS.DETAIL.BACK' | translate" severity="secondary"
-          (click)="goBack()">
+        <p-button class="hidden lg:block" icon="pi pi-arrow-left" [label]="'TENDERS.DETAIL.BACK' | translate"
+          severity="secondary" (click)="goBack()">
         </p-button>
 
         <!-- Tablet: Solo ícono normal -->
@@ -112,92 +116,112 @@
 
       <!-- Columna izquierda: Información general - Proporción 5/12 en lg, 4/12 en xl+ -->
       <div class="w-full lg:col-span-5 xl:col-span-4">
-        <!-- Información del tender -->        <div
+        <!-- Información del tender -->
+        <div
           class="px-4 py-4 xs:px-5 xs:py-5 sm:px-6 sm:py-6 border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-surface-700">
           <div class="space-y-4 sm:space-y-6">
             <!-- Título y descripción -->
-            <div>              <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">{{ 'TENDERS.DETAIL.GENERAL_INFO' | translate }}
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">{{
+                'TENDERS.DETAIL.GENERAL_INFO' | translate }}
               </h2>
               <div class="space-y-3 sm:space-y-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">{{ 'TENDERS.DETAIL.DESCRIPTION' | translate }}</label>
+                  <label class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">{{
+                    'TENDERS.DETAIL.DESCRIPTION' | translate }}</label>
                   <p class="text-sm sm:text-base text-gray-900 dark:text-white leading-relaxed">
                     {{ getTenderDescription() || ('TENDERS.DETAIL.NO_DESCRIPTION' | translate) }}
                   </p>
-                </div><!-- Estado actual -->                <div class="flex items-center gap-3 p-3 sm:p-4 bg-gray-50 dark:bg-surface-700 rounded-lg">
+                </div><!-- Estado actual -->
+                <div class="flex items-center gap-3 p-3 sm:p-4 bg-gray-50 dark:bg-surface-700 rounded-lg">
                   <i class="pi pi-info-circle text-blue-600 text-lg sm:text-xl flex-shrink-0"></i>
                   <div class="min-w-0">
-                    <p class="text-xs sm:text-sm font-medium text-gray-500 dark:text-surface-400">{{ 'TENDERS.DETAIL.CURRENT_STATUS' | translate }}</p>
+                    <p class="text-xs sm:text-sm font-medium text-gray-500 dark:text-surface-400">{{
+                      'TENDERS.DETAIL.CURRENT_STATUS' | translate }}</p>
                     <p class="font-semibold text-sm sm:text-base text-gray-900 dark:text-surface-50 truncate">{{
                       getCurrentStatusText() }}</p>
                   </div>
                 </div><!-- Próxima fase -->
                 <div *ngIf="nextPhase()"
-                  class="p-4 bg-blue-50 dark:bg-surface-700 rounded-lg border border-blue-200 dark:border-surface-600">                  <div class="flex items-center gap-3 mb-3">
+                  class="p-4 bg-blue-50 dark:bg-surface-700 rounded-lg border border-blue-200 dark:border-surface-600">
+                  <div class="flex items-center gap-3 mb-3">
                     <i class="pi pi-clock text-slate-600 text-xl flex-shrink-0"></i>
                     <div class="min-w-0">
-                      <p class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ 'TENDERS.DETAIL.NEXT_PHASE' | translate }}</p>
-                      <p class="font-semibold text-slate-900 dark:text-slate-100 truncate">{{ (nextPhase()?.translationKey || '') | translate }}</p>
+                      <p class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ 'TENDERS.DETAIL.NEXT_PHASE' |
+                        translate }}</p>
+                      <p class="font-semibold text-slate-900 dark:text-slate-100 truncate">{{
+                        (nextPhase()?.translationKey || '') | translate }}</p>
                     </div>
                   </div>
 
                   <!-- Timer responsive -->
                   <!-- Móviles y tablets: Grid 2x2 -->
-                  <div class="lg:hidden grid grid-cols-2 gap-2 sm:gap-3">                    <div class="text-center">
+                  <div class="lg:hidden grid grid-cols-2 gap-2 sm:gap-3">
+                    <div class="text-center">
                       <div
                         class="bg-slate-600 text-white rounded-lg px-2 py-2 sm:px-3 sm:py-3 font-mono text-base sm:text-lg font-bold shadow-md">
                         {{ countdownTime().days }}
-                      </div>                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1">{{ 'TENDERS.DETAIL.TIMER.DAYS' | translate }}</p>
+                      </div>
+                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1">{{
+                        'TENDERS.DETAIL.TIMER.DAYS' | translate }}</p>
                     </div>
                     <div class="text-center">
                       <div
                         class="bg-slate-600 text-white rounded-lg px-2 py-2 sm:px-3 sm:py-3 font-mono text-base sm:text-lg font-bold shadow-md">
                         {{ countdownTime().hours }}
                       </div>
-                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1">{{ 'TENDERS.DETAIL.TIMER.HOURS' | translate }}</p>
+                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1">{{
+                        'TENDERS.DETAIL.TIMER.HOURS' | translate }}</p>
                     </div>
                     <div class="text-center">
                       <div
                         class="bg-slate-600 text-white rounded-lg px-2 py-2 sm:px-3 sm:py-3 font-mono text-base sm:text-lg font-bold shadow-md">
                         {{ countdownTime().minutes }}
                       </div>
-                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1">{{ 'TENDERS.DETAIL.TIMER.MINUTES' | translate }}</p>
+                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1">{{
+                        'TENDERS.DETAIL.TIMER.MINUTES' | translate }}</p>
                     </div>
                     <div class="text-center">
                       <div
                         class="bg-slate-600 text-white rounded-lg px-2 py-2 sm:px-3 sm:py-3 font-mono text-base sm:text-lg font-bold shadow-md pulse-animation">
                         {{ countdownTime().seconds }}
                       </div>
-                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1">{{ 'TENDERS.DETAIL.TIMER.SECONDS' | translate }}</p>
+                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1">{{
+                        'TENDERS.DETAIL.TIMER.SECONDS' | translate }}</p>
                     </div>
-                  </div>                  <!-- Desktop: Grid 1x4 -->
+                  </div> <!-- Desktop: Grid 1x4 -->
                   <div class="hidden lg:grid grid-cols-2 xl:grid-cols-4 gap-2 xl:gap-3">
                     <div class="text-center">
                       <div
                         class="bg-slate-600 text-white rounded-lg px-2 py-2 xl:px-3 xl:py-3 font-mono text-lg xl:text-xl font-bold shadow-md">
                         {{ countdownTime().days }}
-                      </div>                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1 xl:mt-2">{{ 'TENDERS.DETAIL.TIMER.DAYS' | translate }}</p>
+                      </div>
+                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1 xl:mt-2">{{
+                        'TENDERS.DETAIL.TIMER.DAYS' | translate }}</p>
                     </div>
                     <div class="text-center">
                       <div
                         class="bg-slate-600 text-white rounded-lg px-2 py-2 xl:px-3 xl:py-3 font-mono text-lg xl:text-xl font-bold shadow-md">
                         {{ countdownTime().hours }}
                       </div>
-                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1 xl:mt-2">{{ 'TENDERS.DETAIL.TIMER.HOURS' | translate }}</p>
+                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1 xl:mt-2">{{
+                        'TENDERS.DETAIL.TIMER.HOURS' | translate }}</p>
                     </div>
                     <div class="text-center">
                       <div
                         class="bg-slate-600 text-white rounded-lg px-2 py-2 xl:px-3 xl:py-3 font-mono text-lg xl:text-xl font-bold shadow-md">
                         {{ countdownTime().minutes }}
                       </div>
-                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1 xl:mt-2">{{ 'TENDERS.DETAIL.TIMER.MINUTES' | translate }}</p>
+                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1 xl:mt-2">{{
+                        'TENDERS.DETAIL.TIMER.MINUTES' | translate }}</p>
                     </div>
                     <div class="text-center">
                       <div
                         class="bg-slate-600 text-white rounded-lg px-2 py-2 xl:px-3 xl:py-3 font-mono text-lg xl:text-xl font-bold shadow-md pulse-animation">
                         {{ countdownTime().seconds }}
                       </div>
-                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1 xl:mt-2">{{ 'TENDERS.DETAIL.TIMER.SECONDS' | translate }}</p>
+                      <p class="text-slate-600 dark:text-slate-400 text-xs font-medium mt-1 xl:mt-2">{{
+                        'TENDERS.DETAIL.TIMER.SECONDS' | translate }}</p>
                     </div>
                   </div>
                 </div>
@@ -211,14 +235,17 @@
       <div class="w-full lg:col-span-7 xl:col-span-8">
         <!-- Sección rediseñada de fechas importantes con estado de fases -->
         <div class="px-4 py-4 xs:px-5 xs:py-5 sm:px-6 sm:py-6">
-          <div class="space-y-4 sm:space-y-6">            <!-- Título y fase actual -->
-            <div class="space-y-3">              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <div class="space-y-4 sm:space-y-6"> <!-- Título y fase actual -->
+            <div class="space-y-3">
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                 <i class="pi pi-calendar text-blue-600 flex-shrink-0"></i>
                 <span class="truncate">{{ 'TENDERS.DETAIL.TIMELINE_TITLE' | translate }}</span>
               </h3>
               <div *ngIf="currentPhase()" class="flex flex-col sm:flex-row sm:items-center gap-2">
-                <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{{ 'TENDERS.DETAIL.CURRENT_PHASE' | translate }}</span>
-                <p-tag [value]="(currentPhase()?.translationKey || '') | translate" severity="info" class="text-xs sm:text-sm"></p-tag>
+                <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{{ 'TENDERS.DETAIL.CURRENT_PHASE' |
+                  translate }}</span>
+                <p-tag [value]="(currentPhase()?.translationKey || '') | translate" severity="info"
+                  class="text-xs sm:text-sm"></p-tag>
               </div>
             </div>
 
@@ -228,7 +255,8 @@
               <ng-container *ngFor="let item of tenderDateKeys; let i = index">
                 <ng-container *ngIf="getTenderDateValue(item.key)">
                   <div
-                    class="phase-item relative flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border transition-all duration-200"                    [ngClass]="{
+                    class="phase-item relative flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border transition-all duration-200"
+                    [ngClass]="{
                            'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-700 current-phase': isCurrentPhase(item.key),
                            'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-700': isPastPhase(item.key),
                            'bg-gray-50 border-gray-200 dark:bg-surface-700 dark:border-surface-600': isFuturePhase(item.key)
@@ -236,7 +264,8 @@
 
                     <!-- Indicador de estado -->
                     <div class="flex-shrink-0 mt-1">
-                      <div class="status-indicator w-4 h-4 rounded-full border-2 flex items-center justify-center"                        [ngClass]="{
+                      <div class="status-indicator w-4 h-4 rounded-full border-2 flex items-center justify-center"
+                        [ngClass]="{
                                'bg-blue-600 border-blue-600 active': isCurrentPhase(item.key),
                                'bg-green-600 border-green-600 completed': isPastPhase(item.key),
                                'bg-gray-300 border-gray-300 dark:bg-surface-500 dark:border-surface-500': isFuturePhase(item.key)
@@ -247,7 +276,8 @@
                       </div>
 
                       <!-- Línea conectora (excepto para el último item) -->
-                      <div *ngIf="i < tenderDateKeys.length - 1"                        class="w-0.5 h-8 mx-auto mt-2 transition-colors duration-300" [ngClass]="{
+                      <div *ngIf="i < tenderDateKeys.length - 1"
+                        class="w-0.5 h-8 mx-auto mt-2 transition-colors duration-300" [ngClass]="{
                                'bg-blue-300': isCurrentPhase(item.key),
                                'bg-green-300': isPastPhase(item.key),
                                'bg-gray-300 dark:bg-surface-500': isFuturePhase(item.key)
@@ -258,7 +288,8 @@
                     <!-- Contenido de la fase -->
                     <div class="flex-grow min-w-0">
                       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
-                        <h4 class="font-semibold text-gray-900 dark:text-surface-50">{{ item.translationKey | translate }}</h4>
+                        <h4 class="font-semibold text-gray-900 dark:text-surface-50">{{ item.translationKey | translate
+                          }}</h4>
                         <div class="flex items-center gap-2">
                           <i *ngIf="isCurrentPhase(item.key)" class="pi pi-clock text-blue-600 animate-pulse"></i>
                           <i *ngIf="isPastPhase(item.key)" class="pi pi-check-circle text-green-600"></i>
@@ -279,7 +310,7 @@
                         <span *ngIf="isCurrentPhase(item.key) && getTimeUntilPhase(item.key)"
                           class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full dark:bg-blue-900/30 dark:text-blue-300 inline-block">
                           {{ getTimeUntilPhase(item.key) }}
-                        </span>                        <!-- Estado de fase completada -->
+                        </span> <!-- Estado de fase completada -->
                         <span *ngIf="isPastPhase(item.key)"
                           class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full dark:bg-green-900/30 dark:text-green-300 inline-block">
                           {{ 'TENDERS.DETAIL.PHASE_COMPLETED' | translate }}
@@ -291,41 +322,45 @@
               </ng-container>
             </div>
           </div>
-        </div>      </div>
+        </div>
+      </div>
 
     </div>
 
     <!-- Sección de Especificaciones -->
-    <div class="mt-6">
-      <app-specifications 
-        [idProject]="idProject()" 
-        [idTender]="idTender()">
-      </app-specifications>
-    </div>
+
   </div>
   }
+</div>
+
+<div class="mt-4 max-w-7xl mx-auto">
+  <app-specifications [idProject]="idProject()" [idTender]="idTender()">
+  </app-specifications>
 </div>
 
 
 
 <p-dialog [(visible)]="showCropper" [modal]="true" [closable]="false" [style]="{width: '90vw', maxWidth: '600px'}"
-  appendTo="body" [breakpoints]="{'960px': '75vw', '640px': '90vw'}">  <ng-template pTemplate="header">
+  appendTo="body" [breakpoints]="{'960px': '75vw', '640px': '90vw'}"> <ng-template pTemplate="header">
     <span class="text-lg font-semibold">{{ 'TENDERS.DETAIL.CHANGE_BANNER_IMAGE' | translate }}</span>
   </ng-template>
   <div class="w-full max-w-full h-96 sm:h-[400px] mx-auto">
     <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="16 / 9"
       [resizeToWidth]="1280" format="png" (imageCropped)="imageCropped($event)" class="w-full h-full">
     </image-cropper>
-  </div>  <div class="flex flex-col xs:flex-row justify-end gap-2 mt-4">
+  </div>
+  <div class="flex flex-col xs:flex-row justify-end gap-2 mt-4">
     <button pButton type="button" icon="pi pi-times" [label]="'TENDERS.DETAIL.CANCEL' | translate" severity="secondary"
       class="w-full xs:w-auto order-2 xs:order-1" (click)="cancelCrop()" [disabled]="uploadLoading()">
     </button>
     <button pButton type="button" icon="pi pi-check" [label]="'TENDERS.DETAIL.APPLY' | translate" severity="success"
       class="w-full xs:w-auto order-1 xs:order-2" (click)="applyCrop()" [disabled]="uploadLoading()">
     </button>
-  </div>  <div *ngIf="uploadLoading()"
+  </div>
+  <div *ngIf="uploadLoading()"
     class="flex items-center justify-center gap-3 mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
     <p-progressSpinner styleClass="w-5 h-5" strokeWidth="4"></p-progressSpinner>
-    <span class="text-gray-600 dark:text-gray-300 text-sm font-medium">{{ 'TENDERS.DETAIL.UPLOADING_IMAGE' | translate }}</span>
+    <span class="text-gray-600 dark:text-gray-300 text-sm font-medium">{{ 'TENDERS.DETAIL.UPLOADING_IMAGE' | translate
+      }}</span>
   </div>
 </p-dialog>

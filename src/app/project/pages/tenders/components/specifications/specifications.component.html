@@ -1,6 +1,5 @@
 <!-- Sección de Especificaciones -->
-<div class="bg-white dark:bg-surface-800 rounded-lg shadow-lg border border-gray-200 dark:border-surface-700 p-4 sm:p-6">
-  <!-- Header -->
+<div class="bg-white dark:bg-surface-800 rounded-lg shadow-lg border border-gray-200 dark:border-surface-700 p-4 sm:p-6">  <!-- Header -->
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
     <div>
       <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
@@ -8,17 +7,31 @@
         {{ 'TENDERS.SPECIFICATIONS.TITLE' | translate }}
       </h3>
       <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-        {{ 'TENDERS.SPECIFICATIONS.DESCRIPTION' | translate }}
+        {{ 'TENDERS.SPECIFICATIONS.DESCRIPTION_SECTION' | translate }}
       </p>
     </div>
     
-    <p-button 
-      icon="pi pi-plus" 
-      [label]="'TENDERS.SPECIFICATIONS.ADD_DOCUMENT' | translate"
-      severity="primary"
-      (click)="openUploadModal()"
-      class="w-full sm:w-auto">
-    </p-button>
+    <div class="flex flex-col sm:flex-row gap-2">
+      <!-- Download All Button - only show when there are documents -->      @if (specifications().length > 0) {
+        <p-button 
+          [icon]="isDownloadingAll() ? 'pi pi-spin pi-spinner' : 'pi pi-download'" 
+          [label]="isDownloadingAll() ? ('TENDERS.SPECIFICATIONS.DOWNLOADING_ALL' | translate) : ('TENDERS.SPECIFICATIONS.DOWNLOAD_ALL' | translate)"
+          severity="secondary"
+          [disabled]="isDownloadingAll()"
+          (click)="downloadAllSpecifications()"
+          [pTooltip]="'TENDERS.SPECIFICATIONS.DOWNLOAD_ALL_TOOLTIP' | translate"
+          class="w-full sm:w-auto">
+        </p-button>
+      }
+      
+      <p-button 
+        icon="pi pi-plus" 
+        [label]="'TENDERS.SPECIFICATIONS.ADD_DOCUMENT' | translate"
+        severity="primary"
+        (click)="openUploadModal()"
+        class="w-full sm:w-auto">
+      </p-button>
+    </div>
   </div>
 
   <!-- Loading State -->
@@ -65,18 +78,16 @@
               <i class="pi pi-file-excel text-green-500 text-xl" *ngIf="spec.fileType.includes('excel') || spec.fileType.includes('sheet')"></i>
               <i class="pi pi-file text-gray-500 text-xl" *ngIf="!spec.fileType.includes('pdf') && !spec.fileType.includes('word') && !spec.fileType.includes('doc') && !spec.fileType.includes('excel') && !spec.fileType.includes('sheet')"></i>
             </div>
-            
-            <!-- Document Info -->
+              <!-- Document Info -->
             <div class="flex-1 min-w-0">
               <h5 class="font-semibold text-gray-900 dark:text-white truncate">
-                {{ spec.name }}
+                {{ getSpecificationName(spec) }}
               </h5>
               <p class="text-sm text-gray-500 dark:text-gray-400 truncate">
-                {{ spec.description }}
-              </p>
-              <div class="flex items-center gap-4 mt-1">
+                {{ getSpecificationDescription(spec) }}
+              </p>              <div class="flex items-center gap-4 mt-1">
                 <span class="text-xs text-gray-400">
-                  {{ spec.type }}
+                  {{ getSpecificationType(spec.type) }}
                 </span>
                 <span class="text-xs text-gray-400">
                   {{ spec.fileSize }}
@@ -115,30 +126,79 @@
   [closable]="!isUploading()"
   [style]="{width: '90vw', maxWidth: '500px'}"
   appendTo="body">
-  
-  <ng-template pTemplate="header">
+    <ng-template pTemplate="header">
     <span class="text-lg font-semibold">
       {{ 'TENDERS.SPECIFICATIONS.UPLOAD_DOCUMENT' | translate }}
     </span>
   </ng-template>
 
   <div class="space-y-4">
-    <!-- File Upload -->
-    <div>
+    <!-- Nota informativa sobre traducción automática -->
+    <div class="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+      <div class="flex align-items-start gap-2">
+        <i class="pi pi-info-circle text-blue-500 text-sm mt-1"></i>
+        <p class="text-sm text-blue-700 dark:text-blue-300 m-0">
+          {{ 'TENDERS.SPECIFICATIONS.TRANSLATION_NOTE' | translate }}
+        </p>
+      </div>
+    </div>    <!-- File Upload -->
+    <div>      
+      
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
         {{ 'TENDERS.SPECIFICATIONS.FILE' | translate }} *
       </label>
-      <input 
-        type="file" 
-        accept=".pdf,.doc,.docx,.xls,.xlsx"
-        (change)="onFileSelected($event)"
-        class="w-full p-2 border border-gray-300 dark:border-surface-600 rounded-md bg-white dark:bg-surface-800 text-gray-900 dark:text-white"
-        [disabled]="isUploading()">
-      @if (uploadFormData().file) {
-        <p class="text-sm text-green-600 mt-1">
-          {{ uploadFormData().file!.name }}
-        </p>
-      }
+      
+      <!-- File Upload Container -->
+      <div class="file-upload-container">
+        <!-- Hidden file input -->
+        <input 
+          #fileInput
+          type="file" 
+          (change)="onFileSelected($event)"
+          [disabled]="isUploading()"
+          class="hidden"
+          accept=".pdf,.doc,.docx,.xls,.xlsx">
+        
+        <!-- Custom upload button -->
+        <p-button 
+          [label]="'FILE_UPLOAD.CHOOSE' | translate"
+          icon="pi pi-upload"
+          severity="secondary"
+          (click)="fileInput.click()"
+          [disabled]="isUploading()"
+          class="mb-2">
+        </p-button>
+        
+        <!-- Custom file name display and loading indicator -->
+        <div class="file-status-container">
+          @if (isUploading()) {
+            <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+              <p-progressSpinner styleClass="w-4 h-4" strokeWidth="4"></p-progressSpinner>
+              <span class="text-sm">{{ 'TENDERS.SPECIFICATIONS.UPLOADING_FILE' | translate }}</span>
+            </div>
+          } @else if (uploadFormData().file) {
+            <div class="flex items-center gap-2 text-green-600 dark:text-green-400">
+              <i class="pi pi-check-circle"></i>
+              <span class="text-sm">{{ uploadFormData().file!.name }}</span>
+              <p-button 
+                icon="pi pi-times" 
+                severity="danger"
+                [text]="true"
+                [rounded]="true"
+                size="small"
+                (click)="clearFile()"
+                styleClass="ml-2"
+                [pTooltip]="'TENDERS.SPECIFICATIONS.REMOVE_FILE' | translate">
+              </p-button>
+            </div>
+          } @else {
+            <span class="text-sm text-gray-500 dark:text-gray-400">
+              {{ 'FILE_UPLOAD.NO_FILE_CHOSEN' | translate }}
+            </span>
+          }
+        </div>
+      </div>
+
     </div>
 
     <!-- Document Name -->
@@ -174,7 +234,8 @@
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
         {{ 'TENDERS.SPECIFICATIONS.DOCUMENT_TYPE' | translate }}
       </label>
-      <p-dropdown 
+      <p-select 
+       appendTo="body"
         [(ngModel)]="uploadFormData().type"
         [options]="typeOptions"
         optionLabel="label"
@@ -182,27 +243,38 @@
         [placeholder]="'TENDERS.SPECIFICATIONS.SELECT_TYPE' | translate"
         class="w-full"
         [disabled]="isUploading()">
-      </p-dropdown>
-    </div>
-
-    <!-- Upload Progress -->
-    @if (isUploading() && uploadProgress() > 0) {
-      <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-        <div class="flex items-center gap-2 mb-2">
-          <p-progressSpinner styleClass="w-4 h-4" strokeWidth="4"></p-progressSpinner>
-          <span class="text-sm font-medium text-blue-700 dark:text-blue-300">
-            {{ 'TENDERS.SPECIFICATIONS.UPLOADING' | translate }}
-          </span>
-        </div>
-        <div class="w-full bg-blue-200 dark:bg-blue-800 rounded-full h-2">
-          <div 
-            class="bg-blue-600 h-2 rounded-full transition-all duration-300"
-            [style.width.%]="uploadProgress()">
+      </p-select>
+    </div>    <!-- Upload Progress -->
+    @if (isUploading()) {
+      <div class="upload-progress-overlay">
+        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border-2 border-blue-200 dark:border-blue-700">
+          <div class="flex items-center gap-3 mb-3">
+            <p-progressSpinner styleClass="w-5 h-5" strokeWidth="4"></p-progressSpinner>
+            <span class="text-base font-semibold text-blue-700 dark:text-blue-300">
+              {{ 'TENDERS.SPECIFICATIONS.UPLOADING' | translate }}
+            </span>
           </div>
+          
+          @if (uploadProgress() > 0) {
+            <div class="w-full bg-blue-200 dark:bg-blue-800 rounded-full h-3 mb-2">
+              <div 
+                class="bg-blue-600 h-3 rounded-full transition-all duration-300 flex items-center justify-end pr-2"
+                [style.width.%]="uploadProgress()">
+                <span class="text-xs text-white font-medium" *ngIf="uploadProgress() > 15">
+                  {{ uploadProgress() }}%
+                </span>
+              </div>
+            </div>
+            <div class="flex justify-between text-xs text-blue-600 dark:text-blue-400">
+              <span>{{ uploadProgress() }}% {{ 'TENDERS.SPECIFICATIONS.COMPLETED' | translate }}</span>
+              <span>{{ 'TENDERS.SPECIFICATIONS.UPLOADING_FILE' | translate }}</span>
+            </div>
+          } @else {
+            <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+              <span class="text-sm">{{ 'TENDERS.SPECIFICATIONS.UPLOADING_FILE' | translate }}</span>
+            </div>
+          }
         </div>
-        <p class="text-xs text-blue-600 dark:text-blue-400 mt-1">
-          {{ uploadProgress() }}% {{ 'TENDERS.SPECIFICATIONS.COMPLETED' | translate }}
-        </p>
       </div>
     }
   </div>

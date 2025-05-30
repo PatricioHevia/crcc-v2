@@ -1,0 +1,168 @@
+/* Estilos personalizados para el componente de carga de archivos */
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Personalización del componente p-fileupload */
+:host ::ng-deep .custom-file-upload .p-fileupload-buttonbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0;
+  min-height: 2.5rem;
+}
+
+/* Botón de selección alineado a la izquierda */
+:host ::ng-deep .custom-file-upload .p-fileupload-choose {
+  margin: 0;
+  border-radius: 0.25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+/* Área del placeholder */
+:host ::ng-deep .custom-file-upload .p-fileupload-buttonbar::after {
+  content: '';
+  flex: 1;
+  min-height: 2.5rem;
+  background: #f9fafb;
+  border-left: 1px solid #d1d5db;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+/* Estado hover del botón */
+:host ::ng-deep .custom-file-upload .p-fileupload-choose:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Estado disabled */
+:host ::ng-deep .custom-file-upload .p-fileupload-choose:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :host ::ng-deep .custom-file-upload .p-fileupload-buttonbar {
+    border-color: #374151;
+  }
+  
+  :host ::ng-deep .custom-file-upload .p-fileupload-buttonbar::after {
+    background: #1f2937;
+    border-color: #374151;
+  }
+}
+
+/* Contenedor de estado del archivo */
+.file-status-container {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  background-color: #f9fafb;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Modo oscuro para el contenedor de estado */
+@media (prefers-color-scheme: dark) {
+  .file-status-container {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+}
+
+/* Animación suave para transiciones */
+.file-status-container,
+:host ::ng-deep .custom-file-upload .p-fileupload-buttonbar::after {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Estilos responsive */
+@media (max-width: 640px) {
+  :host ::ng-deep .custom-file-upload .p-fileupload-choose {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .file-status-container {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Overlay de progreso de carga */
+.upload-progress-overlay {
+  position: relative;
+  z-index: 10;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efecto de pulsación para el spinner */
+:host ::ng-deep .upload-progress-overlay .p-progress-spinner-circle {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-opacity: 0.5;
+  }
+}
+
+/* Mejoras visuales para la barra de progreso */
+.upload-progress-overlay .bg-blue-600 {
+  background: linear-gradient(90deg, #2563eb, #3b82f6, #2563eb);
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Ocultar el texto 'No file chosen' y el input file nativo en modo básico */
+:host ::ng-deep .custom-file-upload input[type="file"] {
+  display: none !important;
+}
+:host ::ng-deep .custom-file-upload .p-fileupload-filename,
+:host ::ng-deep .custom-file-upload .p-fileupload-content,
+:host ::ng-deep .custom-file-upload .p-fileupload-choose + span,
+:host ::ng-deep .custom-file-upload .p-fileupload-choose ~ span,
+:host ::ng-deep .custom-file-upload .p-fileupload-basic-label,
+:host ::ng-deep .custom-file-upload .p-fileupload-choose ~ .p-fileupload-filename {
+  display: none !important;
+}
+:host ::ng-deep .custom-file-upload .p-fileupload {
+  min-width: 0 !important;
+}

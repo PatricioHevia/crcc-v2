@@ -16,7 +16,8 @@
     "FAQ": "Preguntas frecuentes",
     "CONTACTO": "Contacto",
     "ADMIN": "Administración"
-  },  "SIDEBAR": {
+  },
+  "SIDEBAR": {
     "ADMINISTRATION": "Administración",
     "DASHBOARD": "Panel Principal",
     "USERS": "Usuarios",
@@ -122,8 +123,10 @@
     "EMAIL_PLACEHOLDER": "Ingresa tu correo electrónico",
     "PASSWORD_PLACEHOLDER": "Ingresa tu contraseña",
     "REPEAT_PASSWORD_PLACEHOLDER": "Repite tu contraseña",
-    "ORG_EMAIL_PLACEHOLDER": "Ingresa el correo de contacto",    "ORG_TIN_PLACEHOLDER": "Ingresa el RUT o número de contrato",
-    "ORG_ADDRESS_PLACEHOLDER": "Ingresa la dirección",    "ORG_TYPE_PLACEHOLDER": "Selecciona el tipo de organización",
+    "ORG_EMAIL_PLACEHOLDER": "Ingresa el correo de contacto",
+    "ORG_TIN_PLACEHOLDER": "Ingresa el RUT o número de contrato",
+    "ORG_ADDRESS_PLACEHOLDER": "Ingresa la dirección",
+    "ORG_TYPE_PLACEHOLDER": "Selecciona el tipo de organización",
     "PERMISSIONS": "Permisos",
     "OFFICES": "Oficinas",
     "ORG_USERS": "Usuarios",
@@ -159,12 +162,14 @@
     "PROJECT_NOT_FOUND": "Proyecto no encontrado",
     "REDIRECTING_TO_PROJECTS": "Redirigiendo a la lista de proyectos...",
     "PROJECT_INFORMATION": "Información del Proyecto",
-    "DESCRIPTION": "Descripción",    "START_DATE": "Fecha de Inicio",
+    "DESCRIPTION": "Descripción",
+    "START_DATE": "Fecha de Inicio",
     "PROJECT_URL": "URL del Proyecto",
     "VIEW_TENDERS": "Ver Licitaciones",
     "IMAGE_GALLERY": "Galería de Imágenes",
     "GALLERY_COMING_SOON": "Galería Próximamente",
-    "GALLERY_DESCRIPTION": "La funcionalidad de galería de imágenes estará disponible próximamente.",    "GALLERY_MANAGEMENT": {
+    "GALLERY_DESCRIPTION": "La funcionalidad de galería de imágenes estará disponible próximamente.",
+    "GALLERY_MANAGEMENT": {
       "ADD_IMAGES": "Agregar Imágenes",
       "UPLOAD_IMAGES": "Subir Imágenes",
       "EDIT_IMAGE": "Editar Imagen",
@@ -187,10 +192,11 @@
       "UPDATE_SUCCESS": "Imagen actualizada exitosamente",
       "UPDATE_ERROR": "Error al actualizar la imagen",
       "MAIN_IMAGE_UPDATE_SUCCESS": "Imagen principal actualizada exitosamente",
-      "MAX_SIZE_ERROR": "El archivo excede el tamaño máximo permitido (5MB)",      
+      "MAX_SIZE_ERROR": "El archivo excede el tamaño máximo permitido (5MB)",
       "INVALID_FORMAT": "Formato de archivo no válido. Solo se permiten imágenes (JPG, PNG, WEBP)",
       "LOADING": "Cargando...",
-      "PROCESSING": "Procesando imagen...",      "CROP_ERROR": "No se pudo obtener el archivo recortado",
+      "PROCESSING": "Procesando imagen...",
+      "CROP_ERROR": "No se pudo obtener el archivo recortado",
       "LOAD_ERROR": "Error al cargar la imagen",
       "NO_CROPPED_IMAGE": "No hay imagen recortada para subir",
       "IMAGE_PREVIEW": "Vista previa de imagen",
@@ -213,7 +219,8 @@
       "BUILD": "Construcción",
       "BUILD_OPERATE": "Construcción y Explotación",
       "OPERATE": "Explotación"
-    },    "ACTIONS": {
+    },
+    "ACTIONS": {
       "NEW_PROJECT": "Nuevo Proyecto",
       "EDIT_PROJECT": "Editar Proyecto",
       "DELETE_PROJECT": "Eliminar Proyecto",
@@ -392,7 +399,8 @@
       "DELETE_CANCELLED_DETAIL": "La eliminación de la organización ha sido cancelada.",
       "EDIT_TITLE": "Editar Organización",
       "NO_CHANGES_DETECTED": "No se detectaron cambios en la organización.",
-      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",      "FORM": {
+      "UPDATE_SUCCESS_DETAIL": "Organización actualizada exitosamente.",
+      "FORM": {
         "CURRENT_LOGO": "Logo Actual",
         "CHANGE_LOGO": "Cambiar Logo",
         "REMOVE_LOGO": "Quitar Logo"
@@ -620,12 +628,14 @@
       "UPDATE_ERROR": "Error al actualizar la oferta de empleo",
       "TRANSLATION_NOTE": "Nota: Los campos nombre y descripción se traducirán automáticamente a los tres idiomas."
     }
-  },  "TABLE": {
+  },
+  "TABLE": {
     "SHOWING": "Mostrando",
     "TO": "a",
     "OF": "de",
     "ENTRIES": "entradas"
-  },  "TENDER_TYPES": {
+  },
+  "TENDER_TYPES": {
     "MEDICAL_EQUIPMENT": "Equipamiento Médico y Mobiliario Clínico y No Clínico",
     "CONSTRUCTION_WORK": "Obra",
     "ENGINEERING": "Ingeniería",
@@ -635,7 +645,8 @@
     "LUMP_SUM": "Suma Alzada",
     "UNIT_PRICE": "Precio Unitario",
     "NOT_APPLICABLE": "No Aplica"
-  },  "TENDERS": {
+  },
+  "TENDERS": {
     "TITLE": "Licitaciones del Proyecto",
     "SUBTITLE": "Gestión de licitaciones y procesos de contratación",
     "NEW_TENDER": "Nueva Licitación",
@@ -643,17 +654,20 @@
     "CLEAR_FILTERS": "Limpiar Filtros",
     "FILTER_BY_STATUS": "Filtrar por Estado",
     "FILTER_BY_MODALITY": "Filtrar por Modalidad",
-    "FILTER_BY_TYPE": "Filtrar por Tipo","SELECT_STATES": "Seleccionar estados",
+    "FILTER_BY_TYPE": "Filtrar por Tipo",
+    "SELECT_STATES": "Seleccionar estados",
     "STATUS_PLACEHOLDER": "Seleccionar estados",
     "SELECT_MODALITIES": "Seleccionar modalidades",
     "MODALITY_PLACEHOLDER": "Seleccionar modalidades",
     "SELECT_TYPES": "Seleccionar tipos",
-    "TYPE_PLACEHOLDER": "Seleccionar tipos",    "SHOWING_COUNT": "Mostrando {{count}} de {{total}} licitaciones",
+    "TYPE_PLACEHOLDER": "Seleccionar tipos",
+    "SHOWING_COUNT": "Mostrando {{count}} de {{total}} licitaciones",
     "LOADING": "Cargando licitaciones...",
     "NO_TENDERS": "No hay licitaciones",
     "NO_TENDERS_MESSAGE": "Aún no se han registrado licitaciones para este proyecto.",
     "NO_RESULTS": "No se encontraron licitaciones",
-    "NO_RESULTS_MESSAGE": "Intenta ajustar los filtros para ver más resultados.",    "START_DATE": "Fecha de Inicio:",
+    "NO_RESULTS_MESSAGE": "Intenta ajustar los filtros para ver más resultados.",
+    "START_DATE": "Fecha de Inicio:",
     "AWARD_DATE": "Fecha de Adjudicación:",
     "SUBMISSION_DEADLINE": "Fecha límite:",
     "VIEW_DETAILS": "Ver Detalles",
@@ -673,11 +687,13 @@
       "DATES_TITLE": "Fechas del Proceso",
       "TENDER_START_DATE": "Fecha de Inicio",
       "INQUIRY_DEADLINE": "Límite de Consultas",
-      "ANSWER_DEADLINE": "Límite de Respuestas",      "SUBMISSION_DEADLINE_LABEL": "Límite de Ofertas",
+      "ANSWER_DEADLINE": "Límite de Respuestas",
+      "SUBMISSION_DEADLINE_LABEL": "Límite de Ofertas",
       "ACLARATIONS_DEADLINE": "Límite Solicitud Aclaraciones",
       "ANSWER_ACLARATIONS_DEADLINE": "Límite Respuesta Aclaraciones",
       "OPEN_OFFER_DEADLINE": "Límite Apertura de Ofertas",
-      "AWARD_DATE_LABEL": "Fecha de Adjudicación","CANCEL": "Cancelar",
+      "AWARD_DATE_LABEL": "Fecha de Adjudicación",
+      "CANCEL": "Cancelar",
       "CREATE": "Crear Licitación",
       "REQUIRED_FIELD": "Campo requerido",
       "MIN_LENGTH": "Mínimo {{length}} caracteres"
@@ -687,7 +703,8 @@
       "CREATE_ERROR": "Error al crear la licitación. Por favor, intenta nuevamente.",
       "UPDATE_SUCCESS": "Licitación actualizada exitosamente",
       "UPDATE_ERROR": "Error al actualizar la licitación",
-      "DELETE_SUCCESS": "Licitación eliminada exitosamente",      "DELETE_ERROR": "Error al eliminar la licitación"
+      "DELETE_SUCCESS": "Licitación eliminada exitosamente",
+      "DELETE_ERROR": "Error al eliminar la licitación"
     },
     "DETAIL": {
       "LOADING": "Cargando detalles de la licitación...",
@@ -706,7 +723,8 @@
         "HOURS": "horas",
         "MINUTES": "minutos",
         "SECONDS": "segundos"
-      },      "TIMELINE_TITLE": "Cronograma de Licitación",
+      },
+      "TIMELINE_TITLE": "Cronograma de Licitación",
       "CURRENT_PHASE": "Fase actual:",
       "PHASE_COMPLETED": "Completada",
       "PHASES": {
@@ -723,6 +741,52 @@
       "CANCEL": "Cancelar",
       "APPLY": "Aplicar",
       "UPLOADING_IMAGE": "Subiendo imagen..."
+    },
+    "SPECIFICATIONS": {
+      "TITLE": "Especificaciones y Documentos",
+      "DESCRIPTION_SECTION": "Documentos técnicos y bases administrativas de la licitación",
+      "ADD_DOCUMENT": "Agregar Documento",
+      "ADD_FIRST_DOCUMENT": "Agregar Primer Documento",
+      "LOADING": "Cargando especificaciones...",
+      "NO_DOCUMENTS": "No hay documentos",
+      "NO_DOCUMENTS_MESSAGE": "Aún no se han subido documentos para esta licitación.",
+      "UPLOAD_DOCUMENT": "Subir Documento",
+      "FILE": "Archivo",
+      "DOCUMENT_NAME": "Nombre del Documento",
+      "DOCUMENT_NAME_PLACEHOLDER": "Ingrese el nombre del documento",
+      "DESCRIPTION": "Descripción",
+      "DESCRIPTION_PLACEHOLDER": "Ingrese una descripción del documento",
+      "DOCUMENT_TYPE": "Tipo de Documento",
+      "SELECT_TYPE": "Seleccionar tipo",
+      "TRANSLATION_NOTE": "Los campos de nombre y descripción se traducirán automáticamente a los idiomas soportados (español, inglés y chino).",
+      "TYPES": {
+        "ADMINISTRATIVE_BASES": "Bases Administrativas",
+        "TECHNICAL_BASES": "Bases Técnicas",
+        "ECONOMIC_BASES": "Bases Económicas",
+        "CONTEST_BASES": "Bases de Concurso",
+        "TENDER_BASES": "Bases de Licitación",
+        "ANNEX": "Anexo",
+        "OTHER": "Otro"
+      },      "UPLOAD": "Subir",
+      "CANCEL": "Cancelar",
+      "UPLOADING": "Subiendo...",
+      "UPLOADING_FILE": "Subiendo archivo...",
+      "COMPLETED": "completado",
+      "DOWNLOAD": "Descargar",
+      "DOWNLOAD_ALL": "Descargar Todo",
+      "DOWNLOAD_ALL_TOOLTIP": "Descargar todos los documentos",
+      "DOWNLOADING_ALL": "Descargando documentos...",
+      "SUCCESS": "Éxito",
+      "ERROR": "Error",
+      "UPLOAD_SUCCESS": "Documento subido correctamente",
+      "UPLOAD_ERROR": "Error al subir el documento",
+      "DOWNLOAD_ALL_SUCCESS": "Todos los documentos se han descargado correctamente",
+      "DOWNLOAD_ALL_ERROR": "Error al descargar algunos documentos",
+      "SERVER_ERROR": "Error interno del servidor. Verifique la configuración de Google Drive.",
+      "CONNECTION_ERROR": "Error de conexión. Verifique su conexión a internet.",
+      "TRANSLATION_ERROR": "Error al traducir el documento. Intente nuevamente.",
+      "REQUIRED_FIELDS": "Campos requeridos",
+      "COMPLETE_FIELDS": "Por favor complete todos los campos requeridos"
     }
   },
   "LICITACIONES": {
@@ -730,5 +794,20 @@
     "DESCRIPTION": "Consulta todas las licitaciones en proceso de nuestros proyectos hospitalarios y Planta Naipú.",
     "NO_ACTIVE_TENDERS": "No hay licitaciones activas",
     "NO_ACTIVE_TENDERS_DESCRIPTION": "Actualmente no hay licitaciones en fase de consultas, respuestas o ofertas. Vuelve pronto para revisar nuevas oportunidades."
+  },  "FILE_UPLOAD": {
+    "CHOOSE": "Seleccionar",
+    "UPLOAD": "Subir",
+    "CANCEL": "Cancelar",
+    "CHOOSE_TOOLTIP": "Seleccionar archivo",
+    "UPLOAD_TOOLTIP": "Subir archivo",
+    "CANCEL_TOOLTIP": "Cancelar",
+    "NO_FILE_CHOSEN": "Ningún archivo seleccionado",
+    "PENDING": "Pendiente",
+    "ERROR": "Error",
+    "BYTES": "bytes",
+    "KB": "KB",
+    "MB": "MB",
+    "GB": "GB",
+    "B": "B"
   }
 }

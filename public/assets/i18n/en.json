@@ -16,7 +16,8 @@
     "FAQ": "FAQ",
     "CONTACTO": "Contact",
     "ADMIN": "Admin"
-  },  "SIDEBAR": {
+  },
+  "SIDEBAR": {
     "ADMINISTRATION": "Administration",
     "DASHBOARD": "Dashboard",
     "USERS": "Users",
@@ -81,7 +82,8 @@
     "NO_ACCOUNT": "Don't have an account?",
     "REGISTRO_TITULO": "Sign up at CRCC Chile Hospitals!",
     "REGISTRO_SUBTITULO": "Complete all steps to create your account",
-    "ACCOUNT_ALREADY": "Already have an account?",    "CREAR_CUENTA": "Create your account",
+    "ACCOUNT_ALREADY": "Already have an account?",
+    "CREAR_CUENTA": "Create your account",
     "USER_ACCOUNT_DETAILS": "User account details",
     "ORG_NO_ENCONTRADA": "Can't find your organization?",
     "ORGANIZACION": "Organization",
@@ -94,7 +96,8 @@
     "CREAR_ORGANIZACION": "Create organization",
     "REGISTRALA": "Register it",
     "REGISTER_SUCCESS": "Registration successful",
-    "ACCOUNT_TYPE": "Account Type",    "ORG_NAME": "Organization Name",
+    "ACCOUNT_TYPE": "Account Type",
+    "ORG_NAME": "Organization Name",
     "ORG_NAME_PLACEHOLDER": "Enter organization name",
     "ORG_NAME_REQUIRED": "Organization name is required",
     "ORG_NAME_SHORT": "Must be at least 3 characters",
@@ -106,7 +109,8 @@
     "ORG_TIN_SHORT": "Must be at least 3 characters",
     "ORG_ADDRESS": "Address",
     "ORG_ADDRESS_REQUIRED": "Address is required",
-    "ORG_ADDRESS_SHORT": "Must be at least 3 characters",    "ORG_TYPE": "Organization Type",
+    "ORG_ADDRESS_SHORT": "Must be at least 3 characters",
+    "ORG_TYPE": "Organization Type",
     "SELECT_ORG_TYPE": "Select organization type",
     "ORG_TYPE_REQUIRED": "Organization type is required",
     "CREATE_ORG": "Create Organization",
@@ -119,8 +123,10 @@
     "EMAIL_PLACEHOLDER": "Enter your email",
     "PASSWORD_PLACEHOLDER": "Enter your password",
     "REPEAT_PASSWORD_PLACEHOLDER": "Repeat your password",
-    "ORG_EMAIL_PLACEHOLDER": "Enter contact email",    "ORG_TIN_PLACEHOLDER": "Enter tax ID or contract number",
-    "ORG_ADDRESS_PLACEHOLDER": "Enter address",    "ORG_TYPE_PLACEHOLDER": "Select organization type",
+    "ORG_EMAIL_PLACEHOLDER": "Enter contact email",
+    "ORG_TIN_PLACEHOLDER": "Enter tax ID or contract number",
+    "ORG_ADDRESS_PLACEHOLDER": "Enter address",
+    "ORG_TYPE_PLACEHOLDER": "Select organization type",
     "PERMISSIONS": "Permissions",
     "OFFICES": "Offices",
     "ORG_USERS": "Users",
@@ -146,9 +152,11 @@
     "SERVICIO_CONSTRUCCION": "Construction",
     "SERVICIO_EQP": "Procurement, Replacement, and Maintenance of Medical Equipment and Clinical Furniture",
     "SERVICIO_MANTENIMIENTO": "Infrastructure Maintenance"
-  },  "PROJECTS": {
+  },
+  "PROJECTS": {
     "TITULO": "Our Projects in Chile",
-    "SUBTITULO": "In this section, you can find the hospital projects we currently have underway and the Naipú Plant, where you can access and participate in our tenders.",    "SECTION_TITLE": "Our Projects in Progress",
+    "SUBTITULO": "In this section, you can find the hospital projects we currently have underway and the Naipú Plant, where you can access and participate in our tenders.",
+    "SECTION_TITLE": "Our Projects in Progress",
     "SECTION_SUBTITLE": "Discover excellence in each project we are building with passion and dedication",
     "LOADING": "Loading Projects...",
     "PROJECT_NOT_FOUND": "Project not found",
@@ -160,7 +168,8 @@
     "VIEW_TENDERS": "View Tenders",
     "IMAGE_GALLERY": "Image Gallery",
     "GALLERY_COMING_SOON": "Gallery Coming Soon",
-    "GALLERY_DESCRIPTION": "The image gallery functionality will be available soon.",    "GALLERY_MANAGEMENT": {
+    "GALLERY_DESCRIPTION": "The image gallery functionality will be available soon.",
+    "GALLERY_MANAGEMENT": {
       "ADD_IMAGES": "Add Images",
       "UPLOAD_IMAGES": "Upload Images",
       "EDIT_IMAGE": "Edit Image",
@@ -183,9 +192,11 @@
       "UPDATE_SUCCESS": "Image updated successfully",
       "UPDATE_ERROR": "Error updating image",
       "MAIN_IMAGE_UPDATE_SUCCESS": "Main image updated successfully",
-      "MAX_SIZE_ERROR": "File exceeds maximum allowed size (5MB)",      "INVALID_FORMAT": "Invalid file format. Only images are allowed (JPG, PNG, WEBP)",
+      "MAX_SIZE_ERROR": "File exceeds maximum allowed size (5MB)",
+      "INVALID_FORMAT": "Invalid file format. Only images are allowed (JPG, PNG, WEBP)",
       "LOADING": "Loading...",
-      "PROCESSING": "Processing image...",      "CROP_ERROR": "Could not get the cropped file",
+      "PROCESSING": "Processing image...",
+      "CROP_ERROR": "Could not get the cropped file",
       "LOAD_ERROR": "Failed to load image",
       "NO_CROPPED_IMAGE": "No cropped image to upload",
       "IMAGE_PREVIEW": "Image preview",
@@ -208,7 +219,8 @@
       "BUILD": "Construction",
       "BUILD_OPERATE": "Construction and Operation",
       "OPERATE": "Operation"
-    },    "ACTIONS": {
+    },
+    "ACTIONS": {
       "NEW_PROJECT": "New Project",
       "EDIT_PROJECT": "Edit Project",
       "DELETE_PROJECT": "Delete Project",
@@ -238,11 +250,13 @@
         "TITLE": "No projects found",
         "SUBTITLE": "There are no projects matching your search criteria.",
         "CLEAR_FILTERS": "Clear filters"
-      },      "ERROR_STATE": {
+      },
+      "ERROR_STATE": {
         "TITLE": "Error loading projects",
         "SUBTITLE": "An error occurred while trying to load the projects. Please try again.",
         "RETRY": "Retry"
-      },      "VIEW_PROJECTS": "View Projects",
+      },
+      "VIEW_PROJECTS": "View Projects",
       "FOOTER_TEXT": "Interested in learning more details about our projects?",
       "VIEW_ALL_DETAILS": "View All Details"
     },
@@ -291,7 +305,8 @@
     "ERROR_ASUNTO": "Subject is required",
     "ERROR_ASUNTO_MIN": "Subject must be at least 3 characters.",
     "ERROR_MENSAJE": "Message is required",
-    "ERROR_MENSAJE_MIN": "Message must be at least 20 characters.",    "TOAST_MENSAJE_ENVIADO": "Message sent successfully",
+    "ERROR_MENSAJE_MIN": "Message must be at least 20 characters.",
+    "TOAST_MENSAJE_ENVIADO": "Message sent successfully",
     "TOAST_MENSAJE_ERROR": "Error sending message, please try again",
     "VER_MENSAJES": "View Messages",
     "FORMULARIO_TITULO": "Contact Details",
@@ -312,7 +327,8 @@
         "ORGANIZATIONS": "Organizations",
         "ACTIVE_USERS": "Active Users",
         "INACTIVE_USERS": "Inactive Users"
-      },      "CHARTS": {
+      },
+      "CHARTS": {
         "MONTHLY_TREND": "Monthly Registration Trend",
         "MONTHLY_TREND_SUBTITLE": "New users registered in the last 6 months",
         "ROLE_DISTRIBUTION": "Role Distribution",
@@ -338,7 +354,8 @@
       "SUCCESS_UPDATED_DETAIL": "User updated successfully.",
       "NO_CHANGES_DETECTED": "No changes detected.",
       "PERMISSIONS": "Permissions",
-      "OFFICES": "Offices",      "TABLE": {
+      "OFFICES": "Offices",
+      "TABLE": {
         "NAME": "Name",
         "ORGANIZATION": "Organization",
         "EMAIL": "Email",
@@ -358,7 +375,8 @@
       "USER_ACTIVATED_SUCCESS": "User activated successfully",
       "USER_DEACTIVATED_SUCCESS": "User deactivated successfully",
       "USER_STATUS_UPDATE_ERROR": "Error updating user status"
-    },    "OFFICES": {
+    },
+    "OFFICES": {
       "TITLE": "Office Management",
       "LIST_SUBTITLE": "List of Offices",
       "NEW_BUTTON": "New Office",
@@ -519,10 +537,12 @@
     }
   },
   "JOBS": {
-    "TITLE": "Job Offer Management",    "ACTIONS": {
+    "TITLE": "Job Offer Management",
+    "ACTIONS": {
       "NEW_JOB": "New Job Offer",
       "EDIT_JOB": "Edit Job Offer"
-    },    "FIELDS": {
+    },
+    "FIELDS": {
       "NAME": "Name",
       "STATUS": "Status",
       "PROJECT": "Project",
@@ -542,7 +562,8 @@
       "OPEN": "Open",
       "CLOSED": "Closed",
       "UNDER_REVIEW": "Under Review"
-    },    "ACTIONS_TOOLTIPS": {
+    },
+    "ACTIONS_TOOLTIPS": {
       "CLOSE_OFFER": "Close offer",
       "REOPEN_OFFER": "Reopen offer"
     },
@@ -553,7 +574,8 @@
       "DELETE_MULTIPLE_MESSAGE": "Are you sure you want to delete {{count}} selected offer(s)?",
       "DELETE_ACCEPT": "Yes, delete",
       "DELETE_REJECT": "Cancel"
-    },    "MESSAGES": {
+    },
+    "MESSAGES": {
       "DELETE_SUCCESS": "Offer deleted successfully",
       "DELETE_MULTIPLE_SUCCESS": "{{count}} offer(s) deleted successfully",
       "DELETE_ERROR": "Error deleting the offer",
@@ -567,12 +589,15 @@
       "UPDATE_SUCCESS": "Job offer updated successfully",
       "UPDATE_ERROR": "Error updating the job offer",
       "TRANSLATION_NOTE": "Note: Name and description fields will be automatically translated to all three languages."
-    }  },
+    }
+  },
   "TABLE": {
     "SHOWING": "Showing",
     "TO": "to",
     "OF": "of",
-    "ENTRIES": "entries"  },  "TENDER_TYPES": {
+    "ENTRIES": "entries"
+  },
+  "TENDER_TYPES": {
     "MEDICAL_EQUIPMENT": "Medical Equipment and Clinical and Non-Clinical Furniture",
     "CONSTRUCTION_WORK": "Construction Work",
     "ENGINEERING": "Engineering",
@@ -582,7 +607,8 @@
     "LUMP_SUM": "Lump Sum",
     "UNIT_PRICE": "Unit Price",
     "NOT_APPLICABLE": "Not Applicable"
-  },  "TENDERS": {
+  },
+  "TENDERS": {
     "TITLE": "Project Tenders",
     "SUBTITLE": "Management of tenders and contracting processes",
     "NEW_TENDER": "New Tender",
@@ -590,7 +616,8 @@
     "CLEAR_FILTERS": "Clear Filters",
     "FILTER_BY_STATUS": "Filter by Status",
     "FILTER_BY_MODALITY": "Filter by Modality",
-    "FILTER_BY_TYPE": "Filter by Type","SELECT_STATES": "Select statuses",
+    "FILTER_BY_TYPE": "Filter by Type",
+    "SELECT_STATES": "Select statuses",
     "STATUS_PLACEHOLDER": "Select statuses",
     "SELECT_MODALITIES": "Select modalities",
     "MODALITY_PLACEHOLDER": "Select modalities",
@@ -601,7 +628,8 @@
     "NO_TENDERS": "No tenders",
     "NO_TENDERS_MESSAGE": "No tenders have been registered for this project yet.",
     "NO_RESULTS": "No tenders found",
-    "NO_RESULTS_MESSAGE": "Try adjusting the filters to see more results.",    "START_DATE": "Start Date:",
+    "NO_RESULTS_MESSAGE": "Try adjusting the filters to see more results.",
+    "START_DATE": "Start Date:",
     "AWARD_DATE": "Award Date:",
     "SUBMISSION_DEADLINE": "Deadline:",
     "VIEW_DETAILS": "View Details",
@@ -622,10 +650,12 @@
       "TENDER_START_DATE": "Start Date",
       "INQUIRY_DEADLINE": "Inquiry Deadline",
       "ANSWER_DEADLINE": "Answer Deadline",
-      "SUBMISSION_DEADLINE_LABEL": "Submission Deadline",      "ACLARATIONS_DEADLINE": "Clarifications Request Deadline",
+      "SUBMISSION_DEADLINE_LABEL": "Submission Deadline",
+      "ACLARATIONS_DEADLINE": "Clarifications Request Deadline",
       "ANSWER_ACLARATIONS_DEADLINE": "Clarifications Response Deadline",
       "OPEN_OFFER_DEADLINE": "Offer Opening Deadline",
-      "AWARD_DATE_LABEL": "Award Date","CANCEL": "Cancel",
+      "AWARD_DATE_LABEL": "Award Date",
+      "CANCEL": "Cancel",
       "CREATE": "Create Tender",
       "REQUIRED_FIELD": "Required field",
       "MIN_LENGTH": "Minimum {{length}} characters"
@@ -635,7 +665,8 @@
       "CREATE_ERROR": "Error creating tender. Please try again.",
       "UPDATE_SUCCESS": "Tender updated successfully",
       "UPDATE_ERROR": "Error updating tender",
-      "DELETE_SUCCESS": "Tender deleted successfully",      "DELETE_ERROR": "Error deleting tender"
+      "DELETE_SUCCESS": "Tender deleted successfully",
+      "DELETE_ERROR": "Error deleting tender"
     },
     "DETAIL": {
       "LOADING": "Loading tender details...",
@@ -654,7 +685,8 @@
         "HOURS": "hours",
         "MINUTES": "minutes",
         "SECONDS": "seconds"
-      },      "TIMELINE_TITLE": "Tender Timeline",
+      },
+      "TIMELINE_TITLE": "Tender Timeline",
       "CURRENT_PHASE": "Current phase:",
       "PHASE_COMPLETED": "Completed",
       "PHASES": {
@@ -671,6 +703,52 @@
       "CANCEL": "Cancel",
       "APPLY": "Apply",
       "UPLOADING_IMAGE": "Uploading image..."
+    },
+    "SPECIFICATIONS": {
+      "TITLE": "Specifications and Documents",
+      "DESCRIPTION_SECTION": "Technical documents and administrative bases of the tender",
+      "ADD_DOCUMENT": "Add Document",
+      "ADD_FIRST_DOCUMENT": "Add First Document",
+      "LOADING": "Loading specifications...",
+      "NO_DOCUMENTS": "No documents",
+      "NO_DOCUMENTS_MESSAGE": "No documents have been uploaded for this tender yet.",
+      "UPLOAD_DOCUMENT": "Upload Document",
+      "FILE": "File",
+      "DOCUMENT_NAME": "Document Name",
+      "DOCUMENT_NAME_PLACEHOLDER": "Enter document name",
+      "DESCRIPTION": "Description",
+      "DESCRIPTION_PLACEHOLDER": "Enter document description",
+      "DOCUMENT_TYPE": "Document Type",
+      "SELECT_TYPE": "Select type",
+      "TRANSLATION_NOTE": "The name and description fields will be automatically translated to supported languages (Spanish, English, and Chinese).",
+      "TYPES": {
+        "ADMINISTRATIVE_BASES": "Administrative Bases",
+        "TECHNICAL_BASES": "Technical Bases",
+        "ECONOMIC_BASES": "Economic Bases",
+        "CONTEST_BASES": "Contest Bases",
+        "TENDER_BASES": "Tender Bases",
+        "ANNEX": "Annex",
+        "OTHER": "Other"
+      },      "UPLOAD": "Upload",
+      "CANCEL": "Cancel",
+      "UPLOADING": "Uploading...",
+      "UPLOADING_FILE": "Uploading file...",
+      "COMPLETED": "completed",
+      "DOWNLOAD": "Download",
+      "DOWNLOAD_ALL": "Download All",
+      "DOWNLOAD_ALL_TOOLTIP": "Download all documents",
+      "DOWNLOADING_ALL": "Downloading documents...",
+      "SUCCESS": "Success",
+      "ERROR": "Error",
+      "UPLOAD_SUCCESS": "Document uploaded successfully",
+      "UPLOAD_ERROR": "Error uploading document",
+      "DOWNLOAD_ALL_SUCCESS": "All documents downloaded successfully",
+      "DOWNLOAD_ALL_ERROR": "Error downloading some documents",
+      "SERVER_ERROR": "Internal server error. Please check Google Drive configuration.",
+      "CONNECTION_ERROR": "Connection error. Please check your internet connection.",
+      "TRANSLATION_ERROR": "Error translating document. Please try again.",
+      "REQUIRED_FIELDS": "Required fields",
+      "COMPLETE_FIELDS": "Please complete all required fields"
     }
   },
   "LICITACIONES": {
@@ -678,5 +756,20 @@
     "DESCRIPTION": "Browse all ongoing tenders from our hospital projects and Naipú Plant.",
     "NO_ACTIVE_TENDERS": "No active tenders",
     "NO_ACTIVE_TENDERS_DESCRIPTION": "There are currently no tenders in consultation, response, or bidding phases. Check back soon for new opportunities."
+  },  "FILE_UPLOAD": {
+    "CHOOSE": "Choose",
+    "UPLOAD": "Upload",
+    "CANCEL": "Cancel",
+    "CHOOSE_TOOLTIP": "Choose file",
+    "UPLOAD_TOOLTIP": "Upload file",
+    "CANCEL_TOOLTIP": "Cancel",
+    "PENDING": "Pending",
+    "ERROR": "Error",
+    "BYTES": "bytes",
+    "KB": "KB",
+    "MB": "MB",
+    "GB": "GB",
+    "B": "B",
+    "NO_FILE_CHOSEN": "No file chosen"
   }
 }

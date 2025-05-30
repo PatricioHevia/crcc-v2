@@ -13,6 +13,7 @@ import { tenderStatusTypes } from '../../constants/tender-status-types';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TenderStatus } from '../../models/tender-interface';
 import { Timestamp } from '@angular/fire/firestore';
+import { SpecificationsComponent } from '../../components/specifications/specifications.component';
 
 interface PhaseInfo {
   key: string;
@@ -38,8 +39,7 @@ interface PhaseToStatusMapping {
   selector: 'app-tender',
   templateUrl: './tender.component.html',
   styleUrls: ['./tender.component.css'],
-  standalone: true,
-  imports: [
+  standalone: true,  imports: [
     CommonModule, 
     TranslateModule,
     TagModule,
@@ -47,7 +47,8 @@ interface PhaseToStatusMapping {
     SkeletonModule,
     DialogModule,
     ImageCropperComponent,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    SpecificationsComponent
   ]
 })
 export class TenderComponent implements OnInit, OnDestroy {
@@ -67,9 +68,12 @@ export class TenderComponent implements OnInit, OnDestroy {
   countdownTime = signal<CountdownTime>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   currentPhase = signal<PhaseInfo | null>(null);
   nextPhase = signal<PhaseInfo | null>(null);
-  
-  // Computed properties simples basadas en el servicio
+    // Computed properties simples basadas en el servicio
   lang = computed(() => this.translation.currentLang());
+  
+  // Computed signals para el componente de especificaciones
+  idProject = computed(() => this.projectId());
+  idTender = computed(() => this.tenderId());
   
   // Get tender status types for display
   statusTypes = tenderStatusTypes;

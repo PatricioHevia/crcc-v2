@@ -25,10 +25,9 @@ export interface CreateSpecificationData {
 })
 export class SpecificationsService {
   private fs = inject(FirestoreService);
-  private driveService = inject(DriveService);
-
-  // ID de la carpeta en Google Drive donde se almacenarán las especificaciones
-  private readonly DRIVE_FOLDER_ID = '1FTmaad5jUEOqJ-vGylYf3eZVzf8hvd3V'; // Reemplazar con el ID real
+  private driveService = inject(DriveService);  // ID de la carpeta en Google Drive donde se almacenarán las especificaciones
+  // TEMPORAL: undefined para usar la carpeta raíz mientras configuramos la carpeta correcta
+  private readonly DRIVE_FOLDER_ID: string | undefined = undefined; // Cambiar por el ID real de la carpeta
 
   /**
    * Crea una nueva especificación de licitación.

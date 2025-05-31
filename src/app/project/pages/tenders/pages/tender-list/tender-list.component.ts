@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, inject, computed, signal, Signal, effect 
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { 
   Tender, 
   TenderStatus, 
@@ -24,6 +25,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { UserService } from '../../../../../auth/services/user.service';
 
 @Component({
@@ -31,7 +33,24 @@ import { UserService } from '../../../../../auth/services/user.service';
   templateUrl: './tender-list.component.html',
   styleUrls: ['./tender-list.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, TagModule, RouterModule, TranslateModule, ButtonModule, DividerModule, DropdownModule, MultiSelectModule, CardModule, ChipModule, TenderCardComponent, NewTenderComponent]
+  imports: [CommonModule, FormsModule, TagModule, RouterModule, TranslateModule, ButtonModule, DividerModule, DropdownModule, MultiSelectModule, CardModule, ChipModule, ProgressSpinnerModule, TenderCardComponent, NewTenderComponent],
+  animations: [
+    trigger('listAnimation', [
+      transition('* <=> *', [
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(20px)' }),
+          stagger('50ms', [
+            animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true }),
+        query(':leave', [
+          stagger('30ms', [
+            animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
+          ])
+        ], { optional: true })
+      ])
+    ])
+  ]
 })
 export class TenderListComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
@@ -49,6 +68,10 @@ export class TenderListComponent implements OnInit, OnDestroy {
   
   // Drawer visibility
   isNewTenderDrawerVisible = signal<boolean>(false);
+  
+  // Timing para el loading
+  private showLoadingWithDelay = signal<boolean>(true);
+  private loadingTimeout: any;
 
   // Agregar computed signal para verificar si los datos están listos
   isDataReady = computed(() => this.tenderService.isReady());
@@ -152,6 +175,24 @@ export class TenderListComponent implements OnInit, OnDestroy {
         this.tenderService.setProjectContext(currentProjectId);
       }
     });
+
+    // Effect para manejar el timing del loading
+    effect(() => {
+      const isLoading = !this.isDataReady() || this.tenderService.loading();
+      
+      if (isLoading) {
+        // Si está cargando, mostrar inmediatamente
+        this.showLoadingWithDelay.set(true);
+      } else {
+        // Si terminó de cargar, agregar delay de 200ms
+        if (this.loadingTimeout) {
+          clearTimeout(this.loadingTimeout);
+        }
+        this.loadingTimeout = setTimeout(() => {
+          this.showLoadingWithDelay.set(false);
+        }, 200);
+      }
+    }, { allowSignalWrites: true });
   }
 
   ngOnInit() {
@@ -167,8 +208,10 @@ export class TenderListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // El TenderService maneja su propia limpieza, pero podríamos resetear el contexto
-    // this.tenderService.setAllProjectsContext();
+    // Limpiar timeout si existe
+    if (this.loadingTimeout) {
+      clearTimeout(this.loadingTimeout);
+    }
   }
 
   /**
@@ -419,9 +462,9 @@ export class TenderListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Modificar loading para incluir el estado de preparación
+   * Modificar loading para incluir el estado de preparación y timing
    */
   loading(): boolean {
-    return !this.isDataReady() || this.tenderService.loading();
+    return this.showLoadingWithDelay();
   }
 }

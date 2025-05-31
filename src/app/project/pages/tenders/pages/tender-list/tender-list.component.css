@@ -133,6 +133,22 @@
   animation: fadeInUp 0.5s ease-out;
 }
 
+/* Animación de fade in para el grid */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
 /* Improved filter section styling */
 .filter-section {
   background: linear-gradient(135deg, var(--surface-0) 0%, var(--surface-50) 100%);
@@ -152,6 +168,66 @@
 .pi-info-circle { color: var(--indigo-500); }
 .pi-check-circle { color: var(--green-500); }
 .pi-times-circle { color: var(--red-500); }
+
+/* Personalización del spinner de PrimeNG */
+:host ::ng-deep .custom-spinner .p-progress-spinner-circle {
+  stroke: var(--primary-color);
+}
+
+/* Mejorar la transición de los filtros */
+.filter-toolbar {
+  transition: all 0.3s ease;
+}
+
+.filter-toolbar:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para dark mode */
+:host-context(.dark) .filter-toolbar:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Mejorar el botón de nueva licitación */
+.new-tender-btn {
+  transition: transform 0.2s ease;
+}
+
+.new-tender-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Contenedor de contenido con altura mínima */
+.content-area {
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+/* Estilos para las tarjetas durante la animación */
+.tender-card-item {
+  will-change: transform, opacity;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Prevenir el parpadeo durante las animaciones */
+.grid {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Mejorar el rendimiento de las animaciones */
+@media (prefers-reduced-motion: reduce) {
+  .tender-card-item {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Animación suave para el cambio de altura del contenedor */
+.content-area {
+  transition: min-height 0.3s ease;
+}
 
 /* Responsive improvements */
 @media (max-width: 768px) {
